@@ -1,0 +1,16 @@
+Fitter Status : Successful - Sun Jan 26 12:57:19 2014
+Quartus II Version : 7.1 Build 156 04/30/2007 SJ Full Version
+Revision Name : indata_changer
+Top-level Entity Name : indata_changer
+Family : Cyclone III
+Device : EP3C5F256C7
+Timing Models : Preliminary
+Total logic elements : 105 / 5,136 ( 2 % )
+    Total combinational functions : 105 / 5,136 ( 2 % )
+    Dedicated logic registers : 33 / 5,136 ( < 1 % )
+Total registers : 33
+Total pins : 135 / 183 ( 74 % )
+Total virtual pins : 0
+Total memory bits : 0 / 423,936 ( 0 % )
+Embedded Multiplier 9-bit elements : 0 / 46 ( 0 % )
+Total PLLs : 0 / 2 ( 0 % )

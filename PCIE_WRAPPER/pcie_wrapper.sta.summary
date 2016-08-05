@@ -1,0 +1,173 @@
+------------------------------------------------------------
+TimeQuest Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 900mV 85C Model Setup 'reconfig_clk'
+Slack : -8.064
+TNS   : -343.978
+
+Type  : Slow 900mV 85C Model Setup 'pcie_core_component|serdes|pcie_core_serdes_alt4gxb_c0pa_component|central_clk_div0|coreclkout'
+Slack : -2.016
+TNS   : -4.001
+
+Type  : Slow 900mV 85C Model Setup 'pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|stratix_iv.stratixiv_hssi_pcie_hip|coreclkout'
+Slack : 0.445
+TNS   : 0.000
+
+Type  : Slow 900mV 85C Model Setup 'n/a'
+Slack : 11.556
+TNS   : 0.000
+
+Type  : Slow 900mV 85C Model Hold 'reconfig_clk'
+Slack : 0.236
+TNS   : 0.000
+
+Type  : Slow 900mV 85C Model Hold 'pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|stratix_iv.stratixiv_hssi_pcie_hip|coreclkout'
+Slack : 0.241
+TNS   : 0.000
+
+Type  : Slow 900mV 85C Model Hold 'pcie_core_component|serdes|pcie_core_serdes_alt4gxb_c0pa_component|central_clk_div0|coreclkout'
+Slack : 0.332
+TNS   : 0.000
+
+Type  : Slow 900mV 85C Model Hold 'n/a'
+Slack : 1.378
+TNS   : 0.000
+
+Type  : Slow 900mV 85C Model Recovery 'pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|stratix_iv.stratixiv_hssi_pcie_hip|coreclkout'
+Slack : 2.276
+TNS   : 0.000
+
+Type  : Slow 900mV 85C Model Removal 'pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|stratix_iv.stratixiv_hssi_pcie_hip|coreclkout'
+Slack : 0.463
+TNS   : 0.000
+
+Type  : Slow 900mV 85C Model Minimum Pulse Width 'reconfig_clk'
+Slack : -19.000
+TNS   : -243.179
+
+Type  : Slow 900mV 85C Model Minimum Pulse Width 'pcie_core_component|serdes|pcie_core_serdes_alt4gxb_c0pa_component|central_clk_div0|coreclkout'
+Slack : 0.419
+TNS   : 0.000
+
+Type  : Slow 900mV 85C Model Minimum Pulse Width 'pcie_core_component|serdes|pcie_core_serdes_alt4gxb_c0pa_component|central_clk_div0|rateswitchbaseclock'
+Slack : 0.834
+TNS   : 0.000
+
+Type  : Slow 900mV 85C Model Minimum Pulse Width 'pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|stratix_iv.stratixiv_hssi_pcie_hip|coreclkout'
+Slack : 1.270
+TNS   : 0.000
+
+Type  : Slow 900mV 0C Model Setup 'reconfig_clk'
+Slack : -8.062
+TNS   : -322.240
+
+Type  : Slow 900mV 0C Model Setup 'pcie_core_component|serdes|pcie_core_serdes_alt4gxb_c0pa_component|central_clk_div0|coreclkout'
+Slack : -1.822
+TNS   : -3.612
+
+Type  : Slow 900mV 0C Model Setup 'pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|stratix_iv.stratixiv_hssi_pcie_hip|coreclkout'
+Slack : 0.474
+TNS   : 0.000
+
+Type  : Slow 900mV 0C Model Setup 'n/a'
+Slack : 12.097
+TNS   : 0.000
+
+Type  : Slow 900mV 0C Model Hold 'reconfig_clk'
+Slack : 0.230
+TNS   : 0.000
+
+Type  : Slow 900mV 0C Model Hold 'pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|stratix_iv.stratixiv_hssi_pcie_hip|coreclkout'
+Slack : 0.233
+TNS   : 0.000
+
+Type  : Slow 900mV 0C Model Hold 'pcie_core_component|serdes|pcie_core_serdes_alt4gxb_c0pa_component|central_clk_div0|coreclkout'
+Slack : 0.324
+TNS   : 0.000
+
+Type  : Slow 900mV 0C Model Hold 'n/a'
+Slack : 1.356
+TNS   : 0.000
+
+Type  : Slow 900mV 0C Model Recovery 'pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|stratix_iv.stratixiv_hssi_pcie_hip|coreclkout'
+Slack : 2.357
+TNS   : 0.000
+
+Type  : Slow 900mV 0C Model Removal 'pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|stratix_iv.stratixiv_hssi_pcie_hip|coreclkout'
+Slack : 0.447
+TNS   : 0.000
+
+Type  : Slow 900mV 0C Model Minimum Pulse Width 'reconfig_clk'
+Slack : -19.000
+TNS   : -242.930
+
+Type  : Slow 900mV 0C Model Minimum Pulse Width 'pcie_core_component|serdes|pcie_core_serdes_alt4gxb_c0pa_component|central_clk_div0|coreclkout'
+Slack : 0.408
+TNS   : 0.000
+
+Type  : Slow 900mV 0C Model Minimum Pulse Width 'pcie_core_component|serdes|pcie_core_serdes_alt4gxb_c0pa_component|central_clk_div0|rateswitchbaseclock'
+Slack : 0.811
+TNS   : 0.000
+
+Type  : Slow 900mV 0C Model Minimum Pulse Width 'pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|stratix_iv.stratixiv_hssi_pcie_hip|coreclkout'
+Slack : 1.214
+TNS   : 0.000
+
+Type  : Fast 900mV 0C Model Setup 'reconfig_clk'
+Slack : -3.641
+TNS   : -88.093
+
+Type  : Fast 900mV 0C Model Setup 'pcie_core_component|serdes|pcie_core_serdes_alt4gxb_c0pa_component|central_clk_div0|coreclkout'
+Slack : -0.515
+TNS   : -1.005
+
+Type  : Fast 900mV 0C Model Setup 'pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|stratix_iv.stratixiv_hssi_pcie_hip|coreclkout'
+Slack : 1.415
+TNS   : 0.000
+
+Type  : Fast 900mV 0C Model Setup 'n/a'
+Slack : 14.528
+TNS   : 0.000
+
+Type  : Fast 900mV 0C Model Hold 'reconfig_clk'
+Slack : 0.135
+TNS   : 0.000
+
+Type  : Fast 900mV 0C Model Hold 'pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|stratix_iv.stratixiv_hssi_pcie_hip|coreclkout'
+Slack : 0.137
+TNS   : 0.000
+
+Type  : Fast 900mV 0C Model Hold 'pcie_core_component|serdes|pcie_core_serdes_alt4gxb_c0pa_component|central_clk_div0|coreclkout'
+Slack : 0.189
+TNS   : 0.000
+
+Type  : Fast 900mV 0C Model Hold 'n/a'
+Slack : 0.868
+TNS   : 0.000
+
+Type  : Fast 900mV 0C Model Recovery 'pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|stratix_iv.stratixiv_hssi_pcie_hip|coreclkout'
+Slack : 2.926
+TNS   : 0.000
+
+Type  : Fast 900mV 0C Model Removal 'pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|stratix_iv.stratixiv_hssi_pcie_hip|coreclkout'
+Slack : 0.267
+TNS   : 0.000
+
+Type  : Fast 900mV 0C Model Minimum Pulse Width 'reconfig_clk'
+Slack : -19.000
+TNS   : -188.025
+
+Type  : Fast 900mV 0C Model Minimum Pulse Width 'pcie_core_component|serdes|pcie_core_serdes_alt4gxb_c0pa_component|central_clk_div0|coreclkout'
+Slack : 0.622
+TNS   : 0.000
+
+Type  : Fast 900mV 0C Model Minimum Pulse Width 'pcie_core_component|serdes|pcie_core_serdes_alt4gxb_c0pa_component|central_clk_div0|rateswitchbaseclock'
+Slack : 0.901
+TNS   : 0.000
+
+Type  : Fast 900mV 0C Model Minimum Pulse Width 'pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|stratix_iv.stratixiv_hssi_pcie_hip|coreclkout'
+Slack : 1.245
+TNS   : 0.000
+
+------------------------------------------------------------

@@ -1,0 +1,25 @@
+PLL_Name	pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_core:wrapper|altpcie_hip_pipen1b:altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip
+PLLJITTER	NA
+PLLSPEmax	NA
+PLLSPEmin	NA
+
+PLL_Name	pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_serdes:serdes|pcie_core_serdes_alt_c3gxb_hcf8:pcie_core_serdes_alt_c3gxb_hcf8_component|altpll:pll0|altpll_nn81:auto_generated|pll1
+PLLJITTER	31
+PLLSPEmax	84
+PLLSPEmin	-53
+
+PLL_Name	pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_serdes:serdes|pcie_core_serdes_alt_c3gxb_hcf8:pcie_core_serdes_alt_c3gxb_hcf8_component|receive_pma0
+PLLJITTER	NA
+PLLSPEmax	NA
+PLLSPEmin	NA
+
+PLL_Name	pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_serdes:serdes|pcie_core_serdes_alt_c3gxb_hcf8:pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pcs0
+PLLJITTER	NA
+PLLSPEmax	NA
+PLLSPEmin	NA
+
+PLL_Name	pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_serdes:serdes|pcie_core_serdes_alt_c3gxb_hcf8:pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pma0
+PLLJITTER	NA
+PLLSPEmax	NA
+PLLSPEmin	NA
+

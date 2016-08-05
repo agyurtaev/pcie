@@ -1,0 +1,66 @@
+--------------------------------------------------------------------------------------
+Timing Analyzer Summary
+--------------------------------------------------------------------------------------
+
+Type           : Worst-case tsu
+Slack          : N/A
+Required Time  : None
+Actual Time    : 6.947 ns
+From           : wren_1
+To             : wr_fifo:wr_fifo_inst|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ten1:auto_generated|wrfull_eq_comp_msb_mux_reg
+From Clock     : --
+To Clock       : clk
+Failed Paths   : 0
+
+Type           : Worst-case tco
+Slack          : N/A
+Required Time  : None
+Actual Time    : 7.917 ns
+From           : rd_fifo:rd_fifo_inst|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ctm1:auto_generated|altsyncram_rf51:fifo_ram|ram_block3a0~PORTBDATAOUT3
+To             : rd_data_0[24]
+From Clock     : clk
+To Clock       : --
+Failed Paths   : 0
+
+Type           : Worst-case th
+Slack          : N/A
+Required Time  : None
+Actual Time    : 2.303 ns
+From           : rd_adr[12]
+To             : spi_rx_data_trg
+From Clock     : --
+To Clock       : clk
+Failed Paths   : 0
+
+Type           : Clock Setup: 'clk'
+Slack          : 2.919 ns
+Required Time  : 100.00 MHz ( period = 10.000 ns )
+Actual Time    : 141.22 MHz ( period = 7.081 ns )
+From           : wr_fifo:wr_fifo_inst|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ten1:auto_generated|altsyncram_5731:fifo_ram|ram_block3a1~portb_address_reg10
+To             : transmit_count_reg[2]
+From Clock     : clk
+To Clock       : clk
+Failed Paths   : 0
+
+Type           : Clock Hold: 'clk'
+Slack          : 0.502 ns
+Required Time  : 100.00 MHz ( period = 10.000 ns )
+Actual Time    : N/A
+From           : rd_shift_ff[7]
+To             : rd_fifo:rd_fifo_inst|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ctm1:auto_generated|altsyncram_rf51:fifo_ram|ram_block3a7~porta_datain_reg0
+From Clock     : clk
+To Clock       : clk
+Failed Paths   : 0
+
+Type           : Total number of failed paths
+Slack          : 
+Required Time  : 
+Actual Time    : 
+From           : 
+To             : 
+From Clock     : 
+To Clock       : 
+Failed Paths   : 0
+
+--------------------------------------------------------------------------------------
+

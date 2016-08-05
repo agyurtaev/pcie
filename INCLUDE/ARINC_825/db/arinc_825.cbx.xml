@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="arinc_825">
+		<CBX_INST_ENTRY INSTANCE_NAME="|arinc_825|rd_fifo:rd_fifo_inst|dcfifo_mixed_widths:dcfifo_mixed_widths_component" CBX_FILE_NAME="dcfifo_gmp1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|arinc_825|wr_fifo:wr_fifo_inst|dcfifo_mixed_widths:dcfifo_mixed_widths_component" CBX_FILE_NAME="dcfifo_ten1.tdf"/>
+	</PROJECT>
+</LOG_ROOT>

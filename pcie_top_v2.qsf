@@ -1,0 +1,436 @@
+# -------------------------------------------------------------------------- #
+#
+# Copyright (C) 1991-2010 Altera Corporation
+# Your use of Altera Corporation's design tools, logic functions
+# and other software and tools, and its AMPP partner logic
+# functions, and any output files from any of the foregoing
+# (including device programming or simulation files), and any
+# associated documentation or information are expressly subject
+# to the terms and conditions of the Altera Program License
+# Subscription Agreement, Altera MegaCore Function License
+# Agreement, or other applicable license agreement, including,
+# without limitation, that your use is for the sole purpose of
+# programming logic devices manufactured by Altera and sold by
+# Altera or its authorized distributors.  Please refer to the
+# applicable agreement for further details.
+#
+# -------------------------------------------------------------------------- #
+#
+# Quartus II
+# Version 10.1 Build 153 11/29/2010 SJ Full Version
+# Date created = 13:39:32  August 19, 2013
+#
+# -------------------------------------------------------------------------- #
+#
+# Notes:
+#
+# 1) The default values for assignments are stored in the file:
+#		pcie_top_v2_assignment_defaults.qdf
+#    If this file doesn't exist, see file:
+#		assignment_defaults.qdf
+#
+# 2) Altera recommends that you do not modify this file. This
+#    file is updated automatically by the Quartus II software
+#    and any changes you make may be lost or overwritten.
+#
+# -------------------------------------------------------------------------- #
+
+
+set_global_assignment -name FAMILY "Cyclone IV GX"
+set_global_assignment -name DEVICE EP4CGX110CF23I7
+set_global_assignment -name TOP_LEVEL_ENTITY pcie_top
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION "10.1 SP1"
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "22:14:33  JUNE 18, 2014"
+set_global_assignment -name LAST_QUARTUS_VERSION "10.1 SP1"
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP "-40"
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 100
+set_global_assignment -name DEVICE_FILTER_PACKAGE FBGA
+set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 256
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name ENABLE_SIGNALTAP OFF
+set_global_assignment -name USE_SIGNALTAP_FILE ST_DBG_FILES/pcie_debug.stp
+set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS ON
+set_global_assignment -name TIMEQUEST_REPORT_SCRIPT PCIE_CORE/pcie_core.tcl
+set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL ON
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY OUTPUT/
+set_global_assignment -name USE_CONFIGURATION_DEVICE OFF
+set_global_assignment -name GENERATE_RBF_FILE ON
+set_global_assignment -name GENERATE_SVF_FILE ON
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
+set_location_assignment PIN_AA16 -to pcie_rstn
+set_location_assignment PIN_M11 -to refclk
+set_instance_assignment -name IO_STANDARD HCSL -to refclk
+set_location_assignment PIN_Y2 -to rx_in0
+set_instance_assignment -name IO_STANDARD "1.5-V PCML" -to rx_in0
+set_location_assignment PIN_V2 -to tx_out0
+set_instance_assignment -name IO_STANDARD "1.5-V PCML" -to tx_out0
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to pcie_rstn
+set_location_assignment PIN_N11 -to "refclk(n)"
+set_location_assignment PIN_Y1 -to "rx_in0(n)"
+set_location_assignment PIN_V1 -to "tx_out0(n)"
+set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
+set_location_assignment PIN_A9 -to reconfig_clk
+set_instance_assignment -name VIRTUAL_PIN ON -to pclk_in
+set_instance_assignment -name VIRTUAL_PIN ON -to pll_lock
+set_instance_assignment -name VIRTUAL_PIN ON -to lane_active_led
+set_global_assignment -name CYCLONEII_RESERVE_NCEO_AFTER_CONFIGURATION "USE AS REGULAR IO"
+set_global_assignment -name ACTIVE_SERIAL_CLOCK FREQ_40MHZ
+set_location_assignment PIN_E5 -to L0_led
+set_location_assignment PIN_R19 -to a429_rx_a[0]
+set_location_assignment PIN_T20 -to a429_rx_b[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_b[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_a[0]
+set_location_assignment PIN_M18 -to a429_rx_a[1]
+set_location_assignment PIN_M19 -to a429_rx_b[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_b[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_a[1]
+set_location_assignment PIN_J21 -to a429_rx_a[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_a[2]
+set_location_assignment PIN_H22 -to a429_rx_b[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_b[2]
+set_location_assignment PIN_R22 -to a429_rx_a[3]
+set_location_assignment PIN_P22 -to a429_rx_b[3]
+set_location_assignment PIN_L19 -to a429_rx_a[4]
+set_location_assignment PIN_L20 -to a429_rx_b[4]
+set_location_assignment PIN_V20 -to a429_rx_a[5]
+set_location_assignment PIN_V21 -to a429_rx_b[5]
+set_location_assignment PIN_Y22 -to a429_rx_a[6]
+set_location_assignment PIN_W22 -to a429_rx_b[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_b[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_b[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_b[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_b[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_a[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_a[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_a[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_a[3]
+set_location_assignment PIN_V22 -to a429_rx_a[7]
+set_location_assignment PIN_U22 -to a429_rx_b[7]
+set_location_assignment PIN_T19 -to a429_rx_a[8]
+set_location_assignment PIN_U20 -to a429_rx_b[8]
+set_location_assignment PIN_T21 -to a429_rx_a[9]
+set_location_assignment PIN_T22 -to a429_rx_b[9]
+set_location_assignment PIN_K22 -to a429_rx_a[10]
+set_location_assignment PIN_J22 -to a429_rx_b[10]
+set_location_assignment PIN_N21 -to a429_rx_a[11]
+set_location_assignment PIN_N22 -to a429_rx_b[11]
+set_location_assignment PIN_J19 -to a429_rx_a[12]
+set_location_assignment PIN_J20 -to a429_rx_b[12]
+set_location_assignment PIN_G22 -to a429_rx_a[13]
+set_location_assignment PIN_F22 -to a429_rx_b[13]
+set_location_assignment PIN_W20 -to a429_rx_a[14]
+set_location_assignment PIN_W21 -to a429_rx_b[14]
+set_location_assignment PIN_G20 -to a429_rx_a[15]
+set_location_assignment PIN_G21 -to a429_rx_b[15]
+set_location_assignment PIN_A21 -to a429_rx_a[16]
+set_location_assignment PIN_A22 -to a429_rx_b[16]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_b[13]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_b[12]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_b[11]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_b[10]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_b[9]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_b[8]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_b[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_a[16]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_a[15]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_a[14]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_a[13]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_a[12]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_a[11]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_a[10]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_a[9]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_a[8]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_a[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_b[16]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_b[15]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_rx_b[14]
+set_location_assignment PIN_A17 -to a429_tx_a[0]
+set_location_assignment PIN_A16 -to a429_tx_b[0]
+set_location_assignment PIN_C19 -to a429_tx_a[1]
+set_location_assignment PIN_C20 -to a429_tx_b[1]
+set_location_assignment PIN_A19 -to a429_tx_a[2]
+set_location_assignment PIN_A18 -to a429_tx_b[2]
+set_location_assignment PIN_D21 -to a429_tx_a[3]
+set_location_assignment PIN_D22 -to a429_tx_b[3]
+set_location_assignment PIN_A14 -to a429_tx_a[4]
+set_location_assignment PIN_A13 -to a429_tx_b[4]
+set_location_assignment PIN_C16 -to a429_tx_a[5]
+set_location_assignment PIN_B16 -to a429_tx_b[5]
+set_location_assignment PIN_C22 -to a429_tx_a[6]
+set_location_assignment PIN_B22 -to a429_tx_b[6]
+set_location_assignment PIN_E21 -to a429_tx_a[7]
+set_location_assignment PIN_E22 -to a429_tx_b[7]
+set_location_assignment PIN_B20 -to a429_tx_a[8]
+set_location_assignment PIN_B21 -to a429_tx_b[8]
+set_location_assignment PIN_B19 -to a429_tx_a[9]
+set_location_assignment PIN_A20 -to a429_tx_b[9]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_tx_a[9]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_tx_a[8]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_tx_a[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_tx_a[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_tx_a[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_tx_a[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_tx_a[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_tx_a[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_tx_a[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_tx_a[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_tx_b[9]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_tx_b[8]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_tx_b[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_tx_b[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_tx_b[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_tx_b[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_tx_b[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_tx_b[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_tx_b[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a429_tx_b[0]
+set_location_assignment PIN_B7 -to a708_TXA
+set_location_assignment PIN_A8 -to a708_TXAn
+set_location_assignment PIN_A5 -to a708_RXA
+set_location_assignment PIN_A4 -to a708_RXAn
+set_location_assignment PIN_A2 -to a708_TXB
+set_location_assignment PIN_A3 -to a708_TXBn
+set_location_assignment PIN_C2 -to a708_RXB
+set_location_assignment PIN_C1 -to a708_RXBn
+set_location_assignment PIN_B4 -to a708_RXENA
+set_location_assignment PIN_B3 -to a708_RXENB
+set_location_assignment PIN_A6 -to a708_TXINHA
+set_location_assignment PIN_A1 -to a708_TXINHB
+set_location_assignment PIN_G8 -to a825_GP1_A
+set_location_assignment PIN_C13 -to a825_GP1_B
+set_location_assignment PIN_B13 -to a825_GP2_B
+set_location_assignment PIN_G6 -to a825_GP2_A
+set_location_assignment PIN_F6 -to a825_INT_A
+set_location_assignment PIN_C10 -to a825_INT_B
+set_location_assignment PIN_D6 -to a825_MR_A
+set_location_assignment PIN_B10 -to a825_MR_B
+set_location_assignment PIN_E6 -to a825_nCS_A
+set_location_assignment PIN_A10 -to a825_nCS_B
+set_location_assignment PIN_A12 -to a825_SCK_B
+set_location_assignment PIN_C9 -to a825_SCK_A
+set_location_assignment PIN_F8 -to a825_SI_A
+set_location_assignment PIN_C11 -to a825_SI_B
+set_location_assignment PIN_E8 -to a825_SO_A
+set_location_assignment PIN_A11 -to a825_SO_B
+set_location_assignment PIN_B12 -to a825_STAT_B
+set_location_assignment PIN_D9 -to a825_STAT_A
+set_location_assignment PIN_C12 -to a825_TXEN_B
+set_location_assignment PIN_H8 -to a825_TXEN_A
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a825_TXEN_B
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a708_RXA
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a708_RXAn
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a708_RXB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a708_RXBn
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a708_RXENA
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a708_RXENB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a708_TXA
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a708_TXAn
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a708_TXB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a708_TXBn
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a708_TXINHA
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a708_TXINHB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a825_GP1_A
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a825_GP1_B
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a825_GP2_A
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a825_GP2_B
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a825_INT_A
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a825_INT_B
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a825_MR_A
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a825_MR_B
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a825_nCS_A
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a825_nCS_B
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a825_SCK_A
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a825_SCK_B
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a825_SI_A
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a825_SI_B
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a825_SO_A
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a825_SO_B
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a825_STAT_A
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a825_STAT_B
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a825_TXEN_A
+set_global_assignment -name IOBANK_VCCIO 3.3V -section_id 7
+set_global_assignment -name IOBANK_VCCIO 3.3V -section_id 8
+set_global_assignment -name IOBANK_VCCIO 3.3V -section_id 6
+set_global_assignment -name IOBANK_VCCIO 3.3V -section_id 5
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to L0_led
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to alive_led
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to comp_led
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to local_rstn_ext
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to reconfig_clk
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to reconfig_alive_led
+set_global_assignment -name MISC_FILE "D:/_WORK_/SKIT/REPOS/AVIONICS/mavim3_fpga_project/pcie_top.dpf"
+set_global_assignment -name SEARCH_PATH pcie_wrapper/
+set_global_assignment -name SEARCH_PATH "pcie_core/pci_express_compiler-library"
+set_global_assignment -name SEARCH_PATH pcie_core/.
+set_global_assignment -name SEARCH_PATH "pcie_core/ip_compiler_for_pci_express-library"
+set_location_assignment PIN_F16 -to MS_EN_1
+set_location_assignment PIN_F17 -to MS_EN_2
+set_location_assignment PIN_C7 -to MS_A0
+set_location_assignment PIN_D7 -to MS_A1
+set_location_assignment PIN_D4 -to MS_A2
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MS_A0
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MS_A1
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MS_A2
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MS_EN_1
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MS_EN_2
+
+set_global_assignment -name MISC_FILE "D:/_WORK_/SKIT/REPOS/mavim3_fpga/pcie_top.dpf"
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[0]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[1]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[2]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[3]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[4]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[5]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[6]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[7]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[8]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[9]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[10]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[11]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[12]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[13]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[14]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[15]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[16]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[17]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[18]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[19]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[20]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[21]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[22]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[23]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[24]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[25]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[26]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[27]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[28]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[29]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[30]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_0_out[31]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[0]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[1]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[2]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[3]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[4]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[5]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[6]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[7]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[8]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[9]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[10]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[11]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[12]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[13]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[14]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[15]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[16]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[17]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[18]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[19]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[20]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[21]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[22]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[23]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[24]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[25]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[26]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[27]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[28]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[29]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[30]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_dt_ram_1_out[31]
+set_instance_assignment -name VIRTUAL_PIN ON -to lane_active_led[0]
+set_instance_assignment -name VIRTUAL_PIN ON -to lane_active_led[1]
+set_instance_assignment -name VIRTUAL_PIN ON -to lane_active_led[2]
+set_instance_assignment -name VIRTUAL_PIN ON -to lane_active_led[3]
+set_instance_assignment -name VIRTUAL_PIN ON -to lane_active_led[4]
+set_instance_assignment -name VIRTUAL_PIN ON -to lane_active_led[5]
+set_instance_assignment -name VIRTUAL_PIN ON -to lane_active_led[6]
+set_instance_assignment -name VIRTUAL_PIN ON -to lane_active_led[7]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out[0]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out[1]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out[2]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out[3]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out[4]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out[5]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out[6]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out[7]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out[8]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out[9]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out[10]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out[11]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out[12]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out[13]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out[14]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out[15]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out[16]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out[17]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out[18]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out[19]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out[20]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out[21]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out[22]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_out[23]
+set_instance_assignment -name VIRTUAL_PIN ON -to reconfig_alive_led
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_sclr_out
+set_instance_assignment -name VIRTUAL_PIN ON -to valid_indata_out
+set_instance_assignment -name VIRTUAL_PIN ON -to wren_0_out
+set_instance_assignment -name VIRTUAL_PIN ON -to wren_1_out
+set_location_assignment PIN_A15 -to a708_TXA_test
+set_location_assignment PIN_B15 -to a708_TXAn_test
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a708_TXA_test
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a708_TXAn_test
+set_location_assignment PIN_AB11 -to a708_RXA_test
+set_location_assignment PIN_AB10 -to a708_RXAn_test
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a708_RXA_test
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to a708_RXAn_test
+set_location_assignment PIN_Y19 -to end_of_packet
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to end_of_packet
+set_global_assignment -name CYCLONEII_OPTIMIZATION_TECHNIQUE SPEED
+set_global_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON
+set_global_assignment -name OPTIMIZE_HOLD_TIMING "ALL PATHS"
+set_global_assignment -name OPTIMIZE_MULTI_CORNER_TIMING OFF
+set_global_assignment -name FITTER_EFFORT "STANDARD FIT"
+set_global_assignment -name VHDL_FILE INCLUDE/ARINC_708/divider.vhd
+set_global_assignment -name VHDL_FILE INCLUDE/ARINC_708/wx_fifo.vhd
+set_global_assignment -name VHDL_FILE INCLUDE/ARINC_708/rx_fifo.vhd
+set_global_assignment -name VHDL_FILE INCLUDE/ARINC_708/arinc_708.vhd
+set_global_assignment -name VHDL_FILE INCLUDE/ARINC_825/rd_fifo.vhd
+set_global_assignment -name VHDL_FILE INCLUDE/ARINC_825/wr_fifo.vhd
+set_global_assignment -name VHDL_FILE INCLUDE/INDATA_CHANGER/indata_changer.vhd
+set_global_assignment -name VHDL_FILE INCLUDE/ARINC_825/arinc_825.vhd
+set_global_assignment -name VHDL_FILE INCLUDE/ARINC_429_RX/arinc_429_rx.vhd
+set_global_assignment -name VHDL_FILE INCLUDE/ARINC_429_TX/arinc_429_tx.vhd
+set_global_assignment -name VHDL_FILE PCIE_CORE/pcie_core_serdes.vhd
+set_global_assignment -name SIGNALTAP_FILE ST_DBG_FILES/pcie_debug.stp
+set_global_assignment -name VHDL_FILE PCIE_WRAPPER/req_fifo.vhd
+set_global_assignment -name VHDL_FILE PCIE_WRAPPER/prefetch_fifo.vhd
+set_global_assignment -name VHDL_FILE PCIE_WRAPPER/pcie_wrapper.vhd
+set_global_assignment -name VHDL_FILE PCIE_CORE/reconfig.vhd
+set_global_assignment -name SDC_FILE PCIE_CORE/pcie_core.sdc
+set_global_assignment -name VHDL_FILE PCIE_CORE/pcie_core_core.vhd
+set_global_assignment -name VHDL_FILE PCIE_CORE/pcie_core.vhd
+set_global_assignment -name AHDL_FILE pcie_top.tdf
+set_global_assignment -name SDC_FILE pcie_top.sdc
+set_global_assignment -name QIP_FILE PCIE_CORE/pcie_core.qip
+set_global_assignment -name QIP_FILE PCIE_WRAPPER/prefetch_fifo.qip
+set_global_assignment -name QIP_FILE PCIE_CORE/reconfig.qip
+set_global_assignment -name QIP_FILE test_ram.qip
+set_global_assignment -name QIP_FILE PCIE_CORE/pcie_core_serdes.qip
+set_global_assignment -name CDF_FILE OUTPUT/pcie_top.cdf
+set_global_assignment -name QIP_FILE INCLUDE/ARINC_825/rd_fifo.qip
+set_global_assignment -name QIP_FILE INCLUDE/ARINC_708/rx_fifo.qip
+set_global_assignment -name INCLUDE_FILE global_def.inc
+set_global_assignment -name MISC_FILE "D:/_WORK_/SKIT/REPOS/mavim3_fpga/pcie_top_v2.dpf"
+set_global_assignment -name SEED 2
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

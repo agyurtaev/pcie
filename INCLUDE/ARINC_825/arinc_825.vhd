@@ -1,0 +1,805 @@
+--------------------------------------------------------------------------------
+-- Company: SKIT
+-- Engineer: Anton Klimovskikh
+--
+-- Create Date:    26.01.2014   
+-- Design Name:    PCIE   
+-- Module Name:    arinc_825   
+-- Project Name:   pcie_top
+-- Target Device:  EP4SGX230KF40C2
+-- Description:    
+-- Revision:       Revision 1.02
+--
+-- Additional Comments:
+--------------------------------------------------------------------------------
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+LIBRARY altera_mf;
+USE altera_mf.all;
+ 
+ENTITY arinc_825 IS 
+GENERIC 
+	(
+	SPI_DATA  : std_logic_vector(15 downto 0) := X"1000";  
+	SPI_CTRL  : std_logic_vector(15 downto 0) := X"1010"; 
+	SPI_EVENT : std_logic_vector(15 downto 0) := X"1020"; 
+	SPI_MASK  : std_logic_vector(15 downto 0) := X"1030";
+	SPI_FDIV  : std_logic_vector(15 downto 0) := X"1040"	
+	);
+PORT 
+	(
+	-- Global interface
+		clk : in std_logic;
+		nReset : in std_logic;
+	
+	-- WRITE DATA
+		wr_adr : in std_logic_vector(31 downto 0);
+		wr_data_1 : in std_logic_vector(31 downto 0);
+		wr_be_1 : in std_logic_vector(3 downto 0);
+		wren_1 : in std_logic;
+		wr_data_0 : in std_logic_vector(31 downto 0);
+		wr_be_0 : in std_logic_vector(3 downto 0);
+		wren_0 :  in std_logic;
+
+	-- READ DATA
+		rd_adr : in std_logic_vector(31 downto 0);
+		rd_adr_change_dff : in std_logic;
+		rd_data_0 : out std_logic_vector(31 downto 0);
+		rd_data_1 : out std_logic_vector(31 downto 0);
+
+--***TEST	
+--rd_fifo_read : out std_logic;
+--rd_fifo_rd_data : out std_logic_vector(31 downto 0);
+--	
+--rd_fifo_wrusedw : out std_logic_vector(11 downto 0);
+--
+--rd_fifo_write : out std_logic;
+--rd_fifo_wr_data : out std_logic_vector(7 downto 0);
+--fifo_indata_ena : out std_logic;
+--fifo_data_high_fifo : out std_logic_vector(31 downto 0);
+--fifo_data_low_fifo : out std_logic_vector(31 downto 0);
+--fifo_wr_req_fifo : out std_logic;
+--***TEST	
+	
+	-- INT ena
+		int_ena : out std_logic;
+		
+	-- SPI ARINC 825 interface
+		nCS : out std_logic;
+		SCK : out std_logic;
+		MOSI : out std_logic;
+		MISO : in std_logic;
+	
+		TXEN : out std_logic;
+		MR : out std_logic;
+
+		HI3110_INT : in std_logic;
+		STAT : in std_logic;
+		GP1 : in std_logic;
+		GP2 : in std_logic
+	
+--*** TEST
+--fifo_wr_fifo_rdempty : out std_logic;
+--fifo_wr_fifo_q : out std_logic_vector(7 downto 0)
+--*** TEST
+
+	);
+END arinc_825;
+
+ARCHITECTURE RTL OF arinc_825 IS
+
+	-- freq div
+	signal freq_div_ff : std_logic_vector(7 downto 0);
+	signal freq_div : std_logic_vector(7 downto 0);
+	signal freq_div2 : std_logic_vector(7 downto 0);
+
+	-- int mask register
+	signal spi_mask_ff : std_logic_vector(2 downto 0);
+	signal int_rxor : std_logic;
+	signal int_rxne : std_logic;
+	signal int_hi3110 : std_logic;
+
+	-- status read trg
+	signal spi_event_trg : std_logic;
+	signal spi_ctrl_trg : std_logic;
+	signal spi_mask_trg : std_logic;
+	signal spi_freq_div_trg : std_logic;
+	signal spi_event_trg_dff : std_logic;
+	
+	-- status read register
+	signal spi_event_ctrl_data : std_logic_vector(31 downto 0);
+
+	signal spi_event_rxne : std_logic;
+	signal spi_event_txnf : std_logic;
+	signal spi_event_rxor : std_logic;
+	
+	-- wr fifo empty active trg
+--	signal wr_fifo_rdempty_trg : std_logic;
+	signal rd_fifo_full_trg : std_logic;
+	
+	signal miso_node : std_logic;
+	
+	-- reset and select mode register
+	signal spi_ctrl_ff : std_logic_vector(4 downto 0); 
+	signal tx_sclr : std_logic;
+	signal rx_sclr : std_logic;
+	signal tx_en : std_logic;
+	signal spi_lb : std_logic; 
+--	signal spi_prsc0 : std_logic_vector(7 downto 0);
+--	signal spi_prsc1 : std_logic_vector(7 downto 0);
+	
+-- input clock divider counter
+	signal clk_div_count : std_logic_vector(7 downto 0);
+	signal clk_spi : std_logic;
+
+--==============================--
+--======= transmit path ========--
+--==============================--
+-- indata changer block
+	COMPONENT indata_changer
+		PORT
+		(
+			clk		:	 IN STD_LOGIC;
+			nReset		:	 IN STD_LOGIC;
+			soft_nReset		:	 IN STD_LOGIC;
+			indata_ena		:	 IN STD_LOGIC;
+			data_high_in		:	 IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+			valid_high		:	 IN STD_LOGIC;
+			data_low_in		:	 IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+			valid_low		:	 IN STD_LOGIC;
+			data_high_fifo		:	 OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+			data_low_fifo		:	 OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+			wr_req_fifo		:	 OUT STD_LOGIC
+		);
+	END COMPONENT;
+	signal valid_indata : std_logic;
+
+-- spi write fifo
+	component wr_fifo
+		PORT
+		(
+			aclr		: IN STD_LOGIC  := '0';
+			data		: IN STD_LOGIC_VECTOR (63 DOWNTO 0);
+			rdclk		: IN STD_LOGIC ;
+			rdreq		: IN STD_LOGIC ;
+			wrclk		: IN STD_LOGIC ;
+			wrreq		: IN STD_LOGIC ;
+			q		: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
+			rdempty		: OUT STD_LOGIC ;
+			rdusedw		: OUT STD_LOGIC_VECTOR (11 DOWNTO 0);
+			wrfull		: OUT STD_LOGIC 
+		);
+	end component;
+	signal data_fifo : std_logic_vector(63 downto 0);
+	signal wr_req_fifo : std_logic;		
+	signal wr_fifo_q : std_logic_vector(7 downto 0);
+	signal wr_fifo_rdempty : std_logic;	
+	signal tx_fifo_used : std_logic_vector(11 downto 0);
+--	signal wr_fifo_wrfull : std_logic;	
+
+	-- state
+	type state_tx is
+	(idle, st_count_read, st_check_trans, st_byte_trans, st_unused_fetch);
+	-- state registers
+	signal st_tx_reg, st_tx_next : state_tx;	
+	-- write fifo read reaquest
+	signal wr_fifo_rdreq_reg, wr_fifo_rdreq_next : std_logic;
+	-- transmit counters
+	signal transmit_count_reg, transmit_count_next : std_logic_vector(7 downto 0);
+	signal qword_to_byte_count_reg, qword_to_byte_count_next : std_logic_vector(7 downto 0);
+	-- transmit active
+	signal trans_active_reg, trans_active_next : std_logic;
+	-- transmit byte
+	signal tx_byte_reg, tx_byte_next : std_logic_vector(7 downto 0);
+	signal mosi_reg, mosi_next : std_logic;
+	-- bit counter
+	signal bit_count_reg, bit_count_next : std_logic_vector(2 downto 0);
+	
+--==============================--
+--======= receive path ========--
+--==============================--
+-- edge active stops
+	signal trans_active_reg_dff : std_logic;
+	signal edge_active_stop : std_logic;
+
+-- 32 bits control
+	signal par_post_write_trg : std_logic;
+	signal par_post_count : std_logic_vector(1 downto 0);
+
+-- receive data address detect trigger
+	signal spi_data_trg : std_logic;
+	signal spi_data_trg_dff : std_logic;
+
+-- receive shift register
+	signal rd_shift_ff : std_logic_vector(7 downto 0);
+	signal rd_bit_to_byte_count : std_logic_vector(2 downto 0);
+	
+-- rd fifo
+	component rd_fifo
+	PORT
+		(
+			aclr		: IN STD_LOGIC  := '0';
+			data		: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+			rdclk		: IN STD_LOGIC ;
+			rdreq		: IN STD_LOGIC ;
+			wrclk		: IN STD_LOGIC ;
+			wrreq		: IN STD_LOGIC ;
+			rdempty	: OUT STD_LOGIC ;			
+			q		: OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
+			wrfull		: OUT STD_LOGIC ;
+			wrusedw		: OUT STD_LOGIC_VECTOR (11 DOWNTO 0)
+		);
+	end component;
+	signal rd_wrreq : std_logic;
+	signal rd_fifo_q : std_logic_vector(31 downto 0);
+	signal rx_fifo_used : std_logic_vector(11 downto 0);
+	signal rd_fifo_full : std_logic;
+		
+BEGIN
+	
+--	process (clk, nReset)
+--	begin
+--		if (nReset = '0') then
+--	
+--		elsif rising_edge(clk) then
+--	
+--		end if;
+--	end process;
+
+-- INT ena
+	int_ena <= 	'1' when (spi_event_rxne = '1') and (int_rxne = '1') else
+					'1' when (spi_event_rxor = '1') and (int_rxor = '1') else
+					'1' when (HI3110_INT = '1') and (int_hi3110 = '1') else
+					'0';
+
+-- mask register
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			spi_mask_ff <= (others => '0');
+		elsif rising_edge(clk) then
+			if (wr_adr(15 downto 4) = SPI_MASK(15 downto 4)) then
+				if (wr_be_0(0) = '1') and (wren_0 = '1') then
+					spi_mask_ff(2 downto 0) <= wr_data_0(2 downto 0);
+				end if;
+			end if;
+		end if;
+	end process;
+	int_rxor <= spi_mask_ff(1);
+	int_rxne <= spi_mask_ff(0);
+	int_hi3110 <= spi_mask_ff(2);
+
+-- freq dev register
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			freq_div_ff <= (others => '0');
+		elsif rising_edge(clk) then
+			if (wr_adr(15 downto 4) = SPI_FDIV(15 downto 4)) then
+				if (wr_be_0(0) = '1') and (wren_0 = '1') then
+					freq_div_ff(7 downto 0) <= wr_data_0(7 downto 0);
+				end if;
+			end if;
+		end if;
+	end process;
+	freq_div <= X"06" when (freq_div_ff < 3) else freq_div_ff;
+	freq_div2 <= ('0'&freq_div(7 downto 1));
+	
+-- status read trg
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			spi_event_trg <= '0';
+			spi_ctrl_trg <= '0';
+			spi_mask_trg <= '0';
+			spi_freq_div_trg <= '0';
+			spi_event_trg_dff <= '0';
+		elsif rising_edge(clk) then
+			if (rd_adr(15 downto 4) = SPI_EVENT(15 downto 4)) then
+				spi_event_trg <= '1';
+			else 
+				spi_event_trg <= '0';
+			end if;
+			if (rd_adr(15 downto 4) = SPI_CTRL(15 downto 4)) then
+				spi_ctrl_trg <= '1';
+			else 
+				spi_ctrl_trg <= '0';
+			end if;
+			if (rd_adr(15 downto 4) = SPI_MASK(15 downto 4)) then
+				spi_mask_trg <= '1';
+			else 
+				spi_mask_trg <= '0';
+			end if;
+			if (rd_adr(15 downto 4) = SPI_FDIV(15 downto 4)) then
+				spi_freq_div_trg <= '1';
+			else 
+				spi_freq_div_trg <= '0';
+			end if;
+			spi_event_trg_dff <= spi_event_trg;
+		end if;
+	end process;
+
+-- status read register
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			spi_event_ctrl_data <= (others => '0');
+		elsif rising_edge(clk) then
+			if (spi_event_trg = '1') then
+--				spi_event_ctrl_data(63 downto 32) <= (others => '0');
+				spi_event_ctrl_data(31 downto 20) <= rx_fifo_used;
+				spi_event_ctrl_data(19 downto 8) <= tx_fifo_used;
+				spi_event_ctrl_data(7) <= '0';
+				spi_event_ctrl_data(6) <= GP2;
+				spi_event_ctrl_data(5) <= GP1;
+				spi_event_ctrl_data(4) <= STAT;
+				spi_event_ctrl_data(3) <= HI3110_INT;
+				spi_event_ctrl_data(2) <= spi_event_rxor;
+				spi_event_ctrl_data(1) <= spi_event_txnf;
+				spi_event_ctrl_data(0) <= spi_event_rxne;
+			elsif (spi_ctrl_trg = '1') then
+				spi_event_ctrl_data(31 downto 5) <= (others => '0');
+				spi_event_ctrl_data(4 downto 0) <= spi_ctrl_ff;
+			elsif (spi_mask_trg = '1') then
+				spi_event_ctrl_data(31 downto 3) <= (others => '0');
+				spi_event_ctrl_data(2 downto 0) <= spi_mask_ff;
+			elsif (spi_freq_div_trg = '1') then
+				spi_event_ctrl_data(31 downto 8) <= (others => '0');
+				spi_event_ctrl_data(7 downto 0) <= freq_div;
+			else 
+				spi_event_ctrl_data <= (others => '0');
+			end if;
+		end if;
+	end process;
+	
+	spi_event_rxne <= '1' when (rx_fifo_used > 0) else '0';
+	spi_event_txnf <= '1' when (tx_fifo_used < X"7FF") else '0';
+	spi_event_rxor <= rd_fifo_full_trg;	
+	
+-- wr fifo empty active trg
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+--			wr_fifo_rdempty_trg <= '0';
+			rd_fifo_full_trg <= '0';
+		elsif rising_edge(clk) then
+--			if (tx_sclr = '1') then
+--				wr_fifo_rdempty_trg <= '0';
+--			elsif (wr_fifo_rdreq_reg = '1') and (wr_fifo_rdempty = '1') then
+--				wr_fifo_rdempty_trg <= '1';
+--			elsif (spi_event_trg = '0') and (spi_event_trg_dff = '1') then
+--				wr_fifo_rdempty_trg <= '0';
+--			end if;
+			if (rx_sclr = '1') then
+				rd_fifo_full_trg <= '0';
+			elsif (rd_wrreq = '1') and (rd_fifo_full = '1') then
+				rd_fifo_full_trg <= '1';
+			elsif (spi_event_trg = '0') and (spi_event_trg_dff = '1') then
+				rd_fifo_full_trg <= '0';
+			end if;
+		end if;
+	end process;
+
+-- reset and select mode register
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			spi_ctrl_ff <= (others => '0');
+		elsif rising_edge(clk) then
+			if (wr_adr(15 downto 4) = SPI_CTRL(15 downto 4)) then
+				if (wr_be_0(0) = '1') and (wren_0 = '1') then
+					spi_ctrl_ff(4 downto 0) <= wr_data_0(4 downto 0);
+				end if;
+			end if;
+		end if;
+	end process;
+	
+	tx_sclr <= spi_ctrl_ff(0);
+	rx_sclr <= spi_ctrl_ff(1);
+	spi_lb  <= spi_ctrl_ff(2);
+	TXEN    <= spi_ctrl_ff(3);
+	tx_en   <= spi_ctrl_ff(3);
+	MR      <= spi_ctrl_ff(4);
+--	spi_prsc0 <= spi_ctrl_ff(15 downto 8); -- reserved
+--	spi_prsc1 <= spi_ctrl_ff(23 downto 16); -- reserved
+
+-- input clock divider counter
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			clk_div_count <= (others => '0');
+			clk_spi <= '0';
+		elsif rising_edge(clk) then
+--			if (clk_div_count = 5) or (trans_active_reg = '0') then
+			if (clk_div_count = freq_div - 1) or (trans_active_reg = '0') then
+				clk_div_count <= (others => '0');
+			else
+				clk_div_count <= clk_div_count + 1;
+			end if;
+			if (clk_div_count = freq_div2 - 1) then
+				clk_spi <= '1';
+			elsif (clk_div_count = freq_div - 1) then
+				clk_spi <= '0';
+			end if;
+		end if;
+	end process;	
+
+	SCK <= clk_spi;
+
+--==============================--
+--======= transmit path ========--
+--==============================--
+-- indata changer block
+	 indata_changer_inst : indata_changer
+		PORT MAP
+		(
+			clk => clk,
+			nReset => nReset,
+			soft_nReset => not tx_sclr,
+			indata_ena => (wren_0 or wren_1) and valid_indata,
+			data_high_in => wr_data_1,
+			valid_high => wren_1,
+			data_low_in => wr_data_0,
+			valid_low => wren_0,
+			data_high_fifo => data_fifo(63 downto 32),
+			data_low_fifo => data_fifo(31 downto 0),
+			wr_req_fifo => wr_req_fifo
+		);
+	valid_indata <= '1' when (wr_adr(15 downto 4) = SPI_DATA(15 downto 4)) else '0';
+
+--*** TEST
+--fifo_indata_ena <= (wren_0 or wren_1) and valid_indata;
+--fifo_data_high_fifo <= data_fifo(63 downto 32);
+--fifo_data_low_fifo <= data_fifo(31 downto 0);
+--fifo_wr_req_fifo <= wr_req_fifo;
+--*** TEST
+
+-- spi write fifo
+	wr_fifo_inst : wr_fifo
+		PORT MAP
+		(
+			aclr => not nReset or tx_sclr,
+			data => data_fifo,
+			rdclk => clk,
+			rdreq => wr_fifo_rdreq_reg,
+			wrclk => clk,
+			wrreq => wr_req_fifo,-- and spi_event_txnf,
+			q => wr_fifo_q,
+			rdempty => wr_fifo_rdempty,
+			rdusedw => tx_fifo_used,
+			wrfull => open--wr_fifo_wrfull
+		);
+
+--***TEST
+--fifo_wr_fifo_rdempty <= wr_fifo_rdempty;
+--fifo_wr_fifo_q <= wr_fifo_q;
+--***TEST
+
+---- fifo rdempty pipelaned	
+--	process(ckl, nReset)
+--	begin
+--		if (nReset = '0') then
+--			wr_fifo_rdempty_dff <= '0';
+--			wr_fifo_rdempty_dff_dff <= '0';
+--		elsif rising_edge(clk) then
+--			wr_fifo_rdempty_dff <= wr_fifo_rdempty;
+--			wr_fifo_rdempty_dff_dff <= wr_fifo_rdempty_dff;
+--		end if;
+--	end process;
+
+-- state registers
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then 
+		-- state
+			st_tx_reg <= idle;
+		-- write fifo read reaquest
+			wr_fifo_rdreq_reg <= '0';
+		-- transmit counters
+			transmit_count_reg <= (others => '0');
+			qword_to_byte_count_reg <= (others => '0');
+		-- transmit active
+			trans_active_reg <= '0';
+		-- transmit byte
+			tx_byte_reg <= (others => '0');
+			mosi_reg <= '0';
+		-- bit counter
+			bit_count_reg <= (others => '0');		
+		elsif rising_edge(clk) then
+			if (tx_sclr = '1') then
+			-- state
+				st_tx_reg <= idle;
+			-- write fifo read reaquest
+				wr_fifo_rdreq_reg <= '0';
+			-- transmit counters
+				transmit_count_reg <= (others => '0');
+				qword_to_byte_count_reg <= (others => '0');
+			-- transmit active
+				trans_active_reg <= '0';
+			-- transmit byte
+				tx_byte_reg <= (others => '0');
+				mosi_reg <= '0';
+			-- bit counter
+				bit_count_reg <= (others => '0');		
+			else
+			-- state
+				st_tx_reg <= st_tx_next;
+			-- write fifo read reaquest
+				wr_fifo_rdreq_reg <= wr_fifo_rdreq_next;
+			-- transmit counters
+				transmit_count_reg <= transmit_count_next;
+				qword_to_byte_count_reg <= qword_to_byte_count_next;
+			-- transmit active
+				trans_active_reg <= trans_active_next;
+			-- transmit byte
+				tx_byte_reg <= tx_byte_next;
+				mosi_reg <= mosi_next;
+			-- bit counter
+				bit_count_reg <= bit_count_next;
+			end if;		
+		end if;
+	end process;
+
+-- next state logic
+	process (
+			st_tx_reg,
+			clk_div_count,
+			transmit_count_reg,
+			qword_to_byte_count_reg,
+			bit_count_reg,
+			wr_fifo_rdreq_reg,
+			trans_active_reg,
+			tx_byte_reg,
+			mosi_reg,
+			wr_fifo_rdempty,
+			wr_fifo_q,
+			tx_en,
+			tx_fifo_used
+			)
+	begin
+	-- state
+		st_tx_next <= st_tx_reg;
+	-- write fifo read reaquest
+		wr_fifo_rdreq_next <= wr_fifo_rdreq_reg;
+	-- transmit counters
+		transmit_count_next <= transmit_count_reg;
+		qword_to_byte_count_next <= qword_to_byte_count_reg;
+	-- transmit active
+		trans_active_next <= trans_active_reg;
+	-- transmit byte
+		tx_byte_next <= tx_byte_reg;
+		mosi_next <= mosi_reg;
+	-- bit counter
+		bit_count_next <= bit_count_reg;		
+		
+		case st_tx_reg is
+	----------------------------------
+			when idle =>
+	----------------------------------
+			-- goes to packet count read
+				if (wr_fifo_rdempty = '0') and (tx_en = '1') and (tx_fifo_used > wr_fifo_q) then
+				-- next state: st_count_read
+					st_tx_next <= st_count_read;
+				-- write fifo read reaquest
+					wr_fifo_rdreq_next <= '1';
+			-- stay in idle
+				else
+				-- next state: idle
+					st_tx_next <= idle;
+				end if;
+	----------------------------------
+			when st_count_read =>
+	----------------------------------
+			-- goes to data transmit
+				-- next state: st_check_trans
+					st_tx_next <= st_check_trans;
+				-- write fifo read reaquest
+					wr_fifo_rdreq_next <= '1';
+				-- transmit counters
+					if (wr_fifo_q = 0) then
+						transmit_count_next <= X"FE";
+						-- qword to byte counter
+						qword_to_byte_count_next <= X"FF";
+					else
+						transmit_count_next <= wr_fifo_q;
+						-- qword to byte counter
+						qword_to_byte_count_next <= (wr_fifo_q - 1) or X"07";
+					end if;
+	----------------------------------
+			when st_check_trans =>
+	----------------------------------
+			-- goes to bytes transmit
+				-- next state: st_count_read
+					st_tx_next <= st_byte_trans;
+				-- transmit active
+					trans_active_next <= '1';
+				-- transmit byte
+					tx_byte_next <= wr_fifo_q;
+					mosi_next <= wr_fifo_q(7);
+				-- write fifo read reaquest
+					wr_fifo_rdreq_next <= '0';
+				-- transmit counters
+					transmit_count_next <= transmit_count_reg - 1;
+				-- qword to byte counter
+					qword_to_byte_count_next <= qword_to_byte_count_reg - 1;
+				-- bit counter
+					bit_count_next <= (others => '0');
+	----------------------------------
+			when st_byte_trans =>
+	----------------------------------
+				if (transmit_count_reg = 0) and (bit_count_reg = 7) and (clk_div_count = freq_div - 1) then
+					if (qword_to_byte_count_reg = 0) then
+						-- next state: idle
+						st_tx_next <= idle;	
+					else
+						-- next state: st_unused_fetch
+						st_tx_next <= st_unused_fetch;
+						-- write fifo read reaquest
+						wr_fifo_rdreq_next <= '1';
+						-- qword to byte counter
+						qword_to_byte_count_next <= qword_to_byte_count_reg - 1;
+					end if;
+				-- transmit active
+					trans_active_next <= '0';
+				-- bit counter
+					bit_count_next <= (others => '0');
+				elsif (transmit_count_reg > 0) and (bit_count_reg = 7) and (clk_div_count = freq_div - 2) then
+				-- write fifo read reaquest
+					wr_fifo_rdreq_next <= '1';
+				elsif (transmit_count_reg > 0) and (bit_count_reg = 7) and (clk_div_count = freq_div - 1) then
+				-- next state: st_byte_trans
+					st_tx_next <= st_byte_trans;
+				-- bit counter
+					bit_count_next <= (others => '0');
+				-- transmit byte
+					tx_byte_next <= wr_fifo_q;
+					mosi_next <= wr_fifo_q(7);
+				-- write fifo read reaquest
+					wr_fifo_rdreq_next <= '0';
+				-- transmit counters
+					transmit_count_next <= transmit_count_reg - 1;
+				-- qword to byte counter
+					qword_to_byte_count_next <= qword_to_byte_count_reg - 1;
+				elsif (clk_div_count = freq_div - 1) then
+				-- bit counter
+					bit_count_next <= bit_count_reg + 1;
+				-- next state: st_byte_trans
+					st_tx_next <= st_byte_trans;
+				-- transmit byte
+					tx_byte_next(6 downto 1) <= tx_byte_reg(5 downto 0);
+					mosi_next <= tx_byte_reg(6);
+				end if;
+	----------------------------------
+			when st_unused_fetch =>
+	----------------------------------
+				if (qword_to_byte_count_reg = 0) then
+				-- next state: idle
+					st_tx_next <= idle;	
+				-- write fifo read reaquest
+					wr_fifo_rdreq_next <= '0';
+				else 
+				-- next state: st_unused_fetch
+					st_tx_next <= st_unused_fetch;	
+				-- write fifo read reaquest
+					wr_fifo_rdreq_next <= '1';
+				-- qword to byte counter
+					qword_to_byte_count_next <= qword_to_byte_count_reg - 1;
+				end if;
+		end case;
+	end process;
+
+	nCS <= not trans_active_reg;
+	MOSI <= mosi_reg;
+	miso_node <= (MISO and not spi_lb) or (mosi_reg and spi_lb);
+
+--==============================--
+--======= receive path ========--
+--==============================--
+-- receive data address detect trigger
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			spi_data_trg <= '0';
+			spi_data_trg_dff <= '0';
+		elsif rising_edge(clk) then
+			if (rd_adr(15 downto 4) = SPI_DATA(15 downto 4)) and (rd_adr(3 downto 0) = X"0") then
+				spi_data_trg <= '1';
+			else
+				spi_data_trg <= '0';
+			end if;
+			spi_data_trg_dff <= spi_data_trg;
+		end if;
+	end process;
+
+-- receive shift register
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			rd_shift_ff <= (others => '0');
+			rd_bit_to_byte_count <= (others => '0');
+		elsif rising_edge(clk) then
+			if (trans_active_reg = '1') and (clk_div_count = freq_div2 - 1) then
+				rd_shift_ff(0) <= miso_node;
+				rd_shift_ff(7 downto 1) <= rd_shift_ff(6 downto 0);
+				rd_bit_to_byte_count <= rd_bit_to_byte_count + 1;
+			elsif (trans_active_reg = '0') then
+				rd_shift_ff <= (others => '0');
+				rd_bit_to_byte_count <= (others => '0');
+			end if;
+		end if;
+	end process;
+
+--***TEST	
+--	rd_fifo_write <= rd_wrreq;
+--	rd_fifo_wr_data <= rd_shift_ff(6 downto 0)&miso_node;
+--	
+--	rd_fifo_read <= rd_adr_change_dff and spi_data_trg_dff;
+--	rd_fifo_rd_data <= rd_fifo_q;
+--	
+--	rd_fifo_wrusedw <= rx_fifo_used;
+--***TEST	
+
+	-- edge active stops
+	process (clk, trans_active_reg, trans_active_reg_dff)
+	begin
+		if rising_edge(clk) then
+			trans_active_reg_dff <= trans_active_reg;
+		end if;
+		edge_active_stop <= not trans_active_reg and trans_active_reg_dff;
+	end process;
+
+	-- 32 bits control
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			par_post_write_trg <= '0';
+			par_post_count <= (others => '0');
+		elsif rising_edge(clk) then
+			if (rx_sclr = '1') then
+				par_post_write_trg <= '0';
+			elsif (edge_active_stop = '1') and (rx_fifo_used(1 downto 0) > 0) and (par_post_write_trg = '0') then
+				par_post_write_trg <= '1';
+			elsif (par_post_write_trg = '1') and (par_post_count = "00") then
+				par_post_write_trg <= '0';
+			end if;
+			if (rx_sclr = '1') then
+				par_post_count <= (others => '0');
+			elsif (edge_active_stop = '1') and (rx_fifo_used(1 downto 0) > 0) and (par_post_write_trg = '0') then
+				par_post_count <= rx_fifo_used(1 downto 0) + 1;
+			elsif (par_post_write_trg = '1') then
+				par_post_count <= par_post_count + 1;
+			else
+				par_post_count <= (others => '0');
+			end if;
+		end if;
+	end process;
+
+	
+-- rd fifo
+	rd_fifo_inst : rd_fifo
+		PORT MAP
+		(
+			aclr => not nReset or rx_sclr,
+			data => rd_shift_ff(6 downto 0)&miso_node,
+			rdclk => clk,
+			rdreq => rd_adr_change_dff and spi_data_trg_dff,
+			wrclk => clk,
+			wrreq => rd_wrreq and not rd_fifo_full,
+			rdempty => open,
+			q => rd_fifo_q,
+			wrfull => rd_fifo_full,
+			wrusedw => rx_fifo_used
+		);
+		rd_wrreq <= '1' when ((trans_active_reg = '1') and (clk_div_count = freq_div2 - 1) and (rd_bit_to_byte_count = 7)) or (par_post_write_trg = '1') else '0';
+		
+		rd_data_0 <= 	rd_fifo_q(31 downto 0) when (spi_data_trg_dff = '1') else
+							spi_event_ctrl_data(31 downto 0);
+		
+		rd_data_1 <= 	(others => '0');
+
+
+END RTL;

@@ -1,0 +1,320 @@
+ -- Copyright (C) 1991-2007 Altera Corporation
+ -- Your use of Altera Corporation's design tools, logic functions 
+ -- and other software and tools, and its AMPP partner logic 
+ -- functions, and any output files from any of the foregoing 
+ -- (including device programming or simulation files), and any 
+ -- associated documentation or information are expressly subject 
+ -- to the terms and conditions of the Altera Program License 
+ -- Subscription Agreement, Altera MegaCore Function License 
+ -- Agreement, or other applicable license agreement, including, 
+ -- without limitation, that your use is for the sole purpose of 
+ -- programming logic devices manufactured by Altera and sold by 
+ -- Altera or its authorized distributors.  Please refer to the 
+ -- applicable agreement for further details.
+ -- 
+ -- This is a Quartus II output file. It is for reporting purposes only, and is
+ -- not intended for use as a Quartus II input file. This file cannot be used
+ -- to make Quartus II pin assignments - for instructions on how to make pin
+ -- assignments, please see Quartus II help.
+ ---------------------------------------------------------------------------------
+
+
+
+ ---------------------------------------------------------------------------------
+ -- NC            : No Connect. This pin has no internal connection to the device.
+ -- VCCINT        : Dedicated power pin, which MUST be connected to VCC  (1.2V).
+ -- VCCIO         : Dedicated power pin, which MUST be connected to VCC
+ --                 of its bank.
+ --					Bank 1:		2.5V
+ --					Bank 2:		2.5V
+ --					Bank 3:		2.5V
+ --					Bank 4:		2.5V
+ --					Bank 5:		2.5V
+ --					Bank 6:		2.5V
+ --					Bank 7:		2.5V
+ --					Bank 8:		2.5V
+ -- GND           : Dedicated ground pin. Dedicated GND pins MUST be connected to GND.
+ --					It can also be used to report unused dedicated pins. The connection
+ --					on the board for unused dedicated pins depends on whether this will
+ --					be used in a future design. One example is device migration. When
+ --					using device migration, refer to the device pin-tables. If it is a
+ --					GND pin in the pin table or if it will not be used in a future design
+ --					for another purpose the it MUST be connected to GND. If it is an unused
+ --					dedicated pin, then it can be connected to a valid signal on the board
+ --					(low, high, or toggling) if that signal is required for a different
+ --					revision of the design.
+ -- GND+          : Unused input pin. It can also be used to report unused dual-purpose pins.
+ --					This pin should be connected to GND. It may also be connected  to a
+ --					valid signal  on the board  (low, high, or toggling)  if that signal
+ --					is required for a different revision of the design.
+ -- GND*          : Unused  I/O  pin.   This pin can either be left unconnected or
+ --           	    connected to GND.  Connecting this pin to GND will improve the
+ --           	    device's immunity to noise.
+ -- RESERVED      : Unused I/O pin, which MUST be left unconnected.
+ -- RESERVED_INPUT    : Pin is tri-stated and should be connected to the board.
+ -- RESERVED_INPUT_WITH_WEAK_PULLUP    : Pin is tri-stated with internal weak pull-up resistor.
+ -- RESERVED_INPUT_WITH_BUS_HOLD       : Pin is tri-stated with bus-hold circuitry.
+ -- RESERVED_OUTPUT_DRIVEN_HIGH        : Pin is output driven high.
+ ---------------------------------------------------------------------------------
+
+Quartus II Version 7.1 Build 156 04/30/2007 SJ Full Version
+CHIP  "indata_changer"  ASSIGNED TO AN: EP3C5F256C7
+
+Pin Name/Usage               : Location  : Dir.   : I/O Standard      : Voltage : I/O Bank  : User Assignment
+-------------------------------------------------------------------------------------------------------------
+VCCIO8                       : A1        : power  :                   : 2.5V    : 8         :                
+data_low_fifo[6]             : A2        : output : 2.5 V             :         : 8         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : A3        :        :                   :         : 8         :                
+data_low_fifo[5]             : A4        : output : 2.5 V             :         : 8         : N              
+data_high_in[19]             : A5        : input  : 2.5 V             :         : 8         : N              
+data_low_fifo[21]            : A6        : output : 2.5 V             :         : 8         : N              
+data_high_in[20]             : A7        : input  : 2.5 V             :         : 8         : N              
+data_high_fifo[5]            : A8        : output : 2.5 V             :         : 8         : N              
+data_low_in[6]               : A9        : input  : 2.5 V             :         : 7         : N              
+data_low_fifo[11]            : A10       : output : 2.5 V             :         : 7         : N              
+data_low_in[27]              : A11       : input  : 2.5 V             :         : 7         : N              
+data_high_in[22]             : A12       : input  : 2.5 V             :         : 7         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : A13       :        :                   :         : 7         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : A14       :        :                   :         : 7         :                
+data_high_in[11]             : A15       : input  : 2.5 V             :         : 7         : N              
+VCCIO7                       : A16       : power  :                   : 2.5V    : 7         :                
+data_low_in[30]              : B1        : input  : 2.5 V             :         : 1         : N              
+GND                          : B2        : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : B3        :        :                   :         : 8         :                
+data_low_in[1]               : B4        : input  : 2.5 V             :         : 8         : N              
+data_low_fifo[28]            : B5        : output : 2.5 V             :         : 8         : N              
+data_high_in[18]             : B6        : input  : 2.5 V             :         : 8         : N              
+data_high_in[7]              : B7        : input  : 2.5 V             :         : 8         : N              
+data_low_fifo[8]             : B8        : output : 2.5 V             :         : 8         : N              
+data_high_in[29]             : B9        : input  : 2.5 V             :         : 7         : N              
+data_low_fifo[17]            : B10       : output : 2.5 V             :         : 7         : N              
+data_high_fifo[8]            : B11       : output : 2.5 V             :         : 7         : N              
+data_low_in[7]               : B12       : input  : 2.5 V             :         : 7         : N              
+data_low_in[17]              : B13       : input  : 2.5 V             :         : 7         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : B14       :        :                   :         : 7         :                
+GND                          : B15       : gnd    :                   :         :           :                
+data_high_fifo[28]           : B16       : output : 2.5 V             :         : 6         : N              
+~ALTERA_ASDO_DATA1~ / RESERVED_INPUT_WITH_WEAK_PULLUP : C1        : input  : 2.5 V             :         : 1         : N              
+data_low_fifo[18]            : C2        : output : 2.5 V             :         : 1         : N              
+data_low_fifo[19]            : C3        : output : 2.5 V             :         : 8         : N              
+VCCIO8                       : C4        : power  :                   : 2.5V    : 8         :                
+GND                          : C5        : gnd    :                   :         :           :                
+data_high_fifo[20]           : C6        : output : 2.5 V             :         : 8         : N              
+VCCIO8                       : C7        : power  :                   : 2.5V    : 8         :                
+data_low_in[3]               : C8        : input  : 2.5 V             :         : 8         : N              
+data_high_fifo[7]            : C9        : output : 2.5 V             :         : 7         : N              
+VCCIO7                       : C10       : power  :                   : 2.5V    : 7         :                
+data_high_in[9]              : C11       : input  : 2.5 V             :         : 7         : N              
+GND                          : C12       : gnd    :                   :         :           :                
+VCCIO7                       : C13       : power  :                   : 2.5V    : 7         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : C14       :        :                   :         : 7         :                
+data_low_in[21]              : C15       : input  : 2.5 V             :         : 6         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : C16       :        :                   :         : 6         :                
+data_low_fifo[20]            : D1        : output : 2.5 V             :         : 1         : N              
+~ALTERA_FLASH_nCE_nCSO~ / RESERVED_INPUT_WITH_WEAK_PULLUP : D2        : input  : 2.5 V             :         : 1         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : D3        :        :                   :         : 8         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : D4        :        :                   :         : 1         :                
+data_high_fifo[21]           : D5        : output : 2.5 V             :         : 8         : N              
+data_low_fifo[7]             : D6        : output : 2.5 V             :         : 8         : N              
+GND                          : D7        : gnd    :                   :         :           :                
+data_low_fifo[30]            : D8        : output : 2.5 V             :         : 8         : N              
+data_low_fifo[10]            : D9        : output : 2.5 V             :         : 7         : N              
+GND                          : D10       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : D11       :        :                   :         : 7         :                
+data_low_in[22]              : D12       : input  : 2.5 V             :         : 7         : N              
+VCCD_PLL2                    : D13       : power  :                   : 1.2V    :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : D14       :        :                   :         : 7         :                
+data_low_in[0]               : D15       : input  : 2.5 V             :         : 6         : N              
+data_low_fifo[29]            : D16       : output : 2.5 V             :         : 6         : N              
+nReset                       : E1        : input  : 2.5 V             :         : 1         : N              
+clk                          : E2        : input  : 2.5 V             :         : 1         : N              
+VCCIO1                       : E3        : power  :                   : 2.5V    : 1         :                
+GND                          : E4        : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : E5        :        :                   :         : 1         :                
+data_low_fifo[4]             : E6        : output : 2.5 V             :         : 8         : N              
+data_high_fifo[29]           : E7        : output : 2.5 V             :         : 8         : N              
+data_high_fifo[18]           : E8        : output : 2.5 V             :         : 8         : N              
+data_low_in[11]              : E9        : input  : 2.5 V             :         : 7         : N              
+data_high_fifo[15]           : E10       : output : 2.5 V             :         : 7         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : E11       :        :                   :         : 7         :                
+GNDA                         : E12       : gnd    :                   :         :           :                
+GND                          : E13       : gnd    :                   :         :           :                
+VCCIO6                       : E14       : power  :                   : 2.5V    : 6         :                
+data_low_in[28]              : E15       : input  : 2.5 V             :         : 6         : N              
+data_high_in[28]             : E16       : input  : 2.5 V             :         : 6         : N              
+data_high_fifo[10]           : F1        : output : 2.5 V             :         : 1         : N              
+data_low_in[20]              : F2        : input  : 2.5 V             :         : 1         : N              
+data_high_fifo[0]            : F3        : output : 2.5 V             :         : 1         : N              
+nSTATUS                      : F4        :        :                   :         : 1         :                
+data_high_in[8]              : F5        : input  : 2.5 V             :         : 1         : N              
+data_high_fifo[4]            : F6        : output : 2.5 V             :         : 8         : N              
+data_low_fifo[1]             : F7        : output : 2.5 V             :         : 8         : N              
+data_low_fifo[27]            : F8        : output : 2.5 V             :         : 8         : N              
+data_low_in[8]               : F9        : input  : 2.5 V             :         : 7         : N              
+valid_high                   : F10       : input  : 2.5 V             :         : 7         : N              
+data_low_fifo[23]            : F11       : output : 2.5 V             :         : 7         : N              
+VCCA2                        : F12       : power  :                   : 2.5V    :           :                
+wr_req_fifo                  : F13       : output : 2.5 V             :         : 6         : N              
+data_high_in[21]             : F14       : input  : 2.5 V             :         : 6         : N              
+data_low_fifo[3]             : F15       : output : 2.5 V             :         : 6         : N              
+~ALTERA_nCEO~                : F16       : output : 2.5 V             :         : 6         : N              
+data_high_fifo[3]            : G1        : output : 2.5 V             :         : 1         : N              
+data_low_in[29]              : G2        : input  : 2.5 V             :         : 1         : N              
+VCCIO1                       : G3        : power  :                   : 2.5V    : 1         :                
+GND                          : G4        : gnd    :                   :         :           :                
+data_high_fifo[6]            : G5        : output : 2.5 V             :         : 1         : N              
+VCCINT                       : G6        : power  :                   : 1.2V    :           :                
+VCCINT                       : G7        : power  :                   : 1.2V    :           :                
+VCCINT                       : G8        : power  :                   : 1.2V    :           :                
+VCCINT                       : G9        : power  :                   : 1.2V    :           :                
+VCCINT                       : G10       : power  :                   : 1.2V    :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : G11       :        :                   :         : 6         :                
+MSEL2                        : G12       :        :                   :         : 6         :                
+GND                          : G13       : gnd    :                   :         :           :                
+VCCIO6                       : G14       : power  :                   : 2.5V    : 6         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : G15       :        :                   :         : 6         :                
+data_low_in[5]               : G16       : input  : 2.5 V             :         : 6         : N              
+~ALTERA_DCLK~                : H1        : output : 2.5 V             :         : 1         : N              
+~ALTERA_DATA0~               : H2        : input  : 2.5 V             :         : 1         : N              
+TCK                          : H3        : input  :                   :         : 1         :                
+TDI                          : H4        : input  :                   :         : 1         :                
+nCONFIG                      : H5        :        :                   :         : 1         :                
+VCCINT                       : H6        : power  :                   : 1.2V    :           :                
+GND                          : H7        : gnd    :                   :         :           :                
+GND                          : H8        : gnd    :                   :         :           :                
+GND                          : H9        : gnd    :                   :         :           :                
+GND                          : H10       : gnd    :                   :         :           :                
+VCCINT                       : H11       : power  :                   : 1.2V    :           :                
+MSEL1                        : H12       :        :                   :         : 6         :                
+MSEL0                        : H13       :        :                   :         : 6         :                
+CONF_DONE                    : H14       :        :                   :         : 6         :                
+data_high_fifo[17]           : H15       : output : 2.5 V             :         : 6         : N              
+data_high_fifo[11]           : H16       : output : 2.5 V             :         : 6         : N              
+data_high_in[1]              : J1        : input  : 2.5 V             :         : 2         : N              
+data_low_fifo[2]             : J2        : output : 2.5 V             :         : 2         : N              
+nCE                          : J3        :        :                   :         : 1         :                
+TDO                          : J4        : output :                   :         : 1         :                
+TMS                          : J5        : input  :                   :         : 1         :                
+data_high_fifo[2]            : J6        : output : 2.5 V             :         : 2         : N              
+GND                          : J7        : gnd    :                   :         :           :                
+GND                          : J8        : gnd    :                   :         :           :                
+GND                          : J9        : gnd    :                   :         :           :                
+GND                          : J10       : gnd    :                   :         :           :                
+data_high_in[14]             : J11       : input  : 2.5 V             :         : 5         : N              
+data_high_fifo[9]            : J12       : output : 2.5 V             :         : 5         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : J13       :        :                   :         : 5         :                
+soft_nReset                  : J14       : input  : 2.5 V             :         : 5         : N              
+data_high_in[17]             : J15       : input  : 2.5 V             :         : 5         : N              
+data_low_fifo[16]            : J16       : output : 2.5 V             :         : 5         : N              
+data_high_in[24]             : K1        : input  : 2.5 V             :         : 2         : N              
+data_low_in[4]               : K2        : input  : 2.5 V             :         : 2         : N              
+VCCIO2                       : K3        : power  :                   : 2.5V    : 2         :                
+GND                          : K4        : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : K5        :        :                   :         : 2         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : K6        :        :                   :         : 2         :                
+VCCINT                       : K7        : power  :                   : 1.2V    :           :                
+data_low_in[9]               : K8        : input  : 2.5 V             :         : 3         : N              
+data_high_fifo[25]           : K9        : output : 2.5 V             :         : 4         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : K10       :        :                   :         : 4         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : K11       :        :                   :         : 5         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : K12       :        :                   :         : 5         :                
+GND                          : K13       : gnd    :                   :         :           :                
+VCCIO5                       : K14       : power  :                   : 2.5V    : 5         :                
+data_high_in[13]             : K15       : input  : 2.5 V             :         : 5         : N              
+data_low_fifo[24]            : K16       : output : 2.5 V             :         : 5         : N              
+data_low_in[2]               : L1        : input  : 2.5 V             :         : 2         : N              
+data_high_in[4]              : L2        : input  : 2.5 V             :         : 2         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : L3        :        :                   :         : 2         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : L4        :        :                   :         : 2         :                
+VCCA1                        : L5        : power  :                   : 2.5V    :           :                
+indata_ena                   : L6        : input  : 2.5 V             :         : 2         : N              
+data_high_in[6]              : L7        : input  : 2.5 V             :         : 3         : N              
+data_high_in[5]              : L8        : input  : 2.5 V             :         : 3         : N              
+data_low_fifo[31]            : L9        : output : 2.5 V             :         : 4         : N              
+data_low_in[31]              : L10       : input  : 2.5 V             :         : 4         : N              
+data_high_in[12]             : L11       : input  : 2.5 V             :         : 4         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : L12       :        :                   :         : 5         :                
+data_high_in[15]             : L13       : input  : 2.5 V             :         : 5         : N              
+data_high_fifo[16]           : L14       : output : 2.5 V             :         : 5         : N              
+data_high_in[25]             : L15       : input  : 2.5 V             :         : 5         : N              
+data_high_in[23]             : L16       : input  : 2.5 V             :         : 5         : N              
+data_high_in[0]              : M1        : input  : 2.5 V             :         : 2         : N              
+valid_low                    : M2        : input  : 2.5 V             :         : 2         : N              
+VCCIO2                       : M3        : power  :                   : 2.5V    : 2         :                
+GND                          : M4        : gnd    :                   :         :           :                
+GNDA                         : M5        : gnd    :                   :         :           :                
+data_low_fifo[9]             : M6        : output : 2.5 V             :         : 3         : N              
+data_low_in[19]              : M7        : input  : 2.5 V             :         : 3         : N              
+data_low_fifo[22]            : M8        : output : 2.5 V             :         : 3         : N              
+data_low_in[24]              : M9        : input  : 2.5 V             :         : 4         : N              
+data_low_in[16]              : M10       : input  : 2.5 V             :         : 4         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : M11       :        :                   :         : 4         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : M12       :        :                   :         : 5         :                
+GND                          : M13       : gnd    :                   :         :           :                
+VCCIO5                       : M14       : power  :                   : 2.5V    : 5         :                
+data_high_in[27]             : M15       : input  : 2.5 V             :         : 5         : N              
+data_low_in[26]              : M16       : input  : 2.5 V             :         : 5         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : N1        :        :                   :         : 2         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : N2        :        :                   :         : 2         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : N3        :        :                   :         : 3         :                
+VCCD_PLL1                    : N4        : power  :                   : 1.2V    :           :                
+data_low_in[18]              : N5        : input  : 2.5 V             :         : 3         : N              
+data_high_fifo[30]           : N6        : output : 2.5 V             :         : 3         : N              
+GND                          : N7        : gnd    :                   :         :           :                
+data_high_fifo[24]           : N8        : output : 2.5 V             :         : 3         : N              
+data_high_fifo[31]           : N9        : output : 2.5 V             :         : 4         : N              
+GND                          : N10       : gnd    :                   :         :           :                
+data_low_fifo[15]            : N11       : output : 2.5 V             :         : 4         : N              
+data_low_in[13]              : N12       : input  : 2.5 V             :         : 4         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : N13       :        :                   :         : 5         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : N14       :        :                   :         : 5         :                
+data_low_in[12]              : N15       : input  : 2.5 V             :         : 5         : N              
+data_high_in[16]             : N16       : input  : 2.5 V             :         : 5         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : P1        :        :                   :         : 2         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : P2        :        :                   :         : 2         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : P3        :        :                   :         : 3         :                
+VCCIO3                       : P4        : power  :                   : 2.5V    : 3         :                
+GND                          : P5        : gnd    :                   :         :           :                
+data_low_fifo[0]             : P6        : output : 2.5 V             :         : 3         : N              
+VCCIO3                       : P7        : power  :                   : 2.5V    : 3         :                
+data_high_in[31]             : P8        : input  : 2.5 V             :         : 3         : N              
+data_high_fifo[14]           : P9        : output : 2.5 V             :         : 4         : N              
+VCCIO4                       : P10       : power  :                   : 2.5V    : 4         :                
+data_low_fifo[14]            : P11       : output : 2.5 V             :         : 4         : N              
+GND                          : P12       : gnd    :                   :         :           :                
+VCCIO4                       : P13       : power  :                   : 2.5V    : 4         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : P14       :        :                   :         : 4         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : P15       :        :                   :         : 5         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : P16       :        :                   :         : 5         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : R1        :        :                   :         : 2         :                
+GND                          : R2        : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : R3        :        :                   :         : 3         :                
+data_high_in[30]             : R4        : input  : 2.5 V             :         : 3         : N              
+data_high_fifo[19]           : R5        : output : 2.5 V             :         : 3         : N              
+data_high_in[2]              : R6        : input  : 2.5 V             :         : 3         : N              
+data_low_in[10]              : R7        : input  : 2.5 V             :         : 3         : N              
+data_high_fifo[27]           : R8        : output : 2.5 V             :         : 3         : N              
+data_high_fifo[22]           : R9        : output : 2.5 V             :         : 4         : N              
+data_low_fifo[26]            : R10       : output : 2.5 V             :         : 4         : N              
+data_low_fifo[25]            : R11       : output : 2.5 V             :         : 4         : N              
+data_low_in[23]              : R12       : input  : 2.5 V             :         : 4         : N              
+data_low_fifo[13]            : R13       : output : 2.5 V             :         : 4         : N              
+data_high_fifo[12]           : R14       : output : 2.5 V             :         : 4         : N              
+GND                          : R15       : gnd    :                   :         :           :                
+data_low_in[14]              : R16       : input  : 2.5 V             :         : 5         : N              
+VCCIO3                       : T1        : power  :                   : 2.5V    : 3         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : T2        :        :                   :         : 3         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : T3        :        :                   :         : 3         :                
+data_high_in[3]              : T4        : input  : 2.5 V             :         : 3         : N              
+data_high_fifo[1]            : T5        : output : 2.5 V             :         : 3         : N              
+data_high_in[10]             : T6        : input  : 2.5 V             :         : 3         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : T7        :        :                   :         : 3         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : T8        :        :                   :         : 3         :                
+data_low_in[25]              : T9        : input  : 2.5 V             :         : 4         : N              
+data_high_fifo[23]           : T10       : output : 2.5 V             :         : 4         : N              
+data_high_in[26]             : T11       : input  : 2.5 V             :         : 4         : N              
+data_high_fifo[26]           : T12       : output : 2.5 V             :         : 4         : N              
+data_low_in[15]              : T13       : input  : 2.5 V             :         : 4         : N              
+data_low_fifo[12]            : T14       : output : 2.5 V             :         : 4         : N              
+data_high_fifo[13]           : T15       : output : 2.5 V             :         : 4         : N              
+VCCIO4                       : T16       : power  :                   : 2.5V    : 4         :                

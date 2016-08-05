@@ -1,0 +1,76 @@
+--------------------------------------------------------------------------------------
+Timing Analyzer Summary
+--------------------------------------------------------------------------------------
+
+Type           : Worst-case tsu
+Slack          : N/A
+Required Time  : None
+Actual Time    : 5.991 ns
+From           : wr_adr[4]
+To             : fifo_data[47]
+From Clock     : --
+To Clock       : clk
+Failed Paths   : 0
+
+Type           : Worst-case tco
+Slack          : N/A
+Required Time  : None
+Actual Time    : 18.257 ns
+From           : divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[5]
+To             : int_ena
+From Clock     : clk
+To Clock       : --
+Failed Paths   : 0
+
+Type           : Worst-case tpd
+Slack          : N/A
+Required Time  : None
+Actual Time    : 9.693 ns
+From           : wr_adr[4]
+To             : valid_indata_out
+From Clock     : --
+To Clock       : --
+Failed Paths   : 0
+
+Type           : Worst-case th
+Slack          : N/A
+Required Time  : None
+Actual Time    : 2.315 ns
+From           : a708_RX
+To             : pos_neg_chech_synch_trg
+From Clock     : --
+To Clock       : clk
+Failed Paths   : 0
+
+Type           : Clock Setup: 'clk'
+Slack          : -4.251 ns
+Required Time  : 125.00 MHz ( period = 8.000 ns )
+Actual Time    : 81.63 MHz ( period = 12.251 ns )
+From           : divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[5]
+To             : sts_data[0]
+From Clock     : clk
+To Clock       : clk
+Failed Paths   : 2703
+
+Type           : Clock Hold: 'clk'
+Slack          : 0.490 ns
+Required Time  : 125.00 MHz ( period = 8.000 ns )
+Actual Time    : N/A
+From           : fifo_data[18]
+To             : wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|altsyncram_5731:fifo_ram|ram_block3a0~porta_datain_reg10
+From Clock     : clk
+To Clock       : clk
+Failed Paths   : 0
+
+Type           : Total number of failed paths
+Slack          : 
+Required Time  : 
+Actual Time    : 
+From           : 
+To             : 
+From Clock     : 
+To Clock       : 
+Failed Paths   : 2703
+
+--------------------------------------------------------------------------------------
+

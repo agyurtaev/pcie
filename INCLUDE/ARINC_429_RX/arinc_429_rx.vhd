@@ -1,0 +1,988 @@
+--------------------------------------------------------------------------------
+-- Company: SKIT
+-- Engineer: Anton Klimovskikh
+--
+-- Create Date:    30.01.2014   
+-- Design Name:    PCIE   
+-- Module Name:    arinc_429_rx  
+-- Project Name:   pcie_top
+-- Target Device:  EP4SGX230KF40C2
+-- Description:    
+-- Revision:       Revision 1.05
+--
+-- Additional Comments:
+--------------------------------------------------------------------------------
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+--use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+LIBRARY altera_mf; 
+USE altera_mf.all;
+ 
+LIBRARY lpm;
+USE lpm.lpm_components.all;
+
+ENTITY arinc_429_rx IS 
+GENERIC 
+	(
+	A429_RX_DATA  : std_logic_vector(15 downto 0) := X"3000";
+	A429_RX_CTRL  : std_logic_vector(15 downto 0) := X"3010";
+	A429_RX_EVENT : std_logic_vector(15 downto 0) := X"3020";
+	A429_RX_MASK  : std_logic_vector(15 downto 0) := X"3030"
+	);
+PORT 
+	(
+-- Global interface
+	clk : in std_logic;
+	nReset : in std_logic;
+
+-- WRITE DATA
+	wr_adr : in std_logic_vector(31 downto 0);
+	wr_data_1 : in std_logic_vector(31 downto 0);
+	wr_be_1 : in std_logic_vector(3 downto 0);
+	wren_1 : in std_logic;
+	wr_data_0 : in std_logic_vector(31 downto 0);
+	wr_be_0 : in std_logic_vector(3 downto 0);
+	wren_0 :  in std_logic;
+
+-- READ DATA
+	rd_adr : in std_logic_vector(31 downto 0);
+	rd_adr_change_dff : in std_logic;
+	rd_data_0 : out std_logic_vector(31 downto 0);
+	rd_data_1 : out std_logic_vector(31 downto 0);
+
+--***TEST
+--ctrl_trg_out : out std_logic;
+--rx_fifo_used_out : out std_logic_vector(7 downto 0);
+--	SHIFT_NUMBER_VALUE_in : in integer;
+--	clk_div_count_0_ff_out : out std_logic_vector(15 downto 0);
+--	speed_grade_out : out std_logic_vector(1 downto 0);
+--	or_rxd_out : out std_logic;
+--	in_rx_speed_grade : in std_logic_vector(1 downto 0);
+--	in_rx_data_ena : in std_logic;
+--	in_rx_sclr : in std_logic;
+--	in_rx_par_ignore : in std_logic;
+--	rd_req_fifo_out : out std_logic;
+--	rd_fifo_data_out : out std_logic_vector(31 downto 0);
+--***TEST
+
+-- INT ena
+	int_ena : out std_logic;
+
+-- ARINC 429 TX
+	rxd_0 : in std_logic;
+	rxd_1 : in std_logic
+		
+	);
+END arinc_429_rx;
+
+ARCHITECTURE RTL OF arinc_429_rx IS
+
+-- speed_grade = "10" => 0 - 1249
+-- speed_grade = "01" => 0 - 2499
+-- speed_grade = "00" => 0 - 9999
+
+	-- INT ena
+--	signal int_ena_node : std_logic;
+
+	constant MIN_PERIOD : std_logic_vector(15 downto 0) := X"04E2"; -- 1250  (100KHz =>  T = 10 us = 1250*Tf,  Tf = 8 ns) X"000A";--
+	constant MID_PERIOD : std_logic_vector(15 downto 0) := X"09C4"; -- 2500  (50KHz =>   T = 20 us = 2500*Tf,  Tf = 8 ns) X"0014";--
+	constant MAX_PERIOD : std_logic_vector(15 downto 0) := X"2710"; -- 10000 (12.5KHz => T = 80 us = 10000*Tf, Tf = 8 ns) X"0050";--
+
+	constant MIN_HALF_PERIOD           : std_logic_vector(15 downto 0) := ('0'&MIN_PERIOD(15 downto 1)); -- (T/2)
+	constant MID_HALF_PERIOD           : std_logic_vector(15 downto 0) := ('0'&MID_PERIOD(15 downto 1)); -- (T/2)
+	constant MAX_HALF_PERIOD           : std_logic_vector(15 downto 0) := ('0'&MAX_PERIOD(15 downto 1)); -- (T/2)
+	constant QUARTER_MIN_PERIOD        : std_logic_vector(15 downto 0) := ("00"&MIN_PERIOD(15 downto 2)) - 1; -- (T/4 - 1)
+	constant QUARTER_MID_PERIOD        : std_logic_vector(15 downto 0) := ("00"&MID_PERIOD(15 downto 2)) - 1; -- (T/4 - 1)
+	constant QUARTER_MAX_PERIOD        : std_logic_vector(15 downto 0) := ("00"&MAX_PERIOD(15 downto 2)) - 1; -- (T/4 - 1)
+
+-- Antim 19/04/2015	
+	
+--	constant MORE_4PERIODS_MIN         : std_logic_vector(15 downto 0) := (MIN_PERIOD(13 downto 0)&"00") + 4*31;  -- (T*4 + 2.5%(T)*4)
+--	constant MORE_4PERIODS_MID         : std_logic_vector(15 downto 0) := (MID_PERIOD(13 downto 0)&"00") + 4*62;  -- (T*4 + 2.5%(T)*4)
+--	constant MORE_4PERIODS_MAX         : std_logic_vector(15 downto 0) := (MAX_PERIOD(13 downto 0)&"00") + 4*250; -- (T*4 + 2.5%(T)*4)
+--	constant LESS_4PERIODS_MIN         : std_logic_vector(15 downto 0) := (MIN_PERIOD(13 downto 0)&"00") - 4*31;  -- (T*4 - 2.5%(T)*4)
+--	constant LESS_4PERIODS_MID         : std_logic_vector(15 downto 0) := (MID_PERIOD(13 downto 0)&"00") - 4*62;  -- (T*4 - 2.5%(T)*4)
+--	constant LESS_4PERIODS_MAX         : std_logic_vector(15 downto 0) := (MAX_PERIOD(13 downto 0)&"00") - 4*250; -- (T*4 - 2.5%(T)*4)
+--	constant MORE_THAN_MIN_PERIOD      : std_logic_vector(15 downto 0) := MIN_PERIOD + 31;  -- (T + 2.5%(T))
+--	constant MORE_THAN_MID_PERIOD      : std_logic_vector(15 downto 0) := MID_PERIOD + 62;  -- (T + 2.5%(T))
+--	constant MORE_THAN_MAX_PERIOD      : std_logic_vector(15 downto 0) := MAX_PERIOD + 250; -- (T + 2.5%(T))
+--	constant LESS_THAN_MIN_PERIOD      : std_logic_vector(15 downto 0) := MIN_PERIOD - 31;  -- (T - 2.5%(T))
+--	constant LESS_THAN_MID_PERIOD      : std_logic_vector(15 downto 0) := MID_PERIOD - 62;  -- (T - 2.5%(T))
+--	constant LESS_THAN_MAX_PERIOD      : std_logic_vector(15 downto 0) := MAX_PERIOD - 250; -- (T - 2.5%(T))
+--	constant MORE_THAN_MIN_HALF_PERIOD : std_logic_vector(15 downto 0) := ('0'&MIN_PERIOD(15 downto 1)) + 31;  -- (T/2 + 2.5%(T))
+--	constant MORE_THAN_MID_HALF_PERIOD : std_logic_vector(15 downto 0) := ('0'&MID_PERIOD(15 downto 1)) + 62;  -- (T/2 + 2.5%(T))
+--	constant MORE_THAN_MAX_HALF_PERIOD : std_logic_vector(15 downto 0) := ('0'&MAX_PERIOD(15 downto 1)) + 250; -- (T/2 + 2.5%(T))
+
+-- Antim 19/04/2015	
+	signal rx_more_than_2_5_node : std_logic; -- more than 2.5% input delays
+
+	constant MORE_4PERIODS_MIN_2_5         : std_logic_vector(15 downto 0) := (MIN_PERIOD(13 downto 0)&"00") + 4*31;  -- (T*4 + 2.5%(T)*4)
+	constant MORE_4PERIODS_MID_2_5         : std_logic_vector(15 downto 0) := (MID_PERIOD(13 downto 0)&"00") + 4*62;  -- (T*4 + 2.5%(T)*4)
+	constant MORE_4PERIODS_MAX_2_5         : std_logic_vector(15 downto 0) := (MAX_PERIOD(13 downto 0)&"00") + 4*250; -- (T*4 + 2.5%(T)*4)
+	constant LESS_4PERIODS_MIN_2_5         : std_logic_vector(15 downto 0) := (MIN_PERIOD(13 downto 0)&"00") - 4*31;  -- (T*4 - 2.5%(T)*4)
+	constant LESS_4PERIODS_MID_2_5         : std_logic_vector(15 downto 0) := (MID_PERIOD(13 downto 0)&"00") - 4*62;  -- (T*4 - 2.5%(T)*4)
+	constant LESS_4PERIODS_MAX_2_5         : std_logic_vector(15 downto 0) := (MAX_PERIOD(13 downto 0)&"00") - 4*250; -- (T*4 - 2.5%(T)*4)
+	constant MORE_THAN_MIN_PERIOD_2_5      : std_logic_vector(15 downto 0) := MIN_PERIOD + 31;  -- (T + 2.5%(T))
+	constant MORE_THAN_MID_PERIOD_2_5      : std_logic_vector(15 downto 0) := MID_PERIOD + 62;  -- (T + 2.5%(T))
+	constant MORE_THAN_MAX_PERIOD_2_5      : std_logic_vector(15 downto 0) := MAX_PERIOD + 250; -- (T + 2.5%(T))
+	constant LESS_THAN_MIN_PERIOD_2_5      : std_logic_vector(15 downto 0) := MIN_PERIOD - 31;  -- (T - 2.5%(T))
+	constant LESS_THAN_MID_PERIOD_2_5      : std_logic_vector(15 downto 0) := MID_PERIOD - 62;  -- (T - 2.5%(T))
+	constant LESS_THAN_MAX_PERIOD_2_5      : std_logic_vector(15 downto 0) := MAX_PERIOD - 250; -- (T - 2.5%(T))
+	constant MORE_THAN_MIN_HALF_PERIOD_2_5 : std_logic_vector(15 downto 0) := ('0'&MIN_PERIOD(15 downto 1)) + 31;  -- (T/2 + 2.5%(T))
+	constant MORE_THAN_MID_HALF_PERIOD_2_5 : std_logic_vector(15 downto 0) := ('0'&MID_PERIOD(15 downto 1)) + 62;  -- (T/2 + 2.5%(T))
+	constant MORE_THAN_MAX_HALF_PERIOD_2_5 : std_logic_vector(15 downto 0) := ('0'&MAX_PERIOD(15 downto 1)) + 250; -- (T/2 + 2.5%(T))
+
+	constant MORE_4PERIODS_MIN_15         : std_logic_vector(15 downto 0) := (MIN_PERIOD(13 downto 0)&"00") + 4*31*6;  -- (T*4 + 2.5%(T)*4)
+	constant MORE_4PERIODS_MID_15         : std_logic_vector(15 downto 0) := (MID_PERIOD(13 downto 0)&"00") + 4*62*6;  -- (T*4 + 2.5%(T)*4)
+	constant MORE_4PERIODS_MAX_15         : std_logic_vector(15 downto 0) := (MAX_PERIOD(13 downto 0)&"00") + 4*250*6; -- (T*4 + 2.5%(T)*4)
+	constant LESS_4PERIODS_MIN_15        : std_logic_vector(15 downto 0) := (MIN_PERIOD(13 downto 0)&"00") - 4*31*6;  -- (T*4 - 2.5%(T)*4)
+	constant LESS_4PERIODS_MID_15         : std_logic_vector(15 downto 0) := (MID_PERIOD(13 downto 0)&"00") - 4*62*6;  -- (T*4 - 2.5%(T)*4)
+	constant LESS_4PERIODS_MAX_15         : std_logic_vector(15 downto 0) := (MAX_PERIOD(13 downto 0)&"00") - 4*250*6; -- (T*4 - 2.5%(T)*4)
+	constant MORE_THAN_MIN_PERIOD_15      : std_logic_vector(15 downto 0) := MIN_PERIOD + 31*6;  -- (T + 2.5%(T))
+	constant MORE_THAN_MID_PERIOD_15      : std_logic_vector(15 downto 0) := MID_PERIOD + 62*6;  -- (T + 2.5%(T))
+	constant MORE_THAN_MAX_PERIOD_15      : std_logic_vector(15 downto 0) := MAX_PERIOD + 250*6; -- (T + 2.5%(T))
+	constant LESS_THAN_MIN_PERIOD_15      : std_logic_vector(15 downto 0) := MIN_PERIOD - 31*6;  -- (T - 2.5%(T))
+	constant LESS_THAN_MID_PERIOD_15      : std_logic_vector(15 downto 0) := MID_PERIOD - 62*6;  -- (T - 2.5%(T))
+	constant LESS_THAN_MAX_PERIOD_15      : std_logic_vector(15 downto 0) := MAX_PERIOD - 250*6; -- (T - 2.5%(T))
+	constant MORE_THAN_MIN_HALF_PERIOD_15 : std_logic_vector(15 downto 0) := ('0'&MIN_PERIOD(15 downto 1)) + 31*6;  -- (T/2 + 2.5%(T))
+	constant MORE_THAN_MID_HALF_PERIOD_15 : std_logic_vector(15 downto 0) := ('0'&MID_PERIOD(15 downto 1)) + 62*6;  -- (T/2 + 2.5%(T))
+	constant MORE_THAN_MAX_HALF_PERIOD_15 : std_logic_vector(15 downto 0) := ('0'&MAX_PERIOD(15 downto 1)) + 250*6; -- (T/2 + 2.5%(T))
+	
+	signal MORE_4PERIODS_MIN         : std_logic_vector(15 downto 0);
+	signal MORE_4PERIODS_MID         : std_logic_vector(15 downto 0);
+	signal MORE_4PERIODS_MAX         : std_logic_vector(15 downto 0);
+	signal LESS_4PERIODS_MIN         : std_logic_vector(15 downto 0);
+	signal LESS_4PERIODS_MID         : std_logic_vector(15 downto 0);
+	signal LESS_4PERIODS_MAX         : std_logic_vector(15 downto 0);
+	signal MORE_THAN_MIN_PERIOD      : std_logic_vector(15 downto 0);
+	signal MORE_THAN_MID_PERIOD      : std_logic_vector(15 downto 0);
+	signal MORE_THAN_MAX_PERIOD      : std_logic_vector(15 downto 0);
+	signal LESS_THAN_MIN_PERIOD      : std_logic_vector(15 downto 0);
+	signal LESS_THAN_MID_PERIOD      : std_logic_vector(15 downto 0);
+	signal LESS_THAN_MAX_PERIOD      : std_logic_vector(15 downto 0);
+	signal MORE_THAN_MIN_HALF_PERIOD : std_logic_vector(15 downto 0);
+	signal MORE_THAN_MID_HALF_PERIOD : std_logic_vector(15 downto 0);
+	signal MORE_THAN_MAX_HALF_PERIOD : std_logic_vector(15 downto 0);
+-- Antim 19/04/2015	
+	
+	
+--*** TEST
+-- speed_grade = "10" => 0 - 7
+-- speed_grade = "01" => 0 - 15
+-- speed_grade = "00" => 0 - 49
+--	constant MORE_4PERIODS_MIN       : std_logic_vector(15 downto 0) := X"0028"; -- 40 (8*4 + 8)
+--	constant MORE_4PERIODS_MID    : std_logic_vector(15 downto 0) := X"0048"; -- 72 (16*4 + 8)
+--	constant MORE_4PERIODS_MAX       : std_logic_vector(15 downto 0) := X"00D0"; -- 208 (50*4 + 8)
+--	constant LESS_4PERIODS_MIN       : std_logic_vector(15 downto 0) := X"0018"; -- 24 (8*4 - 8)
+--	constant LESS_4PERIODS_MID    : std_logic_vector(15 downto 0) := X"0038"; -- 56 (16*4 - 8)
+--	constant LESS_4PERIODS_MAX       : std_logic_vector(15 downto 0) := X"00C0"; -- 192 (50*4 - 8)
+--	constant QUARTER_MIN_PERIOD      : std_logic_vector(15 downto 0) := X"0001"; -- 1 (8/4 - 1)
+--	constant QUARTER_MID_PERIOD   : std_logic_vector(15 downto 0) := X"0003"; -- 3 (16/4 - 1)
+--	constant QUARTER_MAX_PERIOD      : std_logic_vector(15 downto 0) := X"000B"; -- 11 (50/4 - 1)
+--	constant MORE_THAN_MIN_PERIOD    : std_logic_vector(15 downto 0) := X"0009"; -- 9  (7 + 2)
+--	constant MORE_THAN_MID_PERIOD : std_logic_vector(15 downto 0) := X"0011"; -- 17 (15 + 2)
+--	constant MORE_THAN_MAX_PERIOD    : std_logic_vector(15 downto 0) := X"0033"; -- 51 (49 + 2)
+--	constant LESS_THAN_MIN_PERIOD    : std_logic_vector(15 downto 0) := X"0005"; -- 5  (7 - 2)
+--	constant LESS_THAN_MID_PERIOD : std_logic_vector(15 downto 0) := X"000D"; -- 13 (15 - 2)
+--	constant LESS_THAN_MAX_PERIOD    : std_logic_vector(15 downto 0) := X"002F"; -- 47 (49 - 2)
+--	constant MORE_THAN_MIN_HALF_PERIOD    : std_logic_vector(15 downto 0) := X"0006"; -- 6  (8/2 + 2)
+--	constant MORE_THAN_MID_HALF_PERIOD : std_logic_vector(15 downto 0) := X"000A"; -- 10 (16/2 + 2)
+--	constant MORE_THAN_MAX_HALF_PERIOD    : std_logic_vector(15 downto 0) := X"001B"; -- 27 (50/2 + 2)
+--*** TEST
+
+	signal event_trg : std_logic; -- status read trg
+	signal ctrl_trg : std_logic; 
+	signal mask_trg : std_logic;
+	signal event_trg_dff : std_logic;
+	signal read_data : std_logic_vector(15 downto 0); -- status read register
+	signal A429_ctrl_ff : std_logic_vector(7 downto 0); -- reset and select mode register
+	signal mask_ff : std_logic_vector(7 downto 0); -- mask register
+
+	signal event_rxne : std_logic;
+	signal event_rxor : std_logic; 
+	signal event_par_err : std_logic;
+	signal event_int_gt4t : std_logic;
+	signal event_int_lt4t : std_logic;
+	signal event_sync_fail : std_logic;
+
+
+-- reset front impuls
+	signal rx_sclr_trg : std_logic;
+
+	signal rx_data_ena : std_logic; -- '1' - then transmit enable
+	signal rx_sclr : std_logic; -- '1' - then synch reset
+	signal rx_par_ignore : std_logic; -- '1' = 32bit by soft; '0' = 32bit by calc parity;
+	signal rx_bit_seq : std_logic;
+	
+	
+	signal or_rxd : std_logic;
+	signal or_rxd_dff : std_logic;
+	signal or_rxd_strob : std_logic;
+	signal rxd_0_ff : std_logic;
+	signal rxd_0_ff_dff : std_logic;
+	signal rxd_1_ff : std_logic;
+	signal rxd_1_ff_dff : std_logic;
+
+-- input clock divider counter
+	signal clk_div_count_0 : std_logic_vector(15 downto 0);
+	signal clk_div_count_0_ff : std_logic_vector(15 downto 0);
+	signal clk_div_count_1 : std_logic_vector(15 downto 0);
+--	signal clk_div_count_1_ff : std_logic_vector(15 downto 0);
+
+-- pause detect counter
+	signal pause_detect_trg : std_logic;
+	signal pause_detect_strob : std_logic;
+	signal pause_detect_error_more_trg : std_logic;
+	signal pause_detect_error_less_trg : std_logic;
+
+-- pause_detect_fail_impuls
+	signal pause_detect_fail_trg : std_logic;
+	signal pause_detect_fail_trg_dff : std_logic;
+
+-- create clock from input signal
+	signal input_clk_trg : std_logic;
+
+-- input_clk_trg counter
+	signal input_clk_count : std_logic_vector(15 downto 0);
+
+-- data strob trg
+	signal data_strob_trg : std_logic;
+	signal shift_data_strob_trg : std_logic;
+
+-- bit control counter
+	signal bit_cntr_count : std_logic_vector(4 downto 0);
+	signal bit_cntr_trg : std_logic;
+
+-- period control counter
+	signal period_cntr_count : std_logic_vector(15 downto 0);
+	signal period_cntr_fail_trg : std_logic;
+	
+-- input data fail synch trg
+	signal inp_dt_synch_fail_trg : std_logic;
+
+-- speed grade
+	signal real_speed_grade : std_logic_vector(1 downto 0);
+	signal rx_speed_grade : std_logic_vector(1 downto 0);
+
+-- data trigger
+	signal data_trg : std_logic;
+
+-- parity check
+	signal fifo_data_2d : STD_LOGIC_2D (30 DOWNTO 0, 0 DOWNTO 0);
+	signal parity_32 : std_logic_vector(0 downto 0);
+
+-- parity fail trg
+	signal parity_fail_trg : std_logic;
+
+-- input shift register
+	signal in_data_shift : std_logic_vector(31 downto 0);
+	signal rd_req_fifo : std_logic;
+	signal rd_fifo_data : std_logic_vector(31 downto 0);
+
+-- wr fifo empty active trg
+	signal rd_fifo_full_trg : std_logic;
+
+-- fifo
+	COMPONENT scfifo
+	GENERIC (
+		add_ram_output_register		: STRING;
+		intended_device_family		: STRING;
+		lpm_hint		: STRING;
+		lpm_numwords		: NATURAL;
+		lpm_showahead		: STRING;
+		lpm_type		: STRING;
+		lpm_width		: NATURAL;
+		lpm_widthu		: NATURAL;
+		overflow_checking		: STRING;
+		underflow_checking		: STRING;
+		use_eab		: STRING
+	);
+	PORT (
+			usedw	: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
+			rdreq	: IN STD_LOGIC ;
+			sclr	: IN STD_LOGIC ;
+			full	: OUT STD_LOGIC ;
+			aclr	: IN STD_LOGIC ;
+			clock	: IN STD_LOGIC ;
+			empty : OUT STD_LOGIC ;
+			q	: OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
+			wrreq	: IN STD_LOGIC ;
+			data	: IN STD_LOGIC_VECTOR (31 DOWNTO 0)
+	);
+	END COMPONENT;
+	signal rx_fifo_used : std_logic_vector(7 downto 0);
+	signal rd_fifo_full : std_logic;
+	signal rd_fifo_q : std_logic_vector(31 downto 0);
+	signal rd_fifo_q_node : std_logic_vector(31 downto 0);
+	
+-- receive data address detect trigger
+	signal rx_data_trg : std_logic;
+	signal rx_data_trg_dff : std_logic;	
+	
+BEGIN
+
+--	process (clk, nReset)
+--	begin
+--		if (nReset = '0') then
+--	
+--		elsif rising_edge(clk) then
+--	
+--		end if;
+--	end process;
+
+--***TEST
+	--SHIFT_NUMBER_VALUE_std_out <= SHIFT_NUMBER_VALUE_std;
+--***TEST
+
+-- INT ena
+	int_ena <= 	'1' when (event_rxne = '1') and (mask_ff(0) = '1') else
+					'1' when (event_par_err = '1') and (mask_ff(1) = '1') else
+					'1' when (event_int_gt4t = '1') and (mask_ff(2) = '1') else
+					'1' when (event_int_lt4t = '1') and (mask_ff(3) = '1') else
+					'1' when (event_sync_fail = '1') and (mask_ff(4) = '1') else
+					'1' when (event_rxor = '1') and (mask_ff(7) = '1') else
+					'0';
+
+-- status read trg
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			event_trg <= '0';
+			ctrl_trg <= '0';
+			mask_trg <= '0';
+			event_trg_dff <= '0';
+		elsif rising_edge(clk) then
+			if (rd_adr(15 downto 4) = A429_RX_EVENT(15 downto 4)) then
+				event_trg <= '1';
+			else 
+				event_trg <= '0';
+			end if;
+			if (rd_adr(15 downto 4) = A429_RX_CTRL(15 downto 4)) then
+				ctrl_trg <= '1';
+			else 
+				ctrl_trg <= '0';
+			end if;
+			if (rd_adr(15 downto 4) = A429_RX_MASK(15 downto 4)) then
+				mask_trg <= '1';
+			else 
+				mask_trg <= '0';
+			end if;
+			event_trg_dff <= event_trg;
+		end if;
+	end process;
+
+--***TEST
+--ctrl_trg_out <= ctrl_trg;
+--***TEST
+
+-- status read register
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			read_data <= (others => '0');
+		elsif rising_edge(clk) then
+			if (event_trg = '1') then
+				read_data(15 downto 8) <= rx_fifo_used;
+				read_data(7) <= event_rxor;
+				read_data(6 downto 5) <= real_speed_grade;
+				read_data(4) <= event_sync_fail;
+				read_data(3) <= event_int_lt4t;
+				read_data(2) <= event_int_gt4t;
+				read_data(1) <= event_par_err;
+				read_data(0) <= event_rxne;
+			elsif (ctrl_trg = '1') then
+				read_data(15 downto 8) <= (others => '0');
+				read_data(7 downto 0)  <= A429_ctrl_ff;
+			elsif (mask_trg = '1') then
+				read_data(15 downto 8) <= (others => '0');
+				read_data(7 downto 0)  <= mask_ff;
+			else 
+				read_data <= (others => '0');
+			end if;
+		end if;
+	end process;
+
+	event_rxne <= '1' when (rx_fifo_used > 0) else '0';
+	event_rxor <= '1' when (rx_fifo_used > X"FE") else '0'; 
+	event_par_err <= parity_fail_trg;
+	event_int_gt4t <= pause_detect_error_more_trg;
+	event_int_lt4t <= pause_detect_error_less_trg;
+	event_sync_fail <= inp_dt_synch_fail_trg;
+
+-- reset and select mode register
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			A429_ctrl_ff <= (others => '0');
+		elsif rising_edge(clk) then
+			if (wr_adr(15 downto 4) = A429_RX_CTRL(15 downto 4)) then
+				if (wr_be_0(0) = '1') and (wren_0 = '1') then
+					A429_ctrl_ff <= wr_data_0(7 downto 0);
+				end if;
+			end if;
+		end if;
+	end process;
+
+-- mask register
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			mask_ff <= (others => '0');
+		elsif rising_edge(clk) then
+			if (wr_adr(15 downto 4) = A429_RX_MASK(15 downto 4)) then
+				if (wr_be_0(0) = '1') and (wren_0 = '1') then
+					mask_ff <= wr_data_0(7 downto 0);
+				end if;
+			end if;
+		end if;
+	end process;
+
+-- reset front impuls
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			rx_sclr_trg <= '0';
+		elsif rising_edge(clk) then
+			rx_sclr_trg <= A429_ctrl_ff(3);
+		end if;
+	end process;	
+
+	rx_speed_grade <= A429_ctrl_ff(1 downto 0); -- "00" = 12.5 KHz; "01" = 50 KHz; "10" = 100 KHz;
+	rx_data_ena <= A429_ctrl_ff(2); -- '1' - then receive enable
+	rx_sclr <= A429_ctrl_ff(3) and not rx_sclr_trg; -- '1' - then synch reset
+	rx_par_ignore <= A429_ctrl_ff(4); -- '1' = 32bit by soft; '0' = 32bit by calc parity;
+
+	rx_bit_seq <= A429_ctrl_ff(5);
+	
+	-- more than 2.5% input delays
+	rx_more_than_2_5_node <= A429_ctrl_ff(6);
+
+
+-- Antim 19/04/2015	
+	MORE_4PERIODS_MIN         <= 	MORE_4PERIODS_MIN_2_5 when (rx_more_than_2_5_node = '0') else
+											MORE_4PERIODS_MIN_15 when (rx_more_than_2_5_node = '1');
+											
+	MORE_4PERIODS_MID         <= 	MORE_4PERIODS_MID_2_5 when (rx_more_than_2_5_node = '0') else
+											MORE_4PERIODS_MID_15 when (rx_more_than_2_5_node = '1');
+											
+	MORE_4PERIODS_MAX         <= 	MORE_4PERIODS_MAX_2_5 when (rx_more_than_2_5_node = '0') else
+											MORE_4PERIODS_MAX_15 when (rx_more_than_2_5_node = '1');
+											
+	LESS_4PERIODS_MIN         <= 	LESS_4PERIODS_MIN_2_5 when (rx_more_than_2_5_node = '0') else
+											LESS_4PERIODS_MIN_15 when (rx_more_than_2_5_node = '1');
+											
+	LESS_4PERIODS_MID         <= 	LESS_4PERIODS_MID_2_5 when (rx_more_than_2_5_node = '0') else
+											LESS_4PERIODS_MID_15 when (rx_more_than_2_5_node = '1');
+											
+	LESS_4PERIODS_MAX         <= 	LESS_4PERIODS_MAX_2_5 when (rx_more_than_2_5_node = '0') else
+											LESS_4PERIODS_MAX_15 when (rx_more_than_2_5_node = '1');
+											
+	MORE_THAN_MIN_PERIOD      <= 	MORE_THAN_MIN_PERIOD_2_5 when (rx_more_than_2_5_node = '0') else
+											MORE_THAN_MIN_PERIOD_15 when (rx_more_than_2_5_node = '1');
+											
+	MORE_THAN_MID_PERIOD      <= 	MORE_THAN_MID_PERIOD_2_5 when (rx_more_than_2_5_node = '0') else
+											MORE_THAN_MID_PERIOD_15 when (rx_more_than_2_5_node = '1');
+											
+	MORE_THAN_MAX_PERIOD      <= 	MORE_THAN_MAX_PERIOD_2_5 when (rx_more_than_2_5_node = '0') else
+											MORE_THAN_MAX_PERIOD_15 when (rx_more_than_2_5_node = '1');
+											
+	LESS_THAN_MIN_PERIOD      <= 	LESS_THAN_MIN_PERIOD_2_5 when (rx_more_than_2_5_node = '0') else
+											LESS_THAN_MIN_PERIOD_15 when (rx_more_than_2_5_node = '1');
+											
+	LESS_THAN_MID_PERIOD      <= 	LESS_THAN_MID_PERIOD_2_5 when (rx_more_than_2_5_node = '0') else
+											LESS_THAN_MID_PERIOD_15 when (rx_more_than_2_5_node = '1');
+											
+	LESS_THAN_MAX_PERIOD      <= 	LESS_THAN_MAX_PERIOD_2_5 when (rx_more_than_2_5_node = '0') else
+											LESS_THAN_MAX_PERIOD_15 when (rx_more_than_2_5_node = '1');
+											
+	MORE_THAN_MIN_HALF_PERIOD <= 	MORE_THAN_MIN_HALF_PERIOD_2_5 when (rx_more_than_2_5_node = '0') else
+											MORE_THAN_MIN_HALF_PERIOD_15 when (rx_more_than_2_5_node = '1');
+											
+	MORE_THAN_MID_HALF_PERIOD <= 	MORE_THAN_MID_HALF_PERIOD_2_5 when (rx_more_than_2_5_node = '0') else
+											MORE_THAN_MID_HALF_PERIOD_15 when (rx_more_than_2_5_node = '1');
+											
+	MORE_THAN_MAX_HALF_PERIOD <= 	MORE_THAN_MAX_HALF_PERIOD_2_5 when (rx_more_than_2_5_node = '0') else
+											MORE_THAN_MAX_HALF_PERIOD_15 when (rx_more_than_2_5_node = '1');
+-- Antim 19/04/2015	
+	
+--***TEST	
+--	rx_speed_grade <= in_rx_speed_grade;
+--	rx_data_ena <= in_rx_data_ena;
+--	rx_sclr <= in_rx_sclr;
+--	rx_par_ignore <= in_rx_par_ignore;
+--***TEST	
+
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			--or_rxd <= '0';
+			rxd_0_ff <= '0';
+			rxd_1_ff <= '0';
+			rxd_0_ff_dff <= '0';
+			rxd_1_ff_dff <= '0';
+		elsif rising_edge(clk) then
+			if (rx_data_ena = '0') or (rx_sclr = '1') then
+				rxd_0_ff <= '0';
+				rxd_1_ff <= '0';
+			else
+			--or_rxd <= rxd_0 or rxd_1;
+				rxd_0_ff <= rxd_0;
+				rxd_1_ff <= rxd_1;
+			end if;
+			rxd_0_ff_dff <= rxd_0_ff;
+			rxd_1_ff_dff <= rxd_1_ff;
+		end if;
+	end process;
+	or_rxd <= rxd_0_ff or rxd_1_ff;
+	or_rxd_dff <= rxd_0_ff_dff or rxd_1_ff_dff;
+	
+	or_rxd_strob <= or_rxd and not or_rxd_dff;
+	
+
+--***TEST
+--	or_rxd_out <= or_rxd;
+--***TEST	
+	
+-- input clock divider counter
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			clk_div_count_0 <= (others => '0');
+			clk_div_count_1 <= (others => '0');
+			clk_div_count_0_ff <= (others => '0');
+--			clk_div_count_1_ff <= (others => '0');
+		elsif rising_edge(clk) then
+			if (rx_data_ena = '0') or (rx_sclr = '1') then
+				clk_div_count_0 <= (others => '0');
+				clk_div_count_1 <= (others => '0');
+				clk_div_count_0_ff <= (others => '0');
+--				clk_div_count_1_ff <= (others => '0');
+			else
+				if (or_rxd = '0') then
+					clk_div_count_0 <= clk_div_count_0 + 1;
+					clk_div_count_1 <= (others => '0');
+				else 
+					clk_div_count_0 <= (others => '0');
+					clk_div_count_1 <= clk_div_count_1 + 1;
+				end if;
+				if (or_rxd = '0') then
+					clk_div_count_0_ff <= clk_div_count_0 + 1;
+--				else
+--					clk_div_count_1_ff <= clk_div_count_1 + 1;
+				end if;
+			end if;
+		end if;
+	end process;
+
+--***TEST
+--	clk_div_count_0_ff_out <= clk_div_count_0_ff;
+--***TEST
+
+-- pause detect counter
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			pause_detect_strob <= '0';
+			pause_detect_error_more_trg <= '0';
+			pause_detect_error_less_trg <= '0';
+			pause_detect_trg <= '0';
+		elsif rising_edge(clk) then
+			if (rx_data_ena = '0') or (rx_sclr = '1') then
+				pause_detect_strob <= '0';
+				pause_detect_error_more_trg <= '0';
+				pause_detect_error_less_trg <= '0';
+				pause_detect_trg <= '0';
+			else
+				-- pause strobe than zero state more than half period
+				if    (or_rxd = '0') and (clk_div_count_0 = MORE_THAN_MAX_HALF_PERIOD) and (rx_speed_grade = "00") then
+					pause_detect_strob <= '1';
+				elsif (or_rxd = '0') and (clk_div_count_0 = MORE_THAN_MID_HALF_PERIOD) and (rx_speed_grade = "01") then
+					pause_detect_strob <= '1';
+				elsif (or_rxd = '0') and (clk_div_count_0 = MORE_THAN_MIN_HALF_PERIOD) and (rx_speed_grade = "10") then
+					pause_detect_strob <= '1';
+				else
+					pause_detect_strob <= '0';
+				end if;
+				-- pause error than zero state more than 4.5 periods = 4 + 0.5
+				if    (or_rxd = '0') and (clk_div_count_0 = MORE_4PERIODS_MAX + MAX_HALF_PERIOD) and (rx_speed_grade = "00") then
+					pause_detect_error_more_trg <= '1';
+				elsif (or_rxd = '0') and (clk_div_count_0 = MORE_4PERIODS_MID + MID_HALF_PERIOD) and (rx_speed_grade = "01") then
+					pause_detect_error_more_trg <= '1';
+				elsif (or_rxd = '0') and (clk_div_count_0 = MORE_4PERIODS_MIN + MIN_HALF_PERIOD) and (rx_speed_grade = "10") then
+					pause_detect_error_more_trg <= '1';
+				elsif (event_trg = '0') and (event_trg_dff = '1') then
+					pause_detect_error_more_trg <= '0';
+				end if;
+				-- pause error than zero state less than 4.5 periods = 4 + 0.5
+				if    (or_rxd_strob = '1') and (pause_detect_trg = '1') and (clk_div_count_0_ff < LESS_4PERIODS_MAX + MAX_HALF_PERIOD) and (rx_speed_grade = "00") then
+					pause_detect_error_less_trg <= '1';
+				elsif (or_rxd_strob = '1') and (pause_detect_trg = '1') and (clk_div_count_0_ff < LESS_4PERIODS_MID + MID_HALF_PERIOD) and (rx_speed_grade = "01") then
+					pause_detect_error_less_trg <= '1';
+				elsif (or_rxd_strob = '1') and (pause_detect_trg = '1') and (clk_div_count_0_ff < LESS_4PERIODS_MIN + MIN_HALF_PERIOD) and (rx_speed_grade = "10") then
+					pause_detect_error_less_trg <= '1';
+				elsif (event_trg = '0') and (event_trg_dff = '1') then
+					pause_detect_error_less_trg <= '0';
+				end if;
+				-- Oause detect trigger equals state 1 till first (data = 1)
+				if (or_rxd_strob = '1') then 
+					pause_detect_trg <= '0';
+				elsif (or_rxd = '0') and (clk_div_count_0 = MORE_THAN_MAX_HALF_PERIOD) and (rx_speed_grade = "00") then
+					pause_detect_trg <= '1';
+				elsif (or_rxd = '0') and (clk_div_count_0 = MORE_THAN_MID_HALF_PERIOD) and (rx_speed_grade = "01") then
+					pause_detect_trg <= '1';
+				elsif (or_rxd = '0') and (clk_div_count_0 = MORE_THAN_MIN_HALF_PERIOD) and (rx_speed_grade = "10") then
+					pause_detect_trg <= '1';
+				end if;
+			end if;
+		end if;
+	end process;
+
+-- pause_detect_fail_impuls
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			pause_detect_fail_trg <= '0';
+			pause_detect_fail_trg_dff <= '0';
+		elsif rising_edge(clk) then
+			pause_detect_fail_trg <= pause_detect_error_more_trg or pause_detect_error_less_trg;
+			pause_detect_fail_trg_dff <= pause_detect_fail_trg;
+		end if;
+	end process;
+	
+-- create clock from input signal
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			input_clk_trg <= '0';
+		elsif rising_edge(clk) then
+			if (rx_data_ena = '0') or (rx_sclr = '1') then
+				input_clk_trg <= '0';
+			else
+				if    (clk_div_count_1 = QUARTER_MAX_PERIOD) and (input_clk_trg = '0') and (rx_speed_grade = "00") then
+					input_clk_trg <= '1';
+				elsif (clk_div_count_1 = QUARTER_MID_PERIOD) and (input_clk_trg = '0') and (rx_speed_grade = "01") then
+					input_clk_trg <= '1';
+				elsif (clk_div_count_1 = QUARTER_MIN_PERIOD) and (input_clk_trg = '0') and (rx_speed_grade = "10") then
+					input_clk_trg <= '1';
+				elsif (clk_div_count_0 = QUARTER_MAX_PERIOD) and (input_clk_trg = '1') and (rx_speed_grade = "00") then
+					input_clk_trg <= '0';
+				elsif (clk_div_count_0 = QUARTER_MID_PERIOD) and (input_clk_trg = '1') and (rx_speed_grade = "01") then
+					input_clk_trg <= '0';
+				elsif (clk_div_count_0 = QUARTER_MIN_PERIOD) and (input_clk_trg = '1') and (rx_speed_grade = "10") then
+					input_clk_trg <= '0';
+				end if;
+			end if;
+		end if;
+	end process;
+
+-- input_clk_trg counter
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			input_clk_count <= (others => '0');
+		elsif rising_edge(clk) then	
+			if (input_clk_trg = '1') then
+				input_clk_count <= input_clk_count + 1;
+			else
+				input_clk_count <= (others => '0');
+			end if;
+		end if;
+	end process;
+
+-- data strob trg
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			data_strob_trg <= '0';
+			shift_data_strob_trg <= '0';
+		elsif rising_edge(clk) then
+			if    (clk_div_count_0 = QUARTER_MAX_PERIOD) and (input_clk_trg = '1') and (rx_speed_grade = "00") then
+				data_strob_trg <= '1';
+			elsif (clk_div_count_0 = QUARTER_MID_PERIOD) and (input_clk_trg = '1') and (rx_speed_grade = "01") then
+				data_strob_trg <= '1';
+			elsif (clk_div_count_0 = QUARTER_MIN_PERIOD) and (input_clk_trg = '1') and (rx_speed_grade = "10") then
+				data_strob_trg <= '1';
+			else
+				data_strob_trg <= '0';
+			end if;
+			if    (clk_div_count_1 = QUARTER_MAX_PERIOD) and (input_clk_trg = '0') and (rx_speed_grade = "00") then
+				shift_data_strob_trg <= '1';
+			elsif (clk_div_count_1 = QUARTER_MID_PERIOD) and (input_clk_trg = '0') and (rx_speed_grade = "01") then
+				shift_data_strob_trg <= '1';
+			elsif (clk_div_count_1 = QUARTER_MIN_PERIOD) and (input_clk_trg = '0') and (rx_speed_grade = "10") then
+				shift_data_strob_trg <= '1';
+			else
+				shift_data_strob_trg <= '0';
+			end if;
+		end if;
+	end process;
+
+-- bit control counter
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			bit_cntr_count <= (others => '0');
+			bit_cntr_trg <= '0';
+		elsif rising_edge(clk) then
+			if (rx_data_ena = '0') or (rx_sclr = '1') then
+				bit_cntr_count <= (others => '0');
+				bit_cntr_trg <= '0';
+			else
+				if (period_cntr_fail_trg = '1') or (pause_detect_strob = '1') then
+					bit_cntr_count <= (others => '0');
+				elsif (data_strob_trg = '1') then
+					bit_cntr_count <= bit_cntr_count + 1;
+				end if;
+				if (period_cntr_fail_trg = '1') or (pause_detect_strob = '1') then
+					bit_cntr_trg <= '0';
+				elsif (data_strob_trg = '1') and (bit_cntr_count = 0) then
+					bit_cntr_trg <= '1';
+				elsif (data_strob_trg = '1') and (bit_cntr_count = 31) then
+					bit_cntr_trg <= '0';
+				end if;
+			end if;
+		end if;
+	end process;
+
+-- period control counter
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			period_cntr_count <= (others => '0');
+			period_cntr_fail_trg <= '0';
+		elsif rising_edge(clk) then
+			if (rx_data_ena = '0') or (rx_sclr = '1') then
+				period_cntr_count <= (others => '0');
+				period_cntr_fail_trg <= '0';
+			else
+				if (data_strob_trg = '1') or (pause_detect_strob = '1') or (bit_cntr_trg = '0') then
+					period_cntr_count <= (others => '0');
+				else
+					period_cntr_count <= period_cntr_count + 1;
+				end if;	
+				if (input_clk_count > MORE_THAN_MAX_HALF_PERIOD) then
+					period_cntr_fail_trg <= '1';
+				elsif (bit_cntr_trg = '0') then
+					period_cntr_fail_trg <= '0';
+				elsif (bit_cntr_trg = '1') and (data_strob_trg = '1') and ((period_cntr_count > MORE_THAN_MAX_PERIOD) or (period_cntr_count < LESS_THAN_MAX_PERIOD)) and (rx_speed_grade = "00") then
+					period_cntr_fail_trg <= '1';
+				elsif (bit_cntr_trg = '1') and (data_strob_trg = '1') and ((period_cntr_count > MORE_THAN_MID_PERIOD) or (period_cntr_count < LESS_THAN_MID_PERIOD)) and (rx_speed_grade = "01") then
+					period_cntr_fail_trg <= '1';
+				elsif (bit_cntr_trg = '1') and (data_strob_trg = '1') and ((period_cntr_count > MORE_THAN_MIN_PERIOD) or (period_cntr_count < LESS_THAN_MIN_PERIOD)) and (rx_speed_grade = "10") then
+					period_cntr_fail_trg <= '1';
+				end if;
+			end if;
+		end if;
+	end process;
+	
+	
+-- input data fail synch trg
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			inp_dt_synch_fail_trg <= '0';
+		elsif rising_edge(clk) then
+			if (rx_data_ena = '0') or (rx_sclr = '1') then
+				inp_dt_synch_fail_trg <= '0';
+			else
+				if (period_cntr_fail_trg = '1') then
+					inp_dt_synch_fail_trg <= '1';
+				elsif (event_trg = '0') and (event_trg_dff = '1') then
+					inp_dt_synch_fail_trg <= '0';
+				end if;
+			end if;
+		end if;
+	end process;
+
+-- real speed grade trg
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			real_speed_grade <= "11";
+		elsif rising_edge(clk) then
+			if (rx_data_ena = '0') or (rx_sclr = '1') or ((pause_detect_fail_trg = '1') and (pause_detect_fail_trg_dff = '0')) then
+				real_speed_grade <= "11";
+			else
+				if ((or_rxd = '0') and (clk_div_count_0 = MORE_4PERIODS_MAX + MAX_HALF_PERIOD)) then
+					real_speed_grade <= "11";
+				elsif (bit_cntr_trg = '1') and (data_strob_trg = '1') and ((period_cntr_count < MORE_THAN_MAX_PERIOD) and (period_cntr_count > LESS_THAN_MAX_PERIOD)) then
+					real_speed_grade <= "00";
+				elsif (bit_cntr_trg = '1') and (data_strob_trg = '1') and ((period_cntr_count < MORE_THAN_MID_PERIOD) and (period_cntr_count > LESS_THAN_MID_PERIOD)) then
+					real_speed_grade <= "01";
+				elsif (bit_cntr_trg = '1') and (data_strob_trg = '1') and ((period_cntr_count < MORE_THAN_MIN_PERIOD) and (period_cntr_count > LESS_THAN_MIN_PERIOD)) then
+					real_speed_grade <= "10";
+				end if;
+			end if;
+		end if;
+	end process;
+
+--*** TEST
+--	speed_grade_out <= real_speed_grade;
+--*** TEST
+
+-- data trigger
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			data_trg <= '0';
+		elsif rising_edge(clk) then
+			if (shift_data_strob_trg = '1') and (rxd_0_ff = '0') and (rxd_1_ff = '1') then
+				data_trg <= '1';
+			elsif (shift_data_strob_trg = '1') and (rxd_0_ff = '1') and (rxd_1_ff = '0') then
+				data_trg <= '0';
+			end if;
+		end if;
+	end process;
+
+	process(rd_fifo_data)
+	begin
+		for i in 1 to 31 loop
+			fifo_data_2d(i-1,0) <= rd_fifo_data(i);
+		end loop;
+	end process;
+
+	parity_xor : lpm_xor
+	GENERIC MAP (
+		lpm_size => 31,
+		lpm_type => "LPM_XOR",
+		lpm_width => 1
+	)
+	PORT MAP (
+		data => fifo_data_2d,
+		result => parity_32
+	);
+
+-- parity fail trg
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			parity_fail_trg <= '0';
+		elsif rising_edge(clk) then
+			if (rx_data_ena = '0') or (rx_sclr = '1') then
+				parity_fail_trg <= '0';
+			else
+				if (data_strob_trg = '1') and (bit_cntr_count = 31) and (rd_fifo_data(0) = parity_32(0)) then
+					parity_fail_trg <= '1';
+				elsif (event_trg = '0') and (event_trg_dff = '1') then
+					parity_fail_trg <= '0';
+				end if;
+			end if;
+		end if;
+	end process;
+
+-- input shift register
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			in_data_shift <= (others => '0');
+		elsif rising_edge(clk) then
+			if (period_cntr_fail_trg = '1') or (pause_detect_strob = '1') then
+				in_data_shift <= (others => '0');
+			elsif (data_strob_trg = '1') then
+				in_data_shift(0) <= data_trg;
+				in_data_shift(31 downto 1) <= in_data_shift(30 downto 0);
+			end if;
+		end if;
+	end process;	
+
+	rd_req_fifo <= '0' when (rx_fifo_used > X"FE") else
+						'1' when (rx_par_ignore = '0') and (rd_fifo_data(0) = not parity_32(0)) and (data_strob_trg = '1') and (bit_cntr_count = 31) else
+						'1' when (rx_par_ignore = '1') and (data_strob_trg = '1') and (bit_cntr_count = 31) else
+						'0';
+	rd_fifo_data <= in_data_shift(30 downto 0)&data_trg;
+
+--***TEST
+--	rd_req_fifo_out <= rd_req_fifo;
+--	rd_fifo_data_out <= rd_fifo_data;
+--***TEST
+
+-- rd fifo empty active trg
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			rd_fifo_full_trg <= '0';
+		elsif rising_edge(clk) then
+			if (rx_sclr = '1') then
+				rd_fifo_full_trg <= '0';
+			elsif (rd_req_fifo = '1') and (rd_fifo_full = '1') then
+				rd_fifo_full_trg <= '1';
+			elsif (event_trg = '0') and (event_trg_dff = '1') then
+				rd_fifo_full_trg <= '0';
+			end if;
+		end if;
+	end process;
+
+-- write fifo
+	ARINC_429_rd_fifo : scfifo
+	GENERIC MAP (
+		add_ram_output_register => "ON",
+		intended_device_family => "Cyclone III",
+		lpm_hint => "RAM_BLOCK_TYPE=M9K",
+		lpm_numwords => 256,
+		lpm_showahead => "ON",
+		lpm_type => "scfifo",
+		lpm_width => 32,
+		lpm_widthu => 8,
+		overflow_checking => "ON",
+		underflow_checking => "ON",
+		use_eab => "ON"
+	)
+	PORT MAP (
+		rdreq => rd_adr_change_dff and rx_data_trg_dff,
+		sclr => rx_sclr,
+		aclr => not nReset,
+		clock => clk,
+		wrreq => rd_req_fifo,
+		data => rd_fifo_data,
+		empty => open,
+		usedw => rx_fifo_used,
+		full => rd_fifo_full,
+		q => rd_fifo_q
+	);
+
+	process (rx_bit_seq)
+	begin
+		if (rx_bit_seq = '0') then
+			rd_fifo_q_node	<= rd_fifo_q;
+		else
+			rd_fifo_q_node(7 downto 0) <= rd_fifo_q(31 downto 24);
+			for i in 0 to 23 loop
+				rd_fifo_q_node(31 - i) <= rd_fifo_q(i);
+			end loop;
+		end if;
+	end process;
+	
+	
+		rd_data_0 <= 	rd_fifo_q_node(31 downto 0) when (rx_data_trg_dff = '1') else
+						(X"0000"&read_data);
+		
+		rd_data_1 <= (others => '0');
+
+--***TEST
+--rx_fifo_used_out <= rx_fifo_used;
+--***TEST
+
+-- receive data address detect trigger
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			rx_data_trg <= '0';
+			rx_data_trg_dff <= '0';
+		elsif rising_edge(clk) then
+			if 
+				(rd_adr(15 downto 4) = A429_RX_DATA(15 downto 4)) and 
+				(rd_adr(3 downto 0) = X"0") then
+				rx_data_trg <= '1';
+			else
+				rx_data_trg <= '0';
+			end if;
+			rx_data_trg_dff <= rx_data_trg;
+		end if;
+	end process;
+
+
+END RTL;

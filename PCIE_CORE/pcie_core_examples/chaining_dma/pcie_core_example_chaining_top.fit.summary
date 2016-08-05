@@ -1,0 +1,20 @@
+Fitter Status : Successful - Sun Nov 17 18:49:42 2013
+Quartus II Version : 10.1 Build 197 01/19/2011 SP 1 SJ Full Version
+Revision Name : pcie_core_example_chaining_top
+Top-level Entity Name : pcie_core_example_chaining_top
+Family : Cyclone IV GX
+Device : EP4CGX22CF19C6
+Timing Models : Preliminary
+Total logic elements : 5,486 / 21,280 ( 26 % )
+    Total combinational functions : 4,464 / 21,280 ( 21 % )
+    Dedicated logic registers : 3,951 / 21,280 ( 19 % )
+Total registers : 0
+Total pins : 25 / 167 ( 15 % )
+Total virtual pins : 0
+Total memory bits : 282,660 / 774,144 ( 37 % )
+Embedded Multiplier 9-bit elements : 0 / 80 ( 0 % )
+Total GXB Receiver Channel PCS : 1 / 4 ( 25 % )
+Total GXB Receiver Channel PMA : 1 / 4 ( 25 % )
+Total GXB Transmitter Channel PCS : 1 / 4 ( 25 % )
+Total GXB Transmitter Channel PMA : 1 / 4 ( 25 % )
+Total PLLs : 2 / 4 ( 50 % )

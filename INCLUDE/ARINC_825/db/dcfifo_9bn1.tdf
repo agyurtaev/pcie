@@ -1,0 +1,43 @@
+--dcfifo_mixed_widths ADD_USEDW_MSB_BIT="ON" CARRY_CHAIN="MANUAL" CARRY_CHAIN_LENGTH=48 DEVICE_FAMILY="Cyclone II" IGNORE_CARRY_BUFFERS="OFF" LPM_NUMWORDS=256 LPM_SHOWAHEAD="OFF" LPM_WIDTH=64 LPM_WIDTH_R=8 LPM_WIDTHU=9 LPM_WIDTHU_R=12 OVERFLOW_CHECKING="ON" RAM_BLOCK_TYPE="M9K" RDSYNC_DELAYPIPE=3 UNDERFLOW_CHECKING="ON" USE_EAB="ON" WRSYNC_DELAYPIPE=3 aclr data q rdclk rdempty rdreq rdusedw wrclk wrfull wrreq CYCLONEII_M4K_COMPATIBILITY="ON" INTENDED_DEVICE_FAMILY="Cyclone II" LOW_POWER_MODE="AUTO" lpm_hint="RAM_BLOCK_TYPE=M9K" ALTERA_INTERNAL_OPTIONS=AUTO_SHIFT_REGISTER_RECOGNITION=OFF
+--VERSION_BEGIN 7.1 cbx_a_gray2bin 2006:03:01:10:37:30:SJ cbx_a_graycounter 2006:06:01:06:44:48:SJ cbx_altdpram 2007:03:31:04:43:02:SJ cbx_altsyncram 2007:03:23:03:29:24:SJ cbx_cycloneii 2007:01:24:05:39:40:SJ cbx_dcfifo 2007:03:22:05:26:40:SJ cbx_fifo_common 2006:03:15:06:59:42:SJ cbx_flex10ke 2006:01:10:07:13:48:SJ cbx_lpm_add_sub 2007:01:09:07:15:18:SJ cbx_lpm_compare 2007:02:06:07:33:54:SJ cbx_lpm_counter 2007:03:23:18:17:10:SJ cbx_lpm_decode 2006:11:22:06:27:00:SJ cbx_lpm_mux 2006:11:22:06:27:10:SJ cbx_mgl 2007:04:10:12:17:42:SJ cbx_scfifo 2006:12:08:12:36:30:SJ cbx_stratix 2007:04:13:11:43:52:SJ cbx_stratixii 2007:02:13:13:08:38:SJ cbx_stratixiii 2007:03:14:09:58:22:SJ cbx_util_mgl 2007:01:16:08:23:04:SJ  VERSION_END
+
+
+-- Copyright (C) 1991-2007 Altera Corporation
+--  Your use of Altera Corporation's design tools, logic functions 
+--  and other software and tools, and its AMPP partner logic 
+--  functions, and any output files from any of the foregoing 
+--  (including device programming or simulation files), and any 
+--  associated documentation or information are expressly subject 
+--  to the terms and conditions of the Altera Program License 
+--  Subscription Agreement, Altera MegaCore Function License 
+--  Agreement, or other applicable license agreement, including, 
+--  without limitation, that your use is for the sole purpose of 
+--  programming logic devices manufactured by Altera and sold by 
+--  Altera or its authorized distributors.  Please refer to the 
+--  applicable agreement for further details.
+
+
+
+--synthesis_resources = 
+OPTIONS ALTERA_INTERNAL_OPTION = "AUTO_SHIFT_REGISTER_RECOGNITION=OFF";
+
+SUBDESIGN dcfifo_9bn1
+( 
+	aclr	:	input;
+	data[63..0]	:	input;
+	q[7..0]	:	output;
+	rdclk	:	input;
+	rdempty	:	output;
+	rdreq	:	input;
+	rdusedw[11..0]	:	output;
+	wrclk	:	input;
+	wrfull	:	output;
+	wrreq	:	input;
+) 
+
+BEGIN 
+	ASSERT (0) 
+	REPORT "Cannot use Write port width with Read port width in DCFIFO megafunction. The width ratio should be a power of 2."
+	SEVERITY ERROR;
+END;
+--ERROR FILE

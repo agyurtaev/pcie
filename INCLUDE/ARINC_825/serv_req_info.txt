@@ -1,0 +1,30 @@
+<internal_error>
+	<executable>quartus_map.exe</executable>
+	<sub_system>PDB</sub_system>
+	<file>/quartus/db/pdb/pdb_error.cpp</file>
+	<line>149</line>
+	<callstack>
+	0x001622ae: CCL_ERR + 0x22ae (?err_report_internal_error@@YAXPBD00H@Z + 0x1e)
+	0x00325aee: db_acf + 0x75aee (?remove_all_assignments_of_ase_category@ACF_MANAGER@@QAEIW4ASE_CATEGORY_ENUM@@@Z + 0x30f6e)
+	</callstack>
+	<error>pdb_id &lt;= object_info-&gt;m_ptr_table_size</error>
+	<date>Sun Jan 26 17:59:48 2014</date>
+	<version>Quartus II Version 7.1 Build 156 04/30/2007 SJ Full Version</version>
+	<full_error>pdb_id &lt;= object_info-&gt;m_ptr_table_size
+Quartus II Version 7.1 Build 156 04/30/2007 SJ Full Version </full_error>
+</internal_error>
+<internal_error>
+	<executable>quartus.exe</executable>
+	<sub_system>ERR</sub_system>
+	<file>q:\quartus\ccl\msg\msg_internal_error.cpp</file>
+	<line>724</line>
+	<callstack>
+	0x6f422e75:  + 0xd8cc19
+	</callstack>
+	<error>*** Fatal Error: Priv Instruction, Module: quartus.exe</error>
+	<date>Mon Jan 27 16:26:45 2014</date>
+	<version>Quartus II Version 7.1 Build 156 04/30/2007 SJ Full Version</version>
+	<full_error>
+*** Fatal Error: Priv Instruction, Module: quartus.exe
+Quartus II Version 7.1 Build 156 04/30/2007 SJ Full Version </full_error>
+</internal_error>

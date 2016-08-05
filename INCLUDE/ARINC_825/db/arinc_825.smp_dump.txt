@@ -1,0 +1,8 @@
+
+State Machine - |arinc_825|st_tx_reg
+Name st_tx_reg.st_unused_fetch st_tx_reg.st_byte_trans st_tx_reg.st_check_trans st_tx_reg.st_count_read st_tx_reg.idle 
+st_tx_reg.idle 0 0 0 0 0 
+st_tx_reg.st_count_read 0 0 0 1 1 
+st_tx_reg.st_check_trans 0 0 1 0 1 
+st_tx_reg.st_byte_trans 0 1 0 0 1 
+st_tx_reg.st_unused_fetch 1 0 0 0 1 

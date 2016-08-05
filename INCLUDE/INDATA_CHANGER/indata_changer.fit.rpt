@@ -1,0 +1,1553 @@
+Fitter report for indata_changer
+Sun Jan 26 12:57:19 2014
+Quartus II Version 7.1 Build 156 04/30/2007 SJ Full Version
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Fitter Summary
+  3. Fitter Settings
+  4. Pin-Out File
+  5. Fitter Resource Usage Summary
+  6. Input Pins
+  7. Output Pins
+  8. I/O Bank Usage
+  9. All Package Pins
+ 10. Output Pin Default Load For Reported TCO
+ 11. Fitter Resource Utilization by Entity
+ 12. Delay Chain Summary
+ 13. Pad To Core Delay Chain Fanout
+ 14. Control Signals
+ 15. Global & Other Fast Signals
+ 16. Non-Global High Fan-Out Signals
+ 17. Interconnect Usage Summary
+ 18. LAB Logic Elements
+ 19. LAB-wide Signals
+ 20. LAB Signals Sourced
+ 21. LAB Signals Sourced Out
+ 22. LAB Distinct Inputs
+ 23. Fitter Device Options
+ 24. Fitter Messages
+ 25. Fitter Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2007 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++-------------------------------------------------------------------------------+
+; Fitter Summary                                                                ;
++------------------------------------+------------------------------------------+
+; Fitter Status                      ; Successful - Sun Jan 26 12:57:19 2014    ;
+; Quartus II Version                 ; 7.1 Build 156 04/30/2007 SJ Full Version ;
+; Revision Name                      ; indata_changer                           ;
+; Top-level Entity Name              ; indata_changer                           ;
+; Family                             ; Cyclone III                              ;
+; Device                             ; EP3C5F256C7                              ;
+; Timing Models                      ; Preliminary                              ;
+; Total logic elements               ; 105 / 5,136 ( 2 % )                      ;
+;     Total combinational functions  ; 105 / 5,136 ( 2 % )                      ;
+;     Dedicated logic registers      ; 33 / 5,136 ( < 1 % )                     ;
+; Total registers                    ; 33                                       ;
+; Total pins                         ; 135 / 183 ( 74 % )                       ;
+; Total virtual pins                 ; 0                                        ;
+; Total memory bits                  ; 0 / 423,936 ( 0 % )                      ;
+; Embedded Multiplier 9-bit elements ; 0 / 46 ( 0 % )                           ;
+; Total PLLs                         ; 0 / 2 ( 0 % )                            ;
++------------------------------------+------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------+
+; Fitter Settings                                                                                                                         ;
++-----------------------------------------------------------------------+--------------------------------+--------------------------------+
+; Option                                                                ; Setting                        ; Default Value                  ;
++-----------------------------------------------------------------------+--------------------------------+--------------------------------+
+; Device                                                                ; EP3C5F256C7                    ;                                ;
+; Fit Attempts to Skip                                                  ; 0                              ; 0.0                            ;
+; Use TimeQuest Timing Analyzer                                         ; Off                            ;                                ;
+; Router Timing Optimization Level                                      ; Normal                         ; Normal                         ;
+; Placement Effort Multiplier                                           ; 1.0                            ; 1.0                            ;
+; Router Effort Multiplier                                              ; 1.0                            ; 1.0                            ;
+; Optimize Hold Timing                                                  ; IO Paths and Minimum TPD Paths ; IO Paths and Minimum TPD Paths ;
+; Optimize Fast-Corner Timing                                           ; Off                            ; Off                            ;
+; PowerPlay Power Optimization                                          ; Normal compilation             ; Normal compilation             ;
+; Optimize Timing                                                       ; Normal compilation             ; Normal compilation             ;
+; Optimize IOC Register Placement for Timing                            ; On                             ; On                             ;
+; Limit to One Fitting Attempt                                          ; Off                            ; Off                            ;
+; Final Placement Optimizations                                         ; Automatically                  ; Automatically                  ;
+; Fitter Aggressive Routability Optimizations                           ; Automatically                  ; Automatically                  ;
+; Fitter Initial Placement Seed                                         ; 1                              ; 1                              ;
+; PCI I/O                                                               ; Off                            ; Off                            ;
+; Weak Pull-Up Resistor                                                 ; Off                            ; Off                            ;
+; Enable Bus-Hold Circuitry                                             ; Off                            ; Off                            ;
+; Auto Global Memory Control Signals                                    ; Off                            ; Off                            ;
+; Auto Packed Registers -- Stratix II/II GX/III Cyclone II/III Arria GX ; Auto                           ; Auto                           ;
+; Auto Delay Chains                                                     ; On                             ; On                             ;
+; Auto Merge PLLs                                                       ; On                             ; On                             ;
+; Perform Physical Synthesis for Combinational Logic for Fitting        ; Off                            ; Off                            ;
+; Perform Physical Synthesis for Combinational Logic for Performance    ; Off                            ; Off                            ;
+; Perform Register Duplication for Performance                          ; Off                            ; Off                            ;
+; Perform Logic to Memory Mapping for Fitting                           ; Off                            ; Off                            ;
+; Perform Register Retiming for Performance                             ; Off                            ; Off                            ;
+; Perform Asynchronous Signal Pipelining                                ; Off                            ; Off                            ;
+; Fitter Effort                                                         ; Auto Fit                       ; Auto Fit                       ;
+; Physical Synthesis Effort Level                                       ; Normal                         ; Normal                         ;
+; Logic Cell Insertion - Logic Duplication                              ; Auto                           ; Auto                           ;
+; Auto Register Duplication                                             ; Auto                           ; Auto                           ;
+; Auto Global Clock                                                     ; On                             ; On                             ;
+; Auto Global Register Control Signals                                  ; On                             ; On                             ;
+; Stop After Congestion Map Generation                                  ; Off                            ; Off                            ;
+; Save Intermediate Fitting Results                                     ; Off                            ; Off                            ;
+; Use smart compilation                                                 ; Off                            ; Off                            ;
++-----------------------------------------------------------------------+--------------------------------+--------------------------------+
+
+
++--------------+
+; Pin-Out File ;
++--------------+
+The pin-out file can be found in E:/temp/PCIE/INDATA_CHANGER/indata_changer.pin.
+
+
++--------------------------------------------------------------------+
+; Fitter Resource Usage Summary                                      ;
++---------------------------------------------+----------------------+
+; Resource                                    ; Usage                ;
++---------------------------------------------+----------------------+
+; Total logic elements                        ; 105 / 5,136 ( 2 % )  ;
+;     -- Combinational with no register       ; 72                   ;
+;     -- Register only                        ; 0                    ;
+;     -- Combinational with a register        ; 33                   ;
+;                                             ;                      ;
+; Logic element usage by number of LUT inputs ;                      ;
+;     -- 4 input functions                    ; 67                   ;
+;     -- 3 input functions                    ; 37                   ;
+;     -- <=2 input functions                  ; 1                    ;
+;     -- Register only                        ; 0                    ;
+;                                             ;                      ;
+; Logic elements by mode                      ;                      ;
+;     -- normal mode                          ; 105                  ;
+;     -- arithmetic mode                      ; 0                    ;
+;                                             ;                      ;
+; Total registers*                            ; 33 / 6,193 ( < 1 % ) ;
+;     -- Dedicated logic registers            ; 33 / 5,329 ( < 1 % ) ;
+;     -- I/O registers                        ; 0 / 864 ( 0 % )      ;
+;                                             ;                      ;
+; Total LABs:  partially or completely used   ; 7 / 321 ( 2 % )      ;
+; User inserted logic elements                ; 0                    ;
+; Virtual pins                                ; 0                    ;
+; I/O pins                                    ; 135 / 183 ( 74 % )   ;
+;     -- Clock pins                           ; 4 / 4 ( 100 % )      ;
+;     -- Dedicated input pins                 ; 0 / 9 ( 0 % )        ;
+; Global signals                              ; 2                    ;
+; M9Ks                                        ; 0 / 46 ( 0 % )       ;
+; Total memory bits                           ; 0 / 423,936 ( 0 % )  ;
+; Total RAM block bits                        ; 0 / 423,936 ( 0 % )  ;
+; Embedded Multiplier 9-bit elements          ; 0 / 46 ( 0 % )       ;
+; PLLs                                        ; 0 / 2 ( 0 % )        ;
+; Global clocks                               ; 2 / 10 ( 20 % )      ;
+; Impedance control blocks                    ; 0 / 4 ( 0 % )        ;
+; Average interconnect usage                  ; 1%                   ;
+; Peak interconnect usage                     ; 2%                   ;
+; Maximum fan-out node                        ; soft_nReset~input    ;
+; Maximum fan-out                             ; 34                   ;
+; Highest non-global fan-out signal           ; soft_nReset~input    ;
+; Highest non-global fan-out                  ; 34                   ;
+; Total fan-out                               ; 752                  ;
+; Average fan-out                             ; 1.79                 ;
++---------------------------------------------+----------------------+
+*  Register count does not include registers inside RAM blocks or DSP blocks.
+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Input Pins                                                                                                                                                                                                                                                                            ;
++------------------+-------+----------+--------------+--------------+--------------+-----------------------+--------------------+--------+----------------+---------------+-----------------+----------+--------------+--------------+---------------------------+----------------------+
+; Name             ; Pin # ; I/O Bank ; X coordinate ; Y coordinate ; Z coordinate ; Combinational Fan-Out ; Registered Fan-Out ; Global ; Input Register ; Power Up High ; PCI I/O Enabled ; Bus Hold ; Weak Pull Up ; I/O Standard ; Termination Control Block ; Location assigned by ;
++------------------+-------+----------+--------------+--------------+--------------+-----------------------+--------------------+--------+----------------+---------------+-----------------+----------+--------------+--------------+---------------------------+----------------------+
+; clk              ; E2    ; 1        ; 0            ; 11           ; 0            ; 33                    ; 0                  ; yes    ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[0]  ; M1    ; 2        ; 0            ; 11           ; 18           ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[10] ; T6    ; 3        ; 11           ; 0            ; 12           ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[11] ; A15   ; 7        ; 21           ; 24           ; 0            ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[12] ; L11   ; 4        ; 32           ; 0            ; 12           ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[13] ; K15   ; 5        ; 34           ; 9            ; 6            ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[14] ; J11   ; 5        ; 34           ; 9            ; 18           ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[15] ; L13   ; 5        ; 34           ; 8            ; 18           ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[16] ; N16   ; 5        ; 34           ; 7            ; 18           ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[17] ; J15   ; 5        ; 34           ; 10           ; 6            ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[18] ; B6    ; 8        ; 9            ; 24           ; 18           ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[19] ; A5    ; 8        ; 7            ; 24           ; 12           ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[1]  ; J1    ; 2        ; 0            ; 10           ; 12           ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[20] ; A7    ; 8        ; 11           ; 24           ; 0            ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[21] ; F14   ; 6        ; 34           ; 19           ; 12           ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[22] ; A12   ; 7        ; 25           ; 24           ; 0            ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[23] ; L16   ; 5        ; 34           ; 8            ; 12           ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[24] ; K1    ; 2        ; 0            ; 8            ; 6            ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[25] ; L15   ; 5        ; 34           ; 8            ; 6            ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[26] ; T11   ; 4        ; 23           ; 0            ; 6            ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[27] ; M15   ; 5        ; 34           ; 12           ; 12           ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[28] ; E16   ; 6        ; 34           ; 12           ; 6            ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[29] ; B9    ; 7        ; 16           ; 24           ; 6            ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[2]  ; R6    ; 3        ; 11           ; 0            ; 18           ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[30] ; R4    ; 3        ; 5            ; 0            ; 18           ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[31] ; P8    ; 3        ; 16           ; 0            ; 12           ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[3]  ; T4    ; 3        ; 5            ; 0            ; 12           ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[4]  ; L2    ; 2        ; 0            ; 8            ; 12           ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[5]  ; L8    ; 3        ; 13           ; 0            ; 12           ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[6]  ; L7    ; 3        ; 11           ; 0            ; 6            ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[7]  ; B7    ; 8        ; 11           ; 24           ; 6            ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[8]  ; F5    ; 1        ; 0            ; 23           ; 12           ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_high_in[9]  ; C11   ; 7        ; 23           ; 24           ; 0            ; 2                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[0]   ; D15   ; 6        ; 34           ; 19           ; 0            ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[10]  ; R7    ; 3        ; 11           ; 0            ; 0            ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[11]  ; E9    ; 7        ; 18           ; 24           ; 18           ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[12]  ; N15   ; 5        ; 34           ; 7            ; 12           ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[13]  ; N12   ; 4        ; 32           ; 0            ; 0            ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[14]  ; R16   ; 5        ; 34           ; 5            ; 12           ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[15]  ; T13   ; 4        ; 28           ; 0            ; 6            ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[16]  ; M10   ; 4        ; 28           ; 0            ; 0            ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[17]  ; B13   ; 7        ; 30           ; 24           ; 18           ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[18]  ; N5    ; 3        ; 7            ; 0            ; 18           ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[19]  ; M7    ; 3        ; 9            ; 0            ; 18           ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[1]   ; B4    ; 8        ; 5            ; 24           ; 18           ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[20]  ; F2    ; 1        ; 0            ; 19           ; 12           ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[21]  ; C15   ; 6        ; 34           ; 20           ; 0            ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[22]  ; D12   ; 7        ; 30           ; 24           ; 0            ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[23]  ; R12   ; 4        ; 23           ; 0            ; 0            ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[24]  ; M9    ; 4        ; 21           ; 0            ; 18           ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[25]  ; T9    ; 4        ; 18           ; 0            ; 12           ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[26]  ; M16   ; 5        ; 34           ; 12           ; 18           ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[27]  ; A11   ; 7        ; 25           ; 24           ; 12           ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[28]  ; E15   ; 6        ; 34           ; 12           ; 0            ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[29]  ; G2    ; 1        ; 0            ; 18           ; 12           ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[2]   ; L1    ; 2        ; 0            ; 8            ; 18           ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[30]  ; B1    ; 1        ; 0            ; 22           ; 0            ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[31]  ; L10   ; 4        ; 25           ; 0            ; 6            ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[3]   ; C8    ; 8        ; 13           ; 24           ; 0            ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[4]   ; K2    ; 2        ; 0            ; 8            ; 0            ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[5]   ; G16   ; 6        ; 34           ; 17           ; 18           ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[6]   ; A9    ; 7        ; 16           ; 24           ; 0            ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[7]   ; B12   ; 7        ; 25           ; 24           ; 6            ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[8]   ; F9    ; 7        ; 23           ; 24           ; 12           ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; data_low_in[9]   ; K8    ; 3        ; 9            ; 0            ; 12           ; 3                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; indata_ena       ; L6    ; 2        ; 0            ; 9            ; 6            ; 4                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; nReset           ; E1    ; 1        ; 0            ; 11           ; 6            ; 33                    ; 0                  ; yes    ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; soft_nReset      ; J14   ; 5        ; 34           ; 10           ; 0            ; 34                    ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; valid_high       ; F10   ; 7        ; 23           ; 24           ; 6            ; 7                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
+; valid_low        ; M2    ; 2        ; 0            ; 11           ; 12           ; 8                     ; 0                  ; no     ; no             ; no            ; yes             ; no       ; Off          ; 2.5 V        ; --                        ; Fitter               ;
++------------------+-------+----------+--------------+--------------+--------------+-----------------------+--------------------+--------+----------------+---------------+-----------------+----------+--------------+--------------+---------------------------+----------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Output Pins                                                                                                                                                                                                                                                                                                                                                                                                                   ;
++--------------------+-------+----------+--------------+--------------+--------------+-----------------+------------------------+---------------+-----------+-----------------+------------+---------------+----------+--------------+--------------+------------------+-----------------------------------+---------------------------+----------------------------+-----------------------------+----------------------+------+
+; Name               ; Pin # ; I/O Bank ; X coordinate ; Y coordinate ; Z coordinate ; Output Register ; Output Enable Register ; Power Up High ; Slew Rate ; PCI I/O Enabled ; Open Drain ; TRI Primitive ; Bus Hold ; Weak Pull Up ; I/O Standard ; Current Strength ; Termination                       ; Termination Control Block ; Output Buffer Pre-emphasis ; Voltage Output Differential ; Location assigned by ; Load ;
++--------------------+-------+----------+--------------+--------------+--------------+-----------------+------------------------+---------------+-----------+-----------------+------------+---------------+----------+--------------+--------------+------------------+-----------------------------------+---------------------------+----------------------------+-----------------------------+----------------------+------+
+; data_high_fifo[0]  ; F3    ; 1        ; 0            ; 21           ; 6            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[10] ; F1    ; 1        ; 0            ; 19           ; 18           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[11] ; H16   ; 6        ; 34           ; 16           ; 6            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[12] ; R14   ; 4        ; 30           ; 0            ; 0            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[13] ; T15   ; 4        ; 30           ; 0            ; 6            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[14] ; P9    ; 4        ; 25           ; 0            ; 0            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[15] ; E10   ; 7        ; 28           ; 24           ; 18           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[16] ; L14   ; 5        ; 34           ; 7            ; 6            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[17] ; H15   ; 6        ; 34           ; 16           ; 0            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[18] ; E8    ; 8        ; 13           ; 24           ; 12           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[19] ; R5    ; 3        ; 9            ; 0            ; 6            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[1]  ; T5    ; 3        ; 9            ; 0            ; 0            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[20] ; C6    ; 8        ; 9            ; 24           ; 6            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[21] ; D5    ; 8        ; 3            ; 24           ; 0            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[22] ; R9    ; 4        ; 18           ; 0            ; 18           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[23] ; T10   ; 4        ; 21           ; 0            ; 0            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[24] ; N8    ; 3        ; 16           ; 0            ; 18           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[25] ; K9    ; 4        ; 18           ; 0            ; 6            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[26] ; T12   ; 4        ; 25           ; 0            ; 18           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[27] ; R8    ; 3        ; 16           ; 0            ; 6            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[28] ; B16   ; 6        ; 34           ; 18           ; 0            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[29] ; E7    ; 8        ; 7            ; 24           ; 0            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[2]  ; J6    ; 2        ; 0            ; 10           ; 18           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[30] ; N6    ; 3        ; 7            ; 0            ; 12           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[31] ; N9    ; 4        ; 21           ; 0            ; 12           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[3]  ; G1    ; 1        ; 0            ; 18           ; 18           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[4]  ; F6    ; 8        ; 11           ; 24           ; 12           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[5]  ; A8    ; 8        ; 16           ; 24           ; 12           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[6]  ; G5    ; 1        ; 0            ; 19           ; 0            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[7]  ; C9    ; 7        ; 18           ; 24           ; 6            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[8]  ; B11   ; 7        ; 25           ; 24           ; 18           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_high_fifo[9]  ; J12   ; 5        ; 34           ; 11           ; 6            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[0]   ; P6    ; 3        ; 7            ; 0            ; 0            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[10]  ; D9    ; 7        ; 18           ; 24           ; 12           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[11]  ; A10   ; 7        ; 21           ; 24           ; 6            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[12]  ; T14   ; 4        ; 30           ; 0            ; 12           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[13]  ; R13   ; 4        ; 28           ; 0            ; 12           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[14]  ; P11   ; 4        ; 28           ; 0            ; 18           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[15]  ; N11   ; 4        ; 30           ; 0            ; 18           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[16]  ; J16   ; 5        ; 34           ; 9            ; 0            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[17]  ; B10   ; 7        ; 21           ; 24           ; 12           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[18]  ; C2    ; 1        ; 0            ; 22           ; 12           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[19]  ; C3    ; 8        ; 1            ; 24           ; 0            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[1]   ; F7    ; 8        ; 11           ; 24           ; 18           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[20]  ; D1    ; 1        ; 0            ; 21           ; 18           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[21]  ; A6    ; 8        ; 9            ; 24           ; 12           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[22]  ; M8    ; 3        ; 13           ; 0            ; 0            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[23]  ; F11   ; 7        ; 23           ; 24           ; 18           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[24]  ; K16   ; 5        ; 34           ; 9            ; 12           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[25]  ; R11   ; 4        ; 23           ; 0            ; 12           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[26]  ; R10   ; 4        ; 21           ; 0            ; 6            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[27]  ; F8    ; 8        ; 13           ; 24           ; 18           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[28]  ; B5    ; 8        ; 5            ; 24           ; 6            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[29]  ; D16   ; 6        ; 34           ; 19           ; 6            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[2]   ; J2    ; 2        ; 0            ; 10           ; 0            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[30]  ; D8    ; 8        ; 13           ; 24           ; 6            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[31]  ; L9    ; 4        ; 18           ; 0            ; 0            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[3]   ; F15   ; 6        ; 34           ; 18           ; 12           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[4]   ; E6    ; 8        ; 7            ; 24           ; 6            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[5]   ; A4    ; 8        ; 5            ; 24           ; 12           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[6]   ; A2    ; 8        ; 5            ; 24           ; 0            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[7]   ; D6    ; 8        ; 3            ; 24           ; 6            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[8]   ; B8    ; 8        ; 16           ; 24           ; 18           ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; data_low_fifo[9]   ; M6    ; 3        ; 7            ; 0            ; 6            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
+; wr_req_fifo        ; F13   ; 6        ; 34           ; 17           ; 0            ; no              ; no                     ; no            ; 2         ; no              ; no         ; no            ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; no                          ; Fitter               ; 0 pF ;
++--------------------+-------+----------+--------------+--------------+--------------+-----------------+------------------------+---------------+-----------+-----------------+------------+---------------+----------+--------------+--------------+------------------+-----------------------------------+---------------------------+----------------------------+-----------------------------+----------------------+------+
+
+
++------------------------------------------------------------+
+; I/O Bank Usage                                             ;
++----------+------------------+---------------+--------------+
+; I/O Bank ; Usage            ; VCCIO Voltage ; VREF Voltage ;
++----------+------------------+---------------+--------------+
+; 1        ; 16 / 18 ( 89 % ) ; 2.5V          ; --           ;
+; 2        ; 10 / 19 ( 53 % ) ; 2.5V          ; --           ;
+; 3        ; 19 / 26 ( 73 % ) ; 2.5V          ; --           ;
+; 4        ; 24 / 27 ( 89 % ) ; 2.5V          ; --           ;
+; 5        ; 16 / 25 ( 64 % ) ; 2.5V          ; --           ;
+; 6        ; 13 / 16 ( 81 % ) ; 2.5V          ; --           ;
+; 7        ; 19 / 26 ( 73 % ) ; 2.5V          ; --           ;
+; 8        ; 23 / 26 ( 88 % ) ; 2.5V          ; --           ;
++----------+------------------+---------------+--------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; All Package Pins                                                                                                                                                                        ;
++----------+------------+----------+-----------------------------------------------------------+--------+--------------+---------+------------+-----------------+----------+--------------+
+; Location ; Pad Number ; I/O Bank ; Pin Name/Usage                                            ; Dir.   ; I/O Standard ; Voltage ; I/O Type   ; User Assignment ; Bus Hold ; Weak Pull Up ;
++----------+------------+----------+-----------------------------------------------------------+--------+--------------+---------+------------+-----------------+----------+--------------+
+; A1       ;            ; 8        ; VCCIO8                                                    ; power  ;              ; 2.5V    ; --         ;                 ; --       ; --           ;
+; A2       ; 194        ; 8        ; data_low_fifo[6]                                          ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; A3       ; 200        ; 8        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Column I/O ;                 ; no       ; On           ;
+; A4       ; 196        ; 8        ; data_low_fifo[5]                                          ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; A5       ; 192        ; 8        ; data_high_in[19]                                          ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; A6       ; 188        ; 8        ; data_low_fifo[21]                                         ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; A7       ; 183        ; 8        ; data_high_in[20]                                          ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; A8       ; 177        ; 8        ; data_high_fifo[5]                                         ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; A9       ; 175        ; 7        ; data_low_in[6]                                            ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; A10      ; 168        ; 7        ; data_low_fifo[11]                                         ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; A11      ; 161        ; 7        ; data_low_in[27]                                           ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; A12      ; 159        ; 7        ; data_high_in[22]                                          ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; A13      ; 153        ; 7        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Column I/O ;                 ; no       ; On           ;
+; A14      ; 155        ; 7        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Column I/O ;                 ; no       ; On           ;
+; A15      ; 167        ; 7        ; data_high_in[11]                                          ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; A16      ;            ; 7        ; VCCIO7                                                    ; power  ;              ; 2.5V    ; --         ;                 ; --       ; --           ;
+; B1       ; 3          ; 1        ; data_low_in[30]                                           ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; B2       ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; B3       ; 201        ; 8        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Column I/O ;                 ; no       ; On           ;
+; B4       ; 197        ; 8        ; data_low_in[1]                                            ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; B5       ; 195        ; 8        ; data_low_fifo[28]                                         ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; B6       ; 189        ; 8        ; data_high_in[18]                                          ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; B7       ; 184        ; 8        ; data_high_in[7]                                           ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; B8       ; 178        ; 8        ; data_low_fifo[8]                                          ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; B9       ; 176        ; 7        ; data_high_in[29]                                          ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; B10      ; 169        ; 7        ; data_low_fifo[17]                                         ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; B11      ; 162        ; 7        ; data_high_fifo[8]                                         ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; B12      ; 160        ; 7        ; data_low_in[7]                                            ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; B13      ; 154        ; 7        ; data_low_in[17]                                           ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; B14      ; 156        ; 7        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Column I/O ;                 ; no       ; On           ;
+; B15      ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; B16      ; 141        ; 6        ; data_high_fifo[28]                                        ; output ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; C1       ; 5          ; 1        ; ~ALTERA_ASDO_DATA1~ / RESERVED_INPUT_WITH_WEAK_PULLUP     ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; On           ;
+; C2       ; 4          ; 1        ; data_low_fifo[18]                                         ; output ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; C3       ; 202        ; 8        ; data_low_fifo[19]                                         ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; C4       ;            ; 8        ; VCCIO8                                                    ; power  ;              ; 2.5V    ; --         ;                 ; --       ; --           ;
+; C5       ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; C6       ; 187        ; 8        ; data_high_fifo[20]                                        ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; C7       ;            ; 8        ; VCCIO8                                                    ; power  ;              ; 2.5V    ; --         ;                 ; --       ; --           ;
+; C8       ; 179        ; 8        ; data_low_in[3]                                            ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; C9       ; 172        ; 7        ; data_high_fifo[7]                                         ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; C10      ;            ; 7        ; VCCIO7                                                    ; power  ;              ; 2.5V    ; --         ;                 ; --       ; --           ;
+; C11      ; 163        ; 7        ; data_high_in[9]                                           ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; C12      ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; C13      ;            ; 7        ; VCCIO7                                                    ; power  ;              ; 2.5V    ; --         ;                 ; --       ; --           ;
+; C14      ; 149        ; 7        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Column I/O ;                 ; no       ; On           ;
+; C15      ; 147        ; 6        ; data_low_in[21]                                           ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; C16      ; 146        ; 6        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Row I/O    ;                 ; no       ; On           ;
+; D1       ; 8          ; 1        ; data_low_fifo[20]                                         ; output ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; D2       ; 7          ; 1        ; ~ALTERA_FLASH_nCE_nCSO~ / RESERVED_INPUT_WITH_WEAK_PULLUP ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; On           ;
+; D3       ; 203        ; 8        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Column I/O ;                 ; no       ; On           ;
+; D4       ; 0          ; 1        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Row I/O    ;                 ; no       ; On           ;
+; D5       ; 198        ; 8        ; data_high_fifo[21]                                        ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; D6       ; 199        ; 8        ; data_low_fifo[7]                                          ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; D7       ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; D8       ; 180        ; 8        ; data_low_fifo[30]                                         ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; D9       ; 173        ; 7        ; data_low_fifo[10]                                         ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; D10      ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; D11      ; 151        ; 7        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Column I/O ;                 ; no       ; On           ;
+; D12      ; 152        ; 7        ; data_low_in[22]                                           ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; D13      ;            ;          ; VCCD_PLL2                                                 ; power  ;              ; 1.2V    ; --         ;                 ; --       ; --           ;
+; D14      ; 150        ; 7        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Column I/O ;                 ; no       ; On           ;
+; D15      ; 144        ; 6        ; data_low_in[0]                                            ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; D16      ; 143        ; 6        ; data_low_fifo[29]                                         ; output ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; E1       ; 24         ; 1        ; nReset                                                    ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; E2       ; 23         ; 1        ; clk                                                       ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; E3       ;            ; 1        ; VCCIO1                                                    ; power  ;              ; 2.5V    ; --         ;                 ; --       ; --           ;
+; E4       ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; E5       ; 1          ; 1        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Row I/O    ;                 ; no       ; On           ;
+; E6       ; 191        ; 8        ; data_low_fifo[4]                                          ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; E7       ; 190        ; 8        ; data_high_fifo[29]                                        ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; E8       ; 181        ; 8        ; data_high_fifo[18]                                        ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; E9       ; 174        ; 7        ; data_low_in[11]                                           ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; E10      ; 158        ; 7        ; data_high_fifo[15]                                        ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; E11      ; 157        ; 7        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Column I/O ;                 ; no       ; On           ;
+; E12      ;            ;          ; GNDA                                                      ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; E13      ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; E14      ;            ; 6        ; VCCIO6                                                    ; power  ;              ; 2.5V    ; --         ;                 ; --       ; --           ;
+; E15      ; 128        ; 6        ; data_low_in[28]                                           ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; E16      ; 127        ; 6        ; data_high_in[28]                                          ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; F1       ; 12         ; 1        ; data_high_fifo[10]                                        ; output ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; F2       ; 11         ; 1        ; data_low_in[20]                                           ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; F3       ; 6          ; 1        ; data_high_fifo[0]                                         ; output ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; F4       ; 9          ; 1        ; ^nSTATUS                                                  ;        ;              ;         ; --         ;                 ; --       ; --           ;
+; F5       ; 2          ; 1        ; data_high_in[8]                                           ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; F6       ; 185        ; 8        ; data_high_fifo[4]                                         ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; F7       ; 186        ; 8        ; data_low_fifo[1]                                          ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; F8       ; 182        ; 8        ; data_low_fifo[27]                                         ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; F9       ; 165        ; 7        ; data_low_in[8]                                            ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; F10      ; 164        ; 7        ; valid_high                                                ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; F11      ; 166        ; 7        ; data_low_fifo[23]                                         ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; F12      ;            ; --       ; VCCA2                                                     ; power  ;              ; 2.5V    ; --         ;                 ; --       ; --           ;
+; F13      ; 138        ; 6        ; wr_req_fifo                                               ; output ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; F14      ; 142        ; 6        ; data_high_in[21]                                          ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; F15      ; 140        ; 6        ; data_low_fifo[3]                                          ; output ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; F16      ; 139        ; 6        ; ~ALTERA_nCEO~                                             ; output ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; G1       ; 14         ; 1        ; data_high_fifo[3]                                         ; output ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; G2       ; 13         ; 1        ; data_low_in[29]                                           ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; G3       ;            ; 1        ; VCCIO1                                                    ; power  ;              ; 2.5V    ; --         ;                 ; --       ; --           ;
+; G4       ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; G5       ; 10         ; 1        ; data_high_fifo[6]                                         ; output ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; G6       ;            ;          ; VCCINT                                                    ; power  ;              ; 1.2V    ; --         ;                 ; --       ; --           ;
+; G7       ;            ;          ; VCCINT                                                    ; power  ;              ; 1.2V    ; --         ;                 ; --       ; --           ;
+; G8       ;            ;          ; VCCINT                                                    ; power  ;              ; 1.2V    ; --         ;                 ; --       ; --           ;
+; G9       ;            ;          ; VCCINT                                                    ; power  ;              ; 1.2V    ; --         ;                 ; --       ; --           ;
+; G10      ;            ;          ; VCCINT                                                    ; power  ;              ; 1.2V    ; --         ;                 ; --       ; --           ;
+; G11      ; 145        ; 6        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Row I/O    ;                 ; no       ; On           ;
+; G12      ; 132        ; 6        ; ^MSEL2                                                    ;        ;              ;         ; --         ;                 ; --       ; --           ;
+; G12      ; 133        ; 6        ; ^MSEL3                                                    ;        ;              ;         ; --         ;                 ; --       ; --           ;
+; G13      ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; G14      ;            ; 6        ; VCCIO6                                                    ; power  ;              ; 2.5V    ; --         ;                 ; --       ; --           ;
+; G15      ; 137        ; 6        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Row I/O    ;                 ; no       ; On           ;
+; G16      ; 136        ; 6        ; data_low_in[5]                                            ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; H1       ; 15         ; 1        ; ~ALTERA_DCLK~                                             ; output ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; On           ;
+; H2       ; 16         ; 1        ; ~ALTERA_DATA0~                                            ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; On           ;
+; H3       ; 19         ; 1        ; #TCK                                                      ; input  ;              ;         ; --         ;                 ; --       ; --           ;
+; H4       ; 18         ; 1        ; #TDI                                                      ; input  ;              ;         ; --         ;                 ; --       ; --           ;
+; H5       ; 17         ; 1        ; ^nCONFIG                                                  ;        ;              ;         ; --         ;                 ; --       ; --           ;
+; H6       ;            ;          ; VCCINT                                                    ; power  ;              ; 1.2V    ; --         ;                 ; --       ; --           ;
+; H7       ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; H8       ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; H9       ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; H10      ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; H11      ;            ;          ; VCCINT                                                    ; power  ;              ; 1.2V    ; --         ;                 ; --       ; --           ;
+; H12      ; 131        ; 6        ; ^MSEL1                                                    ;        ;              ;         ; --         ;                 ; --       ; --           ;
+; H13      ; 130        ; 6        ; ^MSEL0                                                    ;        ;              ;         ; --         ;                 ; --       ; --           ;
+; H14      ; 129        ; 6        ; ^CONF_DONE                                                ;        ;              ;         ; --         ;                 ; --       ; --           ;
+; H15      ; 135        ; 6        ; data_high_fifo[17]                                        ; output ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; H16      ; 134        ; 6        ; data_high_fifo[11]                                        ; output ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; J1       ; 28         ; 2        ; data_high_in[1]                                           ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; J2       ; 27         ; 2        ; data_low_fifo[2]                                          ; output ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; J3       ; 22         ; 1        ; ^nCE                                                      ;        ;              ;         ; --         ;                 ; --       ; --           ;
+; J4       ; 21         ; 1        ; #TDO                                                      ; output ;              ;         ; --         ;                 ; --       ; --           ;
+; J5       ; 20         ; 1        ; #TMS                                                      ; input  ;              ;         ; --         ;                 ; --       ; --           ;
+; J6       ; 29         ; 2        ; data_high_fifo[2]                                         ; output ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; J7       ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; J8       ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; J9       ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; J10      ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; J11      ; 117        ; 5        ; data_high_in[14]                                          ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; J12      ; 123        ; 5        ; data_high_fifo[9]                                         ; output ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; J13      ; 124        ; 5        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Row I/O    ;                 ; no       ; On           ;
+; J14      ; 122        ; 5        ; soft_nReset                                               ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; J15      ; 121        ; 5        ; data_high_in[17]                                          ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; J16      ; 120        ; 5        ; data_low_fifo[16]                                         ; output ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; K1       ; 33         ; 2        ; data_high_in[24]                                          ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; K2       ; 32         ; 2        ; data_low_in[4]                                            ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; K3       ;            ; 2        ; VCCIO2                                                    ; power  ;              ; 2.5V    ; --         ;                 ; --       ; --           ;
+; K4       ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; K5       ; 39         ; 2        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Row I/O    ;                 ; no       ; On           ;
+; K6       ; 30         ; 2        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Row I/O    ;                 ; no       ; On           ;
+; K7       ;            ;          ; VCCINT                                                    ; power  ;              ; 1.2V    ; --         ;                 ; --       ; --           ;
+; K8       ; 60         ; 3        ; data_low_in[9]                                            ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; K9       ; 76         ; 4        ; data_high_fifo[25]                                        ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; K10      ; 87         ; 4        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Column I/O ;                 ; no       ; On           ;
+; K11      ; 110        ; 5        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Row I/O    ;                 ; no       ; On           ;
+; K12      ; 105        ; 5        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Row I/O    ;                 ; no       ; On           ;
+; K13      ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; K14      ;            ; 5        ; VCCIO5                                                    ; power  ;              ; 2.5V    ; --         ;                 ; --       ; --           ;
+; K15      ; 119        ; 5        ; data_high_in[13]                                          ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; K16      ; 118        ; 5        ; data_low_fifo[24]                                         ; output ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; L1       ; 35         ; 2        ; data_low_in[2]                                            ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; L2       ; 34         ; 2        ; data_high_in[4]                                           ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; L3       ; 36         ; 2        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Row I/O    ;                 ; no       ; On           ;
+; L4       ; 40         ; 2        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Row I/O    ;                 ; no       ; On           ;
+; L5       ;            ; --       ; VCCA1                                                     ; power  ;              ; 2.5V    ; --         ;                 ; --       ; --           ;
+; L6       ; 31         ; 2        ; indata_ena                                                ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; L7       ; 65         ; 3        ; data_high_in[6]                                           ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; L8       ; 68         ; 3        ; data_high_in[5]                                           ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; L9       ; 77         ; 4        ; data_low_fifo[31]                                         ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; L10      ; 88         ; 4        ; data_low_in[31]                                           ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; L11      ; 99         ; 4        ; data_high_in[12]                                          ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; L12      ; 104        ; 5        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Row I/O    ;                 ; no       ; On           ;
+; L13      ; 114        ; 5        ; data_high_in[15]                                          ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; L14      ; 113        ; 5        ; data_high_fifo[16]                                        ; output ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; L15      ; 116        ; 5        ; data_high_in[25]                                          ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; L16      ; 115        ; 5        ; data_high_in[23]                                          ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; M1       ; 26         ; 2        ; data_high_in[0]                                           ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; M2       ; 25         ; 2        ; valid_low                                                 ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; M3       ;            ; 2        ; VCCIO2                                                    ; power  ;              ; 2.5V    ; --         ;                 ; --       ; --           ;
+; M4       ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; M5       ;            ;          ; GNDA                                                      ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; M6       ; 57         ; 3        ; data_low_fifo[9]                                          ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; M7       ; 59         ; 3        ; data_low_in[19]                                           ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; M8       ; 69         ; 3        ; data_low_fifo[22]                                         ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; M9       ; 78         ; 4        ; data_low_in[24]                                           ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; M10      ; 93         ; 4        ; data_low_in[16]                                           ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; M11      ; 100        ; 4        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Column I/O ;                 ; no       ; On           ;
+; M12      ; 103        ; 5        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Row I/O    ;                 ; no       ; On           ;
+; M13      ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; M14      ;            ; 5        ; VCCIO5                                                    ; power  ;              ; 2.5V    ; --         ;                 ; --       ; --           ;
+; M15      ; 126        ; 5        ; data_high_in[27]                                          ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; M16      ; 125        ; 5        ; data_low_in[26]                                           ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; N1       ; 38         ; 2        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Row I/O    ;                 ; no       ; On           ;
+; N2       ; 37         ; 2        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Row I/O    ;                 ; no       ; On           ;
+; N3       ; 45         ; 3        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Column I/O ;                 ; no       ; On           ;
+; N4       ;            ;          ; VCCD_PLL1                                                 ; power  ;              ; 1.2V    ; --         ;                 ; --       ; --           ;
+; N5       ; 55         ; 3        ; data_low_in[18]                                           ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; N6       ; 56         ; 3        ; data_high_fifo[30]                                        ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; N7       ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; N8       ; 70         ; 3        ; data_high_fifo[24]                                        ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; N9       ; 79         ; 4        ; data_high_fifo[31]                                        ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; N10      ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; N11      ; 94         ; 4        ; data_low_fifo[15]                                         ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; N12      ; 101        ; 4        ; data_low_in[13]                                           ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; N13      ; 102        ; 5        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Row I/O    ;                 ; no       ; On           ;
+; N14      ; 106        ; 5        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Row I/O    ;                 ; no       ; On           ;
+; N15      ; 112        ; 5        ; data_low_in[12]                                           ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; N16      ; 111        ; 5        ; data_high_in[16]                                          ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; P1       ; 44         ; 2        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Row I/O    ;                 ; no       ; On           ;
+; P2       ; 43         ; 2        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Row I/O    ;                 ; no       ; On           ;
+; P3       ; 46         ; 3        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Column I/O ;                 ; no       ; On           ;
+; P4       ;            ; 3        ; VCCIO3                                                    ; power  ;              ; 2.5V    ; --         ;                 ; --       ; --           ;
+; P5       ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; P6       ; 58         ; 3        ; data_low_fifo[0]                                          ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; P7       ;            ; 3        ; VCCIO3                                                    ; power  ;              ; 2.5V    ; --         ;                 ; --       ; --           ;
+; P8       ; 71         ; 3        ; data_high_in[31]                                          ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; P9       ; 89         ; 4        ; data_high_fifo[14]                                        ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; P10      ;            ; 4        ; VCCIO4                                                    ; power  ;              ; 2.5V    ; --         ;                 ; --       ; --           ;
+; P11      ; 90         ; 4        ; data_low_fifo[14]                                         ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; P12      ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; P13      ;            ; 4        ; VCCIO4                                                    ; power  ;              ; 2.5V    ; --         ;                 ; --       ; --           ;
+; P14      ; 98         ; 4        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Column I/O ;                 ; no       ; On           ;
+; P15      ; 107        ; 5        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Row I/O    ;                 ; no       ; On           ;
+; P16      ; 108        ; 5        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Row I/O    ;                 ; no       ; On           ;
+; R1       ; 42         ; 2        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Row I/O    ;                 ; no       ; On           ;
+; R2       ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; R3       ; 47         ; 3        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Column I/O ;                 ; no       ; On           ;
+; R4       ; 53         ; 3        ; data_high_in[30]                                          ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; R5       ; 61         ; 3        ; data_high_fifo[19]                                        ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; R6       ; 63         ; 3        ; data_high_in[2]                                           ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; R7       ; 66         ; 3        ; data_low_in[10]                                           ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; R8       ; 72         ; 3        ; data_high_fifo[27]                                        ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; R9       ; 74         ; 4        ; data_high_fifo[22]                                        ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; R10      ; 80         ; 4        ; data_low_fifo[26]                                         ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; R11      ; 83         ; 4        ; data_low_fifo[25]                                         ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; R12      ; 85         ; 4        ; data_low_in[23]                                           ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; R13      ; 91         ; 4        ; data_low_fifo[13]                                         ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; R14      ; 97         ; 4        ; data_high_fifo[12]                                        ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; R15      ;            ;          ; GND                                                       ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
+; R16      ; 109        ; 5        ; data_low_in[14]                                           ; input  ; 2.5 V        ;         ; Row I/O    ; N               ; no       ; Off          ;
+; T1       ;            ; 3        ; VCCIO3                                                    ; power  ;              ; 2.5V    ; --         ;                 ; --       ; --           ;
+; T2       ; 52         ; 3        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Column I/O ;                 ; no       ; On           ;
+; T3       ; 48         ; 3        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Column I/O ;                 ; no       ; On           ;
+; T4       ; 54         ; 3        ; data_high_in[3]                                           ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; T5       ; 62         ; 3        ; data_high_fifo[1]                                         ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; T6       ; 64         ; 3        ; data_high_in[10]                                          ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; T7       ; 67         ; 3        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Column I/O ;                 ; no       ; On           ;
+; T8       ; 73         ; 3        ; RESERVED_INPUT_WITH_WEAK_PULLUP                           ;        ;              ;         ; Column I/O ;                 ; no       ; On           ;
+; T9       ; 75         ; 4        ; data_low_in[25]                                           ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; T10      ; 81         ; 4        ; data_high_fifo[23]                                        ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; T11      ; 84         ; 4        ; data_high_in[26]                                          ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; T12      ; 86         ; 4        ; data_high_fifo[26]                                        ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; T13      ; 92         ; 4        ; data_low_in[15]                                           ; input  ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; T14      ; 95         ; 4        ; data_low_fifo[12]                                         ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; T15      ; 96         ; 4        ; data_high_fifo[13]                                        ; output ; 2.5 V        ;         ; Column I/O ; N               ; no       ; Off          ;
+; T16      ;            ; 4        ; VCCIO4                                                    ; power  ;              ; 2.5V    ; --         ;                 ; --       ; --           ;
++----------+------------+----------+-----------------------------------------------------------+--------+--------------+---------+------------+-----------------+----------+--------------+
+
+
++-------------------------------------------------------------------------------+
+; Output Pin Default Load For Reported TCO                                      ;
++----------------------------------+-------+------------------------------------+
+; I/O Standard                     ; Load  ; Termination Resistance             ;
++----------------------------------+-------+------------------------------------+
+; 3.0-V LVTTL                      ; 0 pF  ; Not Available                      ;
+; 3.3-V LVTTL                      ; 0 pF  ; Not Available                      ;
+; 3.0-V LVCMOS                     ; 0 pF  ; Not Available                      ;
+; 3.3-V LVCMOS                     ; 0 pF  ; Not Available                      ;
+; 3.0-V PCI                        ; 10 pF ; 25 Ohm (Parallel)                  ;
+; 3.0-V PCI-X                      ; 10 pF ; 25 Ohm (Parallel)                  ;
+; 2.5 V                            ; 0 pF  ; Not Available                      ;
+; 1.8 V                            ; 0 pF  ; Not Available                      ;
+; 1.5 V                            ; 0 pF  ; Not Available                      ;
+; 1.2 V                            ; 0 pF  ; Not Available                      ;
+; SSTL-2 Class I                   ; 0 pF  ; 50 Ohm (Parallel), 25 Ohm (Serial) ;
+; Differential 2.5-V SSTL Class I  ; 0 pF  ; (See SSTL-2)                       ;
+; SSTL-2 Class II                  ; 0 pF  ; 25 Ohm (Parallel), 25 Ohm (Serial) ;
+; Differential 2.5-V SSTL Class II ; 0 pF  ; (See SSTL-2 Class II)              ;
+; SSTL-18 Class I                  ; 0 pF  ; 50 Ohm (Parallel), 25 Ohm (Serial) ;
+; Differential 1.8-V SSTL Class I  ; 0 pF  ; (See 1.8-V SSTL Class I)           ;
+; SSTL-18 Class II                 ; 0 pF  ; 25 Ohm (Parallel), 25 Ohm (Serial) ;
+; Differential 1.8-V SSTL Class II ; 0 pF  ; (See 1.8-V SSTL Class II)          ;
+; 1.8-V HSTL Class I               ; 0 pF  ; 50 Ohm (Parallel)                  ;
+; Differential 1.8-V HSTL Class I  ; 0 pF  ; (See 1.8-V HSTL Class I)           ;
+; 1.8-V HSTL Class II              ; 0 pF  ; 25 Ohm (Parallel)                  ;
+; Differential 1.8-V HSTL Class II ; 0 pF  ; (See 1.8-V HSTL Class II)          ;
+; 1.5-V HSTL Class I               ; 0 pF  ; 50 Ohm (Parallel)                  ;
+; Differential 1.5-V HSTL Class I  ; 0 pF  ; (See 1.5-V HSTL Class I)           ;
+; 1.5-V HSTL Class II              ; 0 pF  ; 25 Ohm (Parallel)                  ;
+; Differential 1.5-V HSTL Class II ; 0 pF  ; (See 1.5-V HSTL Class II)          ;
+; 1.2-V HSTL Class I               ; 0 pF  ; Not Available                      ;
+; Differential 1.2-V HSTL Class I  ; 0 pF  ; Not Available                      ;
+; 1.2-V HSTL Class II              ; 0 pF  ; Not Available                      ;
+; Differential 1.2-V HSTL Class II ; 0 pF  ; Not Available                      ;
+; Differential LVPECL              ; 0 pF  ; 100 Ohm (Differential)             ;
+; LVDS                             ; 0 pF  ; 100 Ohm (Differential)             ;
+; LVDS_E_3R                        ; 0 pF  ; Not Available                      ;
+; RSDS                             ; 0 pF  ; 100 Ohm (Differential)             ;
+; RSDS_E_1R                        ; 0 pF  ; Not Available                      ;
+; RSDS_E_3R                        ; 0 pF  ; Not Available                      ;
+; mini-LVDS                        ; 0 pF  ; 100 Ohm (Differential)             ;
+; mini-LVDS_E_3R                   ; 0 pF  ; Not Available                      ;
+; PPDS                             ; 0 pF  ; Not Available                      ;
+; PPDS_E_3R                        ; 0 pF  ; Not Available                      ;
++----------------------------------+-------+------------------------------------+
+Note: User assignments will override these defaults. The user specified values are listed in the Output Pins and Bidir Pins tables.
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Fitter Resource Utilization by Entity                                                                                                                                                                                                                           ;
++----------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+---------------------+--------------+
+; Compilation Hierarchy Node ; Logic Cells ; Dedicated Logic Registers ; I/O Registers ; Memory Bits ; M9Ks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; LUT-Only LCs ; Register-Only LCs ; LUT/Register LCs ; Full Hierarchy Name ; Library Name ;
++----------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+---------------------+--------------+
+; |indata_changer            ; 105 (105)   ; 33 (33)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 135  ; 0            ; 72 (72)      ; 0 (0)             ; 33 (33)          ; |indata_changer     ; work         ;
++----------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+---------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++----------------------------------------------------------------------------------------------------+
+; Delay Chain Summary                                                                                ;
++--------------------+----------+---------------+---------------+-----------------------+-----+------+
+; Name               ; Pin Type ; Pad to Core 0 ; Pad to Core 1 ; Pad to Input Register ; TCO ; TCOE ;
++--------------------+----------+---------------+---------------+-----------------------+-----+------+
+; data_high_fifo[0]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[1]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[2]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[3]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[4]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[5]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[6]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[7]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[8]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[9]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[10] ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[11] ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[12] ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[13] ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[14] ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[15] ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[16] ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[17] ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[18] ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[19] ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[20] ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[21] ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[22] ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[23] ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[24] ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[25] ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[26] ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[27] ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[28] ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[29] ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[30] ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_high_fifo[31] ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[0]   ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[1]   ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[2]   ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[3]   ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[4]   ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[5]   ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[6]   ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[7]   ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[8]   ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[9]   ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[10]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[11]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[12]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[13]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[14]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[15]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[16]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[17]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[18]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[19]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[20]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[21]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[22]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[23]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[24]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[25]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[26]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[27]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[28]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[29]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[30]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; data_low_fifo[31]  ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; wr_req_fifo        ; Output   ; --            ; --            ; --                    ; --  ; --   ;
+; valid_low          ; Input    ; 0             ; 0             ; --                    ; --  ; --   ;
+; data_high_in[0]    ; Input    ; 0             ; 0             ; --                    ; --  ; --   ;
+; valid_high         ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[0]     ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[1]    ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[1]     ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[2]    ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[2]     ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[3]    ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[3]     ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[4]    ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[4]     ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[5]    ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[5]     ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[6]    ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[6]     ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[7]    ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[7]     ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[8]    ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[8]     ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[9]    ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[9]     ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[10]   ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[10]    ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[11]   ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[11]    ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[12]   ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[12]    ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[13]   ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[13]    ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[14]   ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[14]    ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[15]   ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[15]    ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[16]   ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[16]    ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[17]   ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[17]    ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[18]   ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[18]    ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[19]   ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[19]    ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[20]   ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[20]    ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[21]   ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[21]    ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[22]   ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[22]    ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[23]   ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[23]    ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[24]   ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[24]    ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[25]   ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[25]    ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[26]   ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[26]    ; Input    ; 0             ; 0             ; --                    ; --  ; --   ;
+; data_high_in[27]   ; Input    ; 0             ; 0             ; --                    ; --  ; --   ;
+; data_low_in[27]    ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[28]   ; Input    ; 0             ; 0             ; --                    ; --  ; --   ;
+; data_low_in[28]    ; Input    ; 0             ; 0             ; --                    ; --  ; --   ;
+; data_high_in[29]   ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[29]    ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[30]   ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[30]    ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; data_high_in[31]   ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; data_low_in[31]    ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
+; indata_ena         ; Input    ; 0             ; 6             ; --                    ; --  ; --   ;
+; clk                ; Input    ; 0             ; 0             ; --                    ; --  ; --   ;
+; nReset             ; Input    ; 0             ; 0             ; --                    ; --  ; --   ;
+; soft_nReset        ; Input    ; 6             ; 6             ; --                    ; --  ; --   ;
++--------------------+----------+---------------+---------------+-----------------------+-----+------+
+
+
++--------------------------------------------------------------+
+; Pad To Core Delay Chain Fanout                               ;
++--------------------------------+-------------------+---------+
+; Source Pin / Fanout            ; Pad To Core Index ; Setting ;
++--------------------------------+-------------------+---------+
+; valid_low                      ;                   ;         ;
+; data_high_in[0]                ;                   ;         ;
+; valid_high                     ;                   ;         ;
+;      - data_high_fifo~1540     ; 1                 ; 6       ;
+;      - data_low_fifo~1496      ; 1                 ; 6       ;
+;      - data_high_fifo~1        ; 1                 ; 6       ;
+;      - wr_req_fifo~68          ; 1                 ; 6       ;
+;      - parity_trg~138          ; 1                 ; 6       ;
+;      - actual_data_register~44 ; 1                 ; 6       ;
+;      - actual_data_ff[30]~2894 ; 1                 ; 6       ;
+; data_low_in[0]                 ;                   ;         ;
+;      - data_high_fifo~1541     ; 0                 ; 6       ;
+;      - data_low_fifo~1497      ; 0                 ; 6       ;
+;      - actual_data_ff~2893     ; 0                 ; 6       ;
+; data_high_in[1]                ;                   ;         ;
+;      - data_high_fifo~1542     ; 0                 ; 6       ;
+;      - actual_data_ff~2896     ; 0                 ; 6       ;
+; data_low_in[1]                 ;                   ;         ;
+;      - data_high_fifo~1542     ; 1                 ; 6       ;
+;      - data_low_fifo~1498      ; 1                 ; 6       ;
+;      - actual_data_ff~2896     ; 1                 ; 6       ;
+; data_high_in[2]                ;                   ;         ;
+;      - data_high_fifo~1543     ; 1                 ; 6       ;
+;      - actual_data_ff~2897     ; 1                 ; 6       ;
+; data_low_in[2]                 ;                   ;         ;
+;      - data_high_fifo~1543     ; 0                 ; 6       ;
+;      - data_low_fifo~1499      ; 0                 ; 6       ;
+;      - actual_data_ff~2897     ; 0                 ; 6       ;
+; data_high_in[3]                ;                   ;         ;
+;      - data_high_fifo~1544     ; 0                 ; 6       ;
+;      - actual_data_ff~2898     ; 0                 ; 6       ;
+; data_low_in[3]                 ;                   ;         ;
+;      - data_high_fifo~1544     ; 1                 ; 6       ;
+;      - data_low_fifo~1500      ; 1                 ; 6       ;
+;      - actual_data_ff~2898     ; 1                 ; 6       ;
+; data_high_in[4]                ;                   ;         ;
+;      - data_high_fifo~1545     ; 0                 ; 6       ;
+;      - actual_data_ff~2899     ; 0                 ; 6       ;
+; data_low_in[4]                 ;                   ;         ;
+;      - data_high_fifo~1545     ; 0                 ; 6       ;
+;      - data_low_fifo~1501      ; 0                 ; 6       ;
+;      - actual_data_ff~2899     ; 0                 ; 6       ;
+; data_high_in[5]                ;                   ;         ;
+;      - data_high_fifo~1546     ; 0                 ; 6       ;
+;      - actual_data_ff~2900     ; 0                 ; 6       ;
+; data_low_in[5]                 ;                   ;         ;
+;      - data_high_fifo~1546     ; 1                 ; 6       ;
+;      - data_low_fifo~1502      ; 1                 ; 6       ;
+;      - actual_data_ff~2900     ; 1                 ; 6       ;
+; data_high_in[6]                ;                   ;         ;
+;      - data_high_fifo~1547     ; 1                 ; 6       ;
+;      - actual_data_ff~2901     ; 1                 ; 6       ;
+; data_low_in[6]                 ;                   ;         ;
+;      - data_high_fifo~1547     ; 1                 ; 6       ;
+;      - data_low_fifo~1503      ; 1                 ; 6       ;
+;      - actual_data_ff~2901     ; 1                 ; 6       ;
+; data_high_in[7]                ;                   ;         ;
+;      - data_high_fifo~1548     ; 0                 ; 6       ;
+;      - actual_data_ff~2902     ; 0                 ; 6       ;
+; data_low_in[7]                 ;                   ;         ;
+;      - data_high_fifo~1548     ; 0                 ; 6       ;
+;      - data_low_fifo~1504      ; 0                 ; 6       ;
+;      - actual_data_ff~2902     ; 0                 ; 6       ;
+; data_high_in[8]                ;                   ;         ;
+;      - data_high_fifo~1549     ; 0                 ; 6       ;
+;      - actual_data_ff~2903     ; 0                 ; 6       ;
+; data_low_in[8]                 ;                   ;         ;
+;      - data_high_fifo~1549     ; 0                 ; 6       ;
+;      - data_low_fifo~1505      ; 0                 ; 6       ;
+;      - actual_data_ff~2903     ; 0                 ; 6       ;
+; data_high_in[9]                ;                   ;         ;
+;      - data_high_fifo~1550     ; 0                 ; 6       ;
+;      - actual_data_ff~2904     ; 0                 ; 6       ;
+; data_low_in[9]                 ;                   ;         ;
+;      - data_high_fifo~1550     ; 0                 ; 6       ;
+;      - data_low_fifo~1506      ; 0                 ; 6       ;
+;      - actual_data_ff~2904     ; 0                 ; 6       ;
+; data_high_in[10]               ;                   ;         ;
+;      - data_high_fifo~1551     ; 1                 ; 6       ;
+;      - actual_data_ff~2905     ; 1                 ; 6       ;
+; data_low_in[10]                ;                   ;         ;
+;      - data_high_fifo~1551     ; 1                 ; 6       ;
+;      - data_low_fifo~1507      ; 1                 ; 6       ;
+;      - actual_data_ff~2905     ; 1                 ; 6       ;
+; data_high_in[11]               ;                   ;         ;
+;      - data_high_fifo~1552     ; 1                 ; 6       ;
+;      - actual_data_ff~2906     ; 1                 ; 6       ;
+; data_low_in[11]                ;                   ;         ;
+;      - data_high_fifo~1552     ; 0                 ; 6       ;
+;      - data_low_fifo~1508      ; 0                 ; 6       ;
+;      - actual_data_ff~2906     ; 0                 ; 6       ;
+; data_high_in[12]               ;                   ;         ;
+;      - data_high_fifo~1553     ; 0                 ; 6       ;
+;      - actual_data_ff~2907     ; 0                 ; 6       ;
+; data_low_in[12]                ;                   ;         ;
+;      - data_high_fifo~1553     ; 1                 ; 6       ;
+;      - data_low_fifo~1509      ; 1                 ; 6       ;
+;      - actual_data_ff~2907     ; 1                 ; 6       ;
+; data_high_in[13]               ;                   ;         ;
+;      - data_high_fifo~1554     ; 1                 ; 6       ;
+;      - actual_data_ff~2908     ; 1                 ; 6       ;
+; data_low_in[13]                ;                   ;         ;
+;      - data_high_fifo~1554     ; 0                 ; 6       ;
+;      - data_low_fifo~1510      ; 0                 ; 6       ;
+;      - actual_data_ff~2908     ; 0                 ; 6       ;
+; data_high_in[14]               ;                   ;         ;
+;      - data_high_fifo~1555     ; 0                 ; 6       ;
+;      - actual_data_ff~2909     ; 0                 ; 6       ;
+; data_low_in[14]                ;                   ;         ;
+;      - data_high_fifo~1555     ; 1                 ; 6       ;
+;      - data_low_fifo~1511      ; 1                 ; 6       ;
+;      - actual_data_ff~2909     ; 1                 ; 6       ;
+; data_high_in[15]               ;                   ;         ;
+;      - data_high_fifo~1556     ; 0                 ; 6       ;
+;      - actual_data_ff~2910     ; 0                 ; 6       ;
+; data_low_in[15]                ;                   ;         ;
+;      - data_high_fifo~1556     ; 0                 ; 6       ;
+;      - data_low_fifo~1512      ; 0                 ; 6       ;
+;      - actual_data_ff~2910     ; 0                 ; 6       ;
+; data_high_in[16]               ;                   ;         ;
+;      - data_high_fifo~1557     ; 1                 ; 6       ;
+;      - actual_data_ff~2911     ; 1                 ; 6       ;
+; data_low_in[16]                ;                   ;         ;
+;      - data_high_fifo~1557     ; 0                 ; 6       ;
+;      - data_low_fifo~1513      ; 0                 ; 6       ;
+;      - actual_data_ff~2911     ; 0                 ; 6       ;
+; data_high_in[17]               ;                   ;         ;
+;      - data_high_fifo~1558     ; 0                 ; 6       ;
+;      - actual_data_ff~2912     ; 0                 ; 6       ;
+; data_low_in[17]                ;                   ;         ;
+;      - data_high_fifo~1558     ; 1                 ; 6       ;
+;      - data_low_fifo~1514      ; 1                 ; 6       ;
+;      - actual_data_ff~2912     ; 1                 ; 6       ;
+; data_high_in[18]               ;                   ;         ;
+;      - data_high_fifo~1559     ; 0                 ; 6       ;
+;      - actual_data_ff~2913     ; 0                 ; 6       ;
+; data_low_in[18]                ;                   ;         ;
+;      - data_high_fifo~1559     ; 0                 ; 6       ;
+;      - data_low_fifo~1515      ; 0                 ; 6       ;
+;      - actual_data_ff~2913     ; 0                 ; 6       ;
+; data_high_in[19]               ;                   ;         ;
+;      - data_high_fifo~1560     ; 0                 ; 6       ;
+;      - actual_data_ff~2914     ; 0                 ; 6       ;
+; data_low_in[19]                ;                   ;         ;
+;      - data_high_fifo~1560     ; 1                 ; 6       ;
+;      - data_low_fifo~1516      ; 1                 ; 6       ;
+;      - actual_data_ff~2914     ; 1                 ; 6       ;
+; data_high_in[20]               ;                   ;         ;
+;      - data_high_fifo~1561     ; 1                 ; 6       ;
+;      - actual_data_ff~2915     ; 1                 ; 6       ;
+; data_low_in[20]                ;                   ;         ;
+;      - data_high_fifo~1561     ; 1                 ; 6       ;
+;      - data_low_fifo~1517      ; 1                 ; 6       ;
+;      - actual_data_ff~2915     ; 1                 ; 6       ;
+; data_high_in[21]               ;                   ;         ;
+;      - data_high_fifo~1562     ; 0                 ; 6       ;
+;      - actual_data_ff~2916     ; 0                 ; 6       ;
+; data_low_in[21]                ;                   ;         ;
+;      - data_high_fifo~1562     ; 1                 ; 6       ;
+;      - data_low_fifo~1518      ; 1                 ; 6       ;
+;      - actual_data_ff~2916     ; 1                 ; 6       ;
+; data_high_in[22]               ;                   ;         ;
+;      - data_high_fifo~1563     ; 1                 ; 6       ;
+;      - actual_data_ff~2917     ; 1                 ; 6       ;
+; data_low_in[22]                ;                   ;         ;
+;      - data_high_fifo~1563     ; 1                 ; 6       ;
+;      - data_low_fifo~1519      ; 1                 ; 6       ;
+;      - actual_data_ff~2917     ; 1                 ; 6       ;
+; data_high_in[23]               ;                   ;         ;
+;      - data_high_fifo~1564     ; 0                 ; 6       ;
+;      - actual_data_ff~2918     ; 0                 ; 6       ;
+; data_low_in[23]                ;                   ;         ;
+;      - data_high_fifo~1564     ; 1                 ; 6       ;
+;      - data_low_fifo~1520      ; 1                 ; 6       ;
+;      - actual_data_ff~2918     ; 1                 ; 6       ;
+; data_high_in[24]               ;                   ;         ;
+;      - data_high_fifo~1565     ; 0                 ; 6       ;
+;      - actual_data_ff~2919     ; 0                 ; 6       ;
+; data_low_in[24]                ;                   ;         ;
+;      - data_high_fifo~1565     ; 0                 ; 6       ;
+;      - data_low_fifo~1521      ; 0                 ; 6       ;
+;      - actual_data_ff~2919     ; 0                 ; 6       ;
+; data_high_in[25]               ;                   ;         ;
+;      - data_high_fifo~1566     ; 1                 ; 6       ;
+;      - actual_data_ff~2920     ; 1                 ; 6       ;
+; data_low_in[25]                ;                   ;         ;
+;      - data_high_fifo~1566     ; 1                 ; 6       ;
+;      - data_low_fifo~1522      ; 1                 ; 6       ;
+;      - actual_data_ff~2920     ; 1                 ; 6       ;
+; data_high_in[26]               ;                   ;         ;
+;      - data_high_fifo~1567     ; 0                 ; 6       ;
+;      - actual_data_ff~2921     ; 0                 ; 6       ;
+; data_low_in[26]                ;                   ;         ;
+; data_high_in[27]               ;                   ;         ;
+; data_low_in[27]                ;                   ;         ;
+;      - data_high_fifo~1568     ; 0                 ; 6       ;
+;      - data_low_fifo~1524      ; 0                 ; 6       ;
+;      - actual_data_ff~2922     ; 0                 ; 6       ;
+; data_high_in[28]               ;                   ;         ;
+; data_low_in[28]                ;                   ;         ;
+; data_high_in[29]               ;                   ;         ;
+;      - data_high_fifo~1570     ; 0                 ; 6       ;
+;      - actual_data_ff~2924     ; 0                 ; 6       ;
+; data_low_in[29]                ;                   ;         ;
+;      - data_high_fifo~1570     ; 1                 ; 6       ;
+;      - data_low_fifo~1526      ; 1                 ; 6       ;
+;      - actual_data_ff~2924     ; 1                 ; 6       ;
+; data_high_in[30]               ;                   ;         ;
+;      - data_high_fifo~1571     ; 1                 ; 6       ;
+;      - actual_data_ff~2925     ; 1                 ; 6       ;
+; data_low_in[30]                ;                   ;         ;
+;      - data_high_fifo~1571     ; 1                 ; 6       ;
+;      - data_low_fifo~1527      ; 1                 ; 6       ;
+;      - actual_data_ff~2925     ; 1                 ; 6       ;
+; data_high_in[31]               ;                   ;         ;
+;      - data_high_fifo~1572     ; 0                 ; 6       ;
+;      - actual_data_ff~2926     ; 0                 ; 6       ;
+; data_low_in[31]                ;                   ;         ;
+;      - data_high_fifo~1572     ; 0                 ; 6       ;
+;      - data_low_fifo~1528      ; 0                 ; 6       ;
+;      - actual_data_ff~2926     ; 0                 ; 6       ;
+; indata_ena                     ;                   ;         ;
+;      - wr_req_fifo~68          ; 1                 ; 6       ;
+;      - parity_trg~138          ; 1                 ; 6       ;
+;      - actual_data_register~44 ; 1                 ; 6       ;
+;      - actual_data_ff[30]~2895 ; 1                 ; 6       ;
+; clk                            ;                   ;         ;
+; nReset                         ;                   ;         ;
+; soft_nReset                    ;                   ;         ;
+;      - parity_trg              ; 0                 ; 6       ;
+;      - actual_data_ff[0]       ; 0                 ; 6       ;
+;      - actual_data_ff[1]       ; 0                 ; 6       ;
+;      - actual_data_ff[2]       ; 0                 ; 6       ;
+;      - actual_data_ff[3]       ; 0                 ; 6       ;
+;      - actual_data_ff[4]       ; 0                 ; 6       ;
+;      - actual_data_ff[5]       ; 0                 ; 6       ;
+;      - actual_data_ff[6]       ; 0                 ; 6       ;
+;      - actual_data_ff[7]       ; 0                 ; 6       ;
+;      - actual_data_ff[8]       ; 0                 ; 6       ;
+;      - actual_data_ff[9]       ; 0                 ; 6       ;
+;      - actual_data_ff[10]      ; 0                 ; 6       ;
+;      - actual_data_ff[11]      ; 0                 ; 6       ;
+;      - actual_data_ff[12]      ; 0                 ; 6       ;
+;      - actual_data_ff[13]      ; 0                 ; 6       ;
+;      - actual_data_ff[14]      ; 0                 ; 6       ;
+;      - actual_data_ff[15]      ; 0                 ; 6       ;
+;      - actual_data_ff[16]      ; 0                 ; 6       ;
+;      - actual_data_ff[17]      ; 0                 ; 6       ;
+;      - actual_data_ff[18]      ; 0                 ; 6       ;
+;      - actual_data_ff[19]      ; 0                 ; 6       ;
+;      - actual_data_ff[20]      ; 0                 ; 6       ;
+;      - actual_data_ff[21]      ; 0                 ; 6       ;
+;      - actual_data_ff[22]      ; 0                 ; 6       ;
+;      - actual_data_ff[23]      ; 0                 ; 6       ;
+;      - actual_data_ff[24]      ; 0                 ; 6       ;
+;      - actual_data_ff[25]      ; 0                 ; 6       ;
+;      - actual_data_ff[26]      ; 0                 ; 6       ;
+;      - actual_data_ff[27]      ; 0                 ; 6       ;
+;      - actual_data_ff[28]      ; 0                 ; 6       ;
+;      - actual_data_ff[29]      ; 0                 ; 6       ;
+;      - actual_data_ff[30]      ; 0                 ; 6       ;
+;      - actual_data_ff[31]      ; 0                 ; 6       ;
+;      - actual_data_ff[30]~2895 ; 0                 ; 6       ;
++--------------------------------+-------------------+---------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Control Signals                                                                                                                                      ;
++-------------------------+--------------------+---------+--------------+--------+----------------------+------------------+---------------------------+
+; Name                    ; Location           ; Fan-Out ; Usage        ; Global ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
++-------------------------+--------------------+---------+--------------+--------+----------------------+------------------+---------------------------+
+; actual_data_ff[30]~2895 ; LCCOMB_X11_Y17_N12 ; 32      ; Clock enable ; no     ; --                   ; --               ; --                        ;
+; clk                     ; PIN_E2             ; 33      ; Clock        ; yes    ; Global Clock         ; GCLK4            ; --                        ;
+; nReset                  ; PIN_E1             ; 33      ; Async. clear ; yes    ; Global Clock         ; GCLK2            ; --                        ;
+; soft_nReset             ; PIN_J14            ; 34      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
++-------------------------+--------------------+---------+--------------+--------+----------------------+------------------+---------------------------+
+
+
++---------------------------------------------------------------------------------------------------+
+; Global & Other Fast Signals                                                                       ;
++--------+----------+---------+----------------------+------------------+---------------------------+
+; Name   ; Location ; Fan-Out ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
++--------+----------+---------+----------------------+------------------+---------------------------+
+; clk    ; PIN_E2   ; 33      ; Global Clock         ; GCLK4            ; --                        ;
+; nReset ; PIN_E1   ; 33      ; Global Clock         ; GCLK2            ; --                        ;
++--------+----------+---------+----------------------+------------------+---------------------------+
+
+
++-----------------------------------+
+; Non-Global High Fan-Out Signals   ;
++-------------------------+---------+
+; Name                    ; Fan-Out ;
++-------------------------+---------+
+; soft_nReset~input       ; 34      ;
+; actual_data_ff[30]~2895 ; 32      ;
+; actual_data_register~44 ; 32      ;
+; data_high_fifo~1        ; 32      ;
+; data_low_fifo~1496      ; 32      ;
+; data_high_fifo~1540     ; 32      ;
+; data_high_fifo~37       ; 32      ;
+; valid_low~input         ; 8       ;
+; parity_trg              ; 8       ;
+; valid_high~input        ; 7       ;
+; indata_ena~input        ; 4       ;
+; data_low_in[31]~input   ; 3       ;
+; data_low_in[30]~input   ; 3       ;
+; data_low_in[29]~input   ; 3       ;
+; data_low_in[28]~input   ; 3       ;
+; data_low_in[27]~input   ; 3       ;
+; data_low_in[26]~input   ; 3       ;
+; data_low_in[25]~input   ; 3       ;
+; data_low_in[24]~input   ; 3       ;
+; data_low_in[23]~input   ; 3       ;
+; data_low_in[22]~input   ; 3       ;
+; data_low_in[21]~input   ; 3       ;
+; data_low_in[20]~input   ; 3       ;
+; data_low_in[19]~input   ; 3       ;
+; data_low_in[18]~input   ; 3       ;
+; data_low_in[17]~input   ; 3       ;
+; data_low_in[16]~input   ; 3       ;
+; data_low_in[15]~input   ; 3       ;
+; data_low_in[14]~input   ; 3       ;
+; data_low_in[13]~input   ; 3       ;
+; data_low_in[12]~input   ; 3       ;
+; data_low_in[11]~input   ; 3       ;
+; data_low_in[10]~input   ; 3       ;
+; data_low_in[9]~input    ; 3       ;
+; data_low_in[8]~input    ; 3       ;
+; data_low_in[7]~input    ; 3       ;
+; data_low_in[6]~input    ; 3       ;
+; data_low_in[5]~input    ; 3       ;
+; data_low_in[4]~input    ; 3       ;
+; data_low_in[3]~input    ; 3       ;
+; data_low_in[2]~input    ; 3       ;
+; data_low_in[1]~input    ; 3       ;
+; data_low_in[0]~input    ; 3       ;
+; data_high_in[31]~input  ; 2       ;
+; data_high_in[30]~input  ; 2       ;
+; data_high_in[29]~input  ; 2       ;
+; data_high_in[28]~input  ; 2       ;
+; data_high_in[27]~input  ; 2       ;
+; data_high_in[26]~input  ; 2       ;
+; data_high_in[25]~input  ; 2       ;
++-------------------------+---------+
+
+
++-----------------------------------------------------+
+; Interconnect Usage Summary                          ;
++----------------------------+------------------------+
+; Interconnect Resource Type ; Usage                  ;
++----------------------------+------------------------+
+; Block interconnects        ; 225 / 32,401 ( < 1 % ) ;
+; C16 interconnects          ; 77 / 1,326 ( 6 % )     ;
+; C4 interconnects           ; 207 / 22,032 ( < 1 % ) ;
+; Direct links               ; 6 / 32,401 ( < 1 % )   ;
+; Global clocks              ; 2 / 10 ( 20 % )        ;
+; Local interconnects        ; 23 / 10,320 ( < 1 % )  ;
+; R24 interconnects          ; 54 / 1,289 ( 4 % )     ;
+; R4 interconnects           ; 194 / 28,186 ( < 1 % ) ;
++----------------------------+------------------------+
+
+
++---------------------------------------------------------------------------+
+; LAB Logic Elements                                                        ;
++---------------------------------------------+-----------------------------+
+; Number of Logic Elements  (Average = 15.00) ; Number of LABs  (Total = 7) ;
++---------------------------------------------+-----------------------------+
+; 1                                           ; 0                           ;
+; 2                                           ; 0                           ;
+; 3                                           ; 0                           ;
+; 4                                           ; 0                           ;
+; 5                                           ; 0                           ;
+; 6                                           ; 0                           ;
+; 7                                           ; 0                           ;
+; 8                                           ; 0                           ;
+; 9                                           ; 1                           ;
+; 10                                          ; 0                           ;
+; 11                                          ; 0                           ;
+; 12                                          ; 0                           ;
+; 13                                          ; 0                           ;
+; 14                                          ; 0                           ;
+; 15                                          ; 0                           ;
+; 16                                          ; 6                           ;
++---------------------------------------------+-----------------------------+
+
+
++------------------------------------------------------------------+
+; LAB-wide Signals                                                 ;
++------------------------------------+-----------------------------+
+; LAB-wide Signals  (Average = 2.71) ; Number of LABs  (Total = 7) ;
++------------------------------------+-----------------------------+
+; 1 Async. clear                     ; 5                           ;
+; 1 Clock                            ; 5                           ;
+; 1 Clock enable                     ; 4                           ;
+; 1 Sync. clear                      ; 5                           ;
++------------------------------------+-----------------------------+
+
+
++----------------------------------------------------------------------------+
+; LAB Signals Sourced                                                        ;
++----------------------------------------------+-----------------------------+
+; Number of Signals Sourced  (Average = 19.71) ; Number of LABs  (Total = 7) ;
++----------------------------------------------+-----------------------------+
+; 0                                            ; 0                           ;
+; 1                                            ; 0                           ;
+; 2                                            ; 0                           ;
+; 3                                            ; 0                           ;
+; 4                                            ; 0                           ;
+; 5                                            ; 0                           ;
+; 6                                            ; 0                           ;
+; 7                                            ; 0                           ;
+; 8                                            ; 0                           ;
+; 9                                            ; 1                           ;
+; 10                                           ; 0                           ;
+; 11                                           ; 0                           ;
+; 12                                           ; 0                           ;
+; 13                                           ; 0                           ;
+; 14                                           ; 0                           ;
+; 15                                           ; 0                           ;
+; 16                                           ; 1                           ;
+; 17                                           ; 0                           ;
+; 18                                           ; 1                           ;
+; 19                                           ; 0                           ;
+; 20                                           ; 0                           ;
+; 21                                           ; 0                           ;
+; 22                                           ; 3                           ;
+; 23                                           ; 0                           ;
+; 24                                           ; 0                           ;
+; 25                                           ; 0                           ;
+; 26                                           ; 0                           ;
+; 27                                           ; 0                           ;
+; 28                                           ; 0                           ;
+; 29                                           ; 1                           ;
++----------------------------------------------+-----------------------------+
+
+
++--------------------------------------------------------------------------------+
+; LAB Signals Sourced Out                                                        ;
++--------------------------------------------------+-----------------------------+
+; Number of Signals Sourced Out  (Average = 12.43) ; Number of LABs  (Total = 7) ;
++--------------------------------------------------+-----------------------------+
+; 0                                                ; 0                           ;
+; 1                                                ; 0                           ;
+; 2                                                ; 0                           ;
+; 3                                                ; 0                           ;
+; 4                                                ; 0                           ;
+; 5                                                ; 0                           ;
+; 6                                                ; 0                           ;
+; 7                                                ; 0                           ;
+; 8                                                ; 0                           ;
+; 9                                                ; 1                           ;
+; 10                                               ; 0                           ;
+; 11                                               ; 3                           ;
+; 12                                               ; 0                           ;
+; 13                                               ; 0                           ;
+; 14                                               ; 1                           ;
+; 15                                               ; 1                           ;
+; 16                                               ; 1                           ;
++--------------------------------------------------+-----------------------------+
+
+
++----------------------------------------------------------------------------+
+; LAB Distinct Inputs                                                        ;
++----------------------------------------------+-----------------------------+
+; Number of Distinct Inputs  (Average = 23.29) ; Number of LABs  (Total = 7) ;
++----------------------------------------------+-----------------------------+
+; 0                                            ; 0                           ;
+; 1                                            ; 0                           ;
+; 2                                            ; 0                           ;
+; 3                                            ; 0                           ;
+; 4                                            ; 0                           ;
+; 5                                            ; 0                           ;
+; 6                                            ; 0                           ;
+; 7                                            ; 0                           ;
+; 8                                            ; 0                           ;
+; 9                                            ; 0                           ;
+; 10                                           ; 0                           ;
+; 11                                           ; 0                           ;
+; 12                                           ; 1                           ;
+; 13                                           ; 0                           ;
+; 14                                           ; 0                           ;
+; 15                                           ; 0                           ;
+; 16                                           ; 0                           ;
+; 17                                           ; 0                           ;
+; 18                                           ; 0                           ;
+; 19                                           ; 0                           ;
+; 20                                           ; 0                           ;
+; 21                                           ; 3                           ;
+; 22                                           ; 0                           ;
+; 23                                           ; 0                           ;
+; 24                                           ; 0                           ;
+; 25                                           ; 0                           ;
+; 26                                           ; 0                           ;
+; 27                                           ; 0                           ;
+; 28                                           ; 1                           ;
+; 29                                           ; 0                           ;
+; 30                                           ; 2                           ;
++----------------------------------------------+-----------------------------+
+
+
++--------------------------------------------------------------------------------------+
+; Fitter Device Options                                                                ;
++----------------------------------------------+---------------------------------------+
+; Option                                       ; Setting                               ;
++----------------------------------------------+---------------------------------------+
+; Enable user-supplied start-up clock (CLKUSR) ; Off                                   ;
+; Enable device-wide reset (DEV_CLRn)          ; Off                                   ;
+; Enable device-wide output enable (DEV_OE)    ; Off                                   ;
+; Enable INIT_DONE output                      ; Off                                   ;
+; Configuration scheme                         ; Active Serial                         ;
+; Error detection CRC                          ; Off                                   ;
+; nCEO                                         ; As output driving ground              ;
+; Data[0]                                      ; As input tri-stated                   ;
+; Data[1]/ASDO                                 ; As input tri-stated                   ;
+; FLASH_nCE/nCSO                               ; As input tri-stated                   ;
+; DCLK                                         ; As output driving ground              ;
+; Reserve all unused pins                      ; As input tri-stated with weak pull-up ;
+; Base pin-out file on sameframe device        ; Off                                   ;
++----------------------------------------------+---------------------------------------+
+
+
++-----------------+
+; Fitter Messages ;
++-----------------+
+Info: *******************************************************************
+Info: Running Quartus II Fitter
+    Info: Version 7.1 Build 156 04/30/2007 SJ Full Version
+    Info: Processing started: Sun Jan 26 12:57:15 2014
+Info: Command: quartus_fit --read_settings_files=off --write_settings_files=off indata_changer -c indata_changer
+Info: Selected device EP3C5F256C7 for design "indata_changer"
+Warning: The high junction temperature operating condition is not set. Assuming a default value of '85'.
+Warning: The low junction temperature operating condition is not set. Assuming a default value of '0'.
+Info: Compilation Report contains advanced information. Specifications for device EP3C5F256C7 are subject to change. Contact Altera for information on availability. No programming file will be generated.
+Info: Fitter is performing an Auto Fit compilation, which may decrease Fitter effort to reduce compilation time
+Info: Fitter is using the Classic Timing Analyzer
+Info: Detected fmax, tsu, tco, and/or tpd requirements -- optimizing circuit to achieve only the specified requirements
+Info: The Fitter has identified 1 logical partitions of which 0 have a previous placement to use
+    Info: Previous placement does not exist for 408 of 408 atoms in partition Top
+Info: Fitter converted 5 user pins into dedicated programming pins
+    Info: Pin ~ALTERA_ASDO_DATA1~ is reserved at location C1
+    Info: Pin ~ALTERA_FLASH_nCE_nCSO~ is reserved at location D2
+    Info: Pin ~ALTERA_DCLK~ is reserved at location H1
+    Info: Pin ~ALTERA_DATA0~ is reserved at location H2
+    Info: Pin ~ALTERA_nCEO~ is reserved at location F16
+Warning: No exact pin location assignment(s) for 135 pins of 135 total pins
+    Info: Pin data_high_fifo[0] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[1] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[2] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[3] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[4] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[5] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[6] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[7] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[8] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[9] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[10] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[11] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[12] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[13] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[14] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[15] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[16] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[17] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[18] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[19] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[20] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[21] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[22] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[23] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[24] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[25] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[26] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[27] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[28] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[29] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[30] not assigned to an exact location on the device
+    Info: Pin data_high_fifo[31] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[0] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[1] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[2] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[3] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[4] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[5] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[6] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[7] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[8] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[9] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[10] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[11] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[12] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[13] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[14] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[15] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[16] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[17] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[18] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[19] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[20] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[21] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[22] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[23] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[24] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[25] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[26] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[27] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[28] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[29] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[30] not assigned to an exact location on the device
+    Info: Pin data_low_fifo[31] not assigned to an exact location on the device
+    Info: Pin wr_req_fifo not assigned to an exact location on the device
+    Info: Pin valid_low not assigned to an exact location on the device
+    Info: Pin data_high_in[0] not assigned to an exact location on the device
+    Info: Pin valid_high not assigned to an exact location on the device
+    Info: Pin data_low_in[0] not assigned to an exact location on the device
+    Info: Pin data_high_in[1] not assigned to an exact location on the device
+    Info: Pin data_low_in[1] not assigned to an exact location on the device
+    Info: Pin data_high_in[2] not assigned to an exact location on the device
+    Info: Pin data_low_in[2] not assigned to an exact location on the device
+    Info: Pin data_high_in[3] not assigned to an exact location on the device
+    Info: Pin data_low_in[3] not assigned to an exact location on the device
+    Info: Pin data_high_in[4] not assigned to an exact location on the device
+    Info: Pin data_low_in[4] not assigned to an exact location on the device
+    Info: Pin data_high_in[5] not assigned to an exact location on the device
+    Info: Pin data_low_in[5] not assigned to an exact location on the device
+    Info: Pin data_high_in[6] not assigned to an exact location on the device
+    Info: Pin data_low_in[6] not assigned to an exact location on the device
+    Info: Pin data_high_in[7] not assigned to an exact location on the device
+    Info: Pin data_low_in[7] not assigned to an exact location on the device
+    Info: Pin data_high_in[8] not assigned to an exact location on the device
+    Info: Pin data_low_in[8] not assigned to an exact location on the device
+    Info: Pin data_high_in[9] not assigned to an exact location on the device
+    Info: Pin data_low_in[9] not assigned to an exact location on the device
+    Info: Pin data_high_in[10] not assigned to an exact location on the device
+    Info: Pin data_low_in[10] not assigned to an exact location on the device
+    Info: Pin data_high_in[11] not assigned to an exact location on the device
+    Info: Pin data_low_in[11] not assigned to an exact location on the device
+    Info: Pin data_high_in[12] not assigned to an exact location on the device
+    Info: Pin data_low_in[12] not assigned to an exact location on the device
+    Info: Pin data_high_in[13] not assigned to an exact location on the device
+    Info: Pin data_low_in[13] not assigned to an exact location on the device
+    Info: Pin data_high_in[14] not assigned to an exact location on the device
+    Info: Pin data_low_in[14] not assigned to an exact location on the device
+    Info: Pin data_high_in[15] not assigned to an exact location on the device
+    Info: Pin data_low_in[15] not assigned to an exact location on the device
+    Info: Pin data_high_in[16] not assigned to an exact location on the device
+    Info: Pin data_low_in[16] not assigned to an exact location on the device
+    Info: Pin data_high_in[17] not assigned to an exact location on the device
+    Info: Pin data_low_in[17] not assigned to an exact location on the device
+    Info: Pin data_high_in[18] not assigned to an exact location on the device
+    Info: Pin data_low_in[18] not assigned to an exact location on the device
+    Info: Pin data_high_in[19] not assigned to an exact location on the device
+    Info: Pin data_low_in[19] not assigned to an exact location on the device
+    Info: Pin data_high_in[20] not assigned to an exact location on the device
+    Info: Pin data_low_in[20] not assigned to an exact location on the device
+    Info: Pin data_high_in[21] not assigned to an exact location on the device
+    Info: Pin data_low_in[21] not assigned to an exact location on the device
+    Info: Pin data_high_in[22] not assigned to an exact location on the device
+    Info: Pin data_low_in[22] not assigned to an exact location on the device
+    Info: Pin data_high_in[23] not assigned to an exact location on the device
+    Info: Pin data_low_in[23] not assigned to an exact location on the device
+    Info: Pin data_high_in[24] not assigned to an exact location on the device
+    Info: Pin data_low_in[24] not assigned to an exact location on the device
+    Info: Pin data_high_in[25] not assigned to an exact location on the device
+    Info: Pin data_low_in[25] not assigned to an exact location on the device
+    Info: Pin data_high_in[26] not assigned to an exact location on the device
+    Info: Pin data_low_in[26] not assigned to an exact location on the device
+    Info: Pin data_high_in[27] not assigned to an exact location on the device
+    Info: Pin data_low_in[27] not assigned to an exact location on the device
+    Info: Pin data_high_in[28] not assigned to an exact location on the device
+    Info: Pin data_low_in[28] not assigned to an exact location on the device
+    Info: Pin data_high_in[29] not assigned to an exact location on the device
+    Info: Pin data_low_in[29] not assigned to an exact location on the device
+    Info: Pin data_high_in[30] not assigned to an exact location on the device
+    Info: Pin data_low_in[30] not assigned to an exact location on the device
+    Info: Pin data_high_in[31] not assigned to an exact location on the device
+    Info: Pin data_low_in[31] not assigned to an exact location on the device
+    Info: Pin indata_ena not assigned to an exact location on the device
+    Info: Pin clk not assigned to an exact location on the device
+    Info: Pin nReset not assigned to an exact location on the device
+    Info: Pin soft_nReset not assigned to an exact location on the device
+Info: Automatically promoted node clk~input (placed in PIN E2 (CLK0, DIFFCLK_0p))
+    Info: Automatically promoted destinations to use location or clock signal Global Clock CLKCTRL_G4
+Info: Automatically promoted node nReset~input (placed in PIN E1 (CLK1, DIFFCLK_0n))
+    Info: Automatically promoted destinations to use location or clock signal Global Clock CLKCTRL_G2
+Info: Starting register packing
+Info: Finished register packing: elapsed time is 00:00:00
+    Extra Info: No registers were packed into other blocks
+Info: Statistics of I/O pins that need to be placed that use the same VCCIO and VREF, before I/O pin placement
+    Info: Number of I/O pins in group: 133 (unused VREF, 2.50 VCCIO, 68 input, 65 output, 0 bidirectional)
+        Info: I/O standards used: 2.5 V.
+Info: I/O bank details before I/O pin placement
+    Info: Statistics of I/O banks
+        Info: I/O bank number 1 does not use VREF pins and has unused VCCIO pins. 6 total pin(s) used --  12 pins available
+        Info: I/O bank number 2 does not use VREF pins and has unused VCCIO pins. 0 total pin(s) used --  19 pins available
+        Info: I/O bank number 3 does not use VREF pins and has unused VCCIO pins. 0 total pin(s) used --  26 pins available
+        Info: I/O bank number 4 does not use VREF pins and has unused VCCIO pins. 0 total pin(s) used --  27 pins available
+        Info: I/O bank number 5 does not use VREF pins and has unused VCCIO pins. 0 total pin(s) used --  25 pins available
+        Info: I/O bank number 6 does not use VREF pins and has unused VCCIO pins. 1 total pin(s) used --  15 pins available
+        Info: I/O bank number 7 does not use VREF pins and has unused VCCIO pins. 0 total pin(s) used --  26 pins available
+        Info: I/O bank number 8 does not use VREF pins and has unused VCCIO pins. 0 total pin(s) used --  26 pins available
+Info: Fitter placement preparation operations beginning
+Info: Fitter placement preparation operations ending: elapsed time is 00:00:00
+Info: Fitter placement operations beginning
+Info: Fitter placement was successful
+Info: Fitter placement operations ending: elapsed time is 00:00:00
+Info: Estimated most critical path is register to register delay of 3.441 ns
+    Info: 1: + IC(0.000 ns) + CELL(0.000 ns) = 0.000 ns; Loc. = LAB_X11_Y17_N0; Fanout = 8; REG Node = 'parity_trg'
+    Info: 2: + IC(0.174 ns) + CELL(0.291 ns) = 0.465 ns; Loc. = LAB_X11_Y17_N0; Fanout = 1; COMB Node = 'actual_data_ff[30]~2894'
+    Info: 3: + IC(0.095 ns) + CELL(0.291 ns) = 0.851 ns; Loc. = LAB_X11_Y17_N0; Fanout = 32; COMB Node = 'actual_data_ff[30]~2895'
+    Info: 4: + IC(1.876 ns) + CELL(0.714 ns) = 3.441 ns; Loc. = LAB_X28_Y8_N0; Fanout = 1; REG Node = 'actual_data_ff[12]'
+    Info: Total cell delay = 1.296 ns ( 37.66 % )
+    Info: Total interconnect delay = 2.145 ns ( 62.34 % )
+Info: Fitter routing operations beginning
+Info: Average interconnect usage is 1% of the available device resources. Peak interconnect usage is 2%
+    Info: The peak interconnect region extends from location X11_Y12 to location X22_Y24
+Info: Fitter routing operations ending: elapsed time is 00:00:00
+Info: The Fitter performed an Auto Fit compilation.  Optimizations were skipped to reduce compilation time.
+    Info: Optimizations that may affect the design's routability were skipped
+    Info: Optimizations that may affect the design's timing were skipped
+Info: Started post-fitting delay annotation
+Warning: Timing characteristics of device EP3C5F256C7 are preliminary
+Info: Delay annotation completed successfully
+Info: Generated suppressed messages file E:/temp/PCIE/INDATA_CHANGER/indata_changer.fit.smsg
+Info: Quartus II Fitter was successful. 0 errors, 4 warnings
+    Info: Allocated 248 megabytes of memory during processing
+    Info: Processing ended: Sun Jan 26 12:57:19 2014
+    Info: Elapsed time: 00:00:04
+
+
++----------------------------+
+; Fitter Suppressed Messages ;
++----------------------------+
+The suppressed messages can be found in E:/temp/PCIE/INDATA_CHANGER/indata_changer.fit.smsg.
+
+

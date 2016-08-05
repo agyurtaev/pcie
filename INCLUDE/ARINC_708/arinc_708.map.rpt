@@ -1,0 +1,1230 @@
+Analysis & Synthesis report for arinc_708
+Fri May 02 14:00:24 2014
+Quartus II Version 7.1 Build 156 04/30/2007 SJ Full Version
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Analysis & Synthesis Source Files Read
+  5. Analysis & Synthesis Resource Usage Summary
+  6. Analysis & Synthesis Resource Utilization by Entity
+  7. Analysis & Synthesis RAM Summary
+  8. State Machine - |arinc_708|st_rx_reg
+  9. State Machine - |arinc_708|st_tx_reg
+ 10. Registers Removed During Synthesis
+ 11. Removed Registers Triggering Further Register Optimizations
+ 12. General Register Statistics
+ 13. Inverted Register Statistics
+ 14. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 15. Source assignments for divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider
+ 16. Source assignments for divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider
+ 17. Source assignments for wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated
+ 18. Source assignments for wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|a_graycounter_gic:wrptr_g1p
+ 19. Source assignments for wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|altsyncram_5731:fifo_ram
+ 20. Source assignments for wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|dffpipe_qe9:rs_brp
+ 21. Source assignments for wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|dffpipe_gd9:rs_bwp
+ 22. Source assignments for wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|alt_synch_pipe_mc8:rs_dgwp
+ 23. Source assignments for wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|alt_synch_pipe_mc8:rs_dgwp|dffpipe_hd9:dffpipe6
+ 24. Source assignments for wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|alt_synch_pipe_nc8:ws_dgrp
+ 25. Source assignments for wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|alt_synch_pipe_nc8:ws_dgrp|dffpipe_id9:dffpipe8
+ 26. Source assignments for rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated
+ 27. Source assignments for rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|a_graycounter_njc:wrptr_g1p
+ 28. Source assignments for rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|altsyncram_1731:fifo_ram
+ 29. Source assignments for rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|alt_synch_pipe_d98:rs_dgwp
+ 30. Source assignments for rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|alt_synch_pipe_d98:rs_dgwp|dffpipe_oe9:dffpipe4
+ 31. Source assignments for rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|dffpipe_oe9:ws_brp
+ 32. Source assignments for rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|dffpipe_qe9:ws_bwp
+ 33. Source assignments for rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|alt_synch_pipe_ud8:ws_dgrp
+ 34. Source assignments for rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|alt_synch_pipe_ud8:ws_dgrp|dffpipe_pe9:dffpipe6
+ 35. Parameter Settings for User Entity Instance: Top-level Entity: |arinc_708
+ 36. Parameter Settings for User Entity Instance: divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component
+ 37. Parameter Settings for User Entity Instance: divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component
+ 38. Parameter Settings for User Entity Instance: wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component
+ 39. Parameter Settings for User Entity Instance: rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component
+ 40. Analysis & Synthesis Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2007 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++-------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                  ;
++------------------------------------+------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Fri May 02 14:00:24 2014    ;
+; Quartus II Version                 ; 7.1 Build 156 04/30/2007 SJ Full Version ;
+; Revision Name                      ; arinc_708                                ;
+; Top-level Entity Name              ; arinc_708                                ;
+; Family                             ; Cyclone III                              ;
+; Total logic elements               ; 4,154                                    ;
+;     Total combinational functions  ; 4,000                                    ;
+;     Dedicated logic registers      ; 4,154                                    ;
+; Total registers                    ; 4154                                     ;
+; Total pins                         ; 20                                       ;
+; Total virtual pins                 ; 209                                      ;
+; Total memory bits                  ; 32,768                                   ;
+; Embedded Multiplier 9-bit elements ; 0                                        ;
+; Total PLLs                         ; 0                                        ;
++------------------------------------+------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                                            ;
++--------------------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                                         ; Setting            ; Default Value      ;
++--------------------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                                         ; EP3C25F324C7       ;                    ;
+; Top-level entity name                                                          ; arinc_708          ; arinc_708          ;
+; Family name                                                                    ; Cyclone III        ; Stratix II         ;
+; Restructure Multiplexers                                                       ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                                            ; Off                ; Off                ;
+; Preserve fewer node names                                                      ; On                 ; On                 ;
+; Disable OpenCore Plus hardware evaluation                                      ; Off                ; Off                ;
+; Verilog Version                                                                ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                                   ; VHDL93             ; VHDL93             ;
+; State Machine Processing                                                       ; Auto               ; Auto               ;
+; Safe State Machine                                                             ; Off                ; Off                ;
+; Extract Verilog State Machines                                                 ; On                 ; On                 ;
+; Extract VHDL State Machines                                                    ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                              ; Off                ; Off                ;
+; Add Pass-Through Logic to Inferred RAMs                                        ; On                 ; On                 ;
+; DSP Block Balancing                                                            ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                                             ; On                 ; On                 ;
+; Power-Up Don't Care                                                            ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                                   ; Off                ; Off                ;
+; Remove Duplicate Registers                                                     ; On                 ; On                 ;
+; Ignore CARRY Buffers                                                           ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                                         ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                                          ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                                      ; Off                ; Off                ;
+; Ignore LCELL Buffers                                                           ; Off                ; Off                ;
+; Ignore SOFT Buffers                                                            ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                                 ; Off                ; Off                ;
+; Optimization Technique -- Cyclone II/Cyclone III                               ; Balanced           ; Balanced           ;
+; Carry Chain Length -- Stratix/Stratix GX/Cyclone/MAX II/Cyclone II/Cyclone III ; 70                 ; 70                 ;
+; Auto Carry Chains                                                              ; On                 ; On                 ;
+; Auto Open-Drain Pins                                                           ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                                          ; Off                ; Off                ;
+; Perform gate-level register retiming                                           ; Off                ; Off                ;
+; Allow register retiming to trade off Tsu/Tco with Fmax                         ; On                 ; On                 ;
+; Auto ROM Replacement                                                           ; On                 ; On                 ;
+; Auto RAM Replacement                                                           ; On                 ; On                 ;
+; Auto DSP Block Replacement                                                     ; On                 ; On                 ;
+; Auto Shift Register Replacement                                                ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                                  ; On                 ; On                 ;
+; Allow Synchronous Control Signals                                              ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                                         ; Off                ; Off                ;
+; Auto RAM Block Balancing                                                       ; On                 ; On                 ;
+; Auto RAM to Logic Cell Conversion                                              ; Off                ; Off                ;
+; Auto Resource Sharing                                                          ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                                             ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                                             ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                                  ; Off                ; Off                ;
+; Ignore translate_off and synthesis_off directives                              ; Off                ; Off                ;
+; Show Parameter Settings Tables in Synthesis Report                             ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                                             ; Off                ; Off                ;
+; Retiming Meta-Stability Register Sequence Length                               ; 2                  ; 2                  ;
+; PowerPlay Power Optimization                                                   ; Normal compilation ; Normal compilation ;
+; HDL message level                                                              ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                                ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report                       ; 100                ; 100                ;
+; Clock MUX Protection                                                           ; On                 ; On                 ;
+; Use smart compilation                                                          ; Off                ; Off                ;
++--------------------------------------------------------------------------------+--------------------+--------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                            ;
++----------------------------------+-----------------+------------------------------+-------------------------------------------------------------------------------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                  ;
++----------------------------------+-----------------+------------------------------+-------------------------------------------------------------------------------+
+; rx_fifo.vhd                      ; yes             ; User VHDL File               ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/rx_fifo.vhd                ;
+; wx_fifo.vhd                      ; yes             ; User VHDL File               ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/wx_fifo.vhd                ;
+; arinc_708.vhd                    ; yes             ; User VHDL File               ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/arinc_708.vhd              ;
+; divider.vhd                      ; yes             ; Other                        ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/divider.vhd                ;
+; lpm_divide.tdf                   ; yes             ; Megafunction                 ; c:/altera/71/quartus/libraries/megafunctions/lpm_divide.tdf                   ;
+; abs_divider.inc                  ; yes             ; Megafunction                 ; c:/altera/71/quartus/libraries/megafunctions/abs_divider.inc                  ;
+; sign_div_unsign.inc              ; yes             ; Megafunction                 ; c:/altera/71/quartus/libraries/megafunctions/sign_div_unsign.inc              ;
+; aglobal71.inc                    ; yes             ; Megafunction                 ; c:/altera/71/quartus/libraries/megafunctions/aglobal71.inc                    ;
+; db/lpm_divide_6ht.tdf            ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/lpm_divide_6ht.tdf      ;
+; db/sign_div_unsign_77i.tdf       ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/sign_div_unsign_77i.tdf ;
+; db/alt_u_div_pfg.tdf             ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/alt_u_div_pfg.tdf       ;
+; db/add_sub_unc.tdf               ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/add_sub_unc.tdf         ;
+; db/add_sub_vnc.tdf               ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/add_sub_vnc.tdf         ;
+; dcfifo_mixed_widths.tdf          ; yes             ; Megafunction                 ; c:/altera/71/quartus/libraries/megafunctions/dcfifo_mixed_widths.tdf          ;
+; db/dcfifo_ilk1.tdf               ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/dcfifo_ilk1.tdf         ;
+; db/a_gray2bin_lfb.tdf            ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/a_gray2bin_lfb.tdf      ;
+; db/a_graycounter_j47.tdf         ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/a_graycounter_j47.tdf   ;
+; db/a_graycounter_gic.tdf         ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/a_graycounter_gic.tdf   ;
+; db/altsyncram_5731.tdf           ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/altsyncram_5731.tdf     ;
+; db/dffpipe_qe9.tdf               ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/dffpipe_qe9.tdf         ;
+; db/dffpipe_gd9.tdf               ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/dffpipe_gd9.tdf         ;
+; db/alt_synch_pipe_mc8.tdf        ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/alt_synch_pipe_mc8.tdf  ;
+; db/dffpipe_hd9.tdf               ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/dffpipe_hd9.tdf         ;
+; db/alt_synch_pipe_nc8.tdf        ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/alt_synch_pipe_nc8.tdf  ;
+; db/dffpipe_id9.tdf               ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/dffpipe_id9.tdf         ;
+; db/cntr_u2e.tdf                  ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/cntr_u2e.tdf            ;
+; db/mux_a18.tdf                   ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/mux_a18.tdf             ;
+; db/dcfifo_qhn1.tdf               ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/dcfifo_qhn1.tdf         ;
+; db/a_gray2bin_tgb.tdf            ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/a_gray2bin_tgb.tdf      ;
+; db/a_graycounter_s57.tdf         ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/a_graycounter_s57.tdf   ;
+; db/a_graycounter_njc.tdf         ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/a_graycounter_njc.tdf   ;
+; db/altsyncram_1731.tdf           ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/altsyncram_1731.tdf     ;
+; db/alt_synch_pipe_d98.tdf        ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/alt_synch_pipe_d98.tdf  ;
+; db/dffpipe_oe9.tdf               ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/dffpipe_oe9.tdf         ;
+; db/alt_synch_pipe_ud8.tdf        ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/alt_synch_pipe_ud8.tdf  ;
+; db/dffpipe_pe9.tdf               ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/dffpipe_pe9.tdf         ;
+; db/cntr_t2e.tdf                  ; yes             ; Auto-Generated Megafunction  ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/INCLUDE/ARINC_708/db/cntr_t2e.tdf            ;
++----------------------------------+-----------------+------------------------------+-------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary             ;
++---------------------------------------------+-----------+
+; Resource                                    ; Usage     ;
++---------------------------------------------+-----------+
+; Estimated Total logic elements              ; 4,154     ;
+;                                             ;           ;
+; Total combinational functions               ; 4000      ;
+; Logic element usage by number of LUT inputs ;           ;
+;     -- 4 input functions                    ; 1868      ;
+;     -- 3 input functions                    ; 1950      ;
+;     -- <=2 input functions                  ; 182       ;
+;                                             ;           ;
+; Logic elements by mode                      ;           ;
+;     -- normal mode                          ; 3831      ;
+;     -- arithmetic mode                      ; 169       ;
+;                                             ;           ;
+; Total registers                             ; 4154      ;
+;     -- Dedicated logic registers            ; 4154      ;
+;     -- I/O registers                        ; 0         ;
+;                                             ;           ;
+; Virtual pins                                ; 209       ;
+; I/O pins                                    ; 20        ;
+; Total memory bits                           ; 32768     ;
+; Maximum fan-out node                        ; clk~input ;
+; Maximum fan-out                             ; 4170      ;
+; Total fan-out                               ; 32310     ;
+; Average fan-out                             ; 3.84      ;
++---------------------------------------------+-----------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                                                                         ;
++-----------------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
+; Compilation Hierarchy Node                                ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                                                  ; Library Name ;
++-----------------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
+; |arinc_708                                                ; 4000 (3763)       ; 4154 (3967)  ; 32768       ; 0            ; 0       ; 0         ; 20   ; 209          ; |arinc_708                                                                                                                                                           ; work         ;
+;    |divider:rx_fifo_used_in_packet_cmp|                   ; 63 (0)            ; 12 (0)       ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|divider:rx_fifo_used_in_packet_cmp                                                                                                                        ; work         ;
+;       |lpm_divide:lpm_divide_component|                   ; 63 (0)            ; 12 (0)       ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component                                                                                        ; work         ;
+;          |lpm_divide_6ht:auto_generated|                  ; 63 (0)            ; 12 (0)       ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated                                                          ; work         ;
+;             |sign_div_unsign_77i:divider|                 ; 63 (0)            ; 12 (0)       ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider                              ; work         ;
+;                |alt_u_div_pfg:divider|                    ; 63 (63)           ; 12 (12)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider        ; work         ;
+;    |rx_fifo:read_fifo_component|                          ; 87 (0)            ; 90 (0)       ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|rx_fifo:read_fifo_component                                                                                                                               ; work         ;
+;       |dcfifo_mixed_widths:dcfifo_mixed_widths_component| ; 87 (0)            ; 90 (0)       ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component                                                                             ; work         ;
+;          |dcfifo_qhn1:auto_generated|                     ; 87 (16)           ; 90 (36)      ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated                                                  ; work         ;
+;             |a_gray2bin_tgb:wrptr_g_gray2bin|             ; 8 (8)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|a_gray2bin_tgb:wrptr_g_gray2bin                  ; work         ;
+;             |a_gray2bin_tgb:ws_dgrp_gray2bin|             ; 9 (9)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|a_gray2bin_tgb:ws_dgrp_gray2bin                  ; work         ;
+;             |a_graycounter_njc:wrptr_g1p|                 ; 11 (11)           ; 11 (11)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|a_graycounter_njc:wrptr_g1p                      ; work         ;
+;             |a_graycounter_s57:rdptr_g1p|                 ; 12 (12)           ; 11 (11)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|a_graycounter_s57:rdptr_g1p                      ; work         ;
+;             |alt_synch_pipe_ud8:ws_dgrp|                  ; 0 (0)             ; 10 (0)       ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|alt_synch_pipe_ud8:ws_dgrp                       ; work         ;
+;                |dffpipe_pe9:dffpipe6|                     ; 0 (0)             ; 10 (10)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|alt_synch_pipe_ud8:ws_dgrp|dffpipe_pe9:dffpipe6  ; work         ;
+;             |altsyncram_1731:fifo_ram|                    ; 0 (0)             ; 0 (0)        ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|altsyncram_1731:fifo_ram                         ; work         ;
+;             |cntr_t2e:cntr_b|                             ; 3 (3)             ; 2 (2)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|cntr_t2e:cntr_b                                  ; work         ;
+;             |dffpipe_oe9:ws_brp|                          ; 0 (0)             ; 9 (9)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|dffpipe_oe9:ws_brp                               ; work         ;
+;             |dffpipe_qe9:ws_bwp|                          ; 0 (0)             ; 11 (11)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|dffpipe_qe9:ws_bwp                               ; work         ;
+;             |mux_a18:rdemp_eq_comp_lsb_mux|               ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|mux_a18:rdemp_eq_comp_lsb_mux                    ; work         ;
+;             |mux_a18:rdemp_eq_comp_msb_mux|               ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|mux_a18:rdemp_eq_comp_msb_mux                    ; work         ;
+;             |mux_a18:wrfull_eq_comp_lsb_mux|              ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|mux_a18:wrfull_eq_comp_lsb_mux                   ; work         ;
+;             |mux_a18:wrfull_eq_comp_msb_mux|              ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|mux_a18:wrfull_eq_comp_msb_mux                   ; work         ;
+;    |wx_fifo:write_fifo_component|                         ; 87 (0)            ; 85 (0)       ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|wx_fifo:write_fifo_component                                                                                                                              ; work         ;
+;       |dcfifo_mixed_widths:dcfifo_mixed_widths_component| ; 87 (0)            ; 85 (0)       ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component                                                                            ; work         ;
+;          |dcfifo_ilk1:auto_generated|                     ; 87 (20)           ; 85 (34)      ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated                                                 ; work         ;
+;             |a_gray2bin_lfb:rdptr_g_gray2bin|             ; 8 (8)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|a_gray2bin_lfb:rdptr_g_gray2bin                 ; work         ;
+;             |a_gray2bin_lfb:rs_dgwp_gray2bin|             ; 8 (8)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|a_gray2bin_lfb:rs_dgwp_gray2bin                 ; work         ;
+;             |a_graycounter_gic:wrptr_g1p|                 ; 10 (10)           ; 10 (10)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|a_graycounter_gic:wrptr_g1p                     ; work         ;
+;             |a_graycounter_j47:rdptr_g1p|                 ; 10 (10)           ; 10 (10)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|a_graycounter_j47:rdptr_g1p                     ; work         ;
+;             |alt_synch_pipe_mc8:rs_dgwp|                  ; 0 (0)             ; 9 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|alt_synch_pipe_mc8:rs_dgwp                      ; work         ;
+;                |dffpipe_hd9:dffpipe6|                     ; 0 (0)             ; 9 (9)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|alt_synch_pipe_mc8:rs_dgwp|dffpipe_hd9:dffpipe6 ; work         ;
+;             |altsyncram_5731:fifo_ram|                    ; 0 (0)             ; 0 (0)        ; 16384       ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|altsyncram_5731:fifo_ram                        ; work         ;
+;             |cntr_u2e:cntr_b|                             ; 5 (5)             ; 3 (3)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|cntr_u2e:cntr_b                                 ; work         ;
+;             |dffpipe_gd9:rs_bwp|                          ; 0 (0)             ; 8 (8)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|dffpipe_gd9:rs_bwp                              ; work         ;
+;             |dffpipe_qe9:rs_brp|                          ; 0 (0)             ; 11 (11)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|dffpipe_qe9:rs_brp                              ; work         ;
+;             |mux_a18:rdemp_eq_comp_lsb_mux|               ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|mux_a18:rdemp_eq_comp_lsb_mux                   ; work         ;
+;             |mux_a18:rdemp_eq_comp_msb_mux|               ; 6 (6)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|mux_a18:rdemp_eq_comp_msb_mux                   ; work         ;
+;             |mux_a18:wrfull_eq_comp_lsb_mux|              ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|mux_a18:wrfull_eq_comp_lsb_mux                  ; work         ;
+;             |mux_a18:wrfull_eq_comp_msb_mux|              ; 6 (6)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |arinc_708|wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|mux_a18:wrfull_eq_comp_msb_mux                  ; work         ;
++-----------------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis RAM Summary                                                                                                                                                                                                                   ;
++-----------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+------+
+; Name                                                                                                                                          ; Type ; Mode             ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size  ; MIF  ;
++-----------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+------+
+; rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|altsyncram_1731:fifo_ram|ALTSYNCRAM  ; M9K  ; Simple Dual Port ; 2048         ; 8            ; 512          ; 32           ; 16384 ; None ;
+; wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|altsyncram_5731:fifo_ram|ALTSYNCRAM ; M9K  ; Simple Dual Port ; 256          ; 64           ; 2048         ; 8            ; 16384 ; None ;
++-----------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+------+
+
+
+Encoding Type:  One-Hot
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |arinc_708|st_rx_reg                                                                                                                                         ;
++-----------------------------+-------------------------+-------------------------+-----------------------------+--------------------+------------------------+----------------+
+; Name                        ; st_rx_reg.st_post_synch ; st_rx_reg.st_data_valid ; st_rx_reg.st_pre_data_valid ; st_rx_reg.st_synch ; st_rx_reg.st_pre_synch ; st_rx_reg.idle ;
++-----------------------------+-------------------------+-------------------------+-----------------------------+--------------------+------------------------+----------------+
+; st_rx_reg.idle              ; 0                       ; 0                       ; 0                           ; 0                  ; 0                      ; 0              ;
+; st_rx_reg.st_pre_synch      ; 0                       ; 0                       ; 0                           ; 0                  ; 1                      ; 1              ;
+; st_rx_reg.st_synch          ; 0                       ; 0                       ; 0                           ; 1                  ; 0                      ; 1              ;
+; st_rx_reg.st_pre_data_valid ; 0                       ; 0                       ; 1                           ; 0                  ; 0                      ; 1              ;
+; st_rx_reg.st_data_valid     ; 0                       ; 1                       ; 0                           ; 0                  ; 0                      ; 1              ;
+; st_rx_reg.st_post_synch     ; 1                       ; 0                       ; 0                           ; 0                  ; 0                      ; 1              ;
++-----------------------------+-------------------------+-------------------------+-----------------------------+--------------------+------------------------+----------------+
+
+
+Encoding Type:  One-Hot
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |arinc_708|st_tx_reg                                                                                                                                            ;
++---------------------------+--------------------------+--------------------------+---------------------------+------------------------+-------------------------+----------------+
+; Name                      ; st_tx_reg.st_alarm_trans ; st_tx_reg.st_pause_trans ; st_tx_reg.st_packet_trans ; st_tx_reg.st_sync_stop ; st_tx_reg.st_sync_start ; st_tx_reg.idle ;
++---------------------------+--------------------------+--------------------------+---------------------------+------------------------+-------------------------+----------------+
+; st_tx_reg.idle            ; 0                        ; 0                        ; 0                         ; 0                      ; 0                       ; 0              ;
+; st_tx_reg.st_sync_start   ; 0                        ; 0                        ; 0                         ; 0                      ; 1                       ; 1              ;
+; st_tx_reg.st_sync_stop    ; 0                        ; 0                        ; 0                         ; 1                      ; 0                       ; 1              ;
+; st_tx_reg.st_packet_trans ; 0                        ; 0                        ; 1                         ; 0                      ; 0                       ; 1              ;
+; st_tx_reg.st_pause_trans  ; 0                        ; 1                        ; 0                         ; 0                      ; 0                       ; 1              ;
+; st_tx_reg.st_alarm_trans  ; 1                        ; 0                        ; 0                         ; 0                      ; 0                       ; 1              ;
++---------------------------+--------------------------+--------------------------+---------------------------+------------------------+-------------------------+----------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                                                                                                                                   ;
++-------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------+
+; Register name                                                                                         ; Reason for Removal                                                                                           ;
++-------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------+
+; rx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFDenominator[3,6..7] ; Stuck at VCC due to stuck port data_in                                                                       ;
+; rx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFQuotient[10]        ; Stuck at GND due to stuck port data_in                                                                       ;
+; tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFDenominator[3,6..7] ; Stuck at VCC due to stuck port data_in                                                                       ;
+; tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFQuotient[10]        ; Stuck at GND due to stuck port data_in                                                                       ;
+; rx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFQuotient[5..9]      ; Stuck at GND due to stuck port data_in                                                                       ;
+; tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFQuotient[5..9]      ; Stuck at GND due to stuck port data_in                                                                       ;
+; read_fifo_component/dcfifo_mixed_widths_component/auto_generated/ws_bwp/dffe4a[11]                    ; Lost fanout                                                                                                  ;
+; read_fifo_component/dcfifo_mixed_widths_component/auto_generated/ws_brp/dffe5a[9]                     ; Lost fanout                                                                                                  ;
+; write_fifo_component/dcfifo_mixed_widths_component/auto_generated/rs_bwp/dffe5a[8]                    ; Lost fanout                                                                                                  ;
+; write_fifo_component/dcfifo_mixed_widths_component/auto_generated/rs_brp/dffe4a[11]                   ; Lost fanout                                                                                                  ;
+; tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFDenominator[0]      ; Merged with tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFDenominator[1] ;
+; tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFDenominator[1]      ; Merged with tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFDenominator[2] ;
+; tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFDenominator[2]      ; Merged with tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFDenominator[4] ;
+; tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFDenominator[4]      ; Merged with tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFDenominator[5] ;
+; tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFDenominator[5]      ; Merged with rx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFDenominator[0] ;
+; rx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFDenominator[0]      ; Merged with rx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFDenominator[1] ;
+; rx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFDenominator[1]      ; Merged with rx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFDenominator[2] ;
+; rx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFDenominator[2]      ; Merged with rx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFDenominator[4] ;
+; rx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFDenominator[4]      ; Merged with rx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFDenominator[5] ;
+; tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFNumerator[0..2]     ; Lost fanout                                                                                                  ;
+; tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFStage[0..5]         ; Lost fanout                                                                                                  ;
+; tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFNumerator[3..4]     ; Lost fanout                                                                                                  ;
+; Total Number of Removed Registers = 42                                                                ;                                                                                                              ;
++-------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                                                                                                                                   ;
++--------------------------------------------------------------------------------------------------+---------------------------+------------------------------------------------------------------------------------------------+
+; Register name                                                                                    ; Reason for Removal        ; Registers Removed due to This Register                                                         ;
++--------------------------------------------------------------------------------------------------+---------------------------+------------------------------------------------------------------------------------------------+
+; tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFDenominator[7] ; Stuck at VCC              ; tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFStage[5],    ;
+;                                                                                                  ; due to stuck port data_in ; tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFStage[4],    ;
+;                                                                                                  ;                           ; tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFStage[3],    ;
+;                                                                                                  ;                           ; tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFStage[2],    ;
+;                                                                                                  ;                           ; tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFStage[1],    ;
+;                                                                                                  ;                           ; tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFStage[0],    ;
+;                                                                                                  ;                           ; tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFNumerator[4] ;
++--------------------------------------------------------------------------------------------------+---------------------------+------------------------------------------------------------------------------------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 4154  ;
+; Number of registers using Synchronous Clear  ; 1697  ;
+; Number of registers using Synchronous Load   ; 33    ;
+; Number of registers using Asynchronous Clear ; 4142  ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 3892  ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Inverted Register Statistics                                                                                                                                                   ;
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------+
+; Inverted Register                                                                                                                                                    ; Fan out ;
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------+
+; divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[5] ; 20      ;
+; rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|rdemp_eq_comp_lsb_aeb                                       ; 1       ;
+; rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|rdemp_eq_comp_msb_aeb                                       ; 1       ;
+; wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|rdemp_eq_comp_lsb_aeb                                      ; 7       ;
+; wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|rdemp_eq_comp_msb_aeb                                      ; 7       ;
+; Total number of inverted registers = 5                                                                                                                               ;         ;
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                       ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output             ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------+
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |arinc_708|clk_div_count[0]            ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |arinc_708|fifo_data[48]               ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |arinc_708|fifo_data[15]               ;
+; 4:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |arinc_708|synch_count_ff_reg[7]       ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 7 LEs                ; 14 LEs                 ; Yes        ; |arinc_708|rx_wx_fifo_data_reg[5]      ;
+; 5:1                ; 32 bits   ; 96 LEs        ; 32 LEs               ; 64 LEs                 ; Yes        ; |arinc_708|alarm_frame_trg[16]         ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |arinc_708|synch_count_reg[7]          ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 8 LEs                ; 24 LEs                 ; Yes        ; |arinc_708|pre_synch_count_reg[1]      ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 8 LEs                ; 24 LEs                 ; Yes        ; |arinc_708|pre_data_valid_count_reg[6] ;
+; 6:1                ; 11 bits   ; 44 LEs        ; 22 LEs               ; 22 LEs                 ; Yes        ; |arinc_708|bit_count_reg[3]            ;
+; 7:1                ; 8 bits    ; 32 LEs        ; 8 LEs                ; 24 LEs                 ; Yes        ; |arinc_708|period_count_reg[0]         ;
+; 8:1                ; 1591 bits ; 7955 LEs      ; 3182 LEs             ; 4773 LEs               ; Yes        ; |arinc_708|cur_packet_reg[1423]        ;
+; 8:1                ; 3 bits    ; 15 LEs        ; 6 LEs                ; 9 LEs                  ; Yes        ; |arinc_708|bit_to_byte_count_reg[2]    ;
+; 9:1                ; 9 bits    ; 54 LEs        ; 9 LEs                ; 45 LEs                 ; Yes        ; |arinc_708|post_synch_count_reg[6]     ;
+; 13:1               ; 2 bits    ; 16 LEs        ; 6 LEs                ; 10 LEs                 ; Yes        ; |arinc_708|error_code_reg[0]           ;
+; 12:1               ; 7 bits    ; 56 LEs        ; 14 LEs               ; 42 LEs                 ; Yes        ; |arinc_708|cur_packet_reg[6]           ;
+; 15:1               ; 2 bits    ; 20 LEs        ; 2 LEs                ; 18 LEs                 ; Yes        ; |arinc_708|sync_count_reg[1]           ;
+; 18:1               ; 13 bits   ; 156 LEs       ; 13 LEs               ; 143 LEs                ; Yes        ; |arinc_708|packet_bit_count_reg[0]     ;
+; 34:1               ; 34 bits   ; 748 LEs       ; 748 LEs              ; 0 LEs                  ; Yes        ; |arinc_708|sts_data[48]                ;
+; 35:1               ; 22 bits   ; 506 LEs       ; 484 LEs              ; 22 LEs                 ; Yes        ; |arinc_708|sts_data[24]                ;
+; 37:1               ; 3 bits    ; 72 LEs        ; 72 LEs               ; 0 LEs                  ; Yes        ; |arinc_708|sts_data[6]                 ;
+; 37:1               ; 5 bits    ; 120 LEs       ; 120 LEs              ; 0 LEs                  ; Yes        ; |arinc_708|sts_data[4]                 ;
+; 3:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |arinc_708|st_rx_next~7                ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |arinc_708|st_tx_next~10               ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider ;
++----------------+-------+------+-------------------------------------------------------------------------------------------------------------------------------------------+
+; Assignment     ; Value ; From ; To                                                                                                                                        ;
++----------------+-------+------+-------------------------------------------------------------------------------------------------------------------------------------------+
+; POWER_UP_LEVEL ; HIGH  ; -    ; DFFQuotient[0]                                                                                                                            ;
+; POWER_UP_LEVEL ; HIGH  ; -    ; DFFQuotient[1]                                                                                                                            ;
+; POWER_UP_LEVEL ; HIGH  ; -    ; DFFQuotient[2]                                                                                                                            ;
+; POWER_UP_LEVEL ; HIGH  ; -    ; DFFQuotient[3]                                                                                                                            ;
+; POWER_UP_LEVEL ; HIGH  ; -    ; DFFQuotient[4]                                                                                                                            ;
+; POWER_UP_LEVEL ; LOW   ; -    ; DFFQuotient[5]                                                                                                                            ;
+; POWER_UP_LEVEL ; LOW   ; -    ; DFFQuotient[6]                                                                                                                            ;
+; POWER_UP_LEVEL ; LOW   ; -    ; DFFQuotient[7]                                                                                                                            ;
+; POWER_UP_LEVEL ; LOW   ; -    ; DFFQuotient[8]                                                                                                                            ;
+; POWER_UP_LEVEL ; LOW   ; -    ; DFFQuotient[9]                                                                                                                            ;
+; POWER_UP_LEVEL ; LOW   ; -    ; DFFQuotient[10]                                                                                                                           ;
+; POWER_UP_LEVEL ; HIGH  ; -    ; DFFDenominator                                                                                                                            ;
++----------------+-------+------+-------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider ;
++----------------+-------+------+-------------------------------------------------------------------------------------------------------------------------------------------+
+; Assignment     ; Value ; From ; To                                                                                                                                        ;
++----------------+-------+------+-------------------------------------------------------------------------------------------------------------------------------------------+
+; POWER_UP_LEVEL ; HIGH  ; -    ; DFFQuotient[0]                                                                                                                            ;
+; POWER_UP_LEVEL ; HIGH  ; -    ; DFFQuotient[1]                                                                                                                            ;
+; POWER_UP_LEVEL ; HIGH  ; -    ; DFFQuotient[2]                                                                                                                            ;
+; POWER_UP_LEVEL ; HIGH  ; -    ; DFFQuotient[3]                                                                                                                            ;
+; POWER_UP_LEVEL ; HIGH  ; -    ; DFFQuotient[4]                                                                                                                            ;
+; POWER_UP_LEVEL ; LOW   ; -    ; DFFQuotient[5]                                                                                                                            ;
+; POWER_UP_LEVEL ; LOW   ; -    ; DFFQuotient[6]                                                                                                                            ;
+; POWER_UP_LEVEL ; LOW   ; -    ; DFFQuotient[7]                                                                                                                            ;
+; POWER_UP_LEVEL ; LOW   ; -    ; DFFQuotient[8]                                                                                                                            ;
+; POWER_UP_LEVEL ; LOW   ; -    ; DFFQuotient[9]                                                                                                                            ;
+; POWER_UP_LEVEL ; LOW   ; -    ; DFFQuotient[10]                                                                                                                           ;
+; POWER_UP_LEVEL ; HIGH  ; -    ; DFFDenominator                                                                                                                            ;
++----------------+-------+------+-------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated ;
++---------------------------------+-------+-----------------+----------------------------------------------------------------------+
+; Assignment                      ; Value ; From            ; To                                                                   ;
++---------------------------------+-------+-----------------+----------------------------------------------------------------------+
+; AUTO_SHIFT_REGISTER_RECOGNITION ; OFF   ; -               ; -                                                                    ;
+; REMOVE_DUPLICATE_REGISTERS      ; OFF   ; -               ; -                                                                    ;
+; SUPPRESS_DA_RULE_INTERNAL       ; d101  ; -               ; -                                                                    ;
+; SUPPRESS_DA_RULE_INTERNAL       ; d102  ; -               ; -                                                                    ;
+; SUPPRESS_DA_RULE_INTERNAL       ; S102  ; -               ; -                                                                    ;
+; POWER_UP_LEVEL                  ; HIGH  ; -               ; rdemp_eq_comp_lsb_aeb                                                ;
+; POWER_UP_LEVEL                  ; HIGH  ; -               ; rdemp_eq_comp_msb_aeb                                                ;
+; SUPPRESS_DA_RULE_INTERNAL       ; s102  ; -               ; wrptr_g                                                              ;
+; CUT                             ; ON    ; rdptr_g         ; ws_dgrp|dffpipe8|dffe9a                                              ;
+; CUT                             ; ON    ; delayed_wrptr_g ; rs_dgwp|dffpipe6|dffe7a                                              ;
++---------------------------------+-------+-----------------+----------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|a_graycounter_gic:wrptr_g1p ;
++---------------------------+-------+------+-------------------------------------------------------------------------------------------------------------------+
+; Assignment                ; Value ; From ; To                                                                                                                ;
++---------------------------+-------+------+-------------------------------------------------------------------------------------------------------------------+
+; SUPPRESS_DA_RULE_INTERNAL ; s102  ; -    ; -                                                                                                                 ;
++---------------------------+-------+------+-------------------------------------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|altsyncram_5731:fifo_ram ;
++---------------------------------+--------------------+------+---------------------------------------------------------------------------------------------+
+; Assignment                      ; Value              ; From ; To                                                                                          ;
++---------------------------------+--------------------+------+---------------------------------------------------------------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                                                                           ;
++---------------------------------+--------------------+------+---------------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|dffpipe_qe9:rs_brp ;
++---------------------------------+-------+------+----------------------------------------------------------------------------------------------------+
+; Assignment                      ; Value ; From ; To                                                                                                 ;
++---------------------------------+-------+------+----------------------------------------------------------------------------------------------------+
+; AUTO_SHIFT_REGISTER_RECOGNITION ; OFF   ; -    ; -                                                                                                  ;
++---------------------------------+-------+------+----------------------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|dffpipe_gd9:rs_bwp ;
++---------------------------------+-------+------+----------------------------------------------------------------------------------------------------+
+; Assignment                      ; Value ; From ; To                                                                                                 ;
++---------------------------------+-------+------+----------------------------------------------------------------------------------------------------+
+; AUTO_SHIFT_REGISTER_RECOGNITION ; OFF   ; -    ; -                                                                                                  ;
++---------------------------------+-------+------+----------------------------------------------------------------------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|alt_synch_pipe_mc8:rs_dgwp ;
++-----------------------+-------+------+----------------------------------------------------------------------------------------------------------------------+
+; Assignment            ; Value ; From ; To                                                                                                                   ;
++-----------------------+-------+------+----------------------------------------------------------------------------------------------------------------------+
+; X_ON_VIOLATION_OPTION ; OFF   ; -    ; -                                                                                                                    ;
++-----------------------+-------+------+----------------------------------------------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|alt_synch_pipe_mc8:rs_dgwp|dffpipe_hd9:dffpipe6 ;
++---------------------------------+-------+------+---------------------------------------------------------------------------------------------------------------------------------+
+; Assignment                      ; Value ; From ; To                                                                                                                              ;
++---------------------------------+-------+------+---------------------------------------------------------------------------------------------------------------------------------+
+; AUTO_SHIFT_REGISTER_RECOGNITION ; OFF   ; -    ; -                                                                                                                               ;
++---------------------------------+-------+------+---------------------------------------------------------------------------------------------------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|alt_synch_pipe_nc8:ws_dgrp ;
++-----------------------+-------+------+----------------------------------------------------------------------------------------------------------------------+
+; Assignment            ; Value ; From ; To                                                                                                                   ;
++-----------------------+-------+------+----------------------------------------------------------------------------------------------------------------------+
+; X_ON_VIOLATION_OPTION ; OFF   ; -    ; -                                                                                                                    ;
++-----------------------+-------+------+----------------------------------------------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|alt_synch_pipe_nc8:ws_dgrp|dffpipe_id9:dffpipe8 ;
++---------------------------------+-------+------+---------------------------------------------------------------------------------------------------------------------------------+
+; Assignment                      ; Value ; From ; To                                                                                                                              ;
++---------------------------------+-------+------+---------------------------------------------------------------------------------------------------------------------------------+
+; AUTO_SHIFT_REGISTER_RECOGNITION ; OFF   ; -    ; -                                                                                                                               ;
++---------------------------------+-------+------+---------------------------------------------------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated ;
++---------------------------------+-------+-----------------+---------------------------------------------------------------------+
+; Assignment                      ; Value ; From            ; To                                                                  ;
++---------------------------------+-------+-----------------+---------------------------------------------------------------------+
+; AUTO_SHIFT_REGISTER_RECOGNITION ; OFF   ; -               ; -                                                                   ;
+; REMOVE_DUPLICATE_REGISTERS      ; OFF   ; -               ; -                                                                   ;
+; SUPPRESS_DA_RULE_INTERNAL       ; d101  ; -               ; -                                                                   ;
+; SUPPRESS_DA_RULE_INTERNAL       ; d102  ; -               ; -                                                                   ;
+; SUPPRESS_DA_RULE_INTERNAL       ; S102  ; -               ; -                                                                   ;
+; POWER_UP_LEVEL                  ; HIGH  ; -               ; rdemp_eq_comp_lsb_aeb                                               ;
+; POWER_UP_LEVEL                  ; HIGH  ; -               ; rdemp_eq_comp_msb_aeb                                               ;
+; SUPPRESS_DA_RULE_INTERNAL       ; s102  ; -               ; wrptr_g                                                             ;
+; CUT                             ; ON    ; rdptr_g         ; ws_dgrp|dffpipe6|dffe7a                                             ;
+; CUT                             ; ON    ; delayed_wrptr_g ; rs_dgwp|dffpipe4|dffe5a                                             ;
++---------------------------------+-------+-----------------+---------------------------------------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|a_graycounter_njc:wrptr_g1p ;
++---------------------------+-------+------+------------------------------------------------------------------------------------------------------------------+
+; Assignment                ; Value ; From ; To                                                                                                               ;
++---------------------------+-------+------+------------------------------------------------------------------------------------------------------------------+
+; SUPPRESS_DA_RULE_INTERNAL ; s102  ; -    ; -                                                                                                                ;
++---------------------------+-------+------+------------------------------------------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|altsyncram_1731:fifo_ram ;
++---------------------------------+--------------------+------+--------------------------------------------------------------------------------------------+
+; Assignment                      ; Value              ; From ; To                                                                                         ;
++---------------------------------+--------------------+------+--------------------------------------------------------------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                                                                          ;
++---------------------------------+--------------------+------+--------------------------------------------------------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|alt_synch_pipe_d98:rs_dgwp ;
++-----------------------+-------+------+---------------------------------------------------------------------------------------------------------------------+
+; Assignment            ; Value ; From ; To                                                                                                                  ;
++-----------------------+-------+------+---------------------------------------------------------------------------------------------------------------------+
+; X_ON_VIOLATION_OPTION ; OFF   ; -    ; -                                                                                                                   ;
++-----------------------+-------+------+---------------------------------------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|alt_synch_pipe_d98:rs_dgwp|dffpipe_oe9:dffpipe4 ;
++---------------------------------+-------+------+--------------------------------------------------------------------------------------------------------------------------------+
+; Assignment                      ; Value ; From ; To                                                                                                                             ;
++---------------------------------+-------+------+--------------------------------------------------------------------------------------------------------------------------------+
+; AUTO_SHIFT_REGISTER_RECOGNITION ; OFF   ; -    ; -                                                                                                                              ;
++---------------------------------+-------+------+--------------------------------------------------------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|dffpipe_oe9:ws_brp ;
++---------------------------------+-------+------+---------------------------------------------------------------------------------------------------+
+; Assignment                      ; Value ; From ; To                                                                                                ;
++---------------------------------+-------+------+---------------------------------------------------------------------------------------------------+
+; AUTO_SHIFT_REGISTER_RECOGNITION ; OFF   ; -    ; -                                                                                                 ;
++---------------------------------+-------+------+---------------------------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|dffpipe_qe9:ws_bwp ;
++---------------------------------+-------+------+---------------------------------------------------------------------------------------------------+
+; Assignment                      ; Value ; From ; To                                                                                                ;
++---------------------------------+-------+------+---------------------------------------------------------------------------------------------------+
+; AUTO_SHIFT_REGISTER_RECOGNITION ; OFF   ; -    ; -                                                                                                 ;
++---------------------------------+-------+------+---------------------------------------------------------------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|alt_synch_pipe_ud8:ws_dgrp ;
++-----------------------+-------+------+---------------------------------------------------------------------------------------------------------------------+
+; Assignment            ; Value ; From ; To                                                                                                                  ;
++-----------------------+-------+------+---------------------------------------------------------------------------------------------------------------------+
+; X_ON_VIOLATION_OPTION ; OFF   ; -    ; -                                                                                                                   ;
++-----------------------+-------+------+---------------------------------------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|alt_synch_pipe_ud8:ws_dgrp|dffpipe_pe9:dffpipe6 ;
++---------------------------------+-------+------+--------------------------------------------------------------------------------------------------------------------------------+
+; Assignment                      ; Value ; From ; To                                                                                                                             ;
++---------------------------------+-------+------+--------------------------------------------------------------------------------------------------------------------------------+
+; AUTO_SHIFT_REGISTER_RECOGNITION ; OFF   ; -    ; -                                                                                                                              ;
++---------------------------------+-------+------+--------------------------------------------------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Top-level Entity: |arinc_708 ;
++----------------+------------------+---------------------------------------+
+; Parameter Name ; Value            ; Type                                  ;
++----------------+------------------+---------------------------------------+
+; a708_data      ; 0101000000000000 ; Unsigned Binary                       ;
+; a708_ctrl      ; 0101000011010000 ; Unsigned Binary                       ;
+; a708_event     ; 0101000011100000 ; Unsigned Binary                       ;
+; a708_mask      ; 0101000011110000 ; Unsigned Binary                       ;
+; a708_al_frame  ; 0101000100000000 ; Unsigned Binary                       ;
++----------------+------------------+---------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings Tables in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component ;
++------------------------+----------------+-----------------------------------------------------------------------+
+; Parameter Name         ; Value          ; Type                                                                  ;
++------------------------+----------------+-----------------------------------------------------------------------+
+; LPM_WIDTHN             ; 11             ; Signed Integer                                                        ;
+; LPM_WIDTHD             ; 8              ; Signed Integer                                                        ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                                               ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                                               ;
+; LPM_PIPELINE           ; 1              ; Signed Integer                                                        ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                                               ;
+; MAXIMIZE_SPEED         ; 6              ; Untyped                                                               ;
+; CBXI_PARAMETER         ; lpm_divide_6ht ; Untyped                                                               ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                                               ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                                               ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                                            ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                                          ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                                          ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                                        ;
++------------------------+----------------+-----------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings Tables in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component ;
++------------------------+----------------+-----------------------------------------------------------------------+
+; Parameter Name         ; Value          ; Type                                                                  ;
++------------------------+----------------+-----------------------------------------------------------------------+
+; LPM_WIDTHN             ; 11             ; Signed Integer                                                        ;
+; LPM_WIDTHD             ; 8              ; Signed Integer                                                        ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                                               ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                                               ;
+; LPM_PIPELINE           ; 1              ; Signed Integer                                                        ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                                               ;
+; MAXIMIZE_SPEED         ; 6              ; Untyped                                                               ;
+; CBXI_PARAMETER         ; lpm_divide_6ht ; Untyped                                                               ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                                               ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                                               ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                                            ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                                          ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                                          ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                                        ;
++------------------------+----------------+-----------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings Tables in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component ;
++-------------------------+-------------+-------------------------------------------------------------------------------------+
+; Parameter Name          ; Value       ; Type                                                                                ;
++-------------------------+-------------+-------------------------------------------------------------------------------------+
+; ADD_RAM_OUTPUT_REGISTER ; OFF         ; Untyped                                                                             ;
+; ADD_USEDW_MSB_BIT       ; OFF         ; Untyped                                                                             ;
+; CLOCKS_ARE_SYNCHRONIZED ; FALSE       ; Untyped                                                                             ;
+; DELAY_RDUSEDW           ; 1           ; Untyped                                                                             ;
+; DELAY_WRUSEDW           ; 1           ; Untyped                                                                             ;
+; LPM_NUMWORDS            ; 256         ; Signed Integer                                                                      ;
+; LPM_SHOWAHEAD           ; ON          ; Untyped                                                                             ;
+; LPM_WIDTH               ; 64          ; Signed Integer                                                                      ;
+; LPM_WIDTH_R             ; 8           ; Signed Integer                                                                      ;
+; LPM_WIDTHU              ; 8           ; Signed Integer                                                                      ;
+; LPM_WIDTHU_R            ; 11          ; Signed Integer                                                                      ;
+; MAXIMIZE_SPEED          ; 5           ; Untyped                                                                             ;
+; OVERFLOW_CHECKING       ; ON          ; Untyped                                                                             ;
+; RAM_BLOCK_TYPE          ; M9K         ; Untyped                                                                             ;
+; RDSYNC_DELAYPIPE        ; 3           ; Signed Integer                                                                      ;
+; UNDERFLOW_CHECKING      ; ON          ; Untyped                                                                             ;
+; USE_EAB                 ; ON          ; Untyped                                                                             ;
+; WRITE_ACLR_SYNCH        ; OFF         ; Untyped                                                                             ;
+; WRSYNC_DELAYPIPE        ; 3           ; Signed Integer                                                                      ;
+; CBXI_PARAMETER          ; dcfifo_ilk1 ; Untyped                                                                             ;
++-------------------------+-------------+-------------------------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings Tables in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component ;
++-------------------------+-------------+------------------------------------------------------------------------------------+
+; Parameter Name          ; Value       ; Type                                                                               ;
++-------------------------+-------------+------------------------------------------------------------------------------------+
+; ADD_RAM_OUTPUT_REGISTER ; OFF         ; Untyped                                                                            ;
+; ADD_USEDW_MSB_BIT       ; OFF         ; Untyped                                                                            ;
+; CLOCKS_ARE_SYNCHRONIZED ; FALSE       ; Untyped                                                                            ;
+; DELAY_RDUSEDW           ; 1           ; Untyped                                                                            ;
+; DELAY_WRUSEDW           ; 1           ; Untyped                                                                            ;
+; LPM_NUMWORDS            ; 2048        ; Signed Integer                                                                     ;
+; LPM_SHOWAHEAD           ; ON          ; Untyped                                                                            ;
+; LPM_WIDTH               ; 8           ; Signed Integer                                                                     ;
+; LPM_WIDTH_R             ; 32          ; Signed Integer                                                                     ;
+; LPM_WIDTHU              ; 11          ; Signed Integer                                                                     ;
+; LPM_WIDTHU_R            ; 9           ; Signed Integer                                                                     ;
+; MAXIMIZE_SPEED          ; 5           ; Untyped                                                                            ;
+; OVERFLOW_CHECKING       ; ON          ; Untyped                                                                            ;
+; RAM_BLOCK_TYPE          ; M9K         ; Untyped                                                                            ;
+; RDSYNC_DELAYPIPE        ; 3           ; Signed Integer                                                                     ;
+; UNDERFLOW_CHECKING      ; ON          ; Untyped                                                                            ;
+; USE_EAB                 ; ON          ; Untyped                                                                            ;
+; WRITE_ACLR_SYNCH        ; OFF         ; Untyped                                                                            ;
+; WRSYNC_DELAYPIPE        ; 3           ; Signed Integer                                                                     ;
+; CBXI_PARAMETER          ; dcfifo_qhn1 ; Untyped                                                                            ;
++-------------------------+-------------+------------------------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings Tables in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus II Analysis & Synthesis
+    Info: Version 7.1 Build 156 04/30/2007 SJ Full Version
+    Info: Processing started: Fri May 02 13:59:49 2014
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off arinc_708 -c arinc_708
+Info: Found 2 design units, including 1 entities, in source file rx_fifo.vhd
+    Info: Found design unit 1: rx_fifo-SYN
+    Info: Found entity 1: rx_fifo
+Info: Found 2 design units, including 1 entities, in source file wx_fifo.vhd
+    Info: Found design unit 1: wx_fifo-SYN
+    Info: Found entity 1: wx_fifo
+Info: Found 2 design units, including 1 entities, in source file arinc_708.vhd
+    Info: Found design unit 1: arinc_708-RTL
+    Info: Found entity 1: arinc_708
+Info: Elaborating entity "arinc_708" for the top level hierarchy
+Warning (10036): Verilog HDL or VHDL warning at arinc_708.vhd(98): object "int_ena_node" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at arinc_708.vhd(163): object "tx_data_fifo_empty_trg" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at arinc_708.vhd(166): object "rx_data_fifo_full" assigned a value but never read
+Warning: Using design file divider.vhd, which is not specified as a design file for the current project, but contains definitions for 2 design units and 1 entities in project
+    Info: Found design unit 1: divider-SYN
+    Info: Found entity 1: divider
+Info: Elaborating entity "divider" for hierarchy "divider:tx_fifo_used_in_packet_cmp"
+Info: Found 1 design units, including 1 entities, in source file c:/altera/71/quartus/libraries/megafunctions/lpm_divide.tdf
+    Info: Found entity 1: lpm_divide
+Info: Elaborating entity "lpm_divide" for hierarchy "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component"
+Info: Elaborated megafunction instantiation "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component"
+Info: Found 1 design units, including 1 entities, in source file db/lpm_divide_6ht.tdf
+    Info: Found entity 1: lpm_divide_6ht
+Info: Elaborating entity "lpm_divide_6ht" for hierarchy "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated"
+Info: Found 1 design units, including 1 entities, in source file db/sign_div_unsign_77i.tdf
+    Info: Found entity 1: sign_div_unsign_77i
+Info: Elaborating entity "sign_div_unsign_77i" for hierarchy "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider"
+Info: Found 1 design units, including 1 entities, in source file db/alt_u_div_pfg.tdf
+    Info: Found entity 1: alt_u_div_pfg
+Info: Elaborating entity "alt_u_div_pfg" for hierarchy "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider"
+Info: Found 1 design units, including 1 entities, in source file db/add_sub_unc.tdf
+    Info: Found entity 1: add_sub_unc
+Info: Elaborating entity "add_sub_unc" for hierarchy "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|add_sub_unc:add_sub_0"
+Info: Found 1 design units, including 1 entities, in source file db/add_sub_vnc.tdf
+    Info: Found entity 1: add_sub_vnc
+Info: Elaborating entity "add_sub_vnc" for hierarchy "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|add_sub_vnc:add_sub_1"
+Info: Elaborating entity "wx_fifo" for hierarchy "wx_fifo:write_fifo_component"
+Info: Found 1 design units, including 1 entities, in source file c:/altera/71/quartus/libraries/megafunctions/dcfifo_mixed_widths.tdf
+    Info: Found entity 1: dcfifo_mixed_widths
+Info: Elaborating entity "dcfifo_mixed_widths" for hierarchy "wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component"
+Info: Elaborated megafunction instantiation "wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component"
+Info: Found 1 design units, including 1 entities, in source file db/dcfifo_ilk1.tdf
+    Info: Found entity 1: dcfifo_ilk1
+Info: Elaborating entity "dcfifo_ilk1" for hierarchy "wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated"
+Info: Found 1 design units, including 1 entities, in source file db/a_gray2bin_lfb.tdf
+    Info: Found entity 1: a_gray2bin_lfb
+Info: Elaborating entity "a_gray2bin_lfb" for hierarchy "wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|a_gray2bin_lfb:rdptr_g_gray2bin"
+Info: Found 1 design units, including 1 entities, in source file db/a_graycounter_j47.tdf
+    Info: Found entity 1: a_graycounter_j47
+Info: Elaborating entity "a_graycounter_j47" for hierarchy "wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|a_graycounter_j47:rdptr_g1p"
+Info: Found 1 design units, including 1 entities, in source file db/a_graycounter_gic.tdf
+    Info: Found entity 1: a_graycounter_gic
+Info: Elaborating entity "a_graycounter_gic" for hierarchy "wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|a_graycounter_gic:wrptr_g1p"
+Info: Found 1 design units, including 1 entities, in source file db/altsyncram_5731.tdf
+    Info: Found entity 1: altsyncram_5731
+Info: Elaborating entity "altsyncram_5731" for hierarchy "wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|altsyncram_5731:fifo_ram"
+Info: Found 1 design units, including 1 entities, in source file db/dffpipe_qe9.tdf
+    Info: Found entity 1: dffpipe_qe9
+Info: Elaborating entity "dffpipe_qe9" for hierarchy "wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|dffpipe_qe9:rs_brp"
+Info: Found 1 design units, including 1 entities, in source file db/dffpipe_gd9.tdf
+    Info: Found entity 1: dffpipe_gd9
+Info: Elaborating entity "dffpipe_gd9" for hierarchy "wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|dffpipe_gd9:rs_bwp"
+Info: Found 1 design units, including 1 entities, in source file db/alt_synch_pipe_mc8.tdf
+    Info: Found entity 1: alt_synch_pipe_mc8
+Info: Elaborating entity "alt_synch_pipe_mc8" for hierarchy "wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|alt_synch_pipe_mc8:rs_dgwp"
+Info: Found 1 design units, including 1 entities, in source file db/dffpipe_hd9.tdf
+    Info: Found entity 1: dffpipe_hd9
+Info: Elaborating entity "dffpipe_hd9" for hierarchy "wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|alt_synch_pipe_mc8:rs_dgwp|dffpipe_hd9:dffpipe6"
+Info: Found 1 design units, including 1 entities, in source file db/alt_synch_pipe_nc8.tdf
+    Info: Found entity 1: alt_synch_pipe_nc8
+Info: Elaborating entity "alt_synch_pipe_nc8" for hierarchy "wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|alt_synch_pipe_nc8:ws_dgrp"
+Info: Found 1 design units, including 1 entities, in source file db/dffpipe_id9.tdf
+    Info: Found entity 1: dffpipe_id9
+Info: Elaborating entity "dffpipe_id9" for hierarchy "wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|alt_synch_pipe_nc8:ws_dgrp|dffpipe_id9:dffpipe8"
+Info: Found 1 design units, including 1 entities, in source file db/cntr_u2e.tdf
+    Info: Found entity 1: cntr_u2e
+Info: Elaborating entity "cntr_u2e" for hierarchy "wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|cntr_u2e:cntr_b"
+Info: Found 1 design units, including 1 entities, in source file db/mux_a18.tdf
+    Info: Found entity 1: mux_a18
+Info: Elaborating entity "mux_a18" for hierarchy "wx_fifo:write_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_ilk1:auto_generated|mux_a18:rdemp_eq_comp_lsb_mux"
+Info: Elaborating entity "rx_fifo" for hierarchy "rx_fifo:read_fifo_component"
+Info: Elaborating entity "dcfifo_mixed_widths" for hierarchy "rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component"
+Info: Elaborated megafunction instantiation "rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component"
+Info: Found 1 design units, including 1 entities, in source file db/dcfifo_qhn1.tdf
+    Info: Found entity 1: dcfifo_qhn1
+Info: Elaborating entity "dcfifo_qhn1" for hierarchy "rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated"
+Info: Found 1 design units, including 1 entities, in source file db/a_gray2bin_tgb.tdf
+    Info: Found entity 1: a_gray2bin_tgb
+Info: Elaborating entity "a_gray2bin_tgb" for hierarchy "rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|a_gray2bin_tgb:wrptr_g_gray2bin"
+Info: Found 1 design units, including 1 entities, in source file db/a_graycounter_s57.tdf
+    Info: Found entity 1: a_graycounter_s57
+Info: Elaborating entity "a_graycounter_s57" for hierarchy "rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|a_graycounter_s57:rdptr_g1p"
+Info: Found 1 design units, including 1 entities, in source file db/a_graycounter_njc.tdf
+    Info: Found entity 1: a_graycounter_njc
+Info: Elaborating entity "a_graycounter_njc" for hierarchy "rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|a_graycounter_njc:wrptr_g1p"
+Info: Found 1 design units, including 1 entities, in source file db/altsyncram_1731.tdf
+    Info: Found entity 1: altsyncram_1731
+Info: Elaborating entity "altsyncram_1731" for hierarchy "rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|altsyncram_1731:fifo_ram"
+Info: Found 1 design units, including 1 entities, in source file db/alt_synch_pipe_d98.tdf
+    Info: Found entity 1: alt_synch_pipe_d98
+Info: Elaborating entity "alt_synch_pipe_d98" for hierarchy "rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|alt_synch_pipe_d98:rs_dgwp"
+Info: Found 1 design units, including 1 entities, in source file db/dffpipe_oe9.tdf
+    Info: Found entity 1: dffpipe_oe9
+Info: Elaborating entity "dffpipe_oe9" for hierarchy "rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|alt_synch_pipe_d98:rs_dgwp|dffpipe_oe9:dffpipe4"
+Info: Found 1 design units, including 1 entities, in source file db/alt_synch_pipe_ud8.tdf
+    Info: Found entity 1: alt_synch_pipe_ud8
+Info: Elaborating entity "alt_synch_pipe_ud8" for hierarchy "rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|alt_synch_pipe_ud8:ws_dgrp"
+Info: Found 1 design units, including 1 entities, in source file db/dffpipe_pe9.tdf
+    Info: Found entity 1: dffpipe_pe9
+Info: Elaborating entity "dffpipe_pe9" for hierarchy "rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|alt_synch_pipe_ud8:ws_dgrp|dffpipe_pe9:dffpipe6"
+Info: Found 1 design units, including 1 entities, in source file db/cntr_t2e.tdf
+    Info: Found entity 1: cntr_t2e
+Info: Elaborating entity "cntr_t2e" for hierarchy "rx_fifo:read_fifo_component|dcfifo_mixed_widths:dcfifo_mixed_widths_component|dcfifo_qhn1:auto_generated|cntr_t2e:cntr_b"
+Warning: Reduced register "divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[7]" with stuck data_in port to stuck value VCC
+Warning: Reduced register "divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[6]" with stuck data_in port to stuck value VCC
+Warning: Reduced register "divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[3]" with stuck data_in port to stuck value VCC
+Warning: Reduced register "divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFQuotient[10]" with stuck data_in port to stuck value GND
+Warning: Reduced register "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[7]" with stuck data_in port to stuck value VCC
+Warning: Reduced register "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[6]" with stuck data_in port to stuck value VCC
+Warning: Reduced register "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[3]" with stuck data_in port to stuck value VCC
+Warning: Reduced register "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFQuotient[10]" with stuck data_in port to stuck value GND
+Warning: Reduced register "divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFQuotient[9]" with stuck data_in port to stuck value GND
+Warning: Reduced register "divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFQuotient[8]" with stuck data_in port to stuck value GND
+Warning: Reduced register "divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFQuotient[7]" with stuck data_in port to stuck value GND
+Warning: Reduced register "divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFQuotient[6]" with stuck data_in port to stuck value GND
+Warning: Reduced register "divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFQuotient[5]" with stuck data_in port to stuck value GND
+Warning: Reduced register "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFQuotient[9]" with stuck data_in port to stuck value GND
+Warning: Reduced register "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFQuotient[8]" with stuck data_in port to stuck value GND
+Warning: Reduced register "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFQuotient[7]" with stuck data_in port to stuck value GND
+Warning: Reduced register "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFQuotient[6]" with stuck data_in port to stuck value GND
+Warning: Reduced register "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFQuotient[5]" with stuck data_in port to stuck value GND
+Info: Duplicate registers merged to single register
+    Info: Duplicate register "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[0]" merged to single register "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[1]"
+    Info: Duplicate register "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[1]" merged to single register "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[2]"
+    Info: Duplicate register "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[2]" merged to single register "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[4]"
+    Info: Duplicate register "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[4]" merged to single register "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[5]"
+    Info: Duplicate register "divider:tx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[5]" merged to single register "divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[0]"
+    Info: Duplicate register "divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[0]" merged to single register "divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[1]"
+    Info: Duplicate register "divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[1]" merged to single register "divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[2]"
+    Info: Duplicate register "divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[2]" merged to single register "divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[4]"
+    Info: Duplicate register "divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[4]" merged to single register "divider:rx_fifo_used_in_packet_cmp|lpm_divide:lpm_divide_component|lpm_divide_6ht:auto_generated|sign_div_unsign_77i:divider|alt_u_div_pfg:divider|DFFDenominator[5]"
+Info: State machine "|arinc_708|st_rx_reg" contains 6 states
+Info: State machine "|arinc_708|st_tx_reg" contains 6 states
+Info: Selected Auto state machine encoding method for state machine "|arinc_708|st_rx_reg"
+Info: Encoding result for state machine "|arinc_708|st_rx_reg"
+    Info: Completed encoding using 6 state bits
+        Info: Encoded state bit "st_rx_reg.st_post_synch"
+        Info: Encoded state bit "st_rx_reg.st_data_valid"
+        Info: Encoded state bit "st_rx_reg.st_pre_data_valid"
+        Info: Encoded state bit "st_rx_reg.st_synch"
+        Info: Encoded state bit "st_rx_reg.st_pre_synch"
+        Info: Encoded state bit "st_rx_reg.idle"
+    Info: State "|arinc_708|st_rx_reg.idle" uses code string "000000"
+    Info: State "|arinc_708|st_rx_reg.st_pre_synch" uses code string "000011"
+    Info: State "|arinc_708|st_rx_reg.st_synch" uses code string "000101"
+    Info: State "|arinc_708|st_rx_reg.st_pre_data_valid" uses code string "001001"
+    Info: State "|arinc_708|st_rx_reg.st_data_valid" uses code string "010001"
+    Info: State "|arinc_708|st_rx_reg.st_post_synch" uses code string "100001"
+Info: Selected Auto state machine encoding method for state machine "|arinc_708|st_tx_reg"
+Info: Encoding result for state machine "|arinc_708|st_tx_reg"
+    Info: Completed encoding using 6 state bits
+        Info: Encoded state bit "st_tx_reg.st_alarm_trans"
+        Info: Encoded state bit "st_tx_reg.st_pause_trans"
+        Info: Encoded state bit "st_tx_reg.st_packet_trans"
+        Info: Encoded state bit "st_tx_reg.st_sync_stop"
+        Info: Encoded state bit "st_tx_reg.st_sync_start"
+        Info: Encoded state bit "st_tx_reg.idle"
+    Info: State "|arinc_708|st_tx_reg.idle" uses code string "000000"
+    Info: State "|arinc_708|st_tx_reg.st_sync_start" uses code string "000011"
+    Info: State "|arinc_708|st_tx_reg.st_sync_stop" uses code string "000101"
+    Info: State "|arinc_708|st_tx_reg.st_packet_trans" uses code string "001001"
+    Info: State "|arinc_708|st_tx_reg.st_pause_trans" uses code string "010001"
+    Info: State "|arinc_708|st_tx_reg.st_alarm_trans" uses code string "100001"
+Info: Registers with preset signals will power-up high
+Info: DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
+Info: 15 registers lost all their fanouts during netlist optimizations. The first 15 are displayed below.
+    Info: Register "read_fifo_component/dcfifo_mixed_widths_component/auto_generated/ws_bwp/dffe4a[11]" lost all its fanouts during netlist optimizations.
+    Info: Register "read_fifo_component/dcfifo_mixed_widths_component/auto_generated/ws_brp/dffe5a[9]" lost all its fanouts during netlist optimizations.
+    Info: Register "write_fifo_component/dcfifo_mixed_widths_component/auto_generated/rs_bwp/dffe5a[8]" lost all its fanouts during netlist optimizations.
+    Info: Register "write_fifo_component/dcfifo_mixed_widths_component/auto_generated/rs_brp/dffe4a[11]" lost all its fanouts during netlist optimizations.
+    Info: Register "tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFNumerator[0]" lost all its fanouts during netlist optimizations.
+    Info: Register "tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFNumerator[1]" lost all its fanouts during netlist optimizations.
+    Info: Register "tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFNumerator[2]" lost all its fanouts during netlist optimizations.
+    Info: Register "tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFStage[5]" lost all its fanouts during netlist optimizations.
+    Info: Register "tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFStage[4]" lost all its fanouts during netlist optimizations.
+    Info: Register "tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFStage[3]" lost all its fanouts during netlist optimizations.
+    Info: Register "tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFStage[2]" lost all its fanouts during netlist optimizations.
+    Info: Register "tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFStage[1]" lost all its fanouts during netlist optimizations.
+    Info: Register "tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFStage[0]" lost all its fanouts during netlist optimizations.
+    Info: Register "tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFNumerator[4]" lost all its fanouts during netlist optimizations.
+    Info: Register "tx_fifo_used_in_packet_cmp/lpm_divide_component/auto_generated/divider/divider/DFFNumerator[3]" lost all its fanouts during netlist optimizations.
+Info: Design contains 209 virtual pins; timing numbers associated with paths containing virtual pins are estimates
+    Info: Pin "wr_adr[0]" is virtual input pin
+    Info: Pin "wr_adr[1]" is virtual input pin
+    Info: Pin "wr_adr[2]" is virtual input pin
+    Info: Pin "wr_adr[16]" is virtual input pin
+    Info: Pin "wr_adr[17]" is virtual input pin
+    Info: Pin "wr_adr[18]" is virtual input pin
+    Info: Pin "wr_adr[19]" is virtual input pin
+    Info: Pin "wr_adr[20]" is virtual input pin
+    Info: Pin "wr_adr[21]" is virtual input pin
+    Info: Pin "wr_adr[22]" is virtual input pin
+    Info: Pin "wr_adr[23]" is virtual input pin
+    Info: Pin "wr_adr[24]" is virtual input pin
+    Info: Pin "wr_adr[25]" is virtual input pin
+    Info: Pin "wr_adr[26]" is virtual input pin
+    Info: Pin "wr_adr[27]" is virtual input pin
+    Info: Pin "wr_adr[28]" is virtual input pin
+    Info: Pin "wr_adr[29]" is virtual input pin
+    Info: Pin "wr_adr[30]" is virtual input pin
+    Info: Pin "wr_adr[31]" is virtual input pin
+    Info: Pin "rd_adr[16]" is virtual input pin
+    Info: Pin "rd_adr[17]" is virtual input pin
+    Info: Pin "rd_adr[18]" is virtual input pin
+    Info: Pin "rd_adr[19]" is virtual input pin
+    Info: Pin "rd_adr[20]" is virtual input pin
+    Info: Pin "rd_adr[21]" is virtual input pin
+    Info: Pin "rd_adr[22]" is virtual input pin
+    Info: Pin "rd_adr[23]" is virtual input pin
+    Info: Pin "rd_adr[24]" is virtual input pin
+    Info: Pin "rd_adr[25]" is virtual input pin
+    Info: Pin "rd_adr[26]" is virtual input pin
+    Info: Pin "rd_adr[27]" is virtual input pin
+    Info: Pin "rd_adr[28]" is virtual input pin
+    Info: Pin "rd_adr[29]" is virtual input pin
+    Info: Pin "rd_adr[30]" is virtual input pin
+    Info: Pin "rd_adr[31]" is virtual input pin
+    Info: Pin "rd_data_0[0]" is virtual output pin
+    Info: Pin "rd_data_0[1]" is virtual output pin
+    Info: Pin "rd_data_0[2]" is virtual output pin
+    Info: Pin "rd_data_0[3]" is virtual output pin
+    Info: Pin "rd_data_0[4]" is virtual output pin
+    Info: Pin "rd_data_0[5]" is virtual output pin
+    Info: Pin "rd_data_0[6]" is virtual output pin
+    Info: Pin "rd_data_0[7]" is virtual output pin
+    Info: Pin "rd_data_0[8]" is virtual output pin
+    Info: Pin "rd_data_0[9]" is virtual output pin
+    Info: Pin "rd_data_0[10]" is virtual output pin
+    Info: Pin "rd_data_0[11]" is virtual output pin
+    Info: Pin "rd_data_0[12]" is virtual output pin
+    Info: Pin "rd_data_0[13]" is virtual output pin
+    Info: Pin "rd_data_0[14]" is virtual output pin
+    Info: Pin "rd_data_0[15]" is virtual output pin
+    Info: Pin "rd_data_0[16]" is virtual output pin
+    Info: Pin "rd_data_0[17]" is virtual output pin
+    Info: Pin "rd_data_0[18]" is virtual output pin
+    Info: Pin "rd_data_0[19]" is virtual output pin
+    Info: Pin "rd_data_0[20]" is virtual output pin
+    Info: Pin "rd_data_0[21]" is virtual output pin
+    Info: Pin "rd_data_0[22]" is virtual output pin
+    Info: Pin "rd_data_0[23]" is virtual output pin
+    Info: Pin "rd_data_0[24]" is virtual output pin
+    Info: Pin "rd_data_0[25]" is virtual output pin
+    Info: Pin "rd_data_0[26]" is virtual output pin
+    Info: Pin "rd_data_0[27]" is virtual output pin
+    Info: Pin "rd_data_0[28]" is virtual output pin
+    Info: Pin "rd_data_0[29]" is virtual output pin
+    Info: Pin "rd_data_0[30]" is virtual output pin
+    Info: Pin "rd_data_0[31]" is virtual output pin
+    Info: Pin "rd_data_1[0]" is virtual output pin
+    Info: Pin "rd_data_1[1]" is virtual output pin
+    Info: Pin "rd_data_1[2]" is virtual output pin
+    Info: Pin "rd_data_1[3]" is virtual output pin
+    Info: Pin "rd_data_1[4]" is virtual output pin
+    Info: Pin "rd_data_1[5]" is virtual output pin
+    Info: Pin "rd_data_1[6]" is virtual output pin
+    Info: Pin "rd_data_1[7]" is virtual output pin
+    Info: Pin "rd_data_1[8]" is virtual output pin
+    Info: Pin "rd_data_1[9]" is virtual output pin
+    Info: Pin "rd_data_1[10]" is virtual output pin
+    Info: Pin "rd_data_1[11]" is virtual output pin
+    Info: Pin "rd_data_1[12]" is virtual output pin
+    Info: Pin "rd_data_1[13]" is virtual output pin
+    Info: Pin "rd_data_1[14]" is virtual output pin
+    Info: Pin "rd_data_1[15]" is virtual output pin
+    Info: Pin "rd_data_1[16]" is virtual output pin
+    Info: Pin "rd_data_1[17]" is virtual output pin
+    Info: Pin "rd_data_1[18]" is virtual output pin
+    Info: Pin "rd_data_1[19]" is virtual output pin
+    Info: Pin "rd_data_1[20]" is virtual output pin
+    Info: Pin "rd_data_1[21]" is virtual output pin
+    Info: Pin "rd_data_1[22]" is virtual output pin
+    Info: Pin "rd_data_1[23]" is virtual output pin
+    Info: Pin "rd_data_1[24]" is virtual output pin
+    Info: Pin "rd_data_1[25]" is virtual output pin
+    Info: Pin "rd_data_1[26]" is virtual output pin
+    Info: Pin "rd_data_1[27]" is virtual output pin
+    Info: Pin "rd_data_1[28]" is virtual output pin
+    Info: Pin "rd_data_1[29]" is virtual output pin
+    Info: Pin "rd_data_1[30]" is virtual output pin
+    Info: Pin "rd_data_1[31]" is virtual output pin
+    Info: Pin "a708_TX" is virtual output pin
+    Info: Pin "a708_TXn" is virtual output pin
+    Info: Pin "a708_TXINH" is virtual output pin
+    Info: Pin "a708_RXEN" is virtual output pin
+    Info: Pin "wr_adr[12]" is virtual input pin
+    Info: Pin "wr_adr[14]" is virtual input pin
+    Info: Pin "wr_adr[13]" is virtual input pin
+    Info: Pin "wr_adr[9]" is virtual input pin
+    Info: Pin "wr_adr[10]" is virtual input pin
+    Info: Pin "wr_adr[15]" is virtual input pin
+    Info: Pin "wr_adr[11]" is virtual input pin
+    Info: Pin "wr_adr[7]" is virtual input pin
+    Info: Pin "wr_adr[5]" is virtual input pin
+    Info: Pin "wr_adr[6]" is virtual input pin
+    Info: Pin "wr_adr[4]" is virtual input pin
+    Info: Pin "wr_adr[8]" is virtual input pin
+    Info: Pin "wren_0" is virtual input pin
+    Info: Pin "wren_1" is virtual input pin
+    Info: Pin "rd_adr_change_dff" is virtual input pin
+    Info: Pin "wr_data_0[2]" is virtual input pin
+    Info: Pin "wr_be_0[0]" is virtual input pin
+    Info: Pin "wr_data_0[3]" is virtual input pin
+    Info: Pin "wr_data_0[1]" is virtual input pin
+    Info: Pin "wr_data_0[0]" is virtual input pin
+    Info: Pin "wr_data_0[6]" is virtual input pin
+    Info: Pin "wr_data_0[7]" is virtual input pin
+    Info: Pin "wr_adr[3]" is virtual input pin
+    Info: Pin "rd_adr[8]" is virtual input pin
+    Info: Pin "rd_adr[12]" is virtual input pin
+    Info: Pin "rd_adr[14]" is virtual input pin
+    Info: Pin "rd_adr[13]" is virtual input pin
+    Info: Pin "rd_adr[9]" is virtual input pin
+    Info: Pin "rd_adr[10]" is virtual input pin
+    Info: Pin "rd_adr[15]" is virtual input pin
+    Info: Pin "rd_adr[11]" is virtual input pin
+    Info: Pin "rd_adr[4]" is virtual input pin
+    Info: Pin "rd_adr[3]" is virtual input pin
+    Info: Pin "rd_adr[7]" is virtual input pin
+    Info: Pin "rd_adr[6]" is virtual input pin
+    Info: Pin "rd_adr[5]" is virtual input pin
+    Info: Pin "rd_adr[2]" is virtual input pin
+    Info: Pin "rd_adr[1]" is virtual input pin
+    Info: Pin "rd_adr[0]" is virtual input pin
+    Info: Pin "wr_data_0[4]" is virtual input pin
+    Info: Pin "wr_data_0[5]" is virtual input pin
+    Info: Pin "wr_data_0[8]" is virtual input pin
+    Info: Pin "wr_be_0[1]" is virtual input pin
+    Info: Pin "wr_data_0[9]" is virtual input pin
+    Info: Pin "wr_data_0[10]" is virtual input pin
+    Info: Pin "wr_data_0[11]" is virtual input pin
+    Info: Pin "wr_data_0[12]" is virtual input pin
+    Info: Pin "wr_data_0[13]" is virtual input pin
+    Info: Pin "wr_data_0[14]" is virtual input pin
+    Info: Pin "wr_data_0[15]" is virtual input pin
+    Info: Pin "wr_data_0[16]" is virtual input pin
+    Info: Pin "wr_be_0[2]" is virtual input pin
+    Info: Pin "wr_data_0[17]" is virtual input pin
+    Info: Pin "wr_data_0[18]" is virtual input pin
+    Info: Pin "wr_data_0[19]" is virtual input pin
+    Info: Pin "wr_data_0[20]" is virtual input pin
+    Info: Pin "wr_data_0[21]" is virtual input pin
+    Info: Pin "wr_data_0[22]" is virtual input pin
+    Info: Pin "wr_data_0[23]" is virtual input pin
+    Info: Pin "wr_data_0[24]" is virtual input pin
+    Info: Pin "wr_be_0[3]" is virtual input pin
+    Info: Pin "wr_data_0[25]" is virtual input pin
+    Info: Pin "wr_data_0[26]" is virtual input pin
+    Info: Pin "wr_data_0[27]" is virtual input pin
+    Info: Pin "wr_data_0[28]" is virtual input pin
+    Info: Pin "wr_data_0[29]" is virtual input pin
+    Info: Pin "wr_data_0[30]" is virtual input pin
+    Info: Pin "wr_data_0[31]" is virtual input pin
+    Info: Pin "wr_data_1[0]" is virtual input pin
+    Info: Pin "wr_be_1[0]" is virtual input pin
+    Info: Pin "wr_data_1[1]" is virtual input pin
+    Info: Pin "wr_data_1[2]" is virtual input pin
+    Info: Pin "wr_data_1[3]" is virtual input pin
+    Info: Pin "wr_data_1[4]" is virtual input pin
+    Info: Pin "wr_data_1[5]" is virtual input pin
+    Info: Pin "wr_data_1[6]" is virtual input pin
+    Info: Pin "wr_data_1[7]" is virtual input pin
+    Info: Pin "wr_data_1[8]" is virtual input pin
+    Info: Pin "wr_be_1[1]" is virtual input pin
+    Info: Pin "wr_data_1[9]" is virtual input pin
+    Info: Pin "wr_data_1[10]" is virtual input pin
+    Info: Pin "wr_data_1[11]" is virtual input pin
+    Info: Pin "wr_data_1[12]" is virtual input pin
+    Info: Pin "wr_data_1[13]" is virtual input pin
+    Info: Pin "wr_data_1[14]" is virtual input pin
+    Info: Pin "wr_data_1[15]" is virtual input pin
+    Info: Pin "wr_data_1[16]" is virtual input pin
+    Info: Pin "wr_be_1[2]" is virtual input pin
+    Info: Pin "wr_data_1[17]" is virtual input pin
+    Info: Pin "wr_data_1[18]" is virtual input pin
+    Info: Pin "wr_data_1[19]" is virtual input pin
+    Info: Pin "wr_data_1[20]" is virtual input pin
+    Info: Pin "wr_data_1[21]" is virtual input pin
+    Info: Pin "wr_data_1[22]" is virtual input pin
+    Info: Pin "wr_data_1[23]" is virtual input pin
+    Info: Pin "wr_data_1[24]" is virtual input pin
+    Info: Pin "wr_be_1[3]" is virtual input pin
+    Info: Pin "wr_data_1[25]" is virtual input pin
+    Info: Pin "wr_data_1[26]" is virtual input pin
+    Info: Pin "wr_data_1[27]" is virtual input pin
+    Info: Pin "wr_data_1[28]" is virtual input pin
+    Info: Pin "wr_data_1[29]" is virtual input pin
+    Info: Pin "wr_data_1[30]" is virtual input pin
+    Info: Pin "wr_data_1[31]" is virtual input pin
+    Info: Pin "a708_RX" is virtual input pin
+    Info: Pin "a708_RXn" is virtual input pin
+Warning: Ignored 44 Virtual Pin logic option assignments
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[23]".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[22]".
+    Warning: Ignored Virtual Pin assignment to "rd_data_1".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[10]".
+    Warning: Ignored Virtual Pin assignment to "wr_be_0".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[11]".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[16]".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[24]".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[12]".
+    Warning: Ignored Virtual Pin assignment to "rd_data_0".
+    Warning: Ignored Virtual Pin assignment to "tx_clk_out".
+    Warning: Ignored Virtual Pin assignment to "wr_adr".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[31]".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[13]".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[2]".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[9]".
+    Warning: Ignored Virtual Pin assignment to "sts_data_out".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[29]".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[19]".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[14]".
+    Warning: Ignored Virtual Pin assignment to "rd_adr".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[15]".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[3]".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[25]".
+    Warning: Ignored Virtual Pin assignment to "txd_out".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[7]".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[30]".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[27]".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[17]".
+    Warning: Ignored Virtual Pin assignment to "wr_data_1".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[5]".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[26]".
+    Warning: Ignored Virtual Pin assignment to "wr_data_0".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[6]".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[0]".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[8]".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[20]".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[28]".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[1]".
+    Warning: Ignored Virtual Pin assignment to "wr_be_1".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[4]".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[18]".
+    Warning: Ignored Virtual Pin assignment to "sts_trg_out[21]".
+Info: Implemented 6439 device resources after synthesis - the final resource count might be different
+    Info: Implemented 2 input pins
+    Info: Implemented 18 output pins
+    Info: Implemented 6383 logic cells
+    Info: Implemented 16 RAM segments
+Info: Quartus II Analysis & Synthesis was successful. 0 errors, 67 warnings
+    Info: Allocated 230 megabytes of memory during processing
+    Info: Processing ended: Fri May 02 14:00:24 2014
+    Info: Elapsed time: 00:00:35
+
+

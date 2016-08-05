@@ -1,0 +1,294 @@
+# Copyright (C) 1991-2007 Altera Corporation
+# Your use of Altera Corporation's design tools, logic functions 
+# and other software and tools, and its AMPP partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Altera Program License 
+# Subscription Agreement, Altera MegaCore Function License 
+# Agreement, or other applicable license agreement, including, 
+# without limitation, that your use is for the sole purpose of 
+# programming logic devices manufactured by Altera and sold by 
+# Altera or its authorized distributors.  Please refer to the 
+# applicable agreement for further details.
+
+
+# The default values for assignments are stored in the file
+#		arinc_708_assignment_defaults.qdf
+# If this file doesn't exist, and for assignments not listed, see file
+#		assignment_defaults.qdf
+
+# Altera recommends that you do not modify this file. This
+# file is updated automatically by the Quartus II software
+# and any changes you make may be lost or overwritten.
+
+
+set_global_assignment -name DEVICE EP3C25F324C7
+set_global_assignment -name FAMILY "Cyclone III"
+set_global_assignment -name TOP_LEVEL_ENTITY arinc_708
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 7.1
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "13:32:25  FEBRUARY 02, 2014"
+set_global_assignment -name LAST_QUARTUS_VERSION 7.1
+set_instance_assignment -name PARTITION_HIERARCHY no_file_for_top_partition -to | -section_id Top
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_instance_assignment -name VIRTUAL_PIN ON -to a708_RX
+set_instance_assignment -name VIRTUAL_PIN ON -to a708_RXEN
+set_instance_assignment -name VIRTUAL_PIN ON -to a708_RXn
+set_instance_assignment -name VIRTUAL_PIN ON -to a708_TX
+set_instance_assignment -name VIRTUAL_PIN ON -to a708_TXINH
+set_instance_assignment -name VIRTUAL_PIN ON -to a708_TXn
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[0]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[1]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[2]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[3]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[4]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[5]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[6]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[7]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[8]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[9]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[10]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[11]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[12]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[13]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[14]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[15]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[16]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[17]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[18]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[19]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[20]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[21]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[22]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[23]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[24]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[25]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[26]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[27]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[28]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[29]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[30]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr[31]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_adr_change_dff
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[0]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[1]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[2]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[3]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[4]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[5]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[6]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[7]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[8]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[9]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[10]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[11]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[12]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[13]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[14]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[15]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[16]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[17]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[18]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[19]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[20]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[21]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[22]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[23]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[24]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[25]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[26]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[27]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[28]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[29]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[30]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_0[31]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[0]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[1]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[2]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[3]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[4]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[5]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[6]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[7]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[8]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[9]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[10]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[11]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[12]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[13]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[14]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[15]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[16]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[17]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[18]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[19]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[20]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[21]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[22]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[23]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[24]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[25]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[26]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[27]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[28]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[29]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[30]
+set_instance_assignment -name VIRTUAL_PIN ON -to rd_data_1[31]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_data_out
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[0]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[1]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[2]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[3]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[4]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[5]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[6]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[7]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[8]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[9]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[10]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[11]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[12]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[13]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[14]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[15]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[16]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[17]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[18]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[19]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[20]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[21]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[22]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[23]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[24]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[25]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[26]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[27]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[28]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[29]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[30]
+set_instance_assignment -name VIRTUAL_PIN ON -to sts_trg_out[31]
+set_instance_assignment -name VIRTUAL_PIN ON -to tx_clk_out
+set_instance_assignment -name VIRTUAL_PIN ON -to txd_out
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[0]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[1]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[2]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[3]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[4]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[5]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[6]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[7]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[8]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[9]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[10]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[11]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[12]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[13]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[14]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[15]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[16]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[17]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[18]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[19]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[20]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[21]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[22]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[23]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[24]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[25]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[26]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[27]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[28]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[29]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[30]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_adr[31]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_be_0
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_be_0[0]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_be_0[1]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_be_0[2]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_be_0[3]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_be_1
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_be_1[0]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_be_1[1]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_be_1[2]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_be_1[3]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[0]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[1]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[2]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[3]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[4]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[5]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[6]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[7]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[8]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[9]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[10]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[11]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[12]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[13]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[14]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[15]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[16]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[17]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[18]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[19]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[20]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[21]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[22]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[23]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[24]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[25]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[26]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[27]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[28]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[29]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[30]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_0[31]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[0]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[1]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[2]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[3]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[4]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[5]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[6]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[7]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[8]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[9]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[10]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[11]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[12]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[13]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[14]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[15]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[16]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[17]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[18]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[19]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[20]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[21]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[22]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[23]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[24]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[25]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[26]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[27]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[28]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[29]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[30]
+set_instance_assignment -name VIRTUAL_PIN ON -to wr_data_1[31]
+set_instance_assignment -name VIRTUAL_PIN ON -to wren_0
+set_instance_assignment -name VIRTUAL_PIN ON -to wren_1
+set_global_assignment -name FMAX_REQUIREMENT "125 MHz" -section_id clk
+set_instance_assignment -name CLOCK_SETTINGS clk -to clk
+set_global_assignment -name USE_TIMEQUEST_TIMING_ANALYZER OFF
+set_global_assignment -name ADD_DEFAULT_PINS_TO_SIMULATION_OUTPUT_WAVEFORMS OFF
+set_global_assignment -name VHDL_FILE rx_fifo.vhd
+set_global_assignment -name VHDL_FILE wx_fifo.vhd
+set_global_assignment -name VHDL_FILE arinc_708.vhd
+set_global_assignment -name VECTOR_WAVEFORM_FILE arinc_708.vwf

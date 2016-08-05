@@ -1,0 +1,1409 @@
+
+INCLUDE "lpm_ff.inc";
+INCLUDE "lpm_counter.inc";
+INCLUDE "altsyncram.inc";
+INCLUDE "lpm_mux.inc";
+INCLUDE "global_def.inc";
+INCLUDE "lpm_constant.inc";
+
+FUNCTION pcie_wrapper (local_rstn, pcie_rstn, refclk, rx_in0, reconfig_clk, pclk_in, tx_dt_ram_0[31..0], tx_dt_ram_1[31..0], tx_dt_ram_2[31..0], tx_dt_ram_3[31..0], rx_ready, app_int_sts)
+	RETURNS (tx_out0, app_clk, test_out_icm[8..0], pll_locked, dt_ram_3[31..0], dt_ram_2[31..0], dt_ram_1[31..0], dt_ram_0[31..0], wren_3, wren_2, wren_1, wren_0, be_3[3..0], be_2[3..0], be_1[3..0], be_0[3..0], write_addr[63..0], read_addr[63..0], tx_dt_ram_0_out[31..0], tx_dt_ram_1_out[31..0], prefetch_wrreq_trg_trg_out, app_int_ack);
+
+FUNCTION arinc_825 (clk, nReset, wr_adr[31..0], wr_data_1[31..0], wr_be_1[3..0], wren_1, wr_data_0[31..0], wr_be_0[3..0], wren_0, rd_adr[31..0], rd_adr_change_dff, MISO, HI3110_INT, STAT, GP1, GP2)
+	WITH (SPI_DATA, SPI_CTRL, SPI_EVENT, SPI_MASK, SPI_FDIV)
+	RETURNS (int_ena, rd_data_0[31..0], rd_data_1[31..0], nCS, SCK, MOSI, TXEN, MR, rd_fifo_write, rd_fifo_wr_data[7..0], fifo_indata_ena, fifo_data_high_fifo[31..0], fifo_data_low_fifo[31..0], fifo_wr_req_fifo);
+	
+FUNCTION arinc_429_tx (clk, nReset, wr_adr[31..0], wr_data_1[31..0], wr_be_1[3..0], wren_1, wr_data_0[31..0], wr_be_0[3..0], wren_0, rd_adr[31..0])
+	WITH (A429_TX_DATA, A429_TX_CTRL, A429_TX_EVENT, A429_TX_MASK, A429_TX_AL_FRAME)
+	RETURNS (int_ena, rd_data_0[31..0], rd_data_1[31..0], txd_0, txd_1);
+
+FUNCTION arinc_429_rx (clk, nReset, wr_adr[31..0], wr_data_1[31..0], wr_be_1[3..0], wren_1, wr_data_0[31..0], wr_be_0[3..0], wren_0, rd_adr[31..0], rd_adr_change_dff, rxd_0, rxd_1)
+	WITH (A429_RX_DATA, A429_RX_CTRL, A429_RX_EVENT, A429_RX_MASK)
+	RETURNS (int_ena, rd_data_0[31..0], rd_data_1[31..0]);	
+
+FUNCTION arinc_708 (clk, nReset, wr_adr[31..0], wr_data_1[31..0], wr_be_1[3..0], wren_1, wr_data_0[31..0], wr_be_0[3..0], wren_0, rd_adr[31..0], rd_adr_change_dff, a708_RX, a708_RXn)
+	WITH (A708_DATA, A708_CTRL, A708_EVENT, A708_MASK, A708_AL_FRAME)
+	RETURNS (int_ena, rd_data_0[31..0], rd_data_1[31..0], a708_TX, a708_TXn, a708_TXINH, a708_RXEN, valid_indata_out, wren_0_out, wren_1_out, tx_sclr_out, tx_data_fifo_used_out[10..0], wx_fifo_rdreq_out, end_of_packet);
+	
+PARAMETERS
+(
+	VERS_HIGH = 3,
+	VERS_LOW  = 8,
+	A825_SHIFT_VALUE_A = 12,
+	A825_SHIFT_VALUE_B = 14,
+	A429_SHIFT_VALUE = 20,
+	A429_SHIFT_NUMBER_VALUE = 16,
+	A708_SHIFT_VALUE = 20,
+	A708_SHIFT_NUMBER_VALUE = 16
+);
+	
+Subdesign pcie_top(
+
+-- PCIe inputs:
+	local_rstn_ext : input;
+	pcie_rstn : input;
+	refclk : input;
+	rx_in0 : input;
+
+	reconfig_clk : input;
+	
+-- PCIe outputs:
+	L0_led : output;
+	alive_led : output;
+	comp_led : output;
+	lane_active_led[7..0] : output;
+
+	reconfig_alive_led : output;
+	pll_lock : output;
+
+	tx_out0 : output;
+
+	pclk_in : input;
+	
+-- ARINC 429
+	a429_rx_a[16..0] : input;
+	a429_rx_b[16..0] : input;
+	
+	a429_tx_a[9..0] : output;
+	a429_tx_b[9..0] : output;
+
+-- ARINC 825 SPI-BUS
+	-- Channel A
+	a825_SCK_A : output;
+	a825_SI_A : output;
+	a825_nCS_A : output;
+	a825_SO_A : input;
+	
+	a825_TXEN_A : output;
+	a825_MR_A : output;
+	
+	a825_INT_A : input;
+	a825_STAT_A : input;
+	a825_GP1_A : input;
+	a825_GP2_A : input;
+
+	-- Channel B	
+	a825_SCK_B : output;
+	a825_SI_B : output;
+	a825_nCS_B : output;
+	a825_SO_B : input;
+	
+	a825_TXEN_B : output;
+	a825_MR_B : output;
+	
+	a825_INT_B : input;
+	a825_STAT_B : input;
+	a825_GP1_B : input;
+	a825_GP2_B : input;
+	
+-- ARINC 708
+	-- Channel A
+	a708_TXA : output;
+	a708_TXAn : output;
+	
+	a708_RXA : input;
+	a708_RXAn : input;
+	
+	a708_TXINHA : output;
+	a708_RXENA : output;
+	
+	-- Channel B
+	a708_TXB : output;
+	a708_TXBn : output;
+	
+	a708_RXB : input;
+	a708_RXBn : input;
+	
+	a708_TXINHB : output;
+	a708_RXENB : output;
+	
+	MS_A0 : output;
+	MS_A1 : output;
+	MS_A2 : output;
+	
+	MS_EN_1 : output;
+	MS_EN_2 : output;
+
+--TEST***
+--		tx_dt_ram_0_out[31..0] : output;
+--		tx_dt_ram_1_out[31..0] : output;
+--		rd_adr_out[23..0] : output;
+--		rd_fifo_write : output;
+--		rd_fifo_wr_data[7..0] : output;
+--		valid_indata_out : output;
+--		fifo_indata_ena : output;
+--		fifo_data_high_fifo[31..0] : output;
+--		fifo_data_low_fifo[31..0] : output;
+--		fifo_wr_req_fifo : output;
+--		
+--		
+--		
+--		wren_0_out : output;
+--		wren_1_out : output;
+--		tx_data_fifo_used_out[10..0] : output;
+--		wx_fifo_rdreq_out : output;
+--		tx_sclr_out : output;
+
+	end_of_packet : output;
+		
+	a708_TXA_test : output;
+	a708_TXAn_test : output;		
+	
+	a708_RXA_test : output;
+	a708_RXAn_test : output;		
+	
+--TEST***		
+	
+)
+
+Variable
+
+	clk : node;
+	test_out_icm[8..0] : node;
+
+-- Soft Reset
+	soft_reset : lpm_ff with (lpm_width = 1);
+	soft_reset_trg[1..0] : dff;
+	
+-- Leds
+	L0_led_trg : dff;
+	alive_led_cnt : lpm_counter with (lpm_width = 26);
+	alive_led_trg : dff;
+	comp_led_trg : dff;
+	lane_active_led_trg[7..0] : dff;
+
+	reconfig_alive_led_cnt : lpm_counter with (lpm_width = 27);
+	reconfig_alive_led_trg : dff;
+
+--====================================--
+--=========== PCIE wrapper ===========--
+--====================================--
+	pcie_wrapper_inc : pcie_wrapper;
+
+	any_rstn : node;
+	nReset : node;
+
+	-- read addr register
+	read_addr_ff : lpm_ff with (lpm_width = 28);
+	
+	-- rd_adr_change trigger
+	rd_adr_change_dff : dff;
+	rd_adr_change : node;
+
+--===========================================--
+--================ INTERRUPTS ===============--
+--===========================================--
+-- HI3110_INT CTRL
+	INT_CTRL : lpm_ff with (lpm_width = 1);
+
+-- INT_CTRL address detect
+	INT_CTRL_adr_detect : dff;
+
+-- INT_CTRL register
+	INT_CTRL_ff : lpm_ff with (lpm_width = 1);
+
+	INT_CTRL_ENA : node;
+
+-- int_event L address detect
+	int_event_l_adr_detect : dff;
+
+-- read event L register
+	rd_int_event_l_ff : lpm_ff with (lpm_width = 18);
+
+-- int_event H address detect
+	int_event_h_adr_detect : dff;
+
+-- read event H register
+	rd_int_event_h_ff : lpm_ff with (lpm_width = 26);	
+--===========================================--	
+
+--========================================================--
+--================ VERSION REGISTER ======================--
+--========================================================--
+-- version address detect
+	version_adr_detect : dff;
+
+-- version register
+	version_ff : lpm_ff with (lpm_width = 32);
+
+-- wr_test address detect
+	wr_test_ff[1..0] : lpm_ff with (lpm_width = 32);
+		
+-- rd_test address detect
+	rd_test_adr_detect : dff;
+	
+-- rd_test register
+	rd_test_ff : lpm_ff with (lpm_width = 64);
+
+--=========================================================--
+--======================= ARINC825 ========================--
+--=========================================================--
+--	arinc_825_inst_a : arinc_825 with (SPI_DATA = SPI_OFFSET_A + SPI_DATA, SPI_CTRL = SPI_OFFSET_A + SPI_CTRL, SPI_EVENT = SPI_OFFSET_A + SPI_EVENT, SPI_MASK = SPI_OFFSET_A + SPI_MASK);
+--	arinc_825_inst_b : arinc_825 with (SPI_DATA = SPI_OFFSET_B + SPI_DATA, SPI_CTRL = SPI_OFFSET_B + SPI_CTRL, SPI_EVENT = SPI_OFFSET_B + SPI_EVENT, SPI_MASK = SPI_OFFSET_B + SPI_MASK);
+
+	arinc_825_inst_a : arinc_825 with (SPI_DATA = h"1000", SPI_CTRL = h"1010", SPI_EVENT = h"1020", SPI_MASK = h"1030", SPI_FDIV = h"1040");
+	arinc_825_inst_b : arinc_825 with (SPI_DATA = h"1100", SPI_CTRL = h"1110", SPI_EVENT = h"1120", SPI_MASK = h"1130", SPI_FDIV = h"1140");
+	
+--=========================================================--
+--======================= ARINC429 ========================--
+--=========================================================--
+	arinc_429_tx_inst_0  : arinc_429_tx with (A429_TX_DATA = h"2000", A429_TX_CTRL = h"2010", A429_TX_EVENT = h"2020", A429_TX_MASK = h"2030", A429_TX_AL_FRAME = h"2040");
+	arinc_429_tx_inst_1  : arinc_429_tx with (A429_TX_DATA = h"2100", A429_TX_CTRL = h"2110", A429_TX_EVENT = h"2120", A429_TX_MASK = h"2130", A429_TX_AL_FRAME = h"2140");
+	arinc_429_tx_inst_2  : arinc_429_tx with (A429_TX_DATA = h"2200", A429_TX_CTRL = h"2210", A429_TX_EVENT = h"2220", A429_TX_MASK = h"2230", A429_TX_AL_FRAME = h"2240");
+	arinc_429_tx_inst_3  : arinc_429_tx with (A429_TX_DATA = h"2300", A429_TX_CTRL = h"2310", A429_TX_EVENT = h"2320", A429_TX_MASK = h"2330", A429_TX_AL_FRAME = h"2340");
+	arinc_429_tx_inst_4  : arinc_429_tx with (A429_TX_DATA = h"2400", A429_TX_CTRL = h"2410", A429_TX_EVENT = h"2420", A429_TX_MASK = h"2430", A429_TX_AL_FRAME = h"2440");
+	arinc_429_tx_inst_5  : arinc_429_tx with (A429_TX_DATA = h"2500", A429_TX_CTRL = h"2510", A429_TX_EVENT = h"2520", A429_TX_MASK = h"2530", A429_TX_AL_FRAME = h"2540");
+	arinc_429_tx_inst_6  : arinc_429_tx with (A429_TX_DATA = h"2600", A429_TX_CTRL = h"2610", A429_TX_EVENT = h"2620", A429_TX_MASK = h"2630", A429_TX_AL_FRAME = h"2640");
+	arinc_429_tx_inst_7  : arinc_429_tx with (A429_TX_DATA = h"2700", A429_TX_CTRL = h"2710", A429_TX_EVENT = h"2720", A429_TX_MASK = h"2730", A429_TX_AL_FRAME = h"2740");
+	arinc_429_tx_inst_8  : arinc_429_tx with (A429_TX_DATA = h"2800", A429_TX_CTRL = h"2810", A429_TX_EVENT = h"2820", A429_TX_MASK = h"2830", A429_TX_AL_FRAME = h"2840");
+	arinc_429_tx_inst_9  : arinc_429_tx with (A429_TX_DATA = h"2900", A429_TX_CTRL = h"2910", A429_TX_EVENT = h"2920", A429_TX_MASK = h"2930", A429_TX_AL_FRAME = h"2940");
+
+	arinc_429_rx_inst_0  : arinc_429_rx with (A429_RX_DATA = h"3000", A429_RX_CTRL = h"3010", A429_RX_EVENT = h"3020", A429_RX_MASK = h"3030");
+	arinc_429_rx_inst_1  : arinc_429_rx with (A429_RX_DATA = h"3100", A429_RX_CTRL = h"3110", A429_RX_EVENT = h"3120", A429_RX_MASK = h"3130");
+	arinc_429_rx_inst_2  : arinc_429_rx with (A429_RX_DATA = h"3200", A429_RX_CTRL = h"3210", A429_RX_EVENT = h"3220", A429_RX_MASK = h"3230");
+	arinc_429_rx_inst_3  : arinc_429_rx with (A429_RX_DATA = h"3300", A429_RX_CTRL = h"3310", A429_RX_EVENT = h"3320", A429_RX_MASK = h"3330");
+	arinc_429_rx_inst_4  : arinc_429_rx with (A429_RX_DATA = h"3400", A429_RX_CTRL = h"3410", A429_RX_EVENT = h"3420", A429_RX_MASK = h"3430");
+	arinc_429_rx_inst_5  : arinc_429_rx with (A429_RX_DATA = h"3500", A429_RX_CTRL = h"3510", A429_RX_EVENT = h"3520", A429_RX_MASK = h"3530");
+	arinc_429_rx_inst_6  : arinc_429_rx with (A429_RX_DATA = h"3600", A429_RX_CTRL = h"3610", A429_RX_EVENT = h"3620", A429_RX_MASK = h"3630");
+	arinc_429_rx_inst_7  : arinc_429_rx with (A429_RX_DATA = h"3700", A429_RX_CTRL = h"3710", A429_RX_EVENT = h"3720", A429_RX_MASK = h"3730");
+	arinc_429_rx_inst_8  : arinc_429_rx with (A429_RX_DATA = h"3800", A429_RX_CTRL = h"3810", A429_RX_EVENT = h"3820", A429_RX_MASK = h"3830");
+	arinc_429_rx_inst_9  : arinc_429_rx with (A429_RX_DATA = h"3900", A429_RX_CTRL = h"3910", A429_RX_EVENT = h"3920", A429_RX_MASK = h"3930");
+	arinc_429_rx_inst_10 : arinc_429_rx with (A429_RX_DATA = h"3A00", A429_RX_CTRL = h"3A10", A429_RX_EVENT = h"3A20", A429_RX_MASK = h"3A30");
+	arinc_429_rx_inst_11 : arinc_429_rx with (A429_RX_DATA = h"3B00", A429_RX_CTRL = h"3B10", A429_RX_EVENT = h"3B20", A429_RX_MASK = h"3B30");
+	arinc_429_rx_inst_12 : arinc_429_rx with (A429_RX_DATA = h"3C00", A429_RX_CTRL = h"3C10", A429_RX_EVENT = h"3C20", A429_RX_MASK = h"3C30");
+	arinc_429_rx_inst_13 : arinc_429_rx with (A429_RX_DATA = h"3D00", A429_RX_CTRL = h"3D10", A429_RX_EVENT = h"3D20", A429_RX_MASK = h"3D30");
+	arinc_429_rx_inst_14 : arinc_429_rx with (A429_RX_DATA = h"3E00", A429_RX_CTRL = h"3E10", A429_RX_EVENT = h"3E20", A429_RX_MASK = h"3E30");
+	arinc_429_rx_inst_15 : arinc_429_rx with (A429_RX_DATA = h"3F00", A429_RX_CTRL = h"3F10", A429_RX_EVENT = h"3F20", A429_RX_MASK = h"3F30");
+
+	arinc_429_rx_inst_16 : arinc_429_rx WITH (A429_RX_DATA = h"4000", A429_RX_CTRL = h"4010", A429_RX_EVENT = h"4020", A429_RX_MASK = h"4030");
+
+-- LB CONTROL
+	EXT_MUX_LB_CTRL : lpm_ff with (lpm_width = 5);
+	EXT_MUX_LB_CTRL_adr_detect : dff;
+	EXT_MUX_LB_CTRL_ff : lpm_ff with (lpm_width = 32);
+
+	A429_LOOP_ff[15..0] : lpm_ff with (lpm_width = 1);
+	A429_RX_LB_ENA[15..0] : node;
+
+	A429_LOOP_SRC_ff[15..0] : lpm_ff with (lpm_width = 4);
+	A429_RX_LB_SRC[15..0][3..0] : node;
+
+-- A429 CTRL ADR detect
+	A429_CTRL_ADR_detect_trg[15..0] : dff;
+	
+-- A429 LOOP data
+	A429_LOOP_data_ff[15..0] : lpm_ff with (lpm_width = 5);
+	
+	EXT_MUX_LB_ENA : node;
+	EXT_MUX_LB_SEL[3..0] : node;
+	
+	tx_to_rx_mux[15..0] : lpm_mux WITH (
+			LPM_PIPELINE = 1,
+			LPM_SIZE = 10,
+			LPM_TYPE = "LPM_MUX",
+			LPM_WIDTH = 2,
+			LPM_WIDTHS = 4
+			);	
+--=========================================================--
+
+--=========================================================--
+--======================= ARINC708 ========================--
+--=========================================================--
+	arinc_708_inst_a : arinc_708 WITH (A708_DATA = h"5000", A708_CTRL = h"50D0", A708_EVENT = h"50E0", A708_MASK = h"50F0", A708_AL_FRAME = h"5100");
+	arinc_708_inst_b : arinc_708 WITH (A708_DATA = h"5400", A708_CTRL = h"54D0", A708_EVENT = h"54E0", A708_MASK = h"54F0", A708_AL_FRAME = h"5500");
+
+-- LB CONTROL
+	A708_LOOP_ff[1..0] : lpm_ff with (lpm_width = 1);
+	A708_LOOP_SRC_ff[1..0] : lpm_ff with (lpm_width = 1);
+
+-- A708 CTRL ADR detect
+	A708_CTRL_ADR_detect_trg[1..0] : dff;
+	
+-- A708 LOOP data
+	A708_LOOP_data_ff[1..0] : lpm_ff with (lpm_width = 2);
+		
+	A708_RX_LB_ENA[1..0] : node;
+	A708_RX_LB_SEL_A : node;
+	A708_RX_LB_SEL_B : node;	
+--=========================================================--
+	
+Begin
+
+
+-- Soft Reset
+	soft_reset.clock = clk;
+	soft_reset.data[0] = pcie_wrapper_inc.dt_ram_0[0];
+	soft_reset.enable = (pcie_wrapper_inc.be_0[0] and pcie_wrapper_inc.wren_0 and (pcie_wrapper_inc.write_addr[15..4] == h"005")) or soft_reset_trg[1].q;	
+	soft_reset.sclr = soft_reset_trg[1].q;
+		soft_reset.aclr = not any_rstn;
+
+	soft_reset_trg[1..0].clk = clk;
+	soft_reset_trg[0].d = soft_reset.q[0];
+	soft_reset_trg[1].d = soft_reset_trg[0].q;
+	
+	nReset = dff(any_rstn and not soft_reset_trg[1].q,clk,,);
+	
+-- Leds
+	L0_led_trg.clk = clk;
+	L0_led_trg.d = not (test_out_icm[4..0] == b"01111");
+		L0_led_trg.clrn = any_rstn;
+	
+	L0_led = L0_led_trg.q;
+	
+	alive_led_cnt.clock = clk;
+		alive_led_cnt.aclr = not any_rstn;
+	
+	alive_led_trg.clk = clk;
+	alive_led_trg.d = alive_led_cnt.q[25];
+		alive_led_trg.clrn = any_rstn;
+	
+	alive_led = alive_led_trg.q;
+
+	reconfig_alive_led_cnt.clock = clk;
+		reconfig_alive_led_cnt.aclr = not any_rstn;
+	
+	reconfig_alive_led_trg.clk = clk;
+	reconfig_alive_led_trg.d = reconfig_alive_led_cnt.q[26];
+		reconfig_alive_led_trg.clrn = any_rstn;
+	
+	reconfig_alive_led = reconfig_alive_led_trg.q;
+	
+	comp_led_trg.clk = clk;
+	comp_led_trg.d = not (test_out_icm[4..0] == b"00011");
+		comp_led_trg.clrn = any_rstn;
+	
+	comp_led = comp_led_trg.q;
+
+	lane_active_led_trg[0].clk = clk;
+	lane_active_led_trg[0].d = (test_out_icm[8..5] == h"0");
+		lane_active_led_trg[0].clrn = any_rstn; 
+
+	lane_active_led_trg[1].clk = clk;
+	lane_active_led_trg[1].d = (test_out_icm[8..6] == b"000");
+		lane_active_led_trg[1].clrn = any_rstn; 
+
+	lane_active_led_trg[3..2].clk = clk;
+	lane_active_led_trg[3..2].d = (test_out_icm[8..7] == b"00");
+		lane_active_led_trg[3..2].clrn = any_rstn; 
+
+	lane_active_led_trg[7..4].clk = clk;
+	lane_active_led_trg[7..4].d = (test_out_icm[8] == b"1");
+		lane_active_led_trg[7..4].clrn = any_rstn; 
+	
+	lane_active_led[7..0] = lane_active_led_trg[7..0].q;
+
+	any_rstn = pcie_rstn;-- and local_rstn_ext;
+
+	
+--====================================--
+--=========== PCIE wrapper ===========--
+--====================================--
+	-- PCIe PHY interface 
+	pcie_wrapper_inc.local_rstn = pcie_rstn;--local_rstn_ext;
+	pcie_wrapper_inc.pcie_rstn = pcie_rstn;
+
+	pcie_wrapper_inc.refclk = refclk;
+
+	pcie_wrapper_inc.rx_in0 = rx_in0;
+
+	tx_out0 = pcie_wrapper_inc.tx_out0;
+
+	clk = pcie_wrapper_inc.app_clk;
+	test_out_icm[8..0] = pcie_wrapper_inc.test_out_icm[8..0];
+
+	pcie_wrapper_inc.reconfig_clk = reconfig_clk;
+	pcie_wrapper_inc.pclk_in = pclk_in;
+	
+	pll_lock = not pcie_wrapper_inc.pll_locked;
+
+	-- read addr register
+	read_addr_ff.clock = clk;
+	read_addr_ff.data[27..0] = pcie_wrapper_inc.read_addr[27..0];
+		read_addr_ff.aclr = not nReset;
+	
+	-- rd_adr_change trigger
+	rd_adr_change_dff.clk = clk;
+	rd_adr_change_dff.d = not (pcie_wrapper_inc.read_addr[27..0] == read_addr_ff.q[27..0]);
+		rd_adr_change_dff.clrn = nReset;
+	
+	rd_adr_change = pcie_wrapper_inc.prefetch_wrreq_trg_trg_out; --rd_adr_change_dff.q;
+	
+	-- Ready (min. 5 tact wren delay)
+	pcie_wrapper_inc.rx_ready = vcc;
+--====================================--
+
+--===========================================--
+--================ INTERRUPTS ===============--
+--===========================================--
+-- HI3110_INT CTRL
+	INT_CTRL.clock = clk;
+	INT_CTRL.data[0] = pcie_wrapper_inc.dt_ram_0[0];
+	INT_CTRL.enable = 	pcie_wrapper_inc.be_0[0] and pcie_wrapper_inc.wren_0 and (pcie_wrapper_inc.write_addr[15..4] == h"004");	
+		INT_CTRL.aclr = not nReset;
+
+-- INT_CTRL address detect
+	INT_CTRL_adr_detect.clk = clk;
+	INT_CTRL_adr_detect.d = (pcie_wrapper_inc.read_addr[15..4] == h"004");
+		INT_CTRL_adr_detect.clrn = nReset;
+
+-- INT_CTRL register
+	INT_CTRL_ff.clock = clk;
+	INT_CTRL_ff.data[0] = INT_CTRL.q[0];
+	INT_CTRL_ff.sclr = not INT_CTRL_adr_detect.q;
+		INT_CTRL_ff.aclr = not nReset;
+	
+	pcie_wrapper_inc.tx_dt_ram_0[31..0] = (0,INT_CTRL_ff.q[0]);
+
+	INT_CTRL_ENA = INT_CTRL.q[0];
+
+
+-- int_event L address detect
+	int_event_l_adr_detect.clk = clk;
+	int_event_l_adr_detect.d = (pcie_wrapper_inc.read_addr[15..4] == h"002");
+		int_event_l_adr_detect.clrn = nReset;
+
+-- read event L register
+	rd_int_event_l_ff.clock = clk;
+	rd_int_event_l_ff.data[17] = arinc_429_tx_inst_9.int_ena;
+	rd_int_event_l_ff.data[16] = arinc_429_tx_inst_8.int_ena;
+	rd_int_event_l_ff.data[15] = arinc_429_tx_inst_7.int_ena;
+	rd_int_event_l_ff.data[14] = arinc_429_tx_inst_6.int_ena;
+	rd_int_event_l_ff.data[13] = arinc_429_tx_inst_5.int_ena;
+	rd_int_event_l_ff.data[12] = arinc_429_tx_inst_4.int_ena;
+	rd_int_event_l_ff.data[11] = arinc_429_tx_inst_3.int_ena;
+	rd_int_event_l_ff.data[10] = arinc_429_tx_inst_2.int_ena;
+	rd_int_event_l_ff.data[9]  = arinc_429_tx_inst_1.int_ena;
+	rd_int_event_l_ff.data[8]  = arinc_429_tx_inst_0.int_ena;
+	rd_int_event_l_ff.data[7..2] = 0;
+	rd_int_event_l_ff.data[1..0] = (arinc_825_inst_b.int_ena,arinc_825_inst_a.int_ena);
+	rd_int_event_l_ff.sclr = not int_event_l_adr_detect.q;
+		rd_int_event_l_ff.aclr = not nReset;
+	
+	pcie_wrapper_inc.tx_dt_ram_0[31..0] = (0,rd_int_event_l_ff.q[17..0]);
+	
+-- int_event H address detect
+	int_event_h_adr_detect.clk = clk;
+	int_event_h_adr_detect.d = (pcie_wrapper_inc.read_addr[15..4] == h"003");
+		int_event_h_adr_detect.clrn = nReset;		
+		
+-- read event H register
+	rd_int_event_h_ff.clock = clk;
+	rd_int_event_h_ff.data[25] = arinc_708_inst_b.int_ena;
+	rd_int_event_h_ff.data[24] = arinc_708_inst_a.int_ena;
+	rd_int_event_h_ff.data[23..17] = 0;
+	rd_int_event_h_ff.data[16] = arinc_429_rx_inst_16.int_ena;
+	rd_int_event_h_ff.data[15] = arinc_429_rx_inst_15.int_ena;
+	rd_int_event_h_ff.data[14] = arinc_429_rx_inst_14.int_ena;
+	rd_int_event_h_ff.data[13] = arinc_429_rx_inst_13.int_ena;
+	rd_int_event_h_ff.data[12] = arinc_429_rx_inst_12.int_ena;
+	rd_int_event_h_ff.data[11] = arinc_429_rx_inst_11.int_ena;
+	rd_int_event_h_ff.data[10] = arinc_429_rx_inst_10.int_ena;
+	rd_int_event_h_ff.data[9] = arinc_429_rx_inst_9.int_ena;
+	rd_int_event_h_ff.data[8] = arinc_429_rx_inst_8.int_ena;
+	rd_int_event_h_ff.data[7] = arinc_429_rx_inst_7.int_ena;
+	rd_int_event_h_ff.data[6] = arinc_429_rx_inst_6.int_ena;
+	rd_int_event_h_ff.data[5] = arinc_429_rx_inst_5.int_ena;
+	rd_int_event_h_ff.data[4] = arinc_429_rx_inst_4.int_ena;
+	rd_int_event_h_ff.data[3] = arinc_429_rx_inst_3.int_ena;
+	rd_int_event_h_ff.data[2] = arinc_429_rx_inst_2.int_ena;
+	rd_int_event_h_ff.data[1] = arinc_429_rx_inst_1.int_ena;
+	rd_int_event_h_ff.data[0] = arinc_429_rx_inst_0.int_ena;
+	rd_int_event_h_ff.sclr = not int_event_h_adr_detect.q;
+		rd_int_event_h_ff.aclr = not nReset;
+	
+	pcie_wrapper_inc.tx_dt_ram_0[31..0] = (0,rd_int_event_h_ff.q[25..0]);	
+	
+	pcie_wrapper_inc.app_int_sts = 	dff(
+												arinc_429_rx_inst_0.int_ena   or
+												arinc_429_rx_inst_1.int_ena   or
+												arinc_429_rx_inst_2.int_ena   or
+												arinc_429_rx_inst_3.int_ena   or
+												arinc_429_rx_inst_4.int_ena   or
+												arinc_429_rx_inst_5.int_ena   or
+												arinc_429_rx_inst_6.int_ena   or
+												arinc_429_rx_inst_7.int_ena   or
+												arinc_429_rx_inst_8.int_ena   or
+												arinc_429_rx_inst_9.int_ena   or
+												arinc_429_rx_inst_10.int_ena  or
+												arinc_429_rx_inst_11.int_ena  or
+												arinc_429_rx_inst_12.int_ena  or
+												arinc_429_rx_inst_13.int_ena  or
+												arinc_429_rx_inst_14.int_ena  or
+												arinc_429_rx_inst_15.int_ena  or
+												arinc_429_rx_inst_16.int_ena  or
+												arinc_429_tx_inst_0.int_ena   or
+												arinc_429_tx_inst_1.int_ena   or
+												arinc_429_tx_inst_2.int_ena   or
+												arinc_429_tx_inst_3.int_ena   or
+												arinc_429_tx_inst_4.int_ena   or
+												arinc_429_tx_inst_5.int_ena   or
+												arinc_429_tx_inst_6.int_ena   or
+												arinc_429_tx_inst_7.int_ena   or
+												arinc_429_tx_inst_8.int_ena   or
+												arinc_429_tx_inst_9.int_ena   or
+												arinc_708_inst_a.int_ena      or
+												arinc_708_inst_b.int_ena      or
+												arinc_825_inst_a.int_ena      or
+												arinc_825_inst_b.int_ena     
+												,clk,,) and INT_CTRL_ENA;
+	
+--===========================================--
+
+--========================================================--
+--================ VERSION REGISTER ======================--
+--========================================================--
+-- version address detect
+	version_adr_detect.clk = clk;
+	version_adr_detect.d = (pcie_wrapper_inc.read_addr[27..3] == 0);
+--		version_adr_detect.clrn = nReset;
+
+-- version register
+	version_ff.clock = clk;
+	version_ff.data[31..24] = VERS_HIGH;
+	version_ff.data[23..16] = VERS_LOW;
+	version_ff.data[15..0]  = h"55AA";
+	version_ff.sclr = not version_adr_detect.q;
+--		version_ff.aclr = not nReset;
+	
+	pcie_wrapper_inc.tx_dt_ram_0[31..0] = version_ff.q[31..0];
+	pcie_wrapper_inc.tx_dt_ram_1[31..0] = 0;
+	
+-- wr_test address detect
+	wr_test_ff[0].clock = clk;
+	wr_test_ff[0].data[7..0]   = (pcie_wrapper_inc.dt_ram_0[7..0]   and pcie_wrapper_inc.be_0[0]) or
+											wr_test_ff[0].q[7..0]   and not pcie_wrapper_inc.be_0[0];
+											
+	wr_test_ff[0].data[15..8]  = (pcie_wrapper_inc.dt_ram_0[15..8]  and pcie_wrapper_inc.be_0[1]) or
+											wr_test_ff[0].q[15..8]  and not pcie_wrapper_inc.be_0[1];
+											
+	wr_test_ff[0].data[23..16] = (pcie_wrapper_inc.dt_ram_0[23..16] and pcie_wrapper_inc.be_0[2]) or
+											wr_test_ff[0].q[23..16] and not pcie_wrapper_inc.be_0[2];
+											
+	wr_test_ff[0].data[31..24] = (pcie_wrapper_inc.dt_ram_0[31..24] and pcie_wrapper_inc.be_0[3]) or
+											wr_test_ff[0].q[31..24] and not pcie_wrapper_inc.be_0[3];
+											
+	wr_test_ff[0].enable = (pcie_wrapper_inc.write_addr[27..3] == h"2") and pcie_wrapper_inc.wren_0;
+		wr_test_ff[0].aclr = not nReset;
+
+	wr_test_ff[1].clock = clk;
+	wr_test_ff[1].data[7..0]   = (pcie_wrapper_inc.dt_ram_1[7..0]   and pcie_wrapper_inc.be_1[0]) or
+											wr_test_ff[1].q[7..0]   and not pcie_wrapper_inc.be_1[0];
+											
+	wr_test_ff[1].data[15..8]  = (pcie_wrapper_inc.dt_ram_1[15..8]  and pcie_wrapper_inc.be_1[1]) or
+											wr_test_ff[1].q[15..8]  and not pcie_wrapper_inc.be_1[1];
+											
+	wr_test_ff[1].data[23..16] = (pcie_wrapper_inc.dt_ram_1[23..16] and pcie_wrapper_inc.be_1[2]) or
+											wr_test_ff[1].q[23..16] and not pcie_wrapper_inc.be_1[2];
+											
+	wr_test_ff[1].data[31..24] = (pcie_wrapper_inc.dt_ram_1[31..24] and pcie_wrapper_inc.be_1[3]) or
+											wr_test_ff[1].q[31..24] and not pcie_wrapper_inc.be_1[3];
+
+	wr_test_ff[1].enable = (pcie_wrapper_inc.write_addr[27..3] == h"2") and pcie_wrapper_inc.wren_1;
+		wr_test_ff[1].aclr = not nReset;
+		
+-- rd_test address detect
+	rd_test_adr_detect.clk = clk;
+	rd_test_adr_detect.d = (pcie_wrapper_inc.read_addr[27..4] == 1);
+		rd_test_adr_detect.clrn = nReset;
+
+-- rd_test register
+	rd_test_ff.clock = clk;
+	rd_test_ff.data[63..0] = (wr_test_ff[1].q[31..0],wr_test_ff[0].q[31..0]);
+	rd_test_ff.sclr = not rd_test_adr_detect.q;
+		rd_test_ff.aclr = not nReset;
+	
+	pcie_wrapper_inc.tx_dt_ram_0[31..0] = rd_test_ff.q[31..0];
+	pcie_wrapper_inc.tx_dt_ram_1[31..0] = rd_test_ff.q[63..32];
+
+--========================================================--
+
+--=========================================================--
+--======================= ARINC825 ========================--
+--=========================================================--
+	-- Channel A
+	arinc_825_inst_a.clk = clk;
+	arinc_825_inst_a.nReset = nReset; 
+	arinc_825_inst_a.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+	arinc_825_inst_a.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+	arinc_825_inst_a.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+	arinc_825_inst_a.wren_1 = pcie_wrapper_inc.wren_1;
+	arinc_825_inst_a.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+	arinc_825_inst_a.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+	arinc_825_inst_a.wren_0 = pcie_wrapper_inc.wren_0; 
+	arinc_825_inst_a.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0]; 
+	arinc_825_inst_a.rd_adr_change_dff = rd_adr_change;
+	arinc_825_inst_a.MISO = a825_SO_A; 
+	arinc_825_inst_a.HI3110_INT = a825_INT_A; 
+	arinc_825_inst_a.STAT = a825_STAT_A;
+	arinc_825_inst_a.GP1 = a825_GP1_A;
+	arinc_825_inst_a.GP2 = a825_GP2_A;
+
+	pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_825_inst_a.rd_data_0[31..0];
+	pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_825_inst_a.rd_data_1[31..0]; 
+	a825_nCS_A = arinc_825_inst_a.nCS;
+	a825_SCK_A = arinc_825_inst_a.SCK;
+	a825_SI_A = arinc_825_inst_a.MOSI;
+	a825_TXEN_A = arinc_825_inst_a.TXEN;
+	a825_MR_A = arinc_825_inst_a.MR;
+
+	-- Channel B
+	arinc_825_inst_b.clk = clk;
+	arinc_825_inst_b.nReset = nReset; 
+	arinc_825_inst_b.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+	arinc_825_inst_b.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+	arinc_825_inst_b.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+	arinc_825_inst_b.wren_1 = pcie_wrapper_inc.wren_1;
+	arinc_825_inst_b.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+	arinc_825_inst_b.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+	arinc_825_inst_b.wren_0 = pcie_wrapper_inc.wren_0; 
+	arinc_825_inst_b.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0]; 
+	arinc_825_inst_b.rd_adr_change_dff = rd_adr_change;
+	arinc_825_inst_b.MISO = a825_SO_B; 
+	arinc_825_inst_b.HI3110_INT = a825_INT_B; 
+	arinc_825_inst_b.STAT = a825_STAT_B;
+	arinc_825_inst_b.GP1 = a825_GP1_B;
+	arinc_825_inst_b.GP2 = a825_GP2_B;
+
+	pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_825_inst_b.rd_data_0[31..0];
+	pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_825_inst_b.rd_data_1[31..0]; 
+	a825_nCS_B = arinc_825_inst_b.nCS;
+	a825_SCK_B = arinc_825_inst_b.SCK;
+	a825_SI_B = arinc_825_inst_b.MOSI;
+	a825_TXEN_B = arinc_825_inst_b.TXEN;
+	a825_MR_B = arinc_825_inst_b.MR;
+
+--***TEST
+--		rd_fifo_write = arinc_825_inst_a.rd_fifo_write;
+--		rd_fifo_wr_data[7..0] = arinc_825_inst_a.rd_fifo_wr_data[7..0];
+--		fifo_indata_ena = arinc_825_inst_a.fifo_indata_ena;
+--		fifo_data_high_fifo = arinc_825_inst_a.fifo_data_high_fifo;
+--		fifo_data_low_fifo = arinc_825_inst_a.fifo_data_low_fifo;
+--		fifo_wr_req_fifo = arinc_825_inst_a.fifo_wr_req_fifo;
+--***TEST
+	
+--========================================================--
+--================ MULTIPLEXER (ARINC429) ================--
+--========================================================--
+	MS_A0 = EXT_MUX_LB_SEL[0];
+	MS_A1 = EXT_MUX_LB_SEL[1];
+	MS_A2 = EXT_MUX_LB_SEL[2];
+	
+	MS_EN_1 = EXT_MUX_LB_ENA and not EXT_MUX_LB_SEL[3];
+	MS_EN_2 = EXT_MUX_LB_ENA and EXT_MUX_LB_SEL[3];	
+--========================================================--
+
+--=========================================================--
+--======================= ARINC429 ========================--
+--=========================================================--
+-- TX0
+		arinc_429_tx_inst_0.clk = clk;
+		arinc_429_tx_inst_0.nReset = nReset;
+		arinc_429_tx_inst_0.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_tx_inst_0.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_tx_inst_0.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_tx_inst_0.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_tx_inst_0.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_tx_inst_0.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_tx_inst_0.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_tx_inst_0.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_tx_inst_0.rd_data_0[31..0];
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_tx_inst_0.rd_data_1[31..0];
+
+		a429_tx_a[0] = arinc_429_tx_inst_0.txd_1;
+		a429_tx_b[0] = arinc_429_tx_inst_0.txd_0;
+-- TX1
+		arinc_429_tx_inst_1.clk = clk;
+		arinc_429_tx_inst_1.nReset = nReset;
+		arinc_429_tx_inst_1.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_tx_inst_1.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_tx_inst_1.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_tx_inst_1.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_tx_inst_1.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_tx_inst_1.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_tx_inst_1.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_tx_inst_1.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_tx_inst_1.rd_data_0[31..0];
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_tx_inst_1.rd_data_1[31..0];
+
+		a429_tx_a[1] = arinc_429_tx_inst_1.txd_1;
+		a429_tx_b[1] = arinc_429_tx_inst_1.txd_0;
+-- TX2
+		arinc_429_tx_inst_2.clk = clk;
+		arinc_429_tx_inst_2.nReset = nReset;
+		arinc_429_tx_inst_2.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_tx_inst_2.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_tx_inst_2.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_tx_inst_2.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_tx_inst_2.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_tx_inst_2.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_tx_inst_2.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_tx_inst_2.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_tx_inst_2.rd_data_0[31..0];
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_tx_inst_2.rd_data_1[31..0];
+
+		a429_tx_a[2] = arinc_429_tx_inst_2.txd_1;
+		a429_tx_b[2] = arinc_429_tx_inst_2.txd_0;
+-- TX3
+		arinc_429_tx_inst_3.clk = clk;
+		arinc_429_tx_inst_3.nReset = nReset;
+		arinc_429_tx_inst_3.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_tx_inst_3.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_tx_inst_3.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_tx_inst_3.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_tx_inst_3.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_tx_inst_3.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_tx_inst_3.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_tx_inst_3.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_tx_inst_3.rd_data_0[31..0];
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_tx_inst_3.rd_data_1[31..0];
+
+		a429_tx_a[3] = arinc_429_tx_inst_3.txd_1;
+		a429_tx_b[3] = arinc_429_tx_inst_3.txd_0;
+-- TX4
+		arinc_429_tx_inst_4.clk = clk;
+		arinc_429_tx_inst_4.nReset = nReset;
+		arinc_429_tx_inst_4.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_tx_inst_4.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_tx_inst_4.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_tx_inst_4.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_tx_inst_4.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_tx_inst_4.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_tx_inst_4.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_tx_inst_4.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_tx_inst_4.rd_data_0[31..0];
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_tx_inst_4.rd_data_1[31..0];
+
+		a429_tx_a[4] = arinc_429_tx_inst_4.txd_1;
+		a429_tx_b[4] = arinc_429_tx_inst_4.txd_0;
+-- TX5
+		arinc_429_tx_inst_5.clk = clk;
+		arinc_429_tx_inst_5.nReset = nReset;
+		arinc_429_tx_inst_5.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_tx_inst_5.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_tx_inst_5.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_tx_inst_5.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_tx_inst_5.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_tx_inst_5.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_tx_inst_5.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_tx_inst_5.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_tx_inst_5.rd_data_0[31..0];
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_tx_inst_5.rd_data_1[31..0];
+
+		a429_tx_a[5] = arinc_429_tx_inst_5.txd_1;
+		a429_tx_b[5] = arinc_429_tx_inst_5.txd_0;
+-- TX6
+		arinc_429_tx_inst_6.clk = clk;
+		arinc_429_tx_inst_6.nReset = nReset;
+		arinc_429_tx_inst_6.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_tx_inst_6.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_tx_inst_6.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_tx_inst_6.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_tx_inst_6.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_tx_inst_6.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_tx_inst_6.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_tx_inst_6.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_tx_inst_6.rd_data_0[31..0];
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_tx_inst_6.rd_data_1[31..0];
+
+		a429_tx_a[6] = arinc_429_tx_inst_6.txd_1;
+		a429_tx_b[6] = arinc_429_tx_inst_6.txd_0;
+-- TX7
+		arinc_429_tx_inst_7.clk = clk;
+		arinc_429_tx_inst_7.nReset = nReset;
+		arinc_429_tx_inst_7.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_tx_inst_7.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_tx_inst_7.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_tx_inst_7.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_tx_inst_7.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_tx_inst_7.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_tx_inst_7.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_tx_inst_7.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_tx_inst_7.rd_data_0[31..0];
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_tx_inst_7.rd_data_1[31..0];
+
+		a429_tx_a[7] = arinc_429_tx_inst_7.txd_1;
+		a429_tx_b[7] = arinc_429_tx_inst_7.txd_0;
+-- TX8
+		arinc_429_tx_inst_8.clk = clk;
+		arinc_429_tx_inst_8.nReset = nReset;
+		arinc_429_tx_inst_8.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_tx_inst_8.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_tx_inst_8.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_tx_inst_8.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_tx_inst_8.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_tx_inst_8.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_tx_inst_8.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_tx_inst_8.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_tx_inst_8.rd_data_0[31..0];
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_tx_inst_8.rd_data_1[31..0];
+
+		a429_tx_a[8] = arinc_429_tx_inst_8.txd_1;
+		a429_tx_b[8] = arinc_429_tx_inst_8.txd_0;
+-- TX9
+		arinc_429_tx_inst_9.clk = clk;
+		arinc_429_tx_inst_9.nReset = nReset;
+		arinc_429_tx_inst_9.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_tx_inst_9.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_tx_inst_9.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_tx_inst_9.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_tx_inst_9.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_tx_inst_9.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_tx_inst_9.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_tx_inst_9.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_tx_inst_9.rd_data_0[31..0];
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_tx_inst_9.rd_data_1[31..0];
+
+		a429_tx_a[9] = arinc_429_tx_inst_9.txd_1;
+		a429_tx_b[9] = arinc_429_tx_inst_9.txd_0;
+
+-- RX0
+		arinc_429_rx_inst_0.clk = clk;
+		arinc_429_rx_inst_0.nReset  = nReset;
+		arinc_429_rx_inst_0.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_rx_inst_0.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_rx_inst_0.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_rx_inst_0.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_rx_inst_0.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_rx_inst_0.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_rx_inst_0.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_rx_inst_0.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+		arinc_429_rx_inst_0.rd_adr_change_dff = rd_adr_change;
+		
+		arinc_429_rx_inst_0.rxd_1 = a429_rx_a[0] and not A429_RX_LB_ENA[0] or tx_to_rx_mux[0].result[1] and A429_RX_LB_ENA[0];
+		arinc_429_rx_inst_0.rxd_0 = a429_rx_b[0] and not A429_RX_LB_ENA[0] or tx_to_rx_mux[0].result[0] and A429_RX_LB_ENA[0];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_rx_inst_0.rd_data_0[31..0]; 
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_rx_inst_0.rd_data_1[31..0];
+
+-- RX1
+		arinc_429_rx_inst_1.clk = clk;
+		arinc_429_rx_inst_1.nReset  = nReset;
+		arinc_429_rx_inst_1.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_rx_inst_1.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_rx_inst_1.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_rx_inst_1.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_rx_inst_1.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_rx_inst_1.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_rx_inst_1.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_rx_inst_1.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+		arinc_429_rx_inst_1.rd_adr_change_dff = rd_adr_change;
+		
+		arinc_429_rx_inst_1.rxd_1 = a429_rx_a[1] and not A429_RX_LB_ENA[1] or tx_to_rx_mux[1].result[1] and A429_RX_LB_ENA[1];
+		arinc_429_rx_inst_1.rxd_0 = a429_rx_b[1] and not A429_RX_LB_ENA[1] or tx_to_rx_mux[1].result[0] and A429_RX_LB_ENA[1];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_rx_inst_1.rd_data_0[31..0]; 
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_rx_inst_1.rd_data_1[31..0];
+
+-- RX2
+		arinc_429_rx_inst_2.clk = clk;
+		arinc_429_rx_inst_2.nReset  = nReset;
+		arinc_429_rx_inst_2.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_rx_inst_2.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_rx_inst_2.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_rx_inst_2.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_rx_inst_2.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_rx_inst_2.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_rx_inst_2.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_rx_inst_2.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+		arinc_429_rx_inst_2.rd_adr_change_dff = rd_adr_change;
+		
+		arinc_429_rx_inst_2.rxd_1 = a429_rx_a[2] and not A429_RX_LB_ENA[2] or tx_to_rx_mux[2].result[1] and A429_RX_LB_ENA[2];
+		arinc_429_rx_inst_2.rxd_0 = a429_rx_b[2] and not A429_RX_LB_ENA[2] or tx_to_rx_mux[2].result[0] and A429_RX_LB_ENA[2];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_rx_inst_2.rd_data_0[31..0]; 
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_rx_inst_2.rd_data_1[31..0];
+
+-- RX3
+		arinc_429_rx_inst_3.clk = clk;
+		arinc_429_rx_inst_3.nReset  = nReset;
+		arinc_429_rx_inst_3.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_rx_inst_3.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_rx_inst_3.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_rx_inst_3.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_rx_inst_3.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_rx_inst_3.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_rx_inst_3.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_rx_inst_3.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+		arinc_429_rx_inst_3.rd_adr_change_dff = rd_adr_change;
+		
+		arinc_429_rx_inst_3.rxd_1 = a429_rx_a[3] and not A429_RX_LB_ENA[3] or tx_to_rx_mux[3].result[1] and A429_RX_LB_ENA[3];
+		arinc_429_rx_inst_3.rxd_0 = a429_rx_b[3] and not A429_RX_LB_ENA[3] or tx_to_rx_mux[3].result[0] and A429_RX_LB_ENA[3];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_rx_inst_3.rd_data_0[31..0]; 
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_rx_inst_3.rd_data_1[31..0];
+
+-- RX4
+		arinc_429_rx_inst_4.clk = clk;
+		arinc_429_rx_inst_4.nReset  = nReset;
+		arinc_429_rx_inst_4.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_rx_inst_4.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_rx_inst_4.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_rx_inst_4.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_rx_inst_4.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_rx_inst_4.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_rx_inst_4.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_rx_inst_4.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+		arinc_429_rx_inst_4.rd_adr_change_dff = rd_adr_change;
+		
+		arinc_429_rx_inst_4.rxd_1 = a429_rx_a[4] and not A429_RX_LB_ENA[4] or tx_to_rx_mux[4].result[1] and A429_RX_LB_ENA[4];
+		arinc_429_rx_inst_4.rxd_0 = a429_rx_b[4] and not A429_RX_LB_ENA[4] or tx_to_rx_mux[4].result[0] and A429_RX_LB_ENA[4];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_rx_inst_4.rd_data_0[31..0]; 
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_rx_inst_4.rd_data_1[31..0];
+
+-- RX5
+		arinc_429_rx_inst_5.clk = clk;
+		arinc_429_rx_inst_5.nReset  = nReset;
+		arinc_429_rx_inst_5.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_rx_inst_5.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_rx_inst_5.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_rx_inst_5.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_rx_inst_5.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_rx_inst_5.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_rx_inst_5.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_rx_inst_5.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+		arinc_429_rx_inst_5.rd_adr_change_dff = rd_adr_change;
+		
+		arinc_429_rx_inst_5.rxd_1 = a429_rx_a[5] and not A429_RX_LB_ENA[5] or tx_to_rx_mux[5].result[1] and A429_RX_LB_ENA[5];
+		arinc_429_rx_inst_5.rxd_0 = a429_rx_b[5] and not A429_RX_LB_ENA[5] or tx_to_rx_mux[5].result[0] and A429_RX_LB_ENA[5];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_rx_inst_5.rd_data_0[31..0];
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_rx_inst_5.rd_data_1[31..0];
+
+-- RX6
+		arinc_429_rx_inst_6.clk = clk;
+		arinc_429_rx_inst_6.nReset  = nReset;
+		arinc_429_rx_inst_6.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_rx_inst_6.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_rx_inst_6.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_rx_inst_6.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_rx_inst_6.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_rx_inst_6.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_rx_inst_6.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_rx_inst_6.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+		arinc_429_rx_inst_6.rd_adr_change_dff = rd_adr_change;
+		
+		arinc_429_rx_inst_6.rxd_1 = a429_rx_a[6] and not A429_RX_LB_ENA[6] or tx_to_rx_mux[6].result[1] and A429_RX_LB_ENA[6];
+		arinc_429_rx_inst_6.rxd_0 = a429_rx_b[6] and not A429_RX_LB_ENA[6] or tx_to_rx_mux[6].result[0] and A429_RX_LB_ENA[6];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_rx_inst_6.rd_data_0[31..0];
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_rx_inst_6.rd_data_1[31..0];
+
+-- RX7
+		arinc_429_rx_inst_7.clk = clk;
+		arinc_429_rx_inst_7.nReset  = nReset;
+		arinc_429_rx_inst_7.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_rx_inst_7.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_rx_inst_7.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_rx_inst_7.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_rx_inst_7.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_rx_inst_7.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_rx_inst_7.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_rx_inst_7.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+		arinc_429_rx_inst_7.rd_adr_change_dff = rd_adr_change;
+		
+		arinc_429_rx_inst_7.rxd_1 = a429_rx_a[7] and not A429_RX_LB_ENA[7] or tx_to_rx_mux[7].result[1] and A429_RX_LB_ENA[7];
+		arinc_429_rx_inst_7.rxd_0 = a429_rx_b[7] and not A429_RX_LB_ENA[7] or tx_to_rx_mux[7].result[0] and A429_RX_LB_ENA[7];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_rx_inst_7.rd_data_0[31..0]; 
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_rx_inst_7.rd_data_1[31..0];
+
+-- RX8
+		arinc_429_rx_inst_8.clk = clk;
+		arinc_429_rx_inst_8.nReset  = nReset;
+		arinc_429_rx_inst_8.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_rx_inst_8.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_rx_inst_8.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_rx_inst_8.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_rx_inst_8.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_rx_inst_8.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_rx_inst_8.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_rx_inst_8.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+		arinc_429_rx_inst_8.rd_adr_change_dff = rd_adr_change;
+		
+		arinc_429_rx_inst_8.rxd_1 = a429_rx_a[8] and not A429_RX_LB_ENA[8] or tx_to_rx_mux[8].result[1] and A429_RX_LB_ENA[8];
+		arinc_429_rx_inst_8.rxd_0 = a429_rx_b[8] and not A429_RX_LB_ENA[8] or tx_to_rx_mux[8].result[0] and A429_RX_LB_ENA[8];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_rx_inst_8.rd_data_0[31..0]; 
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_rx_inst_8.rd_data_1[31..0];
+
+-- RX9
+		arinc_429_rx_inst_9.clk = clk;
+		arinc_429_rx_inst_9.nReset  = nReset;
+		arinc_429_rx_inst_9.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_rx_inst_9.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_rx_inst_9.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_rx_inst_9.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_rx_inst_9.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_rx_inst_9.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_rx_inst_9.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_rx_inst_9.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+		arinc_429_rx_inst_9.rd_adr_change_dff = rd_adr_change;
+		
+		arinc_429_rx_inst_9.rxd_1 = a429_rx_a[9] and not A429_RX_LB_ENA[9] or tx_to_rx_mux[9].result[1] and A429_RX_LB_ENA[9];
+		arinc_429_rx_inst_9.rxd_0 = a429_rx_b[9] and not A429_RX_LB_ENA[9] or tx_to_rx_mux[9].result[0] and A429_RX_LB_ENA[9];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_rx_inst_9.rd_data_0[31..0]; 
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_rx_inst_9.rd_data_1[31..0];
+
+-- RX10
+		arinc_429_rx_inst_10.clk = clk;
+		arinc_429_rx_inst_10.nReset  = nReset;
+		arinc_429_rx_inst_10.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_rx_inst_10.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_rx_inst_10.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_rx_inst_10.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_rx_inst_10.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_rx_inst_10.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_rx_inst_10.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_rx_inst_10.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+		arinc_429_rx_inst_10.rd_adr_change_dff = rd_adr_change;
+		
+		arinc_429_rx_inst_10.rxd_1 = a429_rx_a[10] and not A429_RX_LB_ENA[10] or tx_to_rx_mux[10].result[1] and A429_RX_LB_ENA[10];
+		arinc_429_rx_inst_10.rxd_0 = a429_rx_b[10] and not A429_RX_LB_ENA[10] or tx_to_rx_mux[10].result[0] and A429_RX_LB_ENA[10];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_rx_inst_10.rd_data_0[31..0];
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_rx_inst_10.rd_data_1[31..0];
+
+-- RX11
+		arinc_429_rx_inst_11.clk = clk;
+		arinc_429_rx_inst_11.nReset  = nReset;
+		arinc_429_rx_inst_11.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_rx_inst_11.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_rx_inst_11.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_rx_inst_11.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_rx_inst_11.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_rx_inst_11.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_rx_inst_11.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_rx_inst_11.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+		arinc_429_rx_inst_11.rd_adr_change_dff = rd_adr_change;
+		
+		arinc_429_rx_inst_11.rxd_1 = a429_rx_a[11] and not A429_RX_LB_ENA[11] or tx_to_rx_mux[11].result[1] and A429_RX_LB_ENA[11];
+		arinc_429_rx_inst_11.rxd_0 = a429_rx_b[11] and not A429_RX_LB_ENA[11] or tx_to_rx_mux[11].result[0] and A429_RX_LB_ENA[11];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_rx_inst_11.rd_data_0[31..0]; 
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_rx_inst_11.rd_data_1[31..0];
+
+-- RX12
+		arinc_429_rx_inst_12.clk = clk;
+		arinc_429_rx_inst_12.nReset  = nReset;
+		arinc_429_rx_inst_12.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_rx_inst_12.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_rx_inst_12.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_rx_inst_12.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_rx_inst_12.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_rx_inst_12.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_rx_inst_12.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_rx_inst_12.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+		arinc_429_rx_inst_12.rd_adr_change_dff = rd_adr_change;
+		
+		arinc_429_rx_inst_12.rxd_1 = a429_rx_a[12] and not A429_RX_LB_ENA[12] or tx_to_rx_mux[12].result[1] and A429_RX_LB_ENA[12];
+		arinc_429_rx_inst_12.rxd_0 = a429_rx_b[12] and not A429_RX_LB_ENA[12] or tx_to_rx_mux[12].result[0] and A429_RX_LB_ENA[12];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_rx_inst_12.rd_data_0[31..0];
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_rx_inst_12.rd_data_1[31..0];
+
+-- RX13
+		arinc_429_rx_inst_13.clk = clk;
+		arinc_429_rx_inst_13.nReset  = nReset;
+		arinc_429_rx_inst_13.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_rx_inst_13.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_rx_inst_13.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_rx_inst_13.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_rx_inst_13.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_rx_inst_13.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_rx_inst_13.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_rx_inst_13.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+		arinc_429_rx_inst_13.rd_adr_change_dff = rd_adr_change;
+		
+		arinc_429_rx_inst_13.rxd_1 = a429_rx_a[13] and not A429_RX_LB_ENA[13] or tx_to_rx_mux[13].result[1] and A429_RX_LB_ENA[13];
+		arinc_429_rx_inst_13.rxd_0 = a429_rx_b[13] and not A429_RX_LB_ENA[13] or tx_to_rx_mux[13].result[0] and A429_RX_LB_ENA[13];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_rx_inst_13.rd_data_0[31..0]; 
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_rx_inst_13.rd_data_1[31..0];
+
+-- RX14
+		arinc_429_rx_inst_14.clk = clk;
+		arinc_429_rx_inst_14.nReset  = nReset;
+		arinc_429_rx_inst_14.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_rx_inst_14.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_rx_inst_14.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_rx_inst_14.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_rx_inst_14.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_rx_inst_14.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_rx_inst_14.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_rx_inst_14.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+		arinc_429_rx_inst_14.rd_adr_change_dff = rd_adr_change;
+		
+		arinc_429_rx_inst_14.rxd_1 = a429_rx_a[14] and not A429_RX_LB_ENA[14] or tx_to_rx_mux[14].result[1] and A429_RX_LB_ENA[14];
+		arinc_429_rx_inst_14.rxd_0 = a429_rx_b[14] and not A429_RX_LB_ENA[14] or tx_to_rx_mux[14].result[0] and A429_RX_LB_ENA[14];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_rx_inst_14.rd_data_0[31..0]; 
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_rx_inst_14.rd_data_1[31..0];
+
+-- RX15
+		arinc_429_rx_inst_15.clk = clk;
+		arinc_429_rx_inst_15.nReset  = nReset;
+		arinc_429_rx_inst_15.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_rx_inst_15.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_rx_inst_15.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_rx_inst_15.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_rx_inst_15.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_rx_inst_15.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_rx_inst_15.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_rx_inst_15.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+		arinc_429_rx_inst_15.rd_adr_change_dff = rd_adr_change;
+		
+		arinc_429_rx_inst_15.rxd_1 = a429_rx_a[15] and not A429_RX_LB_ENA[15] or tx_to_rx_mux[15].result[1] and A429_RX_LB_ENA[15];
+		arinc_429_rx_inst_15.rxd_0 = a429_rx_b[15] and not A429_RX_LB_ENA[15] or tx_to_rx_mux[15].result[0] and A429_RX_LB_ENA[15];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_rx_inst_15.rd_data_0[31..0]; 
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_rx_inst_15.rd_data_1[31..0];
+
+	-- RX16
+		arinc_429_rx_inst_16.clk = clk;
+		arinc_429_rx_inst_16.nReset = nReset;
+		arinc_429_rx_inst_16.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+		arinc_429_rx_inst_16.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+		arinc_429_rx_inst_16.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+		arinc_429_rx_inst_16.wren_1 = pcie_wrapper_inc.wren_1;
+		arinc_429_rx_inst_16.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+		arinc_429_rx_inst_16.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+		arinc_429_rx_inst_16.wren_0 = pcie_wrapper_inc.wren_0;
+		arinc_429_rx_inst_16.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+		arinc_429_rx_inst_16.rd_adr_change_dff = rd_adr_change;
+		
+		arinc_429_rx_inst_16.rxd_1 = a429_rx_a[16];
+		arinc_429_rx_inst_16.rxd_0 = a429_rx_b[16];
+
+		pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_429_rx_inst_16.rd_data_0[31..0];
+		pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_429_rx_inst_16.rd_data_1[31..0];
+
+--TEST***
+--		tx_dt_ram_0_out[31..0] = pcie_wrapper_inc.tx_dt_ram_0_out[31..0];
+--		tx_dt_ram_1_out[31..0] = pcie_wrapper_inc.tx_dt_ram_1_out[31..0];
+--		rd_adr_out[23..0] = pcie_wrapper_inc.read_addr[23..0];
+--		
+--		valid_indata_out = arinc_708_inst_a.valid_indata_out;
+--		wren_0_out = pcie_wrapper_inc.wren_0;
+--		wren_1_out = pcie_wrapper_inc.wren_1;
+--		tx_sclr_out = arinc_708_inst_a.tx_sclr_out;
+--		tx_data_fifo_used_out[10..0] = arinc_708_inst_a.tx_data_fifo_used_out[10..0];
+--		wx_fifo_rdreq_out = arinc_708_inst_a.wx_fifo_rdreq_out; 
+
+--TEST***		
+		
+-- LB CONTROL
+	EXT_MUX_LB_CTRL.clock = clk;
+	EXT_MUX_LB_CTRL.data[4..0] = pcie_wrapper_inc.dt_ram_0[4..0];
+	EXT_MUX_LB_CTRL.enable = 	pcie_wrapper_inc.be_0[0] and pcie_wrapper_inc.wren_0 and (pcie_wrapper_inc.write_addr[15..4] == h"006");	
+		EXT_MUX_LB_CTRL.aclr = not nReset;
+
+-- EXT_MUX_LB_CTRL address detect
+	EXT_MUX_LB_CTRL_adr_detect.clk = clk;
+	EXT_MUX_LB_CTRL_adr_detect.d = (pcie_wrapper_inc.read_addr[15..4] == h"006");
+		EXT_MUX_LB_CTRL_adr_detect.clrn = nReset;
+
+-- EXT_MUX_LB_CTRL register
+	EXT_MUX_LB_CTRL_ff.clock = clk;
+	EXT_MUX_LB_CTRL_ff.data[4..0] = EXT_MUX_LB_CTRL.q[4..0];
+	EXT_MUX_LB_CTRL_ff.sclr = not EXT_MUX_LB_CTRL_adr_detect.q;
+		EXT_MUX_LB_CTRL_ff.aclr = not nReset;
+	
+	pcie_wrapper_inc.tx_dt_ram_0[31..0] = (0,EXT_MUX_LB_CTRL_ff.q[4..0]);
+
+	EXT_MUX_LB_ENA = EXT_MUX_LB_CTRL.q[0];
+	EXT_MUX_LB_SEL[3..0] = EXT_MUX_LB_CTRL.q[4..1];
+
+--=== internal loops ===--
+	for i in 0 to 15 generate
+		A429_LOOP_ff[i].clock = clk;
+		A429_LOOP_ff[i].data[0] = pcie_wrapper_inc.dt_ram_0[8] and pcie_wrapper_inc.be_0[1];
+		A429_LOOP_ff[i].enable = pcie_wrapper_inc.wren_0 and (pcie_wrapper_inc.write_addr[15..4] == h"301" + i*h"010");	
+			A429_LOOP_ff[i].aclr = not nReset;
+
+	A429_RX_LB_ENA[i] = A429_LOOP_ff[i].q[0];
+	end generate;
+	
+	for i in 0 to 15 generate
+		A429_LOOP_SRC_ff[i].clock = clk;
+		A429_LOOP_SRC_ff[i].data[3..0] = pcie_wrapper_inc.dt_ram_0[12..9] and pcie_wrapper_inc.be_0[1];
+		A429_LOOP_SRC_ff[i].enable = pcie_wrapper_inc.wren_0 and (pcie_wrapper_inc.write_addr[15..4] == h"301" + i*h"010");	
+			A429_LOOP_SRC_ff[i].aclr = not nReset;
+
+	A429_RX_LB_SRC[i][3..0] = A429_LOOP_SRC_ff[i].q[3..0];
+	end generate;
+
+	for i in 0 to 15 generate
+	-- A429 CTRL ADR detect
+		A429_CTRL_ADR_detect_trg[i].clk = clk;
+		A429_CTRL_ADR_detect_trg[i].d = (pcie_wrapper_inc.read_addr[15..4] == h"301" + i*h"010");
+			A429_CTRL_ADR_detect_trg[i].clrn = nReset;
+	
+	-- A429 LOOP data
+		A429_LOOP_data_ff[i].clock = clk;
+		A429_LOOP_data_ff[i].data[4..0] = (A429_LOOP_SRC_ff[i].q[3..0],A429_LOOP_ff[i].q[0]);
+		A429_LOOP_data_ff[i].sclr = not A429_CTRL_ADR_detect_trg[i].q;
+			A429_LOOP_data_ff[i].aclr = not nReset;
+
+		pcie_wrapper_inc.tx_dt_ram_0[12..9] = A429_LOOP_data_ff[i].q[4..1];
+		pcie_wrapper_inc.tx_dt_ram_0[8] = A429_LOOP_data_ff[i].q[0];
+	end generate;
+		
+	tx_to_rx_mux[15..0].clock = clk;
+	tx_to_rx_mux[15..0].data[0..0][1..0] = (arinc_429_tx_inst_0.txd_1, arinc_429_tx_inst_0.txd_0);
+	tx_to_rx_mux[15..0].data[1..1][1..0] = (arinc_429_tx_inst_1.txd_1, arinc_429_tx_inst_1.txd_0);
+	tx_to_rx_mux[15..0].data[2..2][1..0] = (arinc_429_tx_inst_2.txd_1, arinc_429_tx_inst_2.txd_0);
+	tx_to_rx_mux[15..0].data[3..3][1..0] = (arinc_429_tx_inst_3.txd_1, arinc_429_tx_inst_3.txd_0);
+	tx_to_rx_mux[15..0].data[4..4][1..0] = (arinc_429_tx_inst_4.txd_1, arinc_429_tx_inst_4.txd_0);
+	tx_to_rx_mux[15..0].data[5..5][1..0] = (arinc_429_tx_inst_5.txd_1, arinc_429_tx_inst_5.txd_0);
+	tx_to_rx_mux[15..0].data[6..6][1..0] = (arinc_429_tx_inst_6.txd_1, arinc_429_tx_inst_6.txd_0);
+	tx_to_rx_mux[15..0].data[7..7][1..0] = (arinc_429_tx_inst_7.txd_1, arinc_429_tx_inst_7.txd_0);
+	tx_to_rx_mux[15..0].data[8..8][1..0] = (arinc_429_tx_inst_8.txd_1, arinc_429_tx_inst_8.txd_0);
+	tx_to_rx_mux[15..0].data[9..9][1..0] = (arinc_429_tx_inst_9.txd_1, arinc_429_tx_inst_9.txd_0);
+
+	for i in 0 to 15 generate
+		tx_to_rx_mux[i].sel[3..0] = A429_RX_LB_SRC[i][3..0];
+	end generate;
+	
+		tx_to_rx_mux[15..0].aclr = not nReset;
+--=========================================================--
+
+--=========================================================--
+--======================= ARINC708 ========================--
+--=========================================================--
+	-- Channel A
+	arinc_708_inst_a.clk = clk;
+	arinc_708_inst_a.nReset = nReset;
+	arinc_708_inst_a.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+	arinc_708_inst_a.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+	arinc_708_inst_a.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+	arinc_708_inst_a.wren_1 = pcie_wrapper_inc.wren_1;
+	arinc_708_inst_a.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+	arinc_708_inst_a.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+	arinc_708_inst_a.wren_0 = pcie_wrapper_inc.wren_0;
+	arinc_708_inst_a.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+	arinc_708_inst_a.rd_adr_change_dff = rd_adr_change;
+
+	arinc_708_inst_a.a708_RX  = 	(a708_RXA and not A708_RX_LB_ENA[0]) or 
+											(
+											A708_RX_LB_ENA[0] and 
+												(
+												not A708_RX_LB_SEL_A and arinc_708_inst_a.a708_TX
+												or
+												A708_RX_LB_SEL_A and arinc_708_inst_b.a708_TX
+												)
+											);
+	arinc_708_inst_a.a708_RXn = 	(a708_RXAn and not A708_RX_LB_ENA[0]) or 
+											(
+											A708_RX_LB_ENA[0] and 
+												(
+												not A708_RX_LB_SEL_A and arinc_708_inst_a.a708_TXn
+												or
+												A708_RX_LB_SEL_A and arinc_708_inst_b.a708_TXn
+												)
+											);
+
+	pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_708_inst_a.rd_data_0[31..0];
+	pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_708_inst_a.rd_data_1[31..0];
+	a708_TXA = arinc_708_inst_a.a708_TX;
+	a708_TXAn = arinc_708_inst_a.a708_TXn;
+	a708_TXINHA = arinc_708_inst_a.a708_TXINH;
+	a708_RXENA = arinc_708_inst_a.a708_RXEN;
+
+	a708_TXA_test = arinc_708_inst_a.a708_TX;
+	a708_TXAn_test = arinc_708_inst_a.a708_TXn;
+
+	a708_RXA_test = a708_RXB;
+	a708_RXAn_test = a708_RXBn;		
+	
+--***TEST
+end_of_packet = arinc_708_inst_a.end_of_packet;
+--***TEST
+	
+	-- Channel B
+	arinc_708_inst_b.clk = clk;
+	arinc_708_inst_b.nReset = nReset;
+	arinc_708_inst_b.wr_adr[31..0] = pcie_wrapper_inc.write_addr[31..0];
+	arinc_708_inst_b.wr_data_1[31..0] = pcie_wrapper_inc.dt_ram_1[31..0];
+	arinc_708_inst_b.wr_be_1[3..0] = pcie_wrapper_inc.be_1[3..0];
+	arinc_708_inst_b.wren_1 = pcie_wrapper_inc.wren_1;
+	arinc_708_inst_b.wr_data_0[31..0] = pcie_wrapper_inc.dt_ram_0[31..0];
+	arinc_708_inst_b.wr_be_0[3..0] = pcie_wrapper_inc.be_0[3..0];
+	arinc_708_inst_b.wren_0 = pcie_wrapper_inc.wren_0;
+	arinc_708_inst_b.rd_adr[31..0] = pcie_wrapper_inc.read_addr[31..0];
+	arinc_708_inst_b.rd_adr_change_dff = rd_adr_change;
+
+	arinc_708_inst_b.a708_RX = 	(a708_RXB and not A708_RX_LB_ENA[1]) or 
+											(
+											A708_RX_LB_ENA[1] and 
+												(
+												not A708_RX_LB_SEL_B and arinc_708_inst_a.a708_TX
+												or
+												A708_RX_LB_SEL_B and arinc_708_inst_b.a708_TX
+												)
+											);
+	arinc_708_inst_b.a708_RXn = 	(a708_RXBn and not A708_RX_LB_ENA[1]) or 
+											(
+											A708_RX_LB_ENA[1] and 
+												(
+												not A708_RX_LB_SEL_B and arinc_708_inst_a.a708_TXn
+												or
+												A708_RX_LB_SEL_B and arinc_708_inst_b.a708_TXn
+												)
+											);
+
+	pcie_wrapper_inc.tx_dt_ram_0[31..0] = arinc_708_inst_b.rd_data_0[31..0];
+	pcie_wrapper_inc.tx_dt_ram_1[31..0] = arinc_708_inst_b.rd_data_1[31..0];
+	a708_TXB = arinc_708_inst_b.a708_TX;
+	a708_TXBn = arinc_708_inst_b.a708_TXn;
+	a708_TXINHB = arinc_708_inst_b.a708_TXINH;
+	a708_RXENB = arinc_708_inst_b.a708_RXEN;
+
+-- LB CONTROL
+	for i in 0 to 1 generate
+		A708_LOOP_ff[i].clock = clk;
+		A708_LOOP_ff[i].data[0] = pcie_wrapper_inc.dt_ram_0[8] and pcie_wrapper_inc.be_0[1];
+		A708_LOOP_ff[i].enable = pcie_wrapper_inc.wren_0 and (pcie_wrapper_inc.write_addr[15..4] == h"50D" + i*h"040");	
+			A708_LOOP_ff[i].aclr = not nReset;
+	end generate;
+	
+	for i in 0 to 1 generate
+		A708_LOOP_SRC_ff[i].clock = clk;
+		A708_LOOP_SRC_ff[i].data[0] = pcie_wrapper_inc.dt_ram_0[9] and pcie_wrapper_inc.be_0[1];
+		A708_LOOP_SRC_ff[i].enable = pcie_wrapper_inc.wren_0 and (pcie_wrapper_inc.write_addr[15..4] == h"50D" + i*h"040");	
+			A708_LOOP_SRC_ff[i].aclr = not nReset;
+	end generate;
+
+	for i in 0 to 1 generate
+	-- A708 CTRL ADR detect
+		A708_CTRL_ADR_detect_trg[i].clk = clk;
+		A708_CTRL_ADR_detect_trg[i].d = (pcie_wrapper_inc.read_addr[15..4] == h"50D" + i*h"040");
+			A708_CTRL_ADR_detect_trg[i].clrn = nReset;
+	
+	-- A708 LOOP data
+		A708_LOOP_data_ff[i].clock = clk;
+		A708_LOOP_data_ff[i].data[1..0] = (A708_LOOP_SRC_ff[i].q[0],A708_LOOP_ff[i].q[0]);
+		A708_LOOP_data_ff[i].sclr = not A708_CTRL_ADR_detect_trg[i].q;
+			A708_LOOP_data_ff[i].aclr = not nReset;
+
+		pcie_wrapper_inc.tx_dt_ram_0[9] = A708_LOOP_data_ff[i].q[1];
+		pcie_wrapper_inc.tx_dt_ram_0[8] = A708_LOOP_data_ff[i].q[0];
+	end generate;	
+	
+	A708_RX_LB_ENA[1..0] = A708_LOOP_ff[1..0].q[0];
+	A708_RX_LB_SEL_A = A708_LOOP_SRC_ff[0].q[0];
+	A708_RX_LB_SEL_B = A708_LOOP_SRC_ff[1].q[0];
+--=========================================================--
+
+End;

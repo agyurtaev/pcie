@@ -1,0 +1,1607 @@
+ -- Copyright (C) 1991-2010 Altera Corporation
+ -- Your use of Altera Corporation's design tools, logic functions 
+ -- and other software and tools, and its AMPP partner logic 
+ -- functions, and any output files from any of the foregoing 
+ -- (including device programming or simulation files), and any 
+ -- associated documentation or information are expressly subject 
+ -- to the terms and conditions of the Altera Program License 
+ -- Subscription Agreement, Altera MegaCore Function License 
+ -- Agreement, or other applicable license agreement, including, 
+ -- without limitation, that your use is for the sole purpose of 
+ -- programming logic devices manufactured by Altera and sold by 
+ -- Altera or its authorized distributors.  Please refer to the 
+ -- applicable agreement for further details.
+ -- 
+ -- This is a Quartus II output file. It is for reporting purposes only, and is
+ -- not intended for use as a Quartus II input file. This file cannot be used
+ -- to make Quartus II pin assignments - for instructions on how to make pin
+ -- assignments, please see Quartus II help.
+ ---------------------------------------------------------------------------------
+
+
+
+ ---------------------------------------------------------------------------------
+ -- NC            : No Connect. This pin has no internal connection to the device.
+ -- DNU           : Do Not Use. This pin MUST NOT be connected.
+ -- VCCPGM        : Dedicated power pin for configuration, which MUST be connected to 1.8V, 2.5V or 3.0V depending on the requirements of the configuration device.
+ -- VCCINT        : Dedicated power pin, which MUST be connected to VCC  (0.9V).
+ -- VCCIO         : Dedicated power pin, which MUST be connected to VCC
+ --                 of its bank.
+ --					Bank 1A:		2.5V
+ --					Bank 1C:		2.5V
+ --					Bank 2C:		2.5V
+ --					Bank 2A:		2.5V
+ --					Bank 3A:		2.5V
+ --					Bank 3B:		2.5V
+ --					Bank 3C:		2.5V
+ --					Bank 4C:		2.5V
+ --					Bank 4B:		2.5V
+ --					Bank 4A:	2.5V
+ --					Bank 5A:	2.5V
+ --					Bank 5C:	2.5V
+ --					Bank 6C:	2.5V
+ --					Bank 6A:	2.5V
+ --					Bank 7A:	2.5V
+ --					Bank 7B:	2.5V
+ --					Bank 7C:	2.5V
+ --					Bank 8C:	2.5V
+ --					Bank 8B:	2.5V
+ --					Bank 8A:	2.5V
+ -- RREF          : External reference resistor for the quad, MUST be connected to
+ --                 GND via a 2k Ohm resistor.
+ -- GND           : Dedicated ground pin. Dedicated GND pins MUST be connected to GND.
+ --					It can also be used to report unused dedicated pins. The connection
+ --					on the board for unused dedicated pins depends on whether this will
+ --					be used in a future design. One example is device migration. When
+ --					using device migration, refer to the device pin-tables. If it is a
+ --					GND pin in the pin table or if it will not be used in a future design
+ --					for another purpose the it MUST be connected to GND. If it is an unused
+ --					dedicated pin, then it can be connected to a valid signal on the board
+ --					(low, high, or toggling) if that signal is required for a different
+ --					revision of the design.
+ -- GND+          : Unused input pin. It can also be used to report unused dual-purpose pins.
+ --					This pin should be connected to GND. It may also be connected  to a
+ --					valid signal  on the board  (low, high, or toggling)  if that signal
+ --					is required for a different revision of the design.
+ -- GND*          : Unused  I/O  pin.   For transceiver I/O banks, connect each pin marked GND*
+ --           	    either individually through a 10k Ohm resistor to GND or tie all pins
+ --           	    together and connect through a single 10k Ohm resistor to GND.
+ -- RESERVED      : Unused I/O pin, which MUST be left unconnected.
+ -- RESERVED_INPUT    : Pin is tri-stated and should be connected to the board.
+ -- RESERVED_INPUT_WITH_WEAK_PULLUP    : Pin is tri-stated with internal weak pull-up resistor.
+ -- RESERVED_INPUT_WITH_BUS_HOLD       : Pin is tri-stated with bus-hold circuitry.
+ -- RESERVED_OUTPUT_DRIVEN_HIGH        : Pin is output driven high.
+ -- GXB_GND*      : Unused GXB Receiver or dedicated reference clock pin. This pin
+ --                 must be connected to GXB_GND through a 10k Ohm resistor.
+ -- GXB_NC        : Unused GXB Transmitter or dedicated clock output pin. This pin
+ --                 must not be connected.
+ ---------------------------------------------------------------------------------
+
+
+
+ ---------------------------------------------------------------------------------
+ -- Pin directions (input, output or bidir) are based on device operating in user mode.
+ ---------------------------------------------------------------------------------
+
+Quartus II Version 10.1 Build 153 11/29/2010 SJ Full Version
+CHIP  "pcie_wrapper"  ASSIGNED TO AN: EP4SGX230KF40C2
+
+Pin Name/Usage               : Location  : Dir.   : I/O Standard      : Voltage : I/O Bank  : User Assignment
+-------------------------------------------------------------------------------------------------------------
+GND                          : A2        : gnd    :                   :         :           :                
+GND                          : A3        : gnd    :                   :         :           :                
+GND                          : A4        : gnd    :                   :         :           :                
+GND                          : A5        : gnd    :                   :         :           :                
+RREF                         : A6        :        :                   :         :           :                
+GND                          : A7        : gnd    :                   :         :           :                
+MSEL2                        : A8        :        :                   :         : 1A        :                
+TEMPDIODEp                   : A9        :        :                   :         :           :                
+read_addr[15]                : A10       : output : 2.5 V             :         : 7A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : A11       :        :                   :         : 7A        :                
+VCCIO7A                      : A12       : power  :                   : 2.5V    : 7A        :                
+write_addr[60]               : A13       : output : 2.5 V             :         : 7A        : N              
+dt_ram_3[12]                 : A14       : output : 2.5 V             :         : 7A        : N              
+VCCIO7B                      : A15       : power  :                   : 2.5V    : 7B        :                
+read_addr[36]                : A16       : output : 2.5 V             :         : 7B        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : A17       :        :                   :         : 7C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : A18       :        :                   :         : 7C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : A19       :        :                   :         : 7C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : A20       :        :                   :         : 7C        :                
+read_addr[5]                 : A21       : output : 2.5 V             :         : 7C        : N              
+dt_ram_3[28]                 : A22       : output : 2.5 V             :         : 8C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : A23       :        :                   :         : 8C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : A24       :        :                   :         : 8C        :                
+write_addr[11]               : A25       : output : 2.5 V             :         : 8C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : A26       :        :                   :         : 8B        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : A27       :        :                   :         : 8A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : A28       :        :                   :         : 8A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : A29       :        :                   :         : 8A        :                
+VCCIO8A                      : A30       : power  :                   : 2.5V    : 8A        :                
+be_0[2]                      : A31       : output : 2.5 V             :         : 8A        : N              
+TRST                         : A32       : input  :                   :         : 1A        :                
+GND                          : A33       : gnd    :                   :         :           :                
+RREF                         : A34       :        :                   :         :           :                
+GND                          : A35       : gnd    :                   :         :           :                
+GND                          : A36       : gnd    :                   :         :           :                
+GND                          : A37       : gnd    :                   :         :           :                
+GND                          : A38       : gnd    :                   :         :           :                
+GXB_GND*                     : AA1       :        :                   :         : QR1       :                
+GXB_GND*                     : AA2       :        :                   :         : QR1       :                
+GND                          : AA3       : gnd    :                   :         :           :                
+GND                          : AA4       : gnd    :                   :         :           :                
+GND+                         : AA5       :        :                   :         : 6C        :                
+VCCH_GXBR1                   : AA6       : power  :                   : 1.4V    : QR1       :                
+VCCL_GXBR1                   : AA7       : power  :                   : 1.1V    : QR1       :                
+VCC                          : AA8       : power  :                   : 0.9V    :           :                
+VCCHIP_R                     : AA9       : power  :                   : 0.9V    :           :                
+VCCA_PLL_R3                  : AA10      : power  :                   : 2.5V    :           :                
+VCCD_PLL_R3                  : AA11      : power  :                   : 0.9V    :           :                
+VCCPT                        : AA12      : power  :                   : 1.5V    :           :                
+VCCPD5C                      : AA13      : power  :                   : 2.5V    : 5C        :                
+GND                          : AA14      : gnd    :                   :         :           :                
+VCC                          : AA15      : power  :                   : 0.9V    :           :                
+GND                          : AA16      : gnd    :                   :         :           :                
+VCC                          : AA17      : power  :                   : 0.9V    :           :                
+GND                          : AA18      : gnd    :                   :         :           :                
+VCC                          : AA19      : power  :                   : 0.9V    :           :                
+DNU                          : AA20      :        :                   :         :           :                
+VCC                          : AA21      : power  :                   : 0.9V    :           :                
+GND                          : AA22      : gnd    :                   :         :           :                
+VCC                          : AA23      : power  :                   : 0.9V    :           :                
+GND                          : AA24      : gnd    :                   :         :           :                
+VCC                          : AA25      : power  :                   : 0.9V    :           :                
+VCCPT                        : AA26      : power  :                   : 1.5V    :           :                
+VCCPT                        : AA27      : power  :                   : 1.5V    :           :                
+VCCD_PLL_L3                  : AA28      : power  :                   : 0.9V    :           :                
+VCCA_PLL_L3                  : AA29      : power  :                   : 2.5V    :           :                
+VCCIO1C                      : AA30      : power  :                   : 2.5V    : 1C        :                
+VCCHIP_L                     : AA31      : power  :                   : 0.9V    :           :                
+VCC                          : AA32      : power  :                   : 0.9V    :           :                
+VCCL_GXBL1                   : AA33      : power  :                   : 1.1V    : QL1       :                
+VCCH_GXBL1                   : AA34      : power  :                   : 1.4V    : QL1       :                
+refclk                       : AA35      : input  : 2.5 V             :         : 1C        : N              
+GND                          : AA36      : gnd    :                   :         :           :                
+GND                          : AA37      : gnd    :                   :         :           :                
+GXB_GND*                     : AA38      :        :                   :         : QL1       :                
+GXB_GND*                     : AA39      :        :                   :         : QL1       :                
+GND                          : AB1       : gnd    :                   :         :           :                
+GND                          : AB2       : gnd    :                   :         :           :                
+GXB_NC                       : AB3       :        :                   :         : QR1       :                
+GXB_NC                       : AB4       :        :                   :         : QR1       :                
+VCCT_R                       : AB5       : power  :                   : 1.1V    :           :                
+GND+                         : AB6       :        :                   :         : 6C        :                
+GND                          : AB7       : gnd    :                   :         :           :                
+VCC                          : AB8       : power  :                   : 0.9V    :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AB9       :        :                   :         : 5C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AB10      :        :                   :         : 5C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AB11      :        :                   :         : 5C        :                
+dt_ram_3[14]                 : AB12      : output : 2.5 V             :         : 5C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AB13      :        :                   :         : 5C        :                
+VCC                          : AB14      : power  :                   : 0.9V    :           :                
+GND                          : AB15      : gnd    :                   :         :           :                
+VCC                          : AB16      : power  :                   : 0.9V    :           :                
+GND                          : AB17      : gnd    :                   :         :           :                
+VCC                          : AB18      : power  :                   : 0.9V    :           :                
+GND                          : AB19      : gnd    :                   :         :           :                
+VCC                          : AB20      : power  :                   : 0.9V    :           :                
+GND                          : AB21      : gnd    :                   :         :           :                
+VCC                          : AB22      : power  :                   : 0.9V    :           :                
+GND                          : AB23      : gnd    :                   :         :           :                
+VCC                          : AB24      : power  :                   : 0.9V    :           :                
+GND                          : AB25      : gnd    :                   :         :           :                
+VCCPD2A                      : AB26      : power  :                   : 2.5V    : 2A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AB27      :        :                   :         : 2C        :                
+dt_ram_2[31]                 : AB28      : output : 2.5 V             :         : 2C        : N              
+VREFB2CN0                    : AB29      : power  :                   :         : 2C        :                
+tx_dt_ram_1[1]               : AB30      : input  : 2.5 V             :         : 2C        : N              
+tx_dt_ram_0[3]               : AB31      : input  : 2.5 V             :         : 2C        : N              
+VCC                          : AB32      : power  :                   : 0.9V    :           :                
+GND                          : AB33      : gnd    :                   :         :           :                
+reconfig_clk                 : AB34      : input  : 2.5 V             :         : 1C        : N              
+VCCT_L                       : AB35      : power  :                   : 1.1V    :           :                
+tx_out5                      : AB36      : output : 1.4-V PCML        :         : QL1       : N              
+tx_out5(n)                   : AB37      : output : 1.4-V PCML        :         : QL1       : N              
+GND                          : AB38      : gnd    :                   :         :           :                
+GND                          : AB39      : gnd    :                   :         :           :                
+GXB_GND*                     : AC1       :        :                   :         : QR1       :                
+GXB_GND*                     : AC2       :        :                   :         : QR1       :                
+GND                          : AC3       : gnd    :                   :         :           :                
+GND                          : AC4       : gnd    :                   :         :           :                
+tx_dt_ram_0[23]              : AC5       : input  : 2.5 V             :         : 5C        : N              
+tx_dt_ram_2[16]              : AC6       : input  : 2.5 V             :         : 5C        : N              
+GND                          : AC7       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AC8       :        :                   :         : 5C        :                
+GND                          : AC9       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AC10      :        :                   :         : 5C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AC11      :        :                   :         : 5C        :                
+GND                          : AC12      : gnd    :                   :         :           :                
+VCCPD5A                      : AC13      : power  :                   : 2.5V    : 5A        :                
+GND                          : AC14      : gnd    :                   :         :           :                
+VCC                          : AC15      : power  :                   : 0.9V    :           :                
+GND                          : AC16      : gnd    :                   :         :           :                
+VCC                          : AC17      : power  :                   : 0.9V    :           :                
+GND                          : AC18      : gnd    :                   :         :           :                
+VCC                          : AC19      : power  :                   : 0.9V    :           :                
+GND                          : AC20      : gnd    :                   :         :           :                
+VCC                          : AC21      : power  :                   : 0.9V    :           :                
+GND                          : AC22      : gnd    :                   :         :           :                
+VCC                          : AC23      : power  :                   : 0.9V    :           :                
+GND                          : AC24      : gnd    :                   :         :           :                
+VCC                          : AC25      : power  :                   : 0.9V    :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AC26      :        :                   :         : 2A        :                
+GND                          : AC27      : gnd    :                   :         :           :                
+tx_dt_ram_3[16]              : AC28      : input  : 2.5 V             :         : 2C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AC29      :        :                   :         : 2C        :                
+GND                          : AC30      : gnd    :                   :         :           :                
+read_addr[1]                 : AC31      : output : 2.5 V             :         : 2C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AC32      :        :                   :         : 2C        :                
+GND                          : AC33      : gnd    :                   :         :           :                
+GND+                         : AC34      :        :                   :         : 2C        :                
+GND+                         : AC35      :        :                   :         : 2C        :                
+GND                          : AC36      : gnd    :                   :         :           :                
+GND                          : AC37      : gnd    :                   :         :           :                
+rx_in5                       : AC38      : input  : 1.5-V PCML        :         : QL1       : N              
+rx_in5(n)                    : AC39      : input  : 1.5-V PCML        :         : QL1       : N              
+GND                          : AD1       : gnd    :                   :         :           :                
+GND                          : AD2       : gnd    :                   :         :           :                
+GXB_NC                       : AD3       :        :                   :         : QR1       :                
+GXB_NC                       : AD4       :        :                   :         : QR1       :                
+VCCR_R                       : AD5       : power  :                   : 1.1V    :           :                
+GND                          : AD6       : gnd    :                   :         :           :                
+VCCL_GXBR0                   : AD7       : power  :                   : 1.1V    : QR0       :                
+GND                          : AD8       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AD9       :        :                   :         : 5C        :                
+write_addr[33]               : AD10      : output : 2.5 V             :         : 5C        : N              
+VREFB5CN0                    : AD11      : power  :                   :         : 5C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AD12      :        :                   :         : 5A        :                
+tx_dt_ram_2[8]               : AD13      : input  : 2.5 V             :         : 5A        : N              
+VCCPD4A                      : AD14      : power  :                   : 2.5V    : 4A        :                
+dt_ram_0[10]                 : AD15      : output : 2.5 V             :         : 4A        : N              
+VCCPD4B                      : AD16      : power  :                   : 2.5V    : 4B        :                
+NC                           : AD17      :        :                   :         :           :                
+VCCPD4C                      : AD18      : power  :                   : 2.5V    : 4C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AD19      :        :                   :         : 4C        :                
+VCCPD3C                      : AD20      : power  :                   : 2.5V    : 3C        :                
+dt_ram_1[4]                  : AD21      : output : 2.5 V             :         : 3C        : N              
+VCCPD3B                      : AD22      : power  :                   : 2.5V    : 3B        :                
+GND                          : AD23      : gnd    :                   :         :           :                
+VCCPD3A                      : AD24      : power  :                   : 2.5V    : 3A        :                
+dt_ram_1[23]                 : AD25      : output : 2.5 V             :         : 3A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AD26      :        :                   :         : 2A        :                
+be_1[2]                      : AD27      : output : 2.5 V             :         : 2A        : N              
+tx_dt_ram_3[21]              : AD28      : input  : 2.5 V             :         : 2C        : N              
+wren_3                       : AD29      : output : 2.5 V             :         : 2C        : N              
+dt_ram_2[27]                 : AD30      : output : 2.5 V             :         : 2C        : N              
+dt_ram_0[31]                 : AD31      : output : 2.5 V             :         : 2C        : N              
+GND                          : AD32      : gnd    :                   :         :           :                
+VCCL_GXBL0                   : AD33      : power  :                   : 1.1V    : QL0       :                
+GND                          : AD34      : gnd    :                   :         :           :                
+VCCR_L                       : AD35      : power  :                   : 1.1V    :           :                
+tx_out4                      : AD36      : output : 1.4-V PCML        :         : QL1       : N              
+tx_out4(n)                   : AD37      : output : 1.4-V PCML        :         : QL1       : N              
+GND                          : AD38      : gnd    :                   :         :           :                
+GND                          : AD39      : gnd    :                   :         :           :                
+GXB_GND*                     : AE1       :        :                   :         : QR1       :                
+GXB_GND*                     : AE2       :        :                   :         : QR1       :                
+GND                          : AE3       : gnd    :                   :         :           :                
+GND                          : AE4       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AE5       :        :                   :         : 5C        :                
+VCCH_GXBR0                   : AE6       : power  :                   : 1.4V    : QR0       :                
+VCCL_GXBR0                   : AE7       : power  :                   : 1.1V    : QR0       :                
+VCC                          : AE8       : power  :                   : 0.9V    :           :                
+VCCIO5C                      : AE9       : power  :                   : 2.5V    : 5C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AE10      :        :                   :         : 5C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AE11      :        :                   :         : 5C        :                
+dt_ram_0[29]                 : AE12      : output : 2.5 V             :         : 5A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AE13      :        :                   :         : 5A        :                
+tx_dt_ram_2[27]              : AE14      : input  : 2.5 V             :         : 4A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AE15      :        :                   :         : 4A        :                
+read_addr[52]                : AE16      : output : 2.5 V             :         : 4A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AE17      :        :                   :         : 4B        :                
+dt_ram_0[25]                 : AE18      : output : 2.5 V             :         : 4C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AE19      :        :                   :         : 4C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AE20      :        :                   :         : 3C        :                
+be_0[0]                      : AE21      : output : 2.5 V             :         : 3C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AE22      :        :                   :         : 3B        :                
+be_2[0]                      : AE23      : output : 2.5 V             :         : 3B        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AE24      :        :                   :         : 3A        :                
+dt_ram_0[28]                 : AE25      : output : 2.5 V             :         : 3A        : N              
+tx_dt_ram_2[12]              : AE26      : input  : 2.5 V             :         : 2A        : N              
+be_2[1]                      : AE27      : output : 2.5 V             :         : 2A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AE28      :        :                   :         : 2C        :                
+rx_ready                     : AE29      : input  : 2.5 V             :         : 2C        : N              
+write_addr[59]               : AE30      : output : 2.5 V             :         : 2C        : N              
+tx_dt_ram_2[11]              : AE31      : input  : 2.5 V             :         : 2C        : N              
+VCC                          : AE32      : power  :                   : 0.9V    :           :                
+VCCL_GXBL0                   : AE33      : power  :                   : 1.1V    : QL0       :                
+VCCH_GXBL0                   : AE34      : power  :                   : 1.4V    : QL0       :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AE35      :        :                   :         : 2C        :                
+GND                          : AE36      : gnd    :                   :         :           :                
+GND                          : AE37      : gnd    :                   :         :           :                
+rx_in4                       : AE38      : input  : 1.5-V PCML        :         : QL1       : N              
+rx_in4(n)                    : AE39      : input  : 1.5-V PCML        :         : QL1       : N              
+GND                          : AF1       : gnd    :                   :         :           :                
+GND                          : AF2       : gnd    :                   :         :           :                
+GXB_NC                       : AF3       :        :                   :         : QR0       :                
+GXB_NC                       : AF4       :        :                   :         : QR0       :                
+VCCA_R                       : AF5       : power  :                   : 2.5V    :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AF6       :        :                   :         : 5C        :                
+GND                          : AF7       : gnd    :                   :         :           :                
+VCC                          : AF8       : power  :                   : 0.9V    :           :                
+GND                          : AF9       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AF10      :        :                   :         : 5C        :                
+dt_ram_1[14]                 : AF11      : output : 2.5 V             :         : 5C        : N              
+GND                          : AF12      : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AF13      :        :                   :         : 5A        :                
+tx_dt_ram_2[31]              : AF14      : input  : 2.5 V             :         : 4A        : N              
+GND                          : AF15      : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AF16      :        :                   :         : 4A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AF17      :        :                   :         : 4B        :                
+GND                          : AF18      : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AF19      :        :                   :         : 4C        :                
+tx_dt_ram_3[9]               : AF20      : input  : 2.5 V             :         : 3C        : N              
+GND                          : AF21      : gnd    :                   :         :           :                
+write_addr[51]               : AF22      : output : 2.5 V             :         : 3B        : N              
+pcie_rstn                    : AF23      : input  : 2.5 V             :         : 3B        : N              
+GND                          : AF24      : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AF25      :        :                   :         : 3A        :                
+test_out_icm[8]              : AF26      : output : 2.5 V             :         : 2A        : N              
+GND                          : AF27      : gnd    :                   :         :           :                
+VREFB2AN0                    : AF28      : power  :                   :         : 2A        :                
+tx_dt_ram_2[13]              : AF29      : input  : 2.5 V             :         : 2C        : N              
+GND                          : AF30      : gnd    :                   :         :           :                
+VCCIO2C                      : AF31      : power  :                   : 2.5V    : 2C        :                
+VCC                          : AF32      : power  :                   : 0.9V    :           :                
+GND                          : AF33      : gnd    :                   :         :           :                
+dt_ram_2[14]                 : AF34      : output : 2.5 V             :         : 2C        : N              
+VCCA_L                       : AF35      : power  :                   : 3.0V    :           :                
+tx_out3                      : AF36      : output : 1.4-V PCML        :         : QL0       : N              
+tx_out3(n)                   : AF37      : output : 1.4-V PCML        :         : QL0       : N              
+GND                          : AF38      : gnd    :                   :         :           :                
+GND                          : AF39      : gnd    :                   :         :           :                
+GXB_GND*                     : AG1       :        :                   :         : QR0       :                
+GXB_GND*                     : AG2       :        :                   :         : QR0       :                
+GND                          : AG3       : gnd    :                   :         :           :                
+GND                          : AG4       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AG5       :        :                   :         : 5C        :                
+dt_ram_3[26]                 : AG6       : output : 2.5 V             :         : 5C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AG7       :        :                   :         : 5C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AG8       :        :                   :         : 5C        :                
+tx_dt_ram_2[9]               : AG9       : input  : 2.5 V             :         : 5C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AG10      :        :                   :         : 5C        :                
+VREFB5AN0                    : AG11      : power  :                   :         : 5A        :                
+write_addr[54]               : AG12      : output : 2.5 V             :         : 5A        : N              
+read_addr[54]                : AG13      : output : 2.5 V             :         : 5A        : N              
+tx_dt_ram_3[11]              : AG14      : input  : 2.5 V             :         : 4A        : N              
+dt_ram_2[13]                 : AG15      : output : 2.5 V             :         : 4A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AG16      :        :                   :         : 4B        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AG17      :        :                   :         : 4B        :                
+dt_ram_3[2]                  : AG18      : output : 2.5 V             :         : 4C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AG19      :        :                   :         : 4C        :                
+tx_dt_ram_2[5]               : AG20      : input  : 2.5 V             :         : 3C        : N              
+write_addr[42]               : AG21      : output : 2.5 V             :         : 3C        : N              
+dt_ram_2[0]                  : AG22      : output : 2.5 V             :         : 3B        : N              
+VCCIO3B                      : AG23      : power  :                   : 2.5V    : 3B        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AG24      :        :                   :         : 3A        :                
+dt_ram_0[15]                 : AG25      : output : 2.5 V             :         : 3A        : N              
+VCCIO2A                      : AG26      : power  :                   : 2.5V    : 2A        :                
+tx_dt_ram_2[22]              : AG27      : input  : 2.5 V             :         : 2A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AG28      :        :                   :         : 2A        :                
+test_out_icm[3]              : AG29      : output : 2.5 V             :         : 2A        : N              
+tx_dt_ram_1[2]               : AG30      : input  : 2.5 V             :         : 2C        : N              
+dt_ram_1[7]                  : AG31      : output : 2.5 V             :         : 2C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AG32      :        :                   :         : 2C        :                
+VCCIO2C                      : AG33      : power  :                   : 2.5V    : 2C        :                
+read_addr[32]                : AG34      : output : 2.5 V             :         : 2C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AG35      :        :                   :         : 2C        :                
+GND                          : AG36      : gnd    :                   :         :           :                
+GND                          : AG37      : gnd    :                   :         :           :                
+rx_in3                       : AG38      : input  : 1.5-V PCML        :         : QL0       : N              
+rx_in3(n)                    : AG39      : input  : 1.5-V PCML        :         : QL0       : N              
+GND                          : AH1       : gnd    :                   :         :           :                
+GND                          : AH2       : gnd    :                   :         :           :                
+GXB_NC                       : AH3       :        :                   :         : QR0       :                
+GXB_NC                       : AH4       :        :                   :         : QR0       :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AH5       :        :                   :         : 5C        :                
+dt_ram_2[4]                  : AH6       : output : 2.5 V             :         : 5C        : N              
+VCCIO5C                      : AH7       : power  :                   : 2.5V    : 5C        :                
+tx_dt_ram_0[31]              : AH8       : input  : 2.5 V             :         : 5C        : N              
+tx_dt_ram_0[15]              : AH9       : input  : 2.5 V             :         : 5C        : N              
+tx_dt_ram_3[22]              : AH10      : input  : 2.5 V             :         : 5A        : N              
+dt_ram_3[7]                  : AH11      : output : 2.5 V             :         : 5A        : N              
+dt_ram_2[2]                  : AH12      : output : 2.5 V             :         : 5A        : N              
+read_addr[24]                : AH13      : output : 2.5 V             :         : 4A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AH14      :        :                   :         : 4A        :                
+VCCIO4A                      : AH15      : power  :                   : 2.5V    : 4A        :                
+tx_dt_ram_1[31]              : AH16      : input  : 2.5 V             :         : 4B        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AH17      :        :                   :         : 4B        :                
+tx_dt_ram_1[18]              : AH18      : input  : 2.5 V             :         : 4C        : N              
+tx_dt_ram_0[26]              : AH19      : input  : 2.5 V             :         : 4C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AH20      :        :                   :         : 3C        :                
+VCCIO3C                      : AH21      : power  :                   : 2.5V    : 3C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AH22      :        :                   :         : 3B        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AH23      :        :                   :         : 3B        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AH24      :        :                   :         : 3A        :                
+VCCIO3A                      : AH25      : power  :                   : 2.5V    : 3A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AH26      :        :                   :         : 3A        :                
+dt_ram_2[17]                 : AH27      : output : 2.5 V             :         : 2A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AH28      :        :                   :         : 2A        :                
+test_out_icm[5]              : AH29      : output : 2.5 V             :         : 2A        : N              
+test_out_icm[0]              : AH30      : output : 2.5 V             :         : 2A        : N              
+VCCIO2C                      : AH31      : power  :                   : 2.5V    : 2C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AH32      :        :                   :         : 2C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AH33      :        :                   :         : 2C        :                
+tx_dt_ram_3[6]               : AH34      : input  : 2.5 V             :         : 2C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AH35      :        :                   :         : 2C        :                
+tx_out2                      : AH36      : output : 1.4-V PCML        :         : QL0       : N              
+tx_out2(n)                   : AH37      : output : 1.4-V PCML        :         : QL0       : N              
+GND                          : AH38      : gnd    :                   :         :           :                
+GND                          : AH39      : gnd    :                   :         :           :                
+GXB_GND*                     : AJ1       :        :                   :         : QR0       :                
+GXB_GND*                     : AJ2       :        :                   :         : QR0       :                
+GND                          : AJ3       : gnd    :                   :         :           :                
+GND                          : AJ4       : gnd    :                   :         :           :                
+tx_dt_ram_3[10]              : AJ5       : input  : 2.5 V             :         : 5C        : N              
+tx_dt_ram_1[16]              : AJ6       : input  : 2.5 V             :         : 5C        : N              
+GND                          : AJ7       : gnd    :                   :         :           :                
+VCCIO5C                      : AJ8       : power  :                   : 2.5V    : 5C        :                
+GND                          : AJ9       : gnd    :                   :         :           :                
+be_0[3]                      : AJ10      : output : 2.5 V             :         : 5A        : N              
+tx_dt_ram_1[25]              : AJ11      : input  : 2.5 V             :         : 5A        : N              
+GND                          : AJ12      : gnd    :                   :         :           :                
+dt_ram_1[19]                 : AJ13      : output : 2.5 V             :         : 4A        : N              
+write_addr[35]               : AJ14      : output : 2.5 V             :         : 4A        : N              
+GND                          : AJ15      : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AJ16      :        :                   :         : 4B        :                
+VCCIO4B                      : AJ17      : power  :                   : 2.5V    : 4B        :                
+GND                          : AJ18      : gnd    :                   :         :           :                
+VCCIO4C                      : AJ19      : power  :                   : 2.5V    : 4C        :                
+dt_ram_1[16]                 : AJ20      : output : 2.5 V             :         : 3C        : N              
+GND                          : AJ21      : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AJ22      :        :                   :         : 3B        :                
+read_addr[23]                : AJ23      : output : 2.5 V             :         : 3B        : N              
+GND                          : AJ24      : gnd    :                   :         :           :                
+tx_dt_ram_1[23]              : AJ25      : input  : 2.5 V             :         : 3A        : N              
+read_addr[41]                : AJ26      : output : 2.5 V             :         : 3A        : N              
+GND                          : AJ27      : gnd    :                   :         :           :                
+VCCIO2A                      : AJ28      : power  :                   : 2.5V    : 2A        :                
+be_2[2]                      : AJ29      : output : 2.5 V             :         : 2A        : N              
+GND                          : AJ30      : gnd    :                   :         :           :                
+test_out_icm[6]              : AJ31      : output : 2.5 V             :         : 2A        : N              
+dt_ram_3[1]                  : AJ32      : output : 2.5 V             :         : 2C        : N              
+GND                          : AJ33      : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AJ34      :        :                   :         : 2C        :                
+read_addr[58]                : AJ35      : output : 2.5 V             :         : 2C        : N              
+GND                          : AJ36      : gnd    :                   :         :           :                
+GND                          : AJ37      : gnd    :                   :         :           :                
+rx_in2                       : AJ38      : input  : 1.5-V PCML        :         : QL0       : N              
+rx_in2(n)                    : AJ39      : input  : 1.5-V PCML        :         : QL0       : N              
+GND                          : AK1       : gnd    :                   :         :           :                
+GND                          : AK2       : gnd    :                   :         :           :                
+GXB_NC                       : AK3       :        :                   :         : QR0       :                
+GXB_NC                       : AK4       :        :                   :         : QR0       :                
+tx_dt_ram_1[29]              : AK5       : input  : 2.5 V             :         : 5C        : N              
+dt_ram_3[5]                  : AK6       : output : 2.5 V             :         : 5C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AK7       :        :                   :         : 5C        :                
+write_addr[32]               : AK8       : output : 2.5 V             :         : 5C        : N              
+dt_ram_1[25]                 : AK9       : output : 2.5 V             :         : 5A        : N              
+VCCIO5A                      : AK10      : power  :                   : 2.5V    : 5A        :                
+NC                           : AK11      :        :                   :         :           :                
+VCCPGM                       : AK12      : power  :                   : 1.8V/2.5V/3.0V :           :                
+tx_dt_ram_0[11]              : AK13      : input  : 2.5 V             :         : 4A        : N              
+tx_dt_ram_0[2]               : AK14      : input  : 2.5 V             :         : 4A        : N              
+VCCIO4A                      : AK15      : power  :                   : 2.5V    : 4A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AK16      :        :                   :         : 4B        :                
+read_addr[22]                : AK17      : output : 2.5 V             :         : 4B        : N              
+VCC_CLKIN4C                  : AK18      : power  :                   : 2.5V    :           :                
+VCCD_PLL_B2                  : AK19      : power  :                   : 0.9V    :           :                
+VCCD_PLL_B1                  : AK20      : power  :                   : 0.9V    :           :                
+VCC_CLKIN3C                  : AK21      : power  :                   : 2.5V    :           :                
+VCCIO3C                      : AK22      : power  :                   : 2.5V    : 3C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AK23      :        :                   :         : 3B        :                
+dt_ram_0[2]                  : AK24      : output : 2.5 V             :         : 3B        : N              
+tx_dt_ram_2[6]               : AK25      : input  : 2.5 V             :         : 3A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AK26      :        :                   :         : 3A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AK27      :        :                   :         : 3A        :                
+VCCPGM                       : AK28      : power  :                   : 1.8V/2.5V/3.0V :           :                
+read_addr[35]                : AK29      : output : 2.5 V             :         : 2A        : N              
+dt_ram_0[12]                 : AK30      : output : 2.5 V             :         : 2A        : N              
+dt_ram_1[8]                  : AK31      : output : 2.5 V             :         : 2A        : N              
+test_out_icm[1]              : AK32      : output : 2.5 V             :         : 2A        : N              
+be_1[3]                      : AK33      : output : 2.5 V             :         : 2C        : N              
+dt_ram_1[18]                 : AK34      : output : 2.5 V             :         : 2C        : N              
+dt_ram_3[3]                  : AK35      : output : 2.5 V             :         : 2C        : N              
+GXB_NC                       : AK36      :        :                   :         : QL0       :                
+GXB_NC                       : AK37      :        :                   :         : QL0       :                
+GND                          : AK38      : gnd    :                   :         :           :                
+GND                          : AK39      : gnd    :                   :         :           :                
+GXB_GND*                     : AL1       :        :                   :         : QR0       :                
+GXB_GND*                     : AL2       :        :                   :         : QR0       :                
+GND                          : AL3       : gnd    :                   :         :           :                
+GND                          : AL4       : gnd    :                   :         :           :                
+tx_dt_ram_1[30]              : AL5       : input  : 2.5 V             :         : 5C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AL6       :        :                   :         : 5C        :                
+VCCIO5C                      : AL7       : power  :                   : 2.5V    : 5C        :                
+tx_dt_ram_0[30]              : AL8       : input  : 2.5 V             :         : 5A        : N              
+dt_ram_1[12]                 : AL9       : output : 2.5 V             :         : 5A        : N              
+write_addr[40]               : AL10      : output : 2.5 V             :         : 5A        : N              
+GND                          : AL11      : gnd    :                   :         :           :                
+VCCAUX                       : AL12      : power  :                   : 2.5V    :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AL13      :        :                   :         : 4A        :                
+tx_dt_ram_0[0]               : AL14      : input  : 2.5 V             :         : 4A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AL15      :        :                   :         : 4A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AL16      :        :                   :         : 4B        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AL17      :        :                   :         : 4B        :                
+VREFB4CN0                    : AL18      : power  :                   :         : 4C        :                
+VCCA_PLL_B2                  : AL19      : power  :                   : 2.5V    :           :                
+VCCA_PLL_B1                  : AL20      : power  :                   : 2.5V    :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AL21      :        :                   :         : 3C        :                
+be_3[0]                      : AL22      : output : 2.5 V             :         : 3C        : N              
+read_addr[3]                 : AL23      : output : 2.5 V             :         : 3B        : N              
+VREFB3BN0                    : AL24      : power  :                   :         : 3B        :                
+dt_ram_3[29]                 : AL25      : output : 2.5 V             :         : 3A        : N              
+VCCIO3A                      : AL26      : power  :                   : 2.5V    : 3A        :                
+be_1[0]                      : AL27      : output : 2.5 V             :         : 3A        : N              
+VCCAUX                       : AL28      : power  :                   : 2.5V    :           :                
+write_addr[6]                : AL29      : output : 2.5 V             :         : 2A        : N              
+write_addr[26]               : AL30      : output : 2.5 V             :         : 2A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AL31      :        :                   :         : 2A        :                
+test_out_icm[2]              : AL32      : output : 2.5 V             :         : 2A        : N              
+VCCIO2C                      : AL33      : power  :                   : 2.5V    : 2C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AL34      :        :                   :         : 2C        :                
+read_addr[14]                : AL35      : output : 2.5 V             :         : 2C        : N              
+GND                          : AL36      : gnd    :                   :         :           :                
+GND                          : AL37      : gnd    :                   :         :           :                
+GXB_GND*                     : AL38      :        :                   :         : QL0       :                
+GXB_GND*                     : AL39      :        :                   :         : QL0       :                
+GND                          : AM1       : gnd    :                   :         :           :                
+GND                          : AM2       : gnd    :                   :         :           :                
+GXB_NC                       : AM3       :        :                   :         : QR0       :                
+GXB_NC                       : AM4       :        :                   :         : QR0       :                
+tx_dt_ram_0[6]               : AM5       : input  : 2.5 V             :         : 5C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AM6       :        :                   :         : 5C        :                
+GND                          : AM7       : gnd    :                   :         :           :                
+dt_ram_3[13]                 : AM8       : output : 2.5 V             :         : 5A        : N              
+GND                          : AM9       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AM10      :        :                   :         : 5A        :                
+nIO_PULLUP                   : AM11      :        :                   :         : 1A        :                
+GND                          : AM12      : gnd    :                   :         :           :                
+dt_ram_3[15]                 : AM13      : output : 2.5 V             :         : 4A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AM14      :        :                   :         : 4A        :                
+GND                          : AM15      : gnd    :                   :         :           :                
+VREFB4BN0                    : AM16      : power  :                   :         : 4B        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AM17      :        :                   :         : 4B        :                
+GND                          : AM18      : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AM19      :        :                   :         : 4C        :                
+VCCPT                        : AM20      : power  :                   : 1.5V    :           :                
+GND                          : AM21      : gnd    :                   :         :           :                
+tx_dt_ram_0[28]              : AM22      : input  : 2.5 V             :         : 3C        : N              
+dt_ram_2[19]                 : AM23      : output : 2.5 V             :         : 3C        : N              
+GND                          : AM24      : gnd    :                   :         :           :                
+read_addr[28]                : AM25      : output : 2.5 V             :         : 3B        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AM26      :        :                   :         : 3A        :                
+GND                          : AM27      : gnd    :                   :         :           :                
+NC                           : AM28      :        :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AM29      :        :                   :         : 2A        :                
+GND                          : AM30      : gnd    :                   :         :           :                
+pll_locked                   : AM31      : output : 2.5 V             :         : 2A        : N              
+VCCIO2A                      : AM32      : power  :                   : 2.5V    : 2A        :                
+GND                          : AM33      : gnd    :                   :         :           :                
+read_addr[27]                : AM34      : output : 2.5 V             :         : 2C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AM35      :        :                   :         : 2C        :                
+GXB_NC                       : AM36      :        :                   :         : QL0       :                
+GXB_NC                       : AM37      :        :                   :         : QL0       :                
+GND                          : AM38      : gnd    :                   :         :           :                
+GND                          : AM39      : gnd    :                   :         :           :                
+GXB_GND*                     : AN1       :        :                   :         : QR0       :                
+GXB_GND*                     : AN2       :        :                   :         : QR0       :                
+GND                          : AN3       : gnd    :                   :         :           :                
+GND                          : AN4       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AN5       :        :                   :         : 5C        :                
+tx_dt_ram_0[16]              : AN6       : input  : 2.5 V             :         : 5C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AN7       :        :                   :         : 5A        :                
+VCCIO5A                      : AN8       : power  :                   : 2.5V    : 5A        :                
+write_addr[0]                : AN9       : output : 2.5 V             :         : 5A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AN10      :        :                   :         : 5A        :                
+ASDO                         : AN11      :        :                   :         : 1A        :                
+VREFB4AN0                    : AN12      : power  :                   :         : 4A        :                
+dt_ram_2[20]                 : AN13      : output : 2.5 V             :         : 4A        : N              
+read_addr[47]                : AN14      : output : 2.5 V             :         : 4A        : N              
+tx_dt_ram_3[15]              : AN15      : input  : 2.5 V             :         : 4A        : N              
+read_addr[46]                : AN16      : output : 2.5 V             :         : 4B        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AN17      :        :                   :         : 4B        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AN18      :        :                   :         : 4C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AN19      :        :                   :         : 4C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AN20      :        :                   :         : 4C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AN21      :        :                   :         : 3C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AN22      :        :                   :         : 3C        :                
+wren_2                       : AN23      : output : 2.5 V             :         : 3C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AN24      :        :                   :         : 3B        :                
+write_addr[43]               : AN25      : output : 2.5 V             :         : 3B        : N              
+write_addr[12]               : AN26      : output : 2.5 V             :         : 3A        : N              
+tx_dt_ram_1[24]              : AN27      : input  : 2.5 V             :         : 3A        : N              
+VREFB3AN0                    : AN28      : power  :                   :         : 3A        :                
+nCE                          : AN29      :        :                   :         : 1A        :                
+tx_dt_ram_2[26]              : AN30      : input  : 2.5 V             :         : 2A        : N              
+dt_ram_3[4]                  : AN31      : output : 2.5 V             :         : 2A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AN32      :        :                   :         : 2A        :                
+tx_dt_ram_3[12]              : AN33      : input  : 2.5 V             :         : 2A        : N              
+tx_dt_ram_1[0]               : AN34      : input  : 2.5 V             :         : 2C        : N              
+write_addr[21]               : AN35      : output : 2.5 V             :         : 2C        : N              
+GND                          : AN36      : gnd    :                   :         :           :                
+GND                          : AN37      : gnd    :                   :         :           :                
+GXB_GND*                     : AN38      :        :                   :         : QL0       :                
+GXB_GND*                     : AN39      :        :                   :         : QL0       :                
+GND                          : AP1       : gnd    :                   :         :           :                
+GND                          : AP2       : gnd    :                   :         :           :                
+GXB_NC                       : AP3       :        :                   :         : QR0       :                
+GXB_NC                       : AP4       :        :                   :         : QR0       :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AP5       :        :                   :         : 5C        :                
+dt_ram_1[31]                 : AP6       : output : 2.5 V             :         : 5C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AP7       :        :                   :         : 5A        :                
+write_addr[5]                : AP8       : output : 2.5 V             :         : 5A        : N              
+dt_ram_0[24]                 : AP9       : output : 2.5 V             :         : 5A        : N              
+dt_ram_1[15]                 : AP10      : output : 2.5 V             :         : 5A        : N              
+nCSO                         : AP11      :        :                   :         : 1A        :                
+VCCIO4A                      : AP12      : power  :                   : 2.5V    : 4A        :                
+read_addr[16]                : AP13      : output : 2.5 V             :         : 4A        : N              
+tx_dt_ram_0[4]               : AP14      : input  : 2.5 V             :         : 4A        : N              
+read_addr[40]                : AP15      : output : 2.5 V             :         : 4A        : N              
+tx_dt_ram_1[13]              : AP16      : input  : 2.5 V             :         : 4B        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AP17      :        :                   :         : 4B        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AP18      :        :                   :         : 4C        :                
+tx_dt_ram_1[8]               : AP19      : input  : 2.5 V             :         : 4C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AP20      :        :                   :         : 4C        :                
+dt_ram_2[11]                 : AP21      : output : 2.5 V             :         : 3C        : N              
+VREFB3CN0                    : AP22      : power  :                   :         : 3C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AP23      :        :                   :         : 3C        :                
+tx_dt_ram_3[0]               : AP24      : input  : 2.5 V             :         : 3B        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AP25      :        :                   :         : 3B        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AP26      :        :                   :         : 3A        :                
+write_addr[44]               : AP27      : output : 2.5 V             :         : 3A        : N              
+dt_ram_1[24]                 : AP28      : output : 2.5 V             :         : 3A        : N              
+PORSEL                       : AP29      :        :                   :         : 1A        :                
+tx_dt_ram_2[20]              : AP30      : input  : 2.5 V             :         : 2A        : N              
+VCCIO2A                      : AP31      : power  :                   : 2.5V    : 2A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AP32      :        :                   :         : 2A        :                
+tx_dt_ram_1[14]              : AP33      : input  : 2.5 V             :         : 2A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AP34      :        :                   :         : 2A        :                
+tx_dt_ram_2[14]              : AP35      : input  : 2.5 V             :         : 2A        : N              
+tx_out1                      : AP36      : output : 1.4-V PCML        :         : QL0       : N              
+tx_out1(n)                   : AP37      : output : 1.4-V PCML        :         : QL0       : N              
+GND                          : AP38      : gnd    :                   :         :           :                
+GND                          : AP39      : gnd    :                   :         :           :                
+GXB_GND*                     : AR1       :        :                   :         : QR0       :                
+GXB_GND*                     : AR2       :        :                   :         : QR0       :                
+GND                          : AR3       : gnd    :                   :         :           :                
+GND                          : AR4       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AR5       :        :                   :         : 5A        :                
+GND                          : AR6       : gnd    :                   :         :           :                
+VCCIO5A                      : AR7       : power  :                   : 2.5V    : 5A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AR8       :        :                   :         : 5A        :                
+GND                          : AR9       : gnd    :                   :         :           :                
+VCCIO5A                      : AR10      : power  :                   : 2.5V    : 5A        :                
+DCLK                         : AR11      : bidir  :                   :         : 1A        :                
+GND                          : AR12      : gnd    :                   :         :           :                
+dt_ram_1[11]                 : AR13      : output : 2.5 V             :         : 4A        : N              
+tx_dt_ram_3[5]               : AR14      : input  : 2.5 V             :         : 4A        : N              
+GND                          : AR15      : gnd    :                   :         :           :                
+tx_dt_ram_2[24]              : AR16      : input  : 2.5 V             :         : 4B        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AR17      :        :                   :         : 4B        :                
+GND                          : AR18      : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AR19      :        :                   :         : 4C        :                
+write_addr[50]               : AR20      : output : 2.5 V             :         : 4C        : N              
+GND                          : AR21      : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AR22      :        :                   :         : 3C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AR23      :        :                   :         : 3C        :                
+GND                          : AR24      : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AR25      :        :                   :         : 3B        :                
+VCCIO3B                      : AR26      : power  :                   : 2.5V    : 3B        :                
+GND                          : AR27      : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AR28      :        :                   :         : 3A        :                
+VCCIO3A                      : AR29      : power  :                   : 2.5V    : 3A        :                
+GND                          : AR30      : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AR31      :        :                   :         : 2A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AR32      :        :                   :         : 2A        :                
+GND                          : AR33      : gnd    :                   :         :           :                
+test_out_icm[4]              : AR34      : output : 2.5 V             :         : 2A        : N              
+write_addr[63]               : AR35      : output : 2.5 V             :         : 2A        : N              
+GND                          : AR36      : gnd    :                   :         :           :                
+GND                          : AR37      : gnd    :                   :         :           :                
+rx_in1                       : AR38      : input  : 1.5-V PCML        :         : QL0       : N              
+rx_in1(n)                    : AR39      : input  : 1.5-V PCML        :         : QL0       : N              
+GND                          : AT1       : gnd    :                   :         :           :                
+GND                          : AT2       : gnd    :                   :         :           :                
+GXB_NC                       : AT3       :        :                   :         : QR0       :                
+GXB_NC                       : AT4       :        :                   :         : QR0       :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AT5       :        :                   :         : 5A        :                
+write_addr[49]               : AT6       : output : 2.5 V             :         : 5A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AT7       :        :                   :         : 5A        :                
+dt_ram_0[0]                  : AT8       : output : 2.5 V             :         : 5A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AT9       :        :                   :         : 5A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AT10      :        :                   :         : 5A        :                
+nCEO                         : AT11      :        :                   :         : 1A        :                
+dt_ram_1[1]                  : AT12      : output : 2.5 V             :         : 4A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AT13      :        :                   :         : 4A        :                
+write_addr[58]               : AT14      : output : 2.5 V             :         : 4A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AT15      :        :                   :         : 4B        :                
+dt_ram_0[3]                  : AT16      : output : 2.5 V             :         : 4B        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AT17      :        :                   :         : 4C        :                
+write_addr[27]               : AT18      : output : 2.5 V             :         : 4C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AT19      :        :                   :         : 4C        :                
+write_addr[18]               : AT20      : output : 2.5 V             :         : 4C        : N              
+read_addr[34]                : AT21      : output : 2.5 V             :         : 3C        : N              
+read_addr[13]                : AT22      : output : 2.5 V             :         : 3C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AT23      :        :                   :         : 3C        :                
+read_addr[0]                 : AT24      : output : 2.5 V             :         : 3C        : N              
+read_addr[18]                : AT25      : output : 2.5 V             :         : 3B        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AT26      :        :                   :         : 3B        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AT27      :        :                   :         : 3A        :                
+tx_dt_ram_2[0]               : AT28      : input  : 2.5 V             :         : 3A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AT29      :        :                   :         : 3A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AT30      :        :                   :         : 2A        :                
+tx_dt_ram_0[5]               : AT31      : input  : 2.5 V             :         : 2A        : N              
+write_addr[48]               : AT32      : output : 2.5 V             :         : 2A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AT33      :        :                   :         : 2A        :                
+test_out_icm[7]              : AT34      : output : 2.5 V             :         : 2A        : N              
+VCCIO2A                      : AT35      : power  :                   : 2.5V    : 2A        :                
+tx_out0                      : AT36      : output : 1.4-V PCML        :         : QL0       : N              
+tx_out0(n)                   : AT37      : output : 1.4-V PCML        :         : QL0       : N              
+GND                          : AT38      : gnd    :                   :         :           :                
+GND                          : AT39      : gnd    :                   :         :           :                
+GXB_GND*                     : AU1       :        :                   :         : QR0       :                
+GXB_GND*                     : AU2       :        :                   :         : QR0       :                
+GND                          : AU3       : gnd    :                   :         :           :                
+GND                          : AU4       : gnd    :                   :         :           :                
+NC                           : AU5       :        :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AU6       :        :                   :         : 5A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AU7       :        :                   :         : 5A        :                
+write_addr[55]               : AU8       : output : 2.5 V             :         : 5A        : N              
+tx_dt_ram_0[8]               : AU9       : input  : 2.5 V             :         : 5A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AU10      :        :                   :         : 5A        :                
+tx_dt_ram_0[22]              : AU11      : input  : 2.5 V             :         : 4A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AU12      :        :                   :         : 4A        :                
+VCCIO4A                      : AU13      : power  :                   : 2.5V    : 4A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AU14      :        :                   :         : 4A        :                
+dt_ram_1[3]                  : AU15      : output : 2.5 V             :         : 4B        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AU16      :        :                   :         : 4B        :                
+write_addr[36]               : AU17      : output : 2.5 V             :         : 4C        : N              
+dt_ram_2[8]                  : AU18      : output : 2.5 V             :         : 4C        : N              
+write_addr[13]               : AU19      : output : 2.5 V             :         : 4C        : N              
+wren_0                       : AU20      : output : 2.5 V             :         : 4C        : N              
+VCCIO4C                      : AU21      : power  :                   : 2.5V    : 4C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AU22      :        :                   :         : 3C        :                
+dt_ram_1[28]                 : AU23      : output : 2.5 V             :         : 3C        : N              
+read_addr[21]                : AU24      : output : 2.5 V             :         : 3C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AU25      :        :                   :         : 3B        :                
+write_addr[22]               : AU26      : output : 2.5 V             :         : 3B        : N              
+tx_dt_ram_3[3]               : AU27      : input  : 2.5 V             :         : 3A        : N              
+be_3[1]                      : AU28      : output : 2.5 V             :         : 3A        : N              
+write_addr[19]               : AU29      : output : 2.5 V             :         : 3A        : N              
+VCCIO3A                      : AU30      : power  :                   : 2.5V    : 3A        :                
+write_addr[25]               : AU31      : output : 2.5 V             :         : 2A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AU32      :        :                   :         : 2A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AU33      :        :                   :         : 2A        :                
+local_rstn                   : AU34      : input  : 2.5 V             :         : 2A        : N              
+NC                           : AU35      :        :                   :         :           :                
+GND                          : AU36      : gnd    :                   :         :           :                
+GND                          : AU37      : gnd    :                   :         :           :                
+rx_in0                       : AU38      : input  : 1.5-V PCML        :         : QL0       : N              
+rx_in0(n)                    : AU39      : input  : 1.5-V PCML        :         : QL0       : N              
+GND                          : AV1       : gnd    :                   :         :           :                
+GND                          : AV2       : gnd    :                   :         :           :                
+GND                          : AV3       : gnd    :                   :         :           :                
+NC                           : AV4       :        :                   :         :           :                
+tx_dt_ram_3[27]              : AV5       : input  : 2.5 V             :         : 5A        : N              
+GND                          : AV6       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AV7       :        :                   :         : 5A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AV8       :        :                   :         : 5A        :                
+GND                          : AV9       : gnd    :                   :         :           :                
+tx_dt_ram_1[27]              : AV10      : input  : 2.5 V             :         : 5A        : N              
+dt_ram_0[14]                 : AV11      : output : 2.5 V             :         : 4A        : N              
+GND                          : AV12      : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AV13      :        :                   :         : 4A        :                
+wren_1                       : AV14      : output : 2.5 V             :         : 4A        : N              
+GND                          : AV15      : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AV16      :        :                   :         : 4B        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AV17      :        :                   :         : 4C        :                
+GND                          : AV18      : gnd    :                   :         :           :                
+write_addr[53]               : AV19      : output : 2.5 V             :         : 4C        : N              
+read_addr[10]                : AV20      : output : 2.5 V             :         : 4C        : N              
+GND                          : AV21      : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AV22      :        :                   :         : 3C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AV23      :        :                   :         : 3C        :                
+GND                          : AV24      : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AV25      :        :                   :         : 3C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AV26      :        :                   :         : 3B        :                
+GND                          : AV27      : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AV28      :        :                   :         : 3A        :                
+dt_ram_0[6]                  : AV29      : output : 2.5 V             :         : 3A        : N              
+GND                          : AV30      : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AV31      :        :                   :         : 3A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AV32      :        :                   :         : 3A        :                
+GND                          : AV33      : gnd    :                   :         :           :                
+dt_ram_2[21]                 : AV34      : output : 2.5 V             :         : 2A        : N              
+CONF_DONE                    : AV35      :        :                   :         : 1A        :                
+NC                           : AV36      :        :                   :         :           :                
+GND                          : AV37      : gnd    :                   :         :           :                
+GND                          : AV38      : gnd    :                   :         :           :                
+GND                          : AV39      : gnd    :                   :         :           :                
+RREF                         : AW2       :        :                   :         :           :                
+GND                          : AW3       : gnd    :                   :         :           :                
+be_3[3]                      : AW4       : output : 2.5 V             :         : 5A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AW5       :        :                   :         : 5A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AW6       :        :                   :         : 5A        :                
+tx_dt_ram_1[22]              : AW7       : input  : 2.5 V             :         : 5A        : N              
+dt_ram_2[23]                 : AW8       : output : 2.5 V             :         : 5A        : N              
+VCCIO5A                      : AW9       : power  :                   : 2.5V    : 5A        :                
+tx_dt_ram_1[26]              : AW10      : input  : 2.5 V             :         : 5A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AW11      :        :                   :         : 4A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AW12      :        :                   :         : 4A        :                
+read_addr[62]                : AW13      : output : 2.5 V             :         : 4A        : N              
+read_addr[44]                : AW14      : output : 2.5 V             :         : 4A        : N              
+VCCIO4B                      : AW15      : power  :                   : 2.5V    : 4B        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AW16      :        :                   :         : 4B        :                
+VCCIO4C                      : AW17      : power  :                   : 2.5V    : 4C        :                
+dt_ram_0[26]                 : AW18      : output : 2.5 V             :         : 4C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AW19      :        :                   :         : 4C        :                
+read_addr[19]                : AW20      : output : 2.5 V             :         : 4C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AW21      :        :                   :         : 4C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AW22      :        :                   :         : 3C        :                
+dt_ram_2[22]                 : AW23      : output : 2.5 V             :         : 3C        : N              
+VCCIO3C                      : AW24      : power  :                   : 2.5V    : 3C        :                
+dt_ram_3[9]                  : AW25      : output : 2.5 V             :         : 3C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AW26      :        :                   :         : 3B        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AW27      :        :                   :         : 3A        :                
+write_addr[7]                : AW28      : output : 2.5 V             :         : 3A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AW29      :        :                   :         : 3A        :                
+read_addr[17]                : AW30      : output : 2.5 V             :         : 3A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AW31      :        :                   :         : 3A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AW32      :        :                   :         : 3A        :                
+read_addr[20]                : AW33      : output : 2.5 V             :         : 3A        : N              
+dt_ram_0[22]                 : AW34      : output : 2.5 V             :         : 3A        : N              
+nSTATUS                      : AW35      :        :                   :         : 1A        :                
+nCONFIG                      : AW36      :        :                   :         : 1A        :                
+GND                          : AW37      : gnd    :                   :         :           :                
+RREF                         : AW38      :        :                   :         :           :                
+GND                          : B1        : gnd    :                   :         :           :                
+GND                          : B2        : gnd    :                   :         :           :                
+GXB_NC                       : B3        :        :                   :         : QR2       :                
+GXB_NC                       : B4        :        :                   :         : QR2       :                
+GND                          : B5        : gnd    :                   :         :           :                
+GND                          : B6        : gnd    :                   :         :           :                
+GND                          : B7        : gnd    :                   :         :           :                
+VCCIO6A                      : B8        : power  :                   : 2.5V    : 6A        :                
+GND                          : B9        : gnd    :                   :         :           :                
+tx_dt_ram_0[9]               : B10       : input  : 2.5 V             :         : 7A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : B11       :        :                   :         : 7A        :                
+GND                          : B12       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : B13       :        :                   :         : 7A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : B14       :        :                   :         : 7A        :                
+GND                          : B15       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : B16       :        :                   :         : 7B        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : B17       :        :                   :         : 7C        :                
+GND                          : B18       : gnd    :                   :         :           :                
+write_addr[34]               : B19       : output : 2.5 V             :         : 7C        : N              
+read_addr[30]                : B20       : output : 2.5 V             :         : 7C        : N              
+GND                          : B21       : gnd    :                   :         :           :                
+tx_dt_ram_3[31]              : B22       : input  : 2.5 V             :         : 8C        : N              
+read_addr[11]                : B23       : output : 2.5 V             :         : 8C        : N              
+GND                          : B24       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : B25       :        :                   :         : 8B        :                
+tx_dt_ram_3[7]               : B26       : input  : 2.5 V             :         : 8B        : N              
+GND                          : B27       : gnd    :                   :         :           :                
+tx_dt_ram_0[21]              : B28       : input  : 2.5 V             :         : 8A        : N              
+dt_ram_1[9]                  : B29       : output : 2.5 V             :         : 8A        : N              
+GND                          : B30       : gnd    :                   :         :           :                
+dt_ram_2[5]                  : B31       : output : 2.5 V             :         : 8A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : B32       :        :                   :         : 1A        :                
+GND                          : B33       : gnd    :                   :         :           :                
+GND                          : B34       : gnd    :                   :         :           :                
+GND                          : B35       : gnd    :                   :         :           :                
+GXB_NC                       : B36       :        :                   :         : QL2       :                
+GXB_NC                       : B37       :        :                   :         : QL2       :                
+GND                          : B38       : gnd    :                   :         :           :                
+GND                          : B39       : gnd    :                   :         :           :                
+GXB_GND*                     : C1        :        :                   :         : QR2       :                
+GXB_GND*                     : C2        :        :                   :         : QR2       :                
+GND                          : C3        : gnd    :                   :         :           :                
+GND                          : C4        : gnd    :                   :         :           :                
+read_addr[63]                : C5        : output : 2.5 V             :         : 6A        : N              
+tx_dt_ram_0[7]               : C6        : input  : 2.5 V             :         : 6A        : N              
+tx_dt_ram_1[28]              : C7        : input  : 2.5 V             :         : 6A        : N              
+dt_ram_0[30]                 : C8        : output : 2.5 V             :         : 6A        : N              
+dt_ram_1[2]                  : C9        : output : 2.5 V             :         : 6A        : N              
+read_addr[57]                : C10       : output : 2.5 V             :         : 6A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : C11       :        :                   :         : 7A        :                
+dt_ram_1[30]                 : C12       : output : 2.5 V             :         : 7A        : N              
+be_1[1]                      : C13       : output : 2.5 V             :         : 7A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : C14       :        :                   :         : 7A        :                
+tx_dt_ram_2[30]              : C15       : input  : 2.5 V             :         : 7B        : N              
+write_addr[31]               : C16       : output : 2.5 V             :         : 7B        : N              
+tx_dt_ram_3[23]              : C17       : input  : 2.5 V             :         : 7C        : N              
+write_addr[16]               : C18       : output : 2.5 V             :         : 7C        : N              
+be_0[1]                      : C19       : output : 2.5 V             :         : 7C        : N              
+tx_dt_ram_2[10]              : C20       : input  : 2.5 V             :         : 7C        : N              
+VCCIO7C                      : C21       : power  :                   : 2.5V    : 7C        :                
+tx_dt_ram_3[18]              : C22       : input  : 2.5 V             :         : 8C        : N              
+VCCIO8C                      : C23       : power  :                   : 2.5V    : 8C        :                
+write_addr[8]                : C24       : output : 2.5 V             :         : 8C        : N              
+write_addr[20]               : C25       : output : 2.5 V             :         : 8B        : N              
+read_addr[49]                : C26       : output : 2.5 V             :         : 8B        : N              
+write_addr[52]               : C27       : output : 2.5 V             :         : 8A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : C28       :        :                   :         : 8A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : C29       :        :                   :         : 8A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : C30       :        :                   :         : 8A        :                
+read_addr[38]                : C31       : output : 2.5 V             :         : 1A        : N              
+write_addr[28]               : C32       : output : 2.5 V             :         : 1A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : C33       :        :                   :         : 1A        :                
+dt_ram_0[11]                 : C34       : output : 2.5 V             :         : 1A        : N              
+dt_ram_3[25]                 : C35       : output : 2.5 V             :         : 1A        : N              
+GND                          : C36       : gnd    :                   :         :           :                
+GND                          : C37       : gnd    :                   :         :           :                
+GXB_GND*                     : C38       :        :                   :         : QL2       :                
+GXB_GND*                     : C39       :        :                   :         : QL2       :                
+GND                          : D1        : gnd    :                   :         :           :                
+GND                          : D2        : gnd    :                   :         :           :                
+GXB_NC                       : D3        :        :                   :         : QR2       :                
+GXB_NC                       : D4        :        :                   :         : QR2       :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : D5        :        :                   :         : 6A        :                
+tx_dt_ram_3[24]              : D6        : input  : 2.5 V             :         : 6A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : D7        :        :                   :         : 6A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : D8        :        :                   :         : 6A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : D9        :        :                   :         : 6A        :                
+dt_ram_2[15]                 : D10       : output : 2.5 V             :         : 6A        : N              
+write_addr[1]                : D11       : output : 2.5 V             :         : 7A        : N              
+VCCIO7A                      : D12       : power  :                   : 2.5V    : 7A        :                
+dt_ram_2[12]                 : D13       : output : 2.5 V             :         : 7A        : N              
+dt_ram_0[18]                 : D14       : output : 2.5 V             :         : 7A        : N              
+write_addr[17]               : D15       : output : 2.5 V             :         : 7B        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : D16       :        :                   :         : 7B        :                
+be_2[3]                      : D17       : output : 2.5 V             :         : 7C        : N              
+dt_ram_3[21]                 : D18       : output : 2.5 V             :         : 7C        : N              
+tx_dt_ram_0[17]              : D19       : input  : 2.5 V             :         : 7C        : N              
+read_addr[60]                : D20       : output : 2.5 V             :         : 7C        : N              
+tx_dt_ram_2[4]               : D21       : input  : 2.5 V             :         : 8C        : N              
+tx_dt_ram_2[25]              : D22       : input  : 2.5 V             :         : 8C        : N              
+tx_dt_ram_0[24]              : D23       : input  : 2.5 V             :         : 8C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : D24       :        :                   :         : 8C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : D25       :        :                   :         : 8B        :                
+dt_ram_1[21]                 : D26       : output : 2.5 V             :         : 8B        : N              
+tx_dt_ram_3[29]              : D27       : input  : 2.5 V             :         : 8A        : N              
+read_addr[37]                : D28       : output : 2.5 V             :         : 8A        : N              
+write_addr[30]               : D29       : output : 2.5 V             :         : 8A        : N              
+VCCIO8A                      : D30       : power  :                   : 2.5V    : 8A        :                
+dt_ram_3[0]                  : D31       : output : 2.5 V             :         : 1A        : N              
+VCCIO1A                      : D32       : power  :                   : 2.5V    : 1A        :                
+write_addr[4]                : D33       : output : 2.5 V             :         : 1A        : N              
+dt_ram_1[27]                 : D34       : output : 2.5 V             :         : 1A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : D35       :        :                   :         : 1A        :                
+GXB_NC                       : D36       :        :                   :         : QL2       :                
+GXB_NC                       : D37       :        :                   :         : QL2       :                
+GND                          : D38       : gnd    :                   :         :           :                
+GND                          : D39       : gnd    :                   :         :           :                
+GXB_GND*                     : E1        :        :                   :         : QR2       :                
+GXB_GND*                     : E2        :        :                   :         : QR2       :                
+GND                          : E3        : gnd    :                   :         :           :                
+GND                          : E4        : gnd    :                   :         :           :                
+VCCIO6A                      : E5        : power  :                   : 2.5V    : 6A        :                
+GND                          : E6        : gnd    :                   :         :           :                
+dt_ram_0[4]                  : E7        : output : 2.5 V             :         : 6A        : N              
+VCCIO6A                      : E8        : power  :                   : 2.5V    : 6A        :                
+GND                          : E9        : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : E10       :        :                   :         : 6A        :                
+TEMPDIODEn                   : E11       :        :                   :         :           :                
+GND                          : E12       : gnd    :                   :         :           :                
+dt_ram_1[0]                  : E13       : output : 2.5 V             :         : 7A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : E14       :        :                   :         : 7A        :                
+GND                          : E15       : gnd    :                   :         :           :                
+write_addr[56]               : E16       : output : 2.5 V             :         : 7B        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : E17       :        :                   :         : 7C        :                
+GND                          : E18       : gnd    :                   :         :           :                
+VCCIO7C                      : E19       : power  :                   : 2.5V    : 7C        :                
+VREFB7CN0                    : E20       : power  :                   :         : 7C        :                
+GND                          : E21       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : E22       :        :                   :         : 8C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : E23       :        :                   :         : 8C        :                
+GND                          : E24       : gnd    :                   :         :           :                
+dt_ram_2[26]                 : E25       : output : 2.5 V             :         : 8B        : N              
+VCCIO8B                      : E26       : power  :                   : 2.5V    : 8B        :                
+GND                          : E27       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : E28       :        :                   :         : 8A        :                
+read_addr[43]                : E29       : output : 2.5 V             :         : 8A        : N              
+GND                          : E30       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : E31       :        :                   :         : 1A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : E32       :        :                   :         : 1A        :                
+GND                          : E33       : gnd    :                   :         :           :                
+write_addr[24]               : E34       : output : 2.5 V             :         : 1A        : N              
+VCCIO1A                      : E35       : power  :                   : 2.5V    : 1A        :                
+GND                          : E36       : gnd    :                   :         :           :                
+GND                          : E37       : gnd    :                   :         :           :                
+GXB_GND*                     : E38       :        :                   :         : QL2       :                
+GXB_GND*                     : E39       :        :                   :         : QL2       :                
+GND                          : F1        : gnd    :                   :         :           :                
+GND                          : F2        : gnd    :                   :         :           :                
+GXB_NC                       : F3        :        :                   :         : QR2       :                
+GXB_NC                       : F4        :        :                   :         : QR2       :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : F5        :        :                   :         : 6A        :                
+dt_ram_3[10]                 : F6        : output : 2.5 V             :         : 6A        : N              
+read_addr[2]                 : F7        : output : 2.5 V             :         : 6A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : F8        :        :                   :         : 6A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : F9        :        :                   :         : 6A        :                
+dt_ram_0[5]                  : F10       : output : 2.5 V             :         : 6A        : N              
+NC                           : F11       :        :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : F12       :        :                   :         : 7A        :                
+dt_ram_3[24]                 : F13       : output : 2.5 V             :         : 7A        : N              
+dt_ram_3[6]                  : F14       : output : 2.5 V             :         : 7A        : N              
+write_addr[15]               : F15       : output : 2.5 V             :         : 7B        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : F16       :        :                   :         : 7B        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : F17       :        :                   :         : 7C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : F18       :        :                   :         : 7C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : F19       :        :                   :         : 7C        :                
+dt_ram_1[5]                  : F20       : output : 2.5 V             :         : 7C        : N              
+dt_ram_3[19]                 : F21       : output : 2.5 V             :         : 8C        : N              
+VCCIO8C                      : F22       : power  :                   : 2.5V    : 8C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : F23       :        :                   :         : 8C        :                
+read_addr[48]                : F24       : output : 2.5 V             :         : 8B        : N              
+dt_ram_3[11]                 : F25       : output : 2.5 V             :         : 8B        : N              
+tx_dt_ram_0[29]              : F26       : input  : 2.5 V             :         : 8A        : N              
+tx_dt_ram_2[29]              : F27       : input  : 2.5 V             :         : 8A        : N              
+dt_ram_2[24]                 : F28       : output : 2.5 V             :         : 8A        : N              
+VREFB8AN0                    : F29       : power  :                   :         : 8A        :                
+TDO                          : F30       : output :                   :         : 1A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : F31       :        :                   :         : 1A        :                
+be_3[2]                      : F32       : output : 2.5 V             :         : 1A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : F33       :        :                   :         : 1A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : F34       :        :                   :         : 1A        :                
+dt_ram_3[22]                 : F35       : output : 2.5 V             :         : 1A        : N              
+GXB_NC                       : F36       :        :                   :         : QL2       :                
+GXB_NC                       : F37       :        :                   :         : QL2       :                
+GND                          : F38       : gnd    :                   :         :           :                
+GND                          : F39       : gnd    :                   :         :           :                
+GXB_GND*                     : G1        :        :                   :         : QR2       :                
+GXB_GND*                     : G2        :        :                   :         : QR2       :                
+GND                          : G3        : gnd    :                   :         :           :                
+GND                          : G4        : gnd    :                   :         :           :                
+read_addr[59]                : G5        : output : 2.5 V             :         : 6A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : G6        :        :                   :         : 6A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : G7        :        :                   :         : 6A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : G8        :        :                   :         : 6A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : G9        :        :                   :         : 6A        :                
+dt_ram_2[16]                 : G10       : output : 2.5 V             :         : 6A        : N              
+VCCAUX                       : G11       : power  :                   : 2.5V    :           :                
+VREFB7AN0                    : G12       : power  :                   :         : 7A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : G13       :        :                   :         : 7A        :                
+write_addr[57]               : G14       : output : 2.5 V             :         : 7A        : N              
+dt_ram_1[20]                 : G15       : output : 2.5 V             :         : 7B        : N              
+tx_dt_ram_0[10]              : G16       : input  : 2.5 V             :         : 7B        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : G17       :        :                   :         : 7B        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : G18       :        :                   :         : 7C        :                
+dt_ram_1[29]                 : G19       : output : 2.5 V             :         : 7C        : N              
+dt_ram_3[20]                 : G20       : output : 2.5 V             :         : 7C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : G21       :        :                   :         : 8C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : G22       :        :                   :         : 8C        :                
+dt_ram_2[18]                 : G23       : output : 2.5 V             :         : 8C        : N              
+tx_dt_ram_2[21]              : G24       : input  : 2.5 V             :         : 8B        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : G25       :        :                   :         : 8B        :                
+tx_dt_ram_3[28]              : G26       : input  : 2.5 V             :         : 8A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : G27       :        :                   :         : 8A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : G28       :        :                   :         : 8A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : G29       :        :                   :         : 8A        :                
+TCK                          : G30       : input  :                   :         : 1A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : G31       :        :                   :         : 1A        :                
+VCCIO1A                      : G32       : power  :                   : 2.5V    : 1A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : G33       :        :                   :         : 1A        :                
+VCCIO1A                      : G34       : power  :                   : 2.5V    : 1A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : G35       :        :                   :         : 1A        :                
+GND                          : G36       : gnd    :                   :         :           :                
+GND                          : G37       : gnd    :                   :         :           :                
+GXB_GND*                     : G38       :        :                   :         : QL2       :                
+GXB_GND*                     : G39       :        :                   :         : QL2       :                
+GND                          : H1        : gnd    :                   :         :           :                
+GND                          : H2        : gnd    :                   :         :           :                
+GXB_NC                       : H3        :        :                   :         : QR2       :                
+GXB_NC                       : H4        :        :                   :         : QR2       :                
+VCCIO6C                      : H5        : power  :                   : 2.5V    : 6C        :                
+GND                          : H6        : gnd    :                   :         :           :                
+tx_dt_ram_2[7]               : H7        : input  : 2.5 V             :         : 6A        : N              
+VCCIO6A                      : H8        : power  :                   : 2.5V    : 6A        :                
+GND                          : H9        : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : H10       :        :                   :         : 6A        :                
+MSEL1                        : H11       :        :                   :         : 1A        :                
+GND                          : H12       : gnd    :                   :         :           :                
+read_addr[31]                : H13       : output : 2.5 V             :         : 7A        : N              
+tx_dt_ram_1[7]               : H14       : input  : 2.5 V             :         : 7A        : N              
+GND                          : H15       : gnd    :                   :         :           :                
+VREFB7BN0                    : H16       : power  :                   :         : 7B        :                
+read_addr[45]                : H17       : output : 2.5 V             :         : 7B        : N              
+GND                          : H18       : gnd    :                   :         :           :                
+tx_dt_ram_2[2]               : H19       : input  : 2.5 V             :         : 7C        : N              
+VCCPT                        : H20       : power  :                   : 1.5V    :           :                
+GND                          : H21       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : H22       :        :                   :         : 8C        :                
+tx_dt_ram_3[13]              : H23       : input  : 2.5 V             :         : 8C        : N              
+GND                          : H24       : gnd    :                   :         :           :                
+VREFB8BN0                    : H25       : power  :                   :         : 8B        :                
+dt_ram_0[19]                 : H26       : output : 2.5 V             :         : 8A        : N              
+GND                          : H27       : gnd    :                   :         :           :                
+write_addr[38]               : H28       : output : 2.5 V             :         : 8A        : N              
+VCCAUX                       : H29       : power  :                   : 2.5V    :           :                
+GND                          : H30       : gnd    :                   :         :           :                
+dt_ram_2[3]                  : H31       : output : 2.5 V             :         : 1A        : N              
+dt_ram_1[6]                  : H32       : output : 2.5 V             :         : 1A        : N              
+GND                          : H33       : gnd    :                   :         :           :                
+write_addr[46]               : H34       : output : 2.5 V             :         : 1A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : H35       :        :                   :         : 1A        :                
+GXB_NC                       : H36       :        :                   :         : QL2       :                
+GXB_NC                       : H37       :        :                   :         : QL2       :                
+GND                          : H38       : gnd    :                   :         :           :                
+GND                          : H39       : gnd    :                   :         :           :                
+GXB_GND*                     : J1        :        :                   :         : QR2       :                
+GXB_GND*                     : J2        :        :                   :         : QR2       :                
+GND                          : J3        : gnd    :                   :         :           :                
+GND                          : J4        : gnd    :                   :         :           :                
+read_addr[9]                 : J5        : output : 2.5 V             :         : 6C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : J6        :        :                   :         : 6C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : J7        :        :                   :         : 6C        :                
+dt_ram_1[26]                 : J8        : output : 2.5 V             :         : 6A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : J9        :        :                   :         : 6A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : J10       :        :                   :         : 6A        :                
+MSEL0                        : J11       :        :                   :         : 1A        :                
+tx_dt_ram_1[19]              : J12       : input  : 2.5 V             :         : 7A        : N              
+read_addr[50]                : J13       : output : 2.5 V             :         : 7A        : N              
+VCCIO7A                      : J14       : power  :                   : 2.5V    : 7A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : J15       :        :                   :         : 7A        :                
+write_addr[10]               : J16       : output : 2.5 V             :         : 7B        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : J17       :        :                   :         : 7B        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : J18       :        :                   :         : 7C        :                
+VCCA_PLL_T2                  : J19       : power  :                   : 2.5V    :           :                
+VCCA_PLL_T1                  : J20       : power  :                   : 2.5V    :           :                
+VREFB8CN0                    : J21       : power  :                   :         : 8C        :                
+dt_ram_3[17]                 : J22       : output : 2.5 V             :         : 8C        : N              
+dt_ram_2[25]                 : J23       : output : 2.5 V             :         : 8C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : J24       :        :                   :         : 8B        :                
+dt_ram_2[6]                  : J25       : output : 2.5 V             :         : 8B        : N              
+write_addr[14]               : J26       : output : 2.5 V             :         : 8A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : J27       :        :                   :         : 8A        :                
+VCCIO8A                      : J28       : power  :                   : 2.5V    : 8A        :                
+TDI                          : J29       : input  :                   :         : 1A        :                
+tx_dt_ram_0[19]              : J30       : input  : 2.5 V             :         : 1A        : N              
+VCCIO1A                      : J31       : power  :                   : 2.5V    : 1A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : J32       :        :                   :         : 1A        :                
+tx_dt_ram_3[20]              : J33       : input  : 2.5 V             :         : 1A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : J34       :        :                   :         : 1C        :                
+dt_ram_0[7]                  : J35       : output : 2.5 V             :         : 1C        : N              
+GND                          : J36       : gnd    :                   :         :           :                
+GND                          : J37       : gnd    :                   :         :           :                
+GXB_GND*                     : J38       :        :                   :         : QL2       :                
+GXB_GND*                     : J39       :        :                   :         : QL2       :                
+GND                          : K1        : gnd    :                   :         :           :                
+GND                          : K2        : gnd    :                   :         :           :                
+GXB_NC                       : K3        :        :                   :         : QR2       :                
+GXB_NC                       : K4        :        :                   :         : QR2       :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : K5        :        :                   :         : 6C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : K6        :        :                   :         : 6C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : K7        :        :                   :         : 6C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : K8        :        :                   :         : 6A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : K9        :        :                   :         : 6A        :                
+dt_ram_0[27]                 : K10       : output : 2.5 V             :         : 6A        : N              
+VCCBAT                       : K11       : power  :                   : 3.0V    :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : K12       :        :                   :         : 7A        :                
+read_addr[33]                : K13       : output : 2.5 V             :         : 7A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : K14       :        :                   :         : 7A        :                
+read_addr[42]                : K15       : output : 2.5 V             :         : 7A        : N              
+read_addr[12]                : K16       : output : 2.5 V             :         : 7B        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : K17       :        :                   :         : 7B        :                
+VCC_CLKIN7C                  : K18       : power  :                   : 2.5V    :           :                
+VCCD_PLL_T2                  : K19       : power  :                   : 0.9V    :           :                
+VCCD_PLL_T1                  : K20       : power  :                   : 0.9V    :           :                
+VCC_CLKIN8C                  : K21       : power  :                   : 2.5V    :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : K22       :        :                   :         : 8C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : K23       :        :                   :         : 8B        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : K24       :        :                   :         : 8B        :                
+VCCIO8B                      : K25       : power  :                   : 2.5V    : 8B        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : K26       :        :                   :         : 8A        :                
+tx_dt_ram_3[4]               : K27       : input  : 2.5 V             :         : 8A        : N              
+tx_dt_ram_0[14]              : K28       : input  : 2.5 V             :         : 8A        : N              
+dt_ram_1[10]                 : K29       : output : 2.5 V             :         : 1A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : K30       :        :                   :         : 1A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : K31       :        :                   :         : 1A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : K32       :        :                   :         : 1A        :                
+VCCIO1C                      : K33       : power  :                   : 2.5V    : 1C        :                
+write_addr[41]               : K34       : output : 2.5 V             :         : 1C        : N              
+read_addr[39]                : K35       : output : 2.5 V             :         : 1C        : N              
+GXB_NC                       : K36       :        :                   :         : QL2       :                
+GXB_NC                       : K37       :        :                   :         : QL2       :                
+GND                          : K38       : gnd    :                   :         :           :                
+GND                          : K39       : gnd    :                   :         :           :                
+GXB_GND*                     : L1        :        :                   :         : QR2       :                
+GXB_GND*                     : L2        :        :                   :         : QR2       :                
+GND                          : L3        : gnd    :                   :         :           :                
+GND                          : L4        : gnd    :                   :         :           :                
+write_addr[3]                : L5        : output : 2.5 V             :         : 6C        : N              
+GND                          : L6        : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : L7        :        :                   :         : 6C        :                
+read_addr[6]                 : L8        : output : 2.5 V             :         : 6C        : N              
+GND                          : L9        : gnd    :                   :         :           :                
+dt_ram_0[8]                  : L10       : output : 2.5 V             :         : 6A        : N              
+tx_dt_ram_1[3]               : L11       : input  : 2.5 V             :         : 6A        : N              
+GND                          : L12       : gnd    :                   :         :           :                
+dt_ram_0[17]                 : L13       : output : 2.5 V             :         : 7A        : N              
+write_addr[37]               : L14       : output : 2.5 V             :         : 7A        : N              
+GND                          : L15       : gnd    :                   :         :           :                
+read_addr[25]                : L16       : output : 2.5 V             :         : 7B        : N              
+VCCIO7B                      : L17       : power  :                   : 2.5V    : 7B        :                
+GND                          : L18       : gnd    :                   :         :           :                
+dt_ram_0[1]                  : L19       : output : 2.5 V             :         : 7C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : L20       :        :                   :         : 8C        :                
+GND                          : L21       : gnd    :                   :         :           :                
+VCCIO8C                      : L22       : power  :                   : 2.5V    : 8C        :                
+write_addr[29]               : L23       : output : 2.5 V             :         : 8B        : N              
+GND                          : L24       : gnd    :                   :         :           :                
+read_addr[56]                : L25       : output : 2.5 V             :         : 8A        : N              
+tx_dt_ram_3[30]              : L26       : input  : 2.5 V             :         : 8A        : N              
+GND                          : L27       : gnd    :                   :         :           :                
+NC                           : L28       :        :                   :         :           :                
+tx_dt_ram_1[17]              : L29       : input  : 2.5 V             :         : 1A        : N              
+GND                          : L30       : gnd    :                   :         :           :                
+dt_ram_3[8]                  : L31       : output : 2.5 V             :         : 1A        : N              
+tx_dt_ram_2[19]              : L32       : input  : 2.5 V             :         : 1C        : N              
+GND                          : L33       : gnd    :                   :         :           :                
+tx_dt_ram_1[21]              : L34       : input  : 2.5 V             :         : 1C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : L35       :        :                   :         : 1C        :                
+GND                          : L36       : gnd    :                   :         :           :                
+GND                          : L37       : gnd    :                   :         :           :                
+GXB_GND*                     : L38       :        :                   :         : QL2       :                
+GXB_GND*                     : L39       :        :                   :         : QL2       :                
+GND                          : M1        : gnd    :                   :         :           :                
+GND                          : M2        : gnd    :                   :         :           :                
+GXB_NC                       : M3        :        :                   :         : QR2       :                
+GXB_NC                       : M4        :        :                   :         : QR2       :                
+VCCA_R                       : M5        : power  :                   : 2.5V    :           :                
+tx_dt_ram_0[27]              : M6        : input  : 2.5 V             :         : 6C        : N              
+read_addr[53]                : M7        : output : 2.5 V             :         : 6C        : N              
+dt_ram_0[23]                 : M8        : output : 2.5 V             :         : 6C        : N              
+VCCIO6A                      : M9        : power  :                   : 2.5V    : 6A        :                
+tx_dt_ram_2[28]              : M10       : input  : 2.5 V             :         : 6A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : M11       :        :                   :         : 6A        :                
+tx_dt_ram_3[2]               : M12       : input  : 2.5 V             :         : 6A        : N              
+dt_ram_2[9]                  : M13       : output : 2.5 V             :         : 7A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : M14       :        :                   :         : 7A        :                
+VCCIO7A                      : M15       : power  :                   : 2.5V    : 7A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : M16       :        :                   :         : 7B        :                
+dt_ram_0[13]                 : M17       : output : 2.5 V             :         : 7B        : N              
+VCCIO7C                      : M18       : power  :                   : 2.5V    : 7C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : M19       :        :                   :         : 7C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : M20       :        :                   :         : 8C        :                
+dt_ram_3[18]                 : M21       : output : 2.5 V             :         : 8C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : M22       :        :                   :         : 8C        :                
+dt_ram_3[30]                 : M23       : output : 2.5 V             :         : 8B        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : M24       :        :                   :         : 8B        :                
+tx_dt_ram_3[8]               : M25       : input  : 2.5 V             :         : 8A        : N              
+VCCIO8A                      : M26       : power  :                   : 2.5V    : 8A        :                
+tx_dt_ram_2[17]              : M27       : input  : 2.5 V             :         : 8A        : N              
+tx_dt_ram_1[12]              : M28       : input  : 2.5 V             :         : 1A        : N              
+tx_dt_ram_1[5]               : M29       : input  : 2.5 V             :         : 1A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : M30       :        :                   :         : 1A        :                
+tx_dt_ram_3[1]               : M31       : input  : 2.5 V             :         : 1A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : M32       :        :                   :         : 1C        :                
+dt_ram_3[23]                 : M33       : output : 2.5 V             :         : 1C        : N              
+write_addr[2]                : M34       : output : 2.5 V             :         : 1C        : N              
+VCCA_L                       : M35       : power  :                   : 3.0V    :           :                
+GXB_NC                       : M36       :        :                   :         : QL2       :                
+GXB_NC                       : M37       :        :                   :         : QL2       :                
+GND                          : M38       : gnd    :                   :         :           :                
+GND                          : M39       : gnd    :                   :         :           :                
+GXB_GND*                     : N1        :        :                   :         : QR2       :                
+GXB_GND*                     : N2        :        :                   :         : QR2       :                
+GND                          : N3        : gnd    :                   :         :           :                
+GND                          : N4        : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : N5        :        :                   :         : 6C        :                
+write_addr[62]               : N6        : output : 2.5 V             :         : 6C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : N7        :        :                   :         : 6C        :                
+read_addr[61]                : N8        : output : 2.5 V             :         : 6C        : N              
+tx_dt_ram_3[25]              : N9        : input  : 2.5 V             :         : 6C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : N10       :        :                   :         : 6A        :                
+dt_ram_2[29]                 : N11       : output : 2.5 V             :         : 6A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : N12       :        :                   :         : 6A        :                
+tx_dt_ram_2[1]               : N13       : input  : 2.5 V             :         : 7A        : N              
+tx_dt_ram_1[20]              : N14       : input  : 2.5 V             :         : 7A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : N15       :        :                   :         : 7A        :                
+dt_ram_2[1]                  : N16       : output : 2.5 V             :         : 7B        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : N17       :        :                   :         : 7B        :                
+GND                          : N18       : gnd    :                   :         :           :                
+dt_ram_2[10]                 : N19       : output : 2.5 V             :         : 7C        : N              
+tx_dt_ram_1[10]              : N20       : input  : 2.5 V             :         : 8C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : N21       :        :                   :         : 8C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : N22       :        :                   :         : 8B        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : N23       :        :                   :         : 8B        :                
+GND                          : N24       : gnd    :                   :         :           :                
+dt_ram_2[28]                 : N25       : output : 2.5 V             :         : 8A        : N              
+tx_dt_ram_0[1]               : N26       : input  : 2.5 V             :         : 8A        : N              
+TMS                          : N27       : input  :                   :         : 1A        :                
+tx_dt_ram_1[15]              : N28       : input  : 2.5 V             :         : 1A        : N              
+write_addr[47]               : N29       : output : 2.5 V             :         : 1A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : N30       :        :                   :         : 1A        :                
+dt_ram_3[16]                 : N31       : output : 2.5 V             :         : 1A        : N              
+VCCIO1C                      : N32       : power  :                   : 2.5V    : 1C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : N33       :        :                   :         : 1C        :                
+app_clk                      : N34       : output : 2.5 V             :         : 1C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : N35       :        :                   :         : 1C        :                
+GND                          : N36       : gnd    :                   :         :           :                
+GND                          : N37       : gnd    :                   :         :           :                
+GXB_GND*                     : N38       :        :                   :         : QL2       :                
+GXB_GND*                     : N39       :        :                   :         : QL2       :                
+GND                          : P1        : gnd    :                   :         :           :                
+GND                          : P2        : gnd    :                   :         :           :                
+GXB_NC                       : P3        :        :                   :         : QR1       :                
+GXB_NC                       : P4        :        :                   :         : QR1       :                
+VCCT_R                       : P5        : power  :                   : 1.1V    :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : P6        :        :                   :         : 6C        :                
+GND                          : P7        : gnd    :                   :         :           :                
+dt_ram_0[9]                  : P8        : output : 2.5 V             :         : 6C        : N              
+GND                          : P9        : gnd    :                   :         :           :                
+VCCIO6C                      : P10       : power  :                   : 2.5V    : 6C        :                
+VREFB6AN0                    : P11       : power  :                   :         : 6A        :                
+GND                          : P12       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : P13       :        :                   :         : 6A        :                
+tx_dt_ram_0[25]              : P14       : input  : 2.5 V             :         : 7A        : N              
+GND                          : P15       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : P16       :        :                   :         : 7B        :                
+pclk_in                      : P17       : input  : 2.5 V             :         : 7B        : N              
+dt_ram_2[30]                 : P18       : output : 2.5 V             :         : 7C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : P19       :        :                   :         : 7C        :                
+dt_ram_0[21]                 : P20       : output : 2.5 V             :         : 8C        : N              
+GND                          : P21       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : P22       :        :                   :         : 8B        :                
+tx_dt_ram_0[18]              : P23       : input  : 2.5 V             :         : 8B        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : P24       :        :                   :         : 8A        :                
+read_addr[8]                 : P25       : output : 2.5 V             :         : 8A        : N              
+read_addr[26]                : P26       : output : 2.5 V             :         : 8A        : N              
+GND                          : P27       : gnd    :                   :         :           :                
+VREFB1AN0                    : P28       : power  :                   :         : 1A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : P29       :        :                   :         : 1A        :                
+GND                          : P30       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : P31       :        :                   :         : 1C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : P32       :        :                   :         : 1C        :                
+GND                          : P33       : gnd    :                   :         :           :                
+read_addr[29]                : P34       : output : 2.5 V             :         : 1C        : N              
+VCCT_L                       : P35       : power  :                   : 1.1V    :           :                
+tx_out7                      : P36       : output : 1.4-V PCML        :         : QL1       : N              
+tx_out7(n)                   : P37       : output : 1.4-V PCML        :         : QL1       : N              
+GND                          : P38       : gnd    :                   :         :           :                
+GND                          : P39       : gnd    :                   :         :           :                
+GXB_GND*                     : R1        :        :                   :         : QR1       :                
+GXB_GND*                     : R2        :        :                   :         : QR1       :                
+GND                          : R3        : gnd    :                   :         :           :                
+GND                          : R4        : gnd    :                   :         :           :                
+tx_dt_ram_1[6]               : R5        : input  : 2.5 V             :         : 6C        : N              
+tx_dt_ram_1[9]               : R6        : input  : 2.5 V             :         : 6C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : R7        :        :                   :         : 6C        :                
+tx_dt_ram_0[20]              : R8        : input  : 2.5 V             :         : 6C        : N              
+write_addr[9]                : R9        : output : 2.5 V             :         : 6C        : N              
+tx_dt_ram_1[4]               : R10       : input  : 2.5 V             :         : 6C        : N              
+write_addr[23]               : R11       : output : 2.5 V             :         : 6A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : R12       :        :                   :         : 6A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : R13       :        :                   :         : 6A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : R14       :        :                   :         : 7A        :                
+VCCPD7A                      : R15       : power  :                   : 2.5V    : 7A        :                
+NC                           : R16       :        :                   :         :           :                
+VCCPD7B                      : R17       : power  :                   : 2.5V    : 7B        :                
+dt_ram_3[27]                 : R18       : output : 2.5 V             :         : 7C        : N              
+VCCPD7C                      : R19       : power  :                   : 2.5V    : 7C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : R20       :        :                   :         : 8C        :                
+VCCPD8C                      : R21       : power  :                   : 2.5V    : 8C        :                
+dt_ram_1[17]                 : R22       : output : 2.5 V             :         : 8B        : N              
+VCCPD8B                      : R23       : power  :                   : 2.5V    : 8B        :                
+tx_dt_ram_0[12]              : R24       : input  : 2.5 V             :         : 8A        : N              
+VCCPD8A                      : R25       : power  :                   : 2.5V    : 8A        :                
+NC                           : R26       :        :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : R27       :        :                   :         : 1A        :                
+tx_dt_ram_3[26]              : R28       : input  : 2.5 V             :         : 1A        : N              
+write_addr[39]               : R29       : output : 2.5 V             :         : 1A        : N              
+tx_dt_ram_3[17]              : R30       : input  : 2.5 V             :         : 1C        : N              
+dt_ram_2[7]                  : R31       : output : 2.5 V             :         : 1C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : R32       :        :                   :         : 1C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : R33       :        :                   :         : 1C        :                
+dt_ram_0[16]                 : R34       : output : 2.5 V             :         : 1C        : N              
+write_addr[45]               : R35       : output : 2.5 V             :         : 1C        : N              
+GND                          : R36       : gnd    :                   :         :           :                
+GND                          : R37       : gnd    :                   :         :           :                
+rx_in7                       : R38       : input  : 1.5-V PCML        :         : QL1       : N              
+rx_in7(n)                    : R39       : input  : 1.5-V PCML        :         : QL1       : N              
+GND                          : T1        : gnd    :                   :         :           :                
+GND                          : T2        : gnd    :                   :         :           :                
+GXB_NC                       : T3        :        :                   :         : QR1       :                
+GXB_NC                       : T4        :        :                   :         : QR1       :                
+VCCR_R                       : T5        : power  :                   : 1.1V    :           :                
+GND                          : T6        : gnd    :                   :         :           :                
+VCCL_GXBR2                   : T7        : power  :                   : 1.1V    : QR2       :                
+GND                          : T8        : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : T9        :        :                   :         : 6C        :                
+tx_dt_ram_2[23]              : T10       : input  : 2.5 V             :         : 6C        : N              
+VCCIO6C                      : T11       : power  :                   : 2.5V    : 6C        :                
+tx_dt_ram_3[14]              : T12       : input  : 2.5 V             :         : 6A        : N              
+dt_ram_1[13]                 : T13       : output : 2.5 V             :         : 6A        : N              
+VCC                          : T14       : power  :                   : 0.9V    :           :                
+GND                          : T15       : gnd    :                   :         :           :                
+VCC                          : T16       : power  :                   : 0.9V    :           :                
+GND                          : T17       : gnd    :                   :         :           :                
+VCC                          : T18       : power  :                   : 0.9V    :           :                
+GND                          : T19       : gnd    :                   :         :           :                
+VCC                          : T20       : power  :                   : 0.9V    :           :                
+GND                          : T21       : gnd    :                   :         :           :                
+VCC                          : T22       : power  :                   : 0.9V    :           :                
+GND                          : T23       : gnd    :                   :         :           :                
+VCC                          : T24       : power  :                   : 0.9V    :           :                
+GND                          : T25       : gnd    :                   :         :           :                
+VCC                          : T26       : power  :                   : 0.9V    :           :                
+tx_dt_ram_0[13]              : T27       : input  : 2.5 V             :         : 1A        : N              
+read_addr[51]                : T28       : output : 2.5 V             :         : 1A        : N              
+VCCIO1C                      : T29       : power  :                   : 2.5V    : 1C        :                
+dt_ram_3[31]                 : T30       : output : 2.5 V             :         : 1C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : T31       :        :                   :         : 1C        :                
+GND                          : T32       : gnd    :                   :         :           :                
+VCCL_GXBL2                   : T33       : power  :                   : 1.1V    : QL2       :                
+GND                          : T34       : gnd    :                   :         :           :                
+VCCR_L                       : T35       : power  :                   : 1.1V    :           :                
+tx_out6                      : T36       : output : 1.4-V PCML        :         : QL1       : N              
+tx_out6(n)                   : T37       : output : 1.4-V PCML        :         : QL1       : N              
+GND                          : T38       : gnd    :                   :         :           :                
+GND                          : T39       : gnd    :                   :         :           :                
+GXB_GND*                     : U1        :        :                   :         : QR1       :                
+GXB_GND*                     : U2        :        :                   :         : QR1       :                
+GND                          : U3        : gnd    :                   :         :           :                
+GND                          : U4        : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : U5        :        :                   :         : 6C        :                
+VCCH_GXBR2                   : U6        : power  :                   : 1.4V    : QR2       :                
+VCCL_GXBR2                   : U7        : power  :                   : 1.1V    : QR2       :                
+VCC                          : U8        : power  :                   : 0.9V    :           :                
+GND                          : U9        : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : U10       :        :                   :         : 6C        :                
+VREFB6CN0                    : U11       : power  :                   :         : 6C        :                
+GND                          : U12       : gnd    :                   :         :           :                
+VCCPD6A                      : U13       : power  :                   : 2.5V    : 6A        :                
+GND                          : U14       : gnd    :                   :         :           :                
+VCC                          : U15       : power  :                   : 0.9V    :           :                
+GND                          : U16       : gnd    :                   :         :           :                
+VCC                          : U17       : power  :                   : 0.9V    :           :                
+GND                          : U18       : gnd    :                   :         :           :                
+VCC                          : U19       : power  :                   : 0.9V    :           :                
+GND                          : U20       : gnd    :                   :         :           :                
+VCC                          : U21       : power  :                   : 0.9V    :           :                
+GND                          : U22       : gnd    :                   :         :           :                
+VCC                          : U23       : power  :                   : 0.9V    :           :                
+GND                          : U24       : gnd    :                   :         :           :                
+VCC                          : U25       : power  :                   : 0.9V    :           :                
+GND                          : U26       : gnd    :                   :         :           :                
+VCCPD1A                      : U27       : power  :                   : 2.5V    : 1A        :                
+GND                          : U28       : gnd    :                   :         :           :                
+VREFB1CN0                    : U29       : power  :                   :         : 1C        :                
+GND                          : U30       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : U31       :        :                   :         : 1C        :                
+VCC                          : U32       : power  :                   : 0.9V    :           :                
+VCCL_GXBL2                   : U33       : power  :                   : 1.1V    : QL2       :                
+VCCH_GXBL2                   : U34       : power  :                   : 1.4V    : QL2       :                
+write_addr[61]               : U35       : output : 2.5 V             :         : 1C        : N              
+GND                          : U36       : gnd    :                   :         :           :                
+GND                          : U37       : gnd    :                   :         :           :                
+rx_in6                       : U38       : input  : 1.5-V PCML        :         : QL1       : N              
+rx_in6(n)                    : U39       : input  : 1.5-V PCML        :         : QL1       : N              
+GND                          : V1        : gnd    :                   :         :           :                
+GND                          : V2        : gnd    :                   :         :           :                
+GXB_NC                       : V3        :        :                   :         : QR1       :                
+GXB_NC                       : V4        :        :                   :         : QR1       :                
+VCCT_R                       : V5        : power  :                   : 1.1V    :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : V6        :        :                   :         : 6C        :                
+GND                          : V7        : gnd    :                   :         :           :                
+VCC                          : V8        : power  :                   : 0.9V    :           :                
+dt_ram_1[22]                 : V9        : output : 2.5 V             :         : 6C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : V10       :        :                   :         : 6C        :                
+tx_dt_ram_1[11]              : V11       : input  : 2.5 V             :         : 6C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : V12       :        :                   :         : 6C        :                
+VCCIO6C                      : V13       : power  :                   : 2.5V    : 6C        :                
+VCC                          : V14       : power  :                   : 0.9V    :           :                
+GND                          : V15       : gnd    :                   :         :           :                
+VCC                          : V16       : power  :                   : 0.9V    :           :                
+GND                          : V17       : gnd    :                   :         :           :                
+VCC                          : V18       : power  :                   : 0.9V    :           :                
+GND                          : V19       : gnd    :                   :         :           :                
+VCC                          : V20       : power  :                   : 0.9V    :           :                
+GND                          : V21       : gnd    :                   :         :           :                
+VCC                          : V22       : power  :                   : 0.9V    :           :                
+GND                          : V23       : gnd    :                   :         :           :                
+VCC                          : V24       : power  :                   : 0.9V    :           :                
+GND                          : V25       : gnd    :                   :         :           :                
+VCC                          : V26       : power  :                   : 0.9V    :           :                
+read_addr[4]                 : V27       : output : 2.5 V             :         : 1C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : V28       :        :                   :         : 1C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : V29       :        :                   :         : 1C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : V30       :        :                   :         : 1C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : V31       :        :                   :         : 1C        :                
+VCC                          : V32       : power  :                   : 0.9V    :           :                
+GND                          : V33       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : V34       :        :                   :         : 1C        :                
+VCCT_L                       : V35       : power  :                   : 1.1V    :           :                
+GXB_NC                       : V36       :        :                   :         : QL1       :                
+GXB_NC                       : V37       :        :                   :         : QL1       :                
+GND                          : V38       : gnd    :                   :         :           :                
+GND                          : V39       : gnd    :                   :         :           :                
+GXB_GND*                     : W1        :        :                   :         : QR1       :                
+GXB_GND*                     : W2        :        :                   :         : QR1       :                
+GND                          : W3        : gnd    :                   :         :           :                
+GND                          : W4        : gnd    :                   :         :           :                
+dt_ram_0[20]                 : W5        : output : 2.5 V             :         : 6C        : N              
+tx_dt_ram_2[3]               : W6        : input  : 2.5 V             :         : 6C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : W7        :        :                   :         : 6C        :                
+tx_dt_ram_2[18]              : W8        : input  : 2.5 V             :         : 6C        : N              
+VCCHIP_R                     : W9        : power  :                   : 0.9V    :           :                
+GND                          : W10       : gnd    :                   :         :           :                
+read_addr[7]                 : W11       : output : 2.5 V             :         : 6C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : W12       :        :                   :         : 6C        :                
+VCCPD6C                      : W13       : power  :                   : 2.5V    : 6C        :                
+GND                          : W14       : gnd    :                   :         :           :                
+VCC                          : W15       : power  :                   : 0.9V    :           :                
+GND                          : W16       : gnd    :                   :         :           :                
+VCC                          : W17       : power  :                   : 0.9V    :           :                
+GND                          : W18       : gnd    :                   :         :           :                
+VCC                          : W19       : power  :                   : 0.9V    :           :                
+GND                          : W20       : gnd    :                   :         :           :                
+VCC                          : W21       : power  :                   : 0.9V    :           :                
+GND                          : W22       : gnd    :                   :         :           :                
+VCC                          : W23       : power  :                   : 0.9V    :           :                
+GND                          : W24       : gnd    :                   :         :           :                
+VCC                          : W25       : power  :                   : 0.9V    :           :                
+read_addr[55]                : W26       : output : 2.5 V             :         : 1C        : N              
+VCCPD1C                      : W27       : power  :                   : 2.5V    : 1C        :                
+tx_dt_ram_2[15]              : W28       : input  : 2.5 V             :         : 1C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : W29       :        :                   :         : 1C        :                
+~ALTERA_DATA0~ / RESERVED_INPUT : W30       : input  : 1.8 V             :         : 1C        : N              
+VCCHIP_L                     : W31       : power  :                   : 0.9V    :           :                
+tx_dt_ram_3[19]              : W32       : input  : 2.5 V             :         : 1C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : W33       :        :                   :         : 1C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : W34       :        :                   :         : 1C        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : W35       :        :                   :         : 1C        :                
+GND                          : W36       : gnd    :                   :         :           :                
+GND                          : W37       : gnd    :                   :         :           :                
+GXB_GND*                     : W38       :        :                   :         : QL1       :                
+GXB_GND*                     : W39       :        :                   :         : QL1       :                
+GND                          : Y1        : gnd    :                   :         :           :                
+GND                          : Y2        : gnd    :                   :         :           :                
+GXB_NC                       : Y3        :        :                   :         : QR1       :                
+GXB_NC                       : Y4        :        :                   :         : QR1       :                
+VCCR_R                       : Y5        : power  :                   : 1.1V    :           :                
+GND                          : Y6        : gnd    :                   :         :           :                
+VCCL_GXBR1                   : Y7        : power  :                   : 1.1V    : QR1       :                
+GND                          : Y8        : gnd    :                   :         :           :                
+VCCHIP_R                     : Y9        : power  :                   : 0.9V    :           :                
+VCCA_PLL_R2                  : Y10       : power  :                   : 2.5V    :           :                
+VCCD_PLL_R2                  : Y11       : power  :                   : 0.9V    :           :                
+GND                          : Y12       : gnd    :                   :         :           :                
+VCCPT                        : Y13       : power  :                   : 1.5V    :           :                
+VCC                          : Y14       : power  :                   : 0.9V    :           :                
+GND                          : Y15       : gnd    :                   :         :           :                
+VCC                          : Y16       : power  :                   : 0.9V    :           :                
+GND                          : Y17       : gnd    :                   :         :           :                
+VCC                          : Y18       : power  :                   : 0.9V    :           :                
+GND                          : Y19       : gnd    :                   :         :           :                
+VCC                          : Y20       : power  :                   : 0.9V    :           :                
+GND                          : Y21       : gnd    :                   :         :           :                
+VCC                          : Y22       : power  :                   : 0.9V    :           :                
+GND                          : Y23       : gnd    :                   :         :           :                
+VCC                          : Y24       : power  :                   : 0.9V    :           :                
+GND                          : Y25       : gnd    :                   :         :           :                
+VCCPD2C                      : Y26       : power  :                   : 2.5V    : 2C        :                
+GND                          : Y27       : gnd    :                   :         :           :                
+VCCD_PLL_L2                  : Y28       : power  :                   : 0.9V    :           :                
+VCCA_PLL_L2                  : Y29       : power  :                   : 2.5V    :           :                
+GND                          : Y30       : gnd    :                   :         :           :                
+VCCHIP_L                     : Y31       : power  :                   : 0.9V    :           :                
+GND                          : Y32       : gnd    :                   :         :           :                
+VCCL_GXBL1                   : Y33       : power  :                   : 1.1V    : QL1       :                
+GND                          : Y34       : gnd    :                   :         :           :                
+VCCR_L                       : Y35       : power  :                   : 1.1V    :           :                
+GXB_NC                       : Y36       :        :                   :         : QL1       :                
+GXB_NC                       : Y37       :        :                   :         : QL1       :                
+GND                          : Y38       : gnd    :                   :         :           :                
+GND                          : Y39       : gnd    :                   :         :           :                

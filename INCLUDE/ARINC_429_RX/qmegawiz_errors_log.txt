@@ -1,0 +1,16 @@
+
+
+D:/_WORK_/SKIT/REPOS/AVIONICS/mavim3_fpga_project/PCIE_CORE/pcie_core.vhd
+
+Jan 31 02PM:42:18>: Megafunction IP Compiler for PCI Express v13.0 is not listed in any 
+wizard.lst file in the specified library path(s).Wizard launch aborted
+
+D:/_WORK_/SKIT/REPOS/AVIONICS/mavim3_fpga_project/PCIE_CORE/pcie_core.vhd
+
+Jan 31 02PM:42:38>: Megafunction IP Compiler for PCI Express v13.0 is not listed in any 
+wizard.lst file in the specified library path(s).Wizard launch aborted
+
+D:/_WORK_/SKIT/REPOS/AVIONICS/mavim3_fpga_project/PCIE_CORE/pcie_core.vhd
+
+Jan 31 02PM:43:13>: Megafunction IP Compiler for PCI Express v13.0 is not listed in any 
+wizard.lst file in the specified library path(s).Wizard launch aborted

@@ -1,0 +1,66 @@
+--------------------------------------------------------------------------------------
+Timing Analyzer Summary
+--------------------------------------------------------------------------------------
+
+Type           : Worst-case tsu
+Slack          : N/A
+Required Time  : None
+Actual Time    : 5.292 ns
+From           : wren_1
+To             : A429_ctrl_ff[61]
+From Clock     : --
+To Clock       : clk
+Failed Paths   : 0
+
+Type           : Worst-case tco
+Slack          : N/A
+Required Time  : None
+Actual Time    : 7.999 ns
+From           : s_txd_1_reg
+To             : txd_1
+From Clock     : clk
+To Clock       : --
+Failed Paths   : 0
+
+Type           : Worst-case th
+Slack          : N/A
+Required Time  : None
+Actual Time    : 2.514 ns
+From           : wr_data_0[8]
+To             : fifo_data[8]
+From Clock     : --
+To Clock       : clk
+Failed Paths   : 0
+
+Type           : Clock Setup: 'clk'
+Slack          : 4.202 ns
+Required Time  : 100.00 MHz ( period = 10.000 ns )
+Actual Time    : 172.47 MHz ( period = 5.798 ns )
+From           : A429_ctrl_ff[3]
+To             : scfifo:ARINC_429_wr_fifo|scfifo_1i81:auto_generated|a_dpfifo_k981:dpfifo|empty_dff
+From Clock     : clk
+To Clock       : clk
+Failed Paths   : 0
+
+Type           : Clock Hold: 'clk'
+Slack          : 0.603 ns
+Required Time  : 100.00 MHz ( period = 10.000 ns )
+Actual Time    : N/A
+From           : scfifo:ARINC_429_wr_fifo|scfifo_1i81:auto_generated|a_dpfifo_k981:dpfifo|cntr_qmb:wr_ptr|counter_reg_bit[0]
+To             : scfifo:ARINC_429_wr_fifo|scfifo_1i81:auto_generated|a_dpfifo_k981:dpfifo|altsyncram_rsf1:FIFOram|ram_block1a0~porta_address_reg0
+From Clock     : clk
+To Clock       : clk
+Failed Paths   : 0
+
+Type           : Total number of failed paths
+Slack          : 
+Required Time  : 
+Actual Time    : 
+From           : 
+To             : 
+From Clock     : 
+To Clock       : 
+Failed Paths   : 0
+
+--------------------------------------------------------------------------------------
+

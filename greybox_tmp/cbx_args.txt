@@ -1,0 +1,16 @@
+BASE_PORT_WIDTH=1
+CBX_BLACKBOX_LIST=-lpm_mux
+ENABLE_CHL_ADDR_FOR_ANALOG_CTRL=TRUE
+INTENDED_DEVICE_FAMILY="Cyclone IV GX"
+NUMBER_OF_CHANNELS=1
+NUMBER_OF_RECONFIG_PORTS=1
+READ_BASE_PORT_WIDTH=1
+enable_buf_cal=true
+reconfig_fromgxb_width=5
+reconfig_togxb_width=4
+DEVICE_FAMILY="Cyclone IV GX"
+reconfig_clk
+reconfig_fromgxb
+reconfig_mode_sel
+busy
+reconfig_togxb

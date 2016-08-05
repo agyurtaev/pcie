@@ -1,0 +1,98 @@
+Flow report for arinc_825
+Thu May 01 16:25:36 2014
+Quartus II Version 7.1 Build 156 04/30/2007 SJ Full Version
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Flow Summary
+  3. Flow Settings
+  4. Flow Non-Default Global Settings
+  5. Flow Elapsed Time
+  6. Flow Log
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2007 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++-------------------------------------------------------------------------------+
+; Flow Summary                                                                  ;
++------------------------------------+------------------------------------------+
+; Flow Status                        ; Successful - Thu May 01 16:25:36 2014    ;
+; Quartus II Version                 ; 7.1 Build 156 04/30/2007 SJ Full Version ;
+; Revision Name                      ; arinc_825                                ;
+; Top-level Entity Name              ; arinc_825                                ;
+; Family                             ; Cyclone III                              ;
+; Device                             ; EP3C25F324C7                             ;
+; Timing Models                      ; Preliminary                              ;
+; Met timing requirements            ; N/A                                      ;
+; Total logic elements               ; 506                                      ;
+;     Total combinational functions  ; 506                                      ;
+;     Dedicated logic registers      ; 307                                      ;
+; Total registers                    ; 307                                      ;
+; Total pins                         ; 16                                       ;
+; Total virtual pins                 ; 200                                      ;
+; Total memory bits                  ; 32,768                                   ;
+; Embedded Multiplier 9-bit elements ; 0                                        ;
+; Total PLLs                         ; 0                                        ;
++------------------------------------+------------------------------------------+
+
+
++-----------------------------------------+
+; Flow Settings                           ;
++-------------------+---------------------+
+; Option            ; Setting             ;
++-------------------+---------------------+
+; Start date & time ; 05/01/2014 16:25:33 ;
+; Main task         ; Compilation         ;
+; Revision Name     ; arinc_825           ;
++-------------------+---------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ;
++-------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------+-------------+------------+
+; Assignment Name               ; Value                                                                                                                                                                                                                                                                                                                                                                                                                                              ; Default Value ; Entity Name ; Section Id ;
++-------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------+-------------+------------+
+; PARTITION_NETLIST_TYPE        ; SOURCE                                                                                                                                                                                                                                                                                                                                                                                                                                             ; --            ; --          ; Top        ;
+; USER_LIBRARIES                ; ..\calc_nesting/;..\bus_mux/;..\alu/;..\apg_config/;..\apg_lib/;..\apg_manage/;..\apg_top/;..\common_registers/;..\cpc_protocol/;..\idecode/;..\ifetch/;.\includes\logic_analyzer/;.\includes\control_state_config_hw_err/;.\includes\clk_gen/;.\includes\error_ram_driver/;.\includes\vector_ram_driver/;.\includes\error_handler/;.\includes\executor/;.\includes\prbs_gen/;.\includes\diag_frmcmp/;.\includes\formatter/;.\includes\comparator/ ; --            ; --          ; --         ;
+; USE_TIMEQUEST_TIMING_ANALYZER ; Off                                                                                                                                                                                                                                                                                                                                                                                                                                                ; --            ; --          ; --         ;
++-------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------+-------------+------------+
+
+
++-------------------------------------+
+; Flow Elapsed Time                   ;
++----------------------+--------------+
+; Module Name          ; Elapsed Time ;
++----------------------+--------------+
+; Analysis & Synthesis ; 00:00:03     ;
+; Total                ; 00:00:03     ;
++----------------------+--------------+
+
+
+------------
+; Flow Log ;
+------------
+quartus_map --read_settings_files=on --write_settings_files=off arinc_825 -c arinc_825
+
+
+

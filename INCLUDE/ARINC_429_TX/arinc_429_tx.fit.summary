@@ -1,0 +1,16 @@
+Fitter Status : Successful - Fri Jan 31 19:46:33 2014
+Quartus II Version : 7.1 Build 156 04/30/2007 SJ Full Version
+Revision Name : arinc_429_tx
+Top-level Entity Name : arinc_429_tx
+Family : Cyclone III
+Device : EP3C25F324C8
+Timing Models : Preliminary
+Total logic elements : 326 / 24,624 ( 1 % )
+    Total combinational functions : 296 / 24,624 ( 1 % )
+    Dedicated logic registers : 216 / 24,624 ( < 1 % )
+Total registers : 216
+Total pins : 6 / 216 ( 3 % )
+Total virtual pins : 200
+Total memory bits : 8,192 / 608,256 ( 1 % )
+Embedded Multiplier 9-bit elements : 0 / 132 ( 0 % )
+Total PLLs : 0 / 4 ( 0 % )
