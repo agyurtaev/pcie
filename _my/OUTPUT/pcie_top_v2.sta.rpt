@@ -1,0 +1,192 @@
+TimeQuest Timing Analyzer report for pcie_top_v2
+Sun Apr 19 14:25:39 2015
+Quartus II Version 10.1 Build 197 01/19/2011 Service Pack 1 SJ Full Version
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. TimeQuest Timing Analyzer Summary
+  3. Parallel Compilation
+  4. SDC File List
+  5. TimeQuest Timing Analyzer Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2011 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++---------------------------------------------------------------------------------------+
+; TimeQuest Timing Analyzer Summary                                                     ;
++--------------------+------------------------------------------------------------------+
+; Quartus II Version ; Version 10.1 Build 197 01/19/2011 Service Pack 1 SJ Full Version ;
+; Revision Name      ; pcie_top_v2                                                      ;
+; Device Family      ; Cyclone IV GX                                                    ;
+; Device Name        ; EP4CGX110CF23I7                                                  ;
+; Timing Models      ; Final                                                            ;
+; Delay Model        ; Combined                                                         ;
+; Rise/Fall Delays   ; Enabled                                                          ;
++--------------------+------------------------------------------------------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 2           ;
+; Maximum allowed            ; 2           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 1           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     1 processor            ; 100.0%      ;
+;     2 processors           ;   0.0%      ;
++----------------------------+-------------+
+
+
++-------------------------------------------------------------+
+; SDC File List                                               ;
++-------------------------+--------+--------------------------+
+; SDC File Path           ; Status ; Read at                  ;
++-------------------------+--------+--------------------------+
+; PCIE_CORE/pcie_core.sdc ; OK     ; Sun Apr 19 14:25:37 2015 ;
+; pcie_top.sdc            ; OK     ; Sun Apr 19 14:25:37 2015 ;
++-------------------------+--------+--------------------------+
+
+
++------------------------------------+
+; TimeQuest Timing Analyzer Messages ;
++------------------------------------+
+Warning: Tcl Script File PCIE_CORE/pcie_core_serdes.qip not found
+    Info: set_global_assignment -name QIP_FILE PCIE_CORE/pcie_core_serdes.qip
+Info: *******************************************************************
+Info: Running Quartus II TimeQuest Timing Analyzer
+    Info: Version 10.1 Build 197 01/19/2011 Service Pack 1 SJ Full Version
+    Info: Processing started: Sun Apr 19 14:25:27 2015
+Info: Command: quartus_sta pcie_top -c pcie_top_v2
+Info: qsta_default_script.tcl version: #4
+Info: Parallel compilation is enabled and will use 2 of the 2 processors detected
+Info: Low junction temperature is -40 degrees C
+Info: High junction temperature is 100 degrees C
+Info: Evaluating HDL-embedded SDC commands
+    Info: Entity dcfifo_0kn1
+        Info: set_false_path -from *delayed_wrptr_g* -to *rs_dgwp|dffpipe_hd9:dffpipe13|dffe14a* 
+    Info: Entity dcfifo_jrp1
+        Info: set_false_path -from *rdptr_g* -to *ws_dgrp|dffpipe_pe9:dffpipe12|dffe13a* 
+    Info: Entity dcfifo_lqk1
+        Info: set_false_path -from *delayed_wrptr_g* -to *rs_dgwp|dffpipe_id9:dffpipe3|dffe4a* 
+    Info: Entity dcfifo_tmn1
+        Info: set_false_path -from *rdptr_g* -to *ws_dgrp|dffpipe_re9:dffpipe3|dffe4a* 
+Info: Reading SDC File: 'PCIE_CORE/pcie_core.sdc'
+Warning: Ignored filter at pcie_core.sdc(5): *hssi_pcie_hip|testin[*] could not be matched with a pin
+Warning: Ignored set_false_path at pcie_core.sdc(5): Argument <to> is an empty collection
+    Info: set_false_path -to [get_pins -hierarchical {*hssi_pcie_hip|testin[*]} ]
+Warning: Ignored filter at pcie_core.sdc(7): *|pcie_core:*map|altpcie_rs_serdes:rs_serdes|busy_altgxb_reconfig_r[0] could not be matched with a clock or keeper or register or port or pin or cell or partition
+Warning: Ignored set_false_path at pcie_core.sdc(7): Argument <to> is not an object ID
+    Info: set_false_path -to {*|pcie_core:*map|altpcie_rs_serdes:rs_serdes|busy_altgxb_reconfig_r[0]}
+Warning: Ignored filter at pcie_core.sdc(27): *|pcie_core_core:wrapper|altpcie_hip_pipen1b:altpcie_hip_pipen1b_inst|tl_cfg_ctl_wr could not be matched with a keeper
+Warning: Ignored set_multicycle_path at pcie_core.sdc(27): Argument <from> is an empty collection
+    Info: set_multicycle_path -start -setup -from [get_keepers {*|pcie_core_core:wrapper|altpcie_hip_pipen1b:altpcie_hip_pipen1b_inst|tl_cfg_ctl_wr}] $tl_cfg_ctl_wr_setup
+Warning: Ignored filter at pcie_core.sdc(31): *|pcie_core_core:wrapper|altpcie_hip_pipen1b:altpcie_hip_pipen1b_inst|tl_cfg_sts_wr could not be matched with a keeper
+Warning: Ignored set_multicycle_path at pcie_core.sdc(31): Argument <from> is an empty collection
+    Info: set_multicycle_path -start -setup -from [get_keepers {*|pcie_core_core:wrapper|altpcie_hip_pipen1b:altpcie_hip_pipen1b_inst|tl_cfg_sts_wr}] $tl_cfg_sts_wr_setup
+Warning: Ignored filter at pcie_core.sdc(32): *|pcie_core_core:wrapper|altpcie_hip_pipen1b:altpcie_hip_pipen1b_inst|tl_cfg_sts[*] could not be matched with a keeper
+Warning: Ignored set_multicycle_path at pcie_core.sdc(32): Argument <from> is an empty collection
+    Info: set_multicycle_path -end -setup -from [get_keepers {*|pcie_core_core:wrapper|altpcie_hip_pipen1b:altpcie_hip_pipen1b_inst|tl_cfg_sts[*]}] [expr $tl_cfg_sts_wr_setup + 2]
+Warning: Ignored set_multicycle_path at pcie_core.sdc(33): Argument <from> is an empty collection
+    Info: set_multicycle_path -end -hold -from [get_keepers {*|pcie_core_core:wrapper|altpcie_hip_pipen1b:altpcie_hip_pipen1b_inst|tl_cfg_sts[*]}] 3
+Info: Reading SDC File: 'pcie_top.sdc'
+Info: Deriving PLL Clocks
+    Info: create_generated_clock -source {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|pll0|auto_generated|pll1|inclk[0]} -divide_by 2 -multiply_by 25 -duty_cycle 50.00 -name {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|pll0|auto_generated|pll1|icdrclk} {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|pll0|auto_generated|pll1|icdrclk}
+    Info: create_generated_clock -source {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|pll0|auto_generated|pll1|inclk[0]} -divide_by 2 -multiply_by 25 -duty_cycle 50.00 -name {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|pll0|auto_generated|pll1|clk[0]} {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|pll0|auto_generated|pll1|clk[0]}
+    Info: create_generated_clock -source {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|pll0|auto_generated|pll1|inclk[0]} -divide_by 2 -multiply_by 5 -duty_cycle 50.00 -name {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|pll0|auto_generated|pll1|clk[1]} {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|pll0|auto_generated|pll1|clk[1]}
+    Info: create_generated_clock -source {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|pll0|auto_generated|pll1|inclk[0]} -divide_by 2 -multiply_by 5 -duty_cycle 20.00 -name {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|pll0|auto_generated|pll1|clk[2]} {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|pll0|auto_generated|pll1|clk[2]}
+    Info: create_generated_clock -source {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|pll0|auto_generated|pll1|clk[1]} -duty_cycle 50.00 -name {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pma0|clockout} {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pma0|clockout}
+    Info: create_generated_clock -source {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pcs0|hiptxclkout} -divide_by 2 -duty_cycle 50.00 -name {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout} {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}
+    Info: create_generated_clock -source {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pcs0|localrefclk} -duty_cycle 50.00 -name {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pcs0|hiptxclkout} {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pcs0|hiptxclkout}
+    Info: create_generated_clock -source {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|pll0|auto_generated|pll1|icdrclk} -divide_by 5 -duty_cycle 50.00 -name {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|receive_pma0|clockout} {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|receive_pma0|clockout}
+    Info: set_min_delay -to [get_ports { pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_serdes:serdes|pcie_core_serdes_alt_c3gxb_hcf8:pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pcs0~OBSERVABLEQUADRESET }] 0.000
+    Info: set_max_delay -to [get_ports { pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_serdes:serdes|pcie_core_serdes_alt_c3gxb_hcf8:pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pcs0~OBSERVABLE_DIGITAL_RESET }] 20.000
+    Info: set_min_delay -to [get_ports { pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_serdes:serdes|pcie_core_serdes_alt_c3gxb_hcf8:pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pcs0~OBSERVABLE_DIGITAL_RESET }] 0.000
+    Info: set_max_delay -to [get_ports { pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_serdes:serdes|pcie_core_serdes_alt_c3gxb_hcf8:pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pcs0~OBSERVABLEQUADRESET }] 20.000
+    Info: set_min_delay -to [get_ports { pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_serdes:serdes|pcie_core_serdes_alt_c3gxb_hcf8:pcie_core_serdes_alt_c3gxb_hcf8_component|cent_unit0~OBSERVABLEDPRIOLOAD }] 0.000
+    Info: set_max_delay -to [get_ports { pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_serdes:serdes|pcie_core_serdes_alt_c3gxb_hcf8:pcie_core_serdes_alt_c3gxb_hcf8_component|cent_unit0~OBSERVABLEDPRIODISABLE }] 20.000
+    Info: set_min_delay -to [get_ports { pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_serdes:serdes|pcie_core_serdes_alt_c3gxb_hcf8:pcie_core_serdes_alt_c3gxb_hcf8_component|cent_unit0~OBSERVABLEDPRIODISABLE }] 0.000
+    Info: set_max_delay -to [get_ports { pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_serdes:serdes|pcie_core_serdes_alt_c3gxb_hcf8:pcie_core_serdes_alt_c3gxb_hcf8_component|cent_unit0~OBSERVABLERXDIGITALRESET }] 20.000
+    Info: set_min_delay -to [get_ports { pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_serdes:serdes|pcie_core_serdes_alt_c3gxb_hcf8:pcie_core_serdes_alt_c3gxb_hcf8_component|cent_unit0~OBSERVABLERXDIGITALRESET }] 0.000
+    Info: set_max_delay -to [get_ports { pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_serdes:serdes|pcie_core_serdes_alt_c3gxb_hcf8:pcie_core_serdes_alt_c3gxb_hcf8_component|cent_unit0~OBSERVABLETXDIGITALRESET }] 20.000
+    Info: set_min_delay -to [get_ports { pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_serdes:serdes|pcie_core_serdes_alt_c3gxb_hcf8:pcie_core_serdes_alt_c3gxb_hcf8_component|cent_unit0~OBSERVABLETXDIGITALRESET }] 0.000
+    Info: set_max_delay -to [get_ports { pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_serdes:serdes|pcie_core_serdes_alt_c3gxb_hcf8:pcie_core_serdes_alt_c3gxb_hcf8_component|cent_unit0~OBSERVABLERXANALOGRESET }] 20.000
+    Info: set_min_delay -to [get_ports { pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_serdes:serdes|pcie_core_serdes_alt_c3gxb_hcf8:pcie_core_serdes_alt_c3gxb_hcf8_component|cent_unit0~OBSERVABLERXANALOGRESET }] 0.000
+    Info: set_max_delay -to [get_ports { pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_serdes:serdes|pcie_core_serdes_alt_c3gxb_hcf8:pcie_core_serdes_alt_c3gxb_hcf8_component|cent_unit0~OBSERVABLEDPRIOLOAD }] 20.000
+    Info: set_min_delay -to [get_ports { pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_serdes:serdes|pcie_core_serdes_alt_c3gxb_hcf8:pcie_core_serdes_alt_c3gxb_hcf8_component|receive_pcs0~OBSERVABLEQUADRESET }] 0.000
+    Info: set_max_delay -to [get_ports { pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_serdes:serdes|pcie_core_serdes_alt_c3gxb_hcf8:pcie_core_serdes_alt_c3gxb_hcf8_component|receive_pcs0~OBSERVABLE_DIGITAL_RESET }] 20.000
+    Info: set_min_delay -to [get_ports { pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_serdes:serdes|pcie_core_serdes_alt_c3gxb_hcf8:pcie_core_serdes_alt_c3gxb_hcf8_component|receive_pcs0~OBSERVABLE_DIGITAL_RESET }] 0.000
+    Info: set_max_delay -to [get_ports { pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_serdes:serdes|pcie_core_serdes_alt_c3gxb_hcf8:pcie_core_serdes_alt_c3gxb_hcf8_component|receive_pcs0~OBSERVABLEQUADRESET }] 20.000
+Info: Clock uncertainty calculation is delayed until the next update_timing_netlist call
+Info: The following timing edges are non-unate.  TimeQuest will assume pos-unate behavior for these edges in the clock network.
+    Info: From: pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|cent_unit0|dpclk  to: pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_serdes:serdes|pcie_core_serdes_alt_c3gxb_hcf8:pcie_core_serdes_alt_c3gxb_hcf8_component|cent_unit0~OBSERVABLE_DPRIO_IN
+    Info: Cell: pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|pll0|auto_generated|pll1  from: inclk[0]  to: fref
+    Info: From: pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|pclkch0  to: pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_core:wrapper|altpcie_hip_pipen1b:altpcie_hip_pipen1b_inst|tl_cfg_ctl[12]
+    Info: From: pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|pldclk  to: pcie_wrapper:pcie_wrapper_inc|pcie_core:pcie_core_component|pcie_core_core:wrapper|altpcie_hip_pipen1b:altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip~OBSERVABLE_PLD_CLK
+Info: Deriving Clock Uncertainty
+    Info: set_clock_uncertainty -rise_from [get_clocks {reconfig_clk}] -rise_to [get_clocks {reconfig_clk}] -setup 0.020
+    Info: set_clock_uncertainty -rise_from [get_clocks {reconfig_clk}] -fall_to [get_clocks {reconfig_clk}] -setup 0.020
+    Info: set_clock_uncertainty -fall_from [get_clocks {reconfig_clk}] -rise_to [get_clocks {reconfig_clk}] -setup 0.020
+    Info: set_clock_uncertainty -fall_from [get_clocks {reconfig_clk}] -fall_to [get_clocks {reconfig_clk}] -setup 0.020
+    Info: set_clock_uncertainty -rise_from [get_clocks {reconfig_clk}] -rise_to [get_clocks {reconfig_clk}] -hold 0.020
+    Info: set_clock_uncertainty -rise_from [get_clocks {reconfig_clk}] -fall_to [get_clocks {reconfig_clk}] -hold 0.020
+    Info: set_clock_uncertainty -fall_from [get_clocks {reconfig_clk}] -rise_to [get_clocks {reconfig_clk}] -hold 0.020
+    Info: set_clock_uncertainty -fall_from [get_clocks {reconfig_clk}] -fall_to [get_clocks {reconfig_clk}] -hold 0.020
+    Info: set_clock_uncertainty -rise_from [get_clocks {reconfig_clk}] -rise_to [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -setup 0.080
+    Info: set_clock_uncertainty -rise_from [get_clocks {reconfig_clk}] -fall_to [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -setup 0.080
+    Info: set_clock_uncertainty -fall_from [get_clocks {reconfig_clk}] -rise_to [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -setup 0.080
+    Info: set_clock_uncertainty -fall_from [get_clocks {reconfig_clk}] -fall_to [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -setup 0.080
+    Info: set_clock_uncertainty -rise_from [get_clocks {reconfig_clk}] -rise_to [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -hold 0.110
+    Info: set_clock_uncertainty -rise_from [get_clocks {reconfig_clk}] -fall_to [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -hold 0.110
+    Info: set_clock_uncertainty -fall_from [get_clocks {reconfig_clk}] -rise_to [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -hold 0.110
+    Info: set_clock_uncertainty -fall_from [get_clocks {reconfig_clk}] -fall_to [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -hold 0.110
+    Info: set_clock_uncertainty -rise_from [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -rise_to [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -setup 0.020
+    Info: set_clock_uncertainty -rise_from [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -fall_to [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -setup 0.020
+    Info: set_clock_uncertainty -fall_from [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -rise_to [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -setup 0.020
+    Info: set_clock_uncertainty -fall_from [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -fall_to [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -setup 0.020
+    Info: set_clock_uncertainty -rise_from [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -rise_to [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -hold 0.020
+    Info: set_clock_uncertainty -rise_from [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -fall_to [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -hold 0.020
+    Info: set_clock_uncertainty -fall_from [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -rise_to [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -hold 0.020
+    Info: set_clock_uncertainty -fall_from [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -fall_to [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -hold 0.020
+    Info: set_clock_uncertainty -rise_from [get_clocks {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pcs0|hiptxclkout}] -rise_to [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -setup 0.060
+    Info: set_clock_uncertainty -rise_from [get_clocks {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pcs0|hiptxclkout}] -fall_to [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -setup 0.060
+    Info: set_clock_uncertainty -fall_from [get_clocks {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pcs0|hiptxclkout}] -rise_to [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -setup 0.060
+    Info: set_clock_uncertainty -fall_from [get_clocks {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pcs0|hiptxclkout}] -fall_to [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -setup 0.060
+    Info: set_clock_uncertainty -rise_from [get_clocks {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pcs0|hiptxclkout}] -rise_to [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -hold 0.090
+    Info: set_clock_uncertainty -rise_from [get_clocks {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pcs0|hiptxclkout}] -fall_to [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -hold 0.090
+    Info: set_clock_uncertainty -fall_from [get_clocks {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pcs0|hiptxclkout}] -rise_to [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -hold 0.090
+    Info: set_clock_uncertainty -fall_from [get_clocks {pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pcs0|hiptxclkout}] -fall_to [get_clocks {pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout}] -hold 0.090
+Info: Found TIMEQUEST_REPORT_SCRIPT = PCIE_CORE/pcie_core.tcl
+Info: Using custom script: PCIE_CORE/pcie_core.tcl
+Info: Quartus II TimeQuest Timing Analyzer was successful. 0 errors, 12 warnings
+    Info: Peak virtual memory: 431 megabytes
+    Info: Processing ended: Sun Apr 19 14:25:39 2015
+    Info: Elapsed time: 00:00:12
+    Info: Total CPU time (on all processors): 00:00:10
+
+

@@ -1,0 +1,173 @@
+------------------------------------------------------------
+TimeQuest Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1200mV 100C Model Setup 'pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout'
+Slack : 1.433
+TNS   : 0.000
+
+Type  : Slow 1200mV 100C Model Setup 'reconfig_clk'
+Slack : 8.422
+TNS   : 0.000
+
+Type  : Slow 1200mV 100C Model Setup 'n/a'
+Slack : 13.879
+TNS   : 0.000
+
+Type  : Slow 1200mV 100C Model Hold 'pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout'
+Slack : 0.302
+TNS   : 0.000
+
+Type  : Slow 1200mV 100C Model Hold 'reconfig_clk'
+Slack : 0.400
+TNS   : 0.000
+
+Type  : Slow 1200mV 100C Model Hold 'n/a'
+Slack : 5.142
+TNS   : 0.000
+
+Type  : Slow 1200mV 100C Model Recovery 'pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout'
+Slack : 3.688
+TNS   : 0.000
+
+Type  : Slow 1200mV 100C Model Removal 'pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout'
+Slack : 1.004
+TNS   : 0.000
+
+Type  : Slow 1200mV 100C Model Minimum Pulse Width 'reconfig_clk'
+Slack : 0.000
+TNS   : 0.000
+
+Type  : Slow 1200mV 100C Model Minimum Pulse Width 'pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pcs0|hiptxclkout'
+Slack : 2.000
+TNS   : 0.000
+
+Type  : Slow 1200mV 100C Model Minimum Pulse Width 'pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pma0|clockout'
+Slack : 2.000
+TNS   : 0.000
+
+Type  : Slow 1200mV 100C Model Minimum Pulse Width 'pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout'
+Slack : 3.577
+TNS   : 0.000
+
+Type  : Slow 1200mV 100C Model Minimum Pulse Width 'pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|pclkch0'
+Slack : 3.978
+TNS   : 0.000
+
+Type  : Slow 1200mV 100C Model Minimum Pulse Width 'refclk'
+Slack : 4.818
+TNS   : 0.000
+
+Type  : Slow 1200mV -40C Model Setup 'pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout'
+Slack : 2.085
+TNS   : 0.000
+
+Type  : Slow 1200mV -40C Model Setup 'reconfig_clk'
+Slack : 8.599
+TNS   : 0.000
+
+Type  : Slow 1200mV -40C Model Setup 'n/a'
+Slack : 14.578
+TNS   : 0.000
+
+Type  : Slow 1200mV -40C Model Hold 'pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout'
+Slack : 0.315
+TNS   : 0.000
+
+Type  : Slow 1200mV -40C Model Hold 'reconfig_clk'
+Slack : 0.330
+TNS   : 0.000
+
+Type  : Slow 1200mV -40C Model Hold 'n/a'
+Slack : 4.447
+TNS   : 0.000
+
+Type  : Slow 1200mV -40C Model Recovery 'pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout'
+Slack : 4.240
+TNS   : 0.000
+
+Type  : Slow 1200mV -40C Model Removal 'pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout'
+Slack : 0.883
+TNS   : 0.000
+
+Type  : Slow 1200mV -40C Model Minimum Pulse Width 'reconfig_clk'
+Slack : 0.000
+TNS   : 0.000
+
+Type  : Slow 1200mV -40C Model Minimum Pulse Width 'pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pcs0|hiptxclkout'
+Slack : 2.000
+TNS   : 0.000
+
+Type  : Slow 1200mV -40C Model Minimum Pulse Width 'pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pma0|clockout'
+Slack : 2.000
+TNS   : 0.000
+
+Type  : Slow 1200mV -40C Model Minimum Pulse Width 'pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout'
+Slack : 3.489
+TNS   : 0.000
+
+Type  : Slow 1200mV -40C Model Minimum Pulse Width 'pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|pclkch0'
+Slack : 3.968
+TNS   : 0.000
+
+Type  : Slow 1200mV -40C Model Minimum Pulse Width 'refclk'
+Slack : 4.807
+TNS   : 0.000
+
+Type  : Fast 1200mV -40C Model Setup 'pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout'
+Slack : 3.230
+TNS   : 0.000
+
+Type  : Fast 1200mV -40C Model Setup 'reconfig_clk'
+Slack : 9.706
+TNS   : 0.000
+
+Type  : Fast 1200mV -40C Model Setup 'n/a'
+Slack : 17.050
+TNS   : 0.000
+
+Type  : Fast 1200mV -40C Model Hold 'pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout'
+Slack : 0.103
+TNS   : 0.000
+
+Type  : Fast 1200mV -40C Model Hold 'reconfig_clk'
+Slack : 0.172
+TNS   : 0.000
+
+Type  : Fast 1200mV -40C Model Hold 'n/a'
+Slack : 2.393
+TNS   : 0.000
+
+Type  : Fast 1200mV -40C Model Recovery 'pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout'
+Slack : 5.823
+TNS   : 0.000
+
+Type  : Fast 1200mV -40C Model Removal 'pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout'
+Slack : 0.461
+TNS   : 0.000
+
+Type  : Fast 1200mV -40C Model Minimum Pulse Width 'reconfig_clk'
+Slack : 0.000
+TNS   : 0.000
+
+Type  : Fast 1200mV -40C Model Minimum Pulse Width 'pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pcs0|hiptxclkout'
+Slack : 2.000
+TNS   : 0.000
+
+Type  : Fast 1200mV -40C Model Minimum Pulse Width 'pcie_wrapper_inc|pcie_core_component|serdes|pcie_core_serdes_alt_c3gxb_hcf8_component|transmit_pma0|clockout'
+Slack : 2.000
+TNS   : 0.000
+
+Type  : Fast 1200mV -40C Model Minimum Pulse Width 'pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|coreclkout'
+Slack : 3.687
+TNS   : 0.000
+
+Type  : Fast 1200mV -40C Model Minimum Pulse Width 'pcie_wrapper_inc|pcie_core_component|wrapper|altpcie_hip_pipen1b_inst|cyclone_iii.cycloneiv_hssi_pcie_hip|pclkch0'
+Slack : 3.993
+TNS   : 0.000
+
+Type  : Fast 1200mV -40C Model Minimum Pulse Width 'refclk'
+Slack : 4.570
+TNS   : 0.000
+
+------------------------------------------------------------

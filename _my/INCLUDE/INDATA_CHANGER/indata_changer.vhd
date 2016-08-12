@@ -1,0 +1,102 @@
+--------------------------------------------------------------------------------
+-- Company: SKIT
+-- Engineer: Anton Klimovskikh
+--
+-- Create Date:    26.01.2014   
+-- Design Name:    PCIE   
+-- Module Name:    indata_changer   
+-- Project Name:   
+-- Target Device:  EP4SGX230KF40C2
+-- Description:    
+-- Revision:       Revision 1.00
+--
+-- Additional Comments:
+--------------------------------------------------------------------------------
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+LIBRARY altera_mf;
+USE altera_mf.all;
+ 
+ENTITY indata_changer IS 
+PORT 
+	(
+	-- Global interface
+		clk : in std_logic;
+		nReset : in std_logic;
+		soft_nReset : in std_logic;
+	
+	-- data in	
+		indata_ena : in std_logic;
+		
+		data_high_in : in std_logic_vector(31 downto 0);
+		valid_high : in std_logic;
+
+		data_low_in : in std_logic_vector(31 downto 0);
+		valid_low : in std_logic;
+	
+	-- data out
+		data_high_fifo : out std_logic_vector(31 downto 0);
+		data_low_fifo : out std_logic_vector(31 downto 0);
+		wr_req_fifo : out std_logic
+	);
+END indata_changer;
+
+ARCHITECTURE RTL OF indata_changer IS
+
+	signal valid_xor : std_logic;
+	signal parity_trg : std_logic;
+	signal actual_data_ff : std_logic_vector(31 downto 0);
+	
+
+BEGIN
+
+	valid_xor <= (valid_high xor valid_low);
+
+	parity_trigger :
+	process (nReset, soft_nReset, clk)
+	begin
+		if (nReset = '0') then
+			parity_trg <= '0';
+		elsif rising_edge(clk) then
+			if (soft_nReset = '0') then
+				parity_trg <= '0';
+			elsif (indata_ena = '1') and (parity_trg = '0') and (valid_xor = '1') then
+				parity_trg <= '1';
+			elsif (indata_ena = '1') and (parity_trg = '1') and (valid_xor = '1') then
+				parity_trg <= '0';
+			end if;
+		end if;
+	end process;
+
+	wr_req_fifo <= indata_ena and ((valid_xor and parity_trg) or (valid_high and valid_low));
+
+
+	actual_data_register : 
+	process (nReset, soft_nReset, clk)
+	begin
+		if (nReset = '0') then
+			actual_data_ff <= (others => '0');
+		elsif rising_edge(clk) then
+			if (soft_nReset = '0') then
+				actual_data_ff <= (others => '0');
+			elsif (indata_ena = '1') and (valid_low = '1') and (parity_trg = '0') and (valid_xor = '1') then
+				actual_data_ff <= data_low_in;
+			elsif (indata_ena = '1') and (((valid_high = '1') and (parity_trg = '0') and (valid_xor = '1')) or ((valid_low = '1') and (valid_high = '1') and (parity_trg = '1'))) then
+				actual_data_ff <= data_high_in;
+			end if;
+		end if;
+	end process;
+
+	data_low_fifo <= 	data_low_in when (valid_low and valid_high and not parity_trg) = '1' else
+						actual_data_ff when ((valid_low or valid_high) and parity_trg) = '1' else
+						(others => '0');
+	
+	data_high_fifo <= 	data_low_in when (valid_low and parity_trg) = '1' else
+						data_high_in when ((valid_low and valid_high and not parity_trg) = '1' or (valid_high and not valid_low and parity_trg) = '1') else
+						(others => '0');
+
+END RTL;

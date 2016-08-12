@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Thu May 01 16:16:50 2014
+Quartus II Version : 7.1 Build 156 04/30/2007 SJ Full Version
+Revision Name : arinc_429_tx
+Top-level Entity Name : arinc_429_tx
+Family : Cyclone III
+Total logic elements : 310
+    Total combinational functions : 310
+    Dedicated logic registers : 210
+Total registers : 210
+Total pins : 7
+Total virtual pins : 200
+Total memory bits : 8,192
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

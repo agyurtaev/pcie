@@ -1,0 +1,20 @@
+LPM_PIPELINE=1
+LPM_SIZE=10
+LPM_TYPE=LPM_MUX
+LPM_WIDTH=2
+LPM_WIDTHS=4
+DEVICE_FAMILY="Cyclone IV GX"
+aclr
+clock
+data
+data
+data
+data
+data
+data
+data
+data
+data
+data
+sel
+result

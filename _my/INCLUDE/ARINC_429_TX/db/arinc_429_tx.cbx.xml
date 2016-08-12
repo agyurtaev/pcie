@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="arinc_429_tx">
+		<CBX_INST_ENTRY INSTANCE_NAME="|arinc_429_tx|scfifo:ARINC_429_wr_fifo" CBX_FILE_NAME="scfifo_1i81.tdf"/>
+	</PROJECT>
+</LOG_ROOT>

@@ -1,0 +1,18 @@
+Analysis & Synthesis Status : Successful - Sun Nov 17 18:49:04 2013
+Quartus II Version : 10.1 Build 197 01/19/2011 SP 1 SJ Full Version
+Revision Name : pcie_core_example_chaining_top
+Top-level Entity Name : pcie_core_example_chaining_top
+Family : Cyclone IV GX
+Total logic elements : 5,761
+    Total combinational functions : 4,404
+    Dedicated logic registers : 3,951
+Total registers : 0
+Total pins : 22
+Total virtual pins : 0
+Total memory bits : 282,660
+Embedded Multiplier 9-bit elements : 0
+Total GXB Receiver Channel PCS : 1
+Total GXB Receiver Channel PMA : 1
+Total GXB Transmitter Channel PCS : 1
+Total GXB Transmitter Channel PMA : 1
+Total PLLs : 2

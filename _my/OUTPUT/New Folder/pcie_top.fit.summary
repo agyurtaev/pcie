@@ -1,0 +1,20 @@
+Fitter Status : Successful - Tue Jan 21 11:17:43 2014
+Quartus II Version : 10.1 Build 153 11/29/2010 SJ Full Version
+Revision Name : pcie_top
+Top-level Entity Name : pcie_top
+Family : Cyclone IV GX
+Device : EP4CGX150CF23I7
+Timing Models : Final
+Total logic elements : 1,101 / 149,760 ( < 1 % )
+    Total combinational functions : 892 / 149,760 ( < 1 % )
+    Dedicated logic registers : 766 / 149,760 ( < 1 % )
+Total registers : 0
+Total pins : 13 / 287 ( 5 % )
+Total virtual pins : 10
+Total memory bits : 146,688 / 6,635,520 ( 2 % )
+Embedded Multiplier 9-bit elements : 0 / 720 ( 0 % )
+Total GXB Receiver Channel PCS : 1 / 4 ( 25 % )
+Total GXB Receiver Channel PMA : 1 / 4 ( 25 % )
+Total GXB Transmitter Channel PCS : 1 / 4 ( 25 % )
+Total GXB Transmitter Channel PMA : 1 / 4 ( 25 % )
+Total PLLs : 1 / 6 ( 17 % )

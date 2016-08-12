@@ -1,0 +1,743 @@
+--------------------------------------------------------------------------------
+-- Company: SKIT
+-- Engineer: Anton Klimovskikh
+--
+-- Create Date:    28.01.2014   
+-- Design Name:    PCIE   
+-- Module Name:    arinc_429_tx  
+-- Project Name:   pcie_top
+-- Target Device:  EP4SGX230KF40C2
+-- Description:    
+-- Revision:       Revision 1.03
+--
+-- Additional Comments:
+--------------------------------------------------------------------------------
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+LIBRARY altera_mf;
+USE altera_mf.all;
+ 
+LIBRARY lpm;
+USE lpm.lpm_components.all;
+
+ENTITY arinc_429_tx IS 
+GENERIC 
+	(
+	A429_TX_DATA     : std_logic_vector(15 downto 0) := X"2000";
+	A429_TX_CTRL     : std_logic_vector(15 downto 0) := X"2010";
+	A429_TX_EVENT    : std_logic_vector(15 downto 0) := X"2020";
+	A429_TX_MASK     : std_logic_vector(15 downto 0) := X"2030";
+	A429_TX_AL_FRAME : std_logic_vector(15 downto 0) := X"2040"
+	);
+PORT 
+	(
+	-- Global interface
+		clk : in std_logic;
+		nReset : in std_logic;
+	
+	-- WRITE DATA
+		wr_adr : in std_logic_vector(31 downto 0);
+		wr_data_1 : in std_logic_vector(31 downto 0);
+		wr_be_1 : in std_logic_vector(3 downto 0);
+		wren_1 : in std_logic;
+		wr_data_0 : in std_logic_vector(31 downto 0);
+		wr_be_0 : in std_logic_vector(3 downto 0);
+		wren_0 :  in std_logic;
+
+	-- READ DATA
+		rd_adr : in std_logic_vector(31 downto 0);
+		rd_data_0 : out std_logic_vector(31 downto 0);
+		rd_data_1 : out std_logic_vector(31 downto 0);
+
+--***TEST
+--	tx_data_ena_input : in std_logic;
+--	tx_nop_sel_input : in std_logic;
+--	tx_par_ovr_input : in std_logic;
+--	ctrl_adr_det : out std_logic;
+--	valid_indata_out : out std_logic;
+--	wr_fifo_q_output : out std_logic_vector(31 downto 0);
+--	fifo_data_output : out std_logic_vector(31 downto 0);
+--	wr_fifo_data_output : out std_logic_vector(31 downto 0);
+--	parity_32_output : out std_logic;
+--	wr_fifo_data_out : out std_logic_vector(31 downto 0);
+--	wr_req_fifo_out : out std_logic;
+--	tx_par_ovr_out : out std_logic;
+
+--***TEST
+	
+	-- INT
+		int_ena : out std_logic;
+		
+	-- ARINC 429 TX
+		txd_0 : out std_logic;
+		txd_1 : out std_logic
+		
+	);
+END arinc_429_tx;
+
+ARCHITECTURE RTL OF arinc_429_tx IS
+
+	constant MIN_PERIOD : std_logic_vector(15 downto 0) := X"04E2"; -- 1250  (100KHz =>  T = 10 us = 1250*Tf,  Tf = 8 ns) X"000A";--
+	constant MID_PERIOD : std_logic_vector(15 downto 0) := X"09C4"; -- 2500  (50KHz =>   T = 20 us = 2500*Tf,  Tf = 8 ns) X"0014";--
+	constant MAX_PERIOD : std_logic_vector(15 downto 0) := X"2710"; -- 10000 (12.5KHz => T = 80 us = 10000*Tf, Tf = 8 ns) X"0050";--
+
+	constant MIN_HALF_PERIOD : std_logic_vector(15 downto 0) := ('0'&MIN_PERIOD(15 downto 1));
+	constant MID_HALF_PERIOD : std_logic_vector(15 downto 0) := ('0'&MID_PERIOD(15 downto 1));
+	constant MAX_HALF_PERIOD : std_logic_vector(15 downto 0) := ('0'&MAX_PERIOD(15 downto 1));
+
+	signal event_trg : std_logic; -- status read trg
+	signal ctrl_trg : std_logic; -- ctrl read trg
+	signal alarm_frame_trg : std_logic;
+	signal mask_trg : std_logic;
+	
+	-- status read register
+	signal event_ctrl_data : std_logic_vector(63 downto 0);
+	signal event_txnf : std_logic;
+	
+	signal A429_ctrl_ff : std_logic_vector(5 downto 0); -- reset and select mode register
+	signal A429_alarm_frame_ff : std_logic_vector(31 downto 0); -- alarm data register	
+	signal A429_int_mask_ff : std_logic; -- int mask
+	
+	signal tx_data_sclr_trg : std_logic; -- reset front impuls
+	
+	signal speed_grade : std_logic_vector(1 downto 0); -- "00" = 12.5 KHz; "01" = 50 KHz; "10" = 100 KHz;
+	signal tx_data_ena : std_logic; -- '1' - then transmit enable
+	signal tx_data_sclr : std_logic; -- '1' - then synch reset
+	signal tx_nop_sel : std_logic; -- '1' = alarm_packet (if fifo is empty), '0' => TX = nTX = 0 (if fifo is empty)
+	signal tx_par_ovr : std_logic; -- '1' = 32bit by soft; '0' = 32bit by calc parity;
+	
+	signal alarm_packet : std_logic_vector(31 downto 0);
+
+-- input clock divider counter
+	signal clk_div_count : std_logic_vector(15 downto 0);
+	signal clk_half_period : std_logic;
+	signal clk_full_period : std_logic;
+
+--==============================--
+--======= transmit path ========--
+--==============================--
+	signal valid_indata : std_logic;
+
+--	component parity_xor
+--		PORT
+--		(
+--			data		: IN STD_LOGIC_2D (30 DOWNTO 0, 0 DOWNTO 0);
+--			result		: OUT STD_LOGIC 
+--		);
+--	end component;
+	signal fifo_data_2d : STD_LOGIC_2D (30 DOWNTO 0, 0 DOWNTO 0);
+	signal fifo_data : std_logic_vector(31 downto 0);
+	signal parity_32 : std_logic_vector(0 downto 0);
+	
+-- fifo
+	COMPONENT scfifo
+	GENERIC (
+		add_ram_output_register		: STRING;
+		intended_device_family		: STRING;
+		lpm_hint		: STRING;
+		lpm_numwords		: NATURAL;
+		lpm_showahead		: STRING;
+		lpm_type		: STRING;
+		lpm_width		: NATURAL;
+		lpm_widthu		: NATURAL;
+		overflow_checking		: STRING;
+		underflow_checking		: STRING;
+		use_eab		: STRING
+	);
+	PORT (
+			usedw	: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
+			rdreq	: IN STD_LOGIC ;
+			sclr	: IN STD_LOGIC ;
+			empty	: OUT STD_LOGIC ;
+			aclr	: IN STD_LOGIC ;
+			clock	: IN STD_LOGIC ;
+			q	: OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
+			wrreq	: IN STD_LOGIC ;
+			data	: IN STD_LOGIC_VECTOR (31 DOWNTO 0)
+	);
+	END COMPONENT;
+	
+	signal wr_fifo_data : std_logic_vector(31 downto 0);	
+	signal wr_req_fifo : std_logic;		
+	signal wr_fifo_q : std_logic_vector(31 downto 0);
+	signal wr_fifo_rdempty : std_logic;	
+	signal tx_fifo_used : std_logic_vector(7 downto 0);
+--	signal wr_fifo_wrfull : std_logic;	
+
+	-- state
+	type state_tx is
+	(idle, st_packet_trans, st_pause_trans, st_alarm_trans);
+	-- state registers
+	signal st_tx_reg, st_tx_next : state_tx;	
+
+	-- straight data
+	signal s_txd_0_reg, s_txd_0_next : std_logic;
+	signal s_txd_1_reg, s_txd_1_next : std_logic;
+	-- transmit active trigger
+	signal trans_active_reg, trans_active_next : std_logic;
+	-- packet byte count
+	signal packet_byte_count_reg, packet_byte_count_next : std_logic_vector(4 downto 0);
+	-- current packet data
+	signal cur_packet_reg, cur_packet_next : std_logic_vector(31 downto 0);
+	-- read ack
+	signal wr_fifo_rdreq_reg, wr_fifo_rdreq_next : std_logic;
+	
+
+BEGIN
+
+--	process (clk, nReset)
+--	begin
+--		if (nReset = '0') then
+--	
+--		elsif rising_edge(clk) then
+--	
+--		end if;
+--	end process;
+
+-- status read trg
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			event_trg <= '0';
+			ctrl_trg <= '0';
+			alarm_frame_trg <= '0';
+			mask_trg <= '0';
+		elsif rising_edge(clk) then
+			if (rd_adr(15 downto 4) = A429_TX_EVENT(15 downto 4)) then
+				event_trg <= '1';
+			else 
+				event_trg <= '0';
+			end if;
+			if (rd_adr(15 downto 4) = A429_TX_CTRL(15 downto 4)) then
+				ctrl_trg <= '1';
+			else 
+				ctrl_trg <= '0';
+			end if;
+			if (rd_adr(15 downto 4) = A429_TX_AL_FRAME(15 downto 4)) then
+				alarm_frame_trg <= '1';
+			else 
+				alarm_frame_trg <= '0';
+			end if;		
+			if (rd_adr(15 downto 4) = A429_TX_MASK(15 downto 4)) then
+				mask_trg <= '1';
+			else 
+				mask_trg <= '0';
+			end if;		
+		end if;
+	end process;
+
+-- status read register
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			event_ctrl_data <= (others => '0');
+		elsif rising_edge(clk) then
+			if (event_trg = '1') then
+				event_ctrl_data(31 downto 16) <= (others => '0');
+				event_ctrl_data(15 downto 8) <= tx_fifo_used;
+				event_ctrl_data(6 downto 1) <= (others => '0');
+				event_ctrl_data(0) <= event_txnf;
+			elsif (ctrl_trg = '1') then
+				event_ctrl_data(31 downto 6) <= (others => '0');
+				event_ctrl_data(5 downto 0) <= A429_ctrl_ff;
+			elsif (alarm_frame_trg = '1') then
+				event_ctrl_data <= A429_alarm_frame_ff;
+			elsif (mask_trg = '1') then
+				event_ctrl_data(0) <= A429_int_mask_ff;
+			else	
+				event_ctrl_data(31 downto 1) <= (others => '0');
+				event_ctrl_data <= (others => '0');
+			end if;
+		end if;
+	end process;
+
+	event_txnf <= '0' when (tx_fifo_used = X"FF") else '1';
+	
+	rd_data_0 <= event_ctrl_data(31 downto 0);
+	rd_data_1 <= event_ctrl_data(63 downto 32);
+	
+-- reset and select mode register
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			A429_ctrl_ff <= (others => '0');
+		elsif rising_edge(clk) then
+			if (wr_adr(15 downto 4) = A429_TX_CTRL(15 downto 4)) then
+				if (wr_be_0(0) = '1') and (wren_0 = '1') then
+					A429_ctrl_ff(5 downto 0) <= wr_data_0(5 downto 0);
+				end if;
+			end if;
+		end if;
+	end process;
+
+-- int mask register
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			A429_int_mask_ff <= '0';
+		elsif rising_edge(clk) then
+			if (wr_adr(15 downto 4) = A429_TX_MASK(15 downto 4)) then
+				if (wr_be_0(0) = '1') and (wren_0 = '1') then
+					A429_int_mask_ff <= wr_data_0(0);
+				end if;
+			end if;
+		end if;
+	end process;
+	
+	int_ena <= '1' when (A429_int_mask_ff = '1') and (event_txnf = '1') else '0';
+	
+-- alarm data register	
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			A429_alarm_frame_ff <= (others => '0');
+		elsif rising_edge(clk) then
+			if (wr_adr(15 downto 4) = A429_TX_AL_FRAME(15 downto 4)) then
+				for i in 0 to 3 loop 
+					if (wr_be_0(i) = '1') and (wren_0 = '1') then
+						A429_alarm_frame_ff(7 + 8*i downto 0 + 8*i) <= wr_data_0(7 + 8*i downto 0 + 8*i);
+					end if;
+				end loop;
+			end if;
+		end if;
+	end process;
+	
+--***TEST
+--	ctrl_adr_det <= '1' when (wr_adr(15 downto 4) = A429_TX_CTRL(15 downto 4)) else '0';
+--***TEST
+
+-- reset front impuls
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			tx_data_sclr_trg <= '0';
+		elsif rising_edge(clk) then
+			tx_data_sclr_trg <= A429_ctrl_ff(3);
+		end if;
+	end process;	
+
+	speed_grade <= A429_ctrl_ff(1 downto 0); -- "00" = 12.5 KHz; "01" = 50 KHz; "10" = 100 KHz;
+	tx_data_ena <= A429_ctrl_ff(2); -- '1' - then transmit enable
+	tx_data_sclr <= A429_ctrl_ff(3) and not tx_data_sclr_trg; -- '1' - then synch reset
+	tx_nop_sel <= A429_ctrl_ff(4); -- '1' = alarm_packet (if fifo is empty), '0' => TX = nTX = 0 (if fifo is empty)
+	tx_par_ovr <= A429_ctrl_ff(5); -- '1' = 32bit by soft; '0' = 32bit by calc parity;
+	
+	alarm_packet <= A429_alarm_frame_ff(31 downto 0);
+	
+-- input clock divider counter
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			clk_div_count <= (others => '0');
+			clk_half_period <= '0';
+			clk_full_period <= '0';
+		elsif rising_edge(clk) then
+			if (tx_data_sclr = '1') then
+				clk_div_count <= (others => '0');
+				clk_half_period <= '0';
+				clk_full_period <= '0';
+			elsif (trans_active_reg = '0') then
+				clk_div_count <= (others => '0');
+				clk_half_period <= '0';
+				clk_full_period <= '0';
+			else 
+				if    (clk_div_count = MIN_PERIOD - 1) and (speed_grade = "10") then
+					clk_div_count <= (others => '0');
+				elsif (clk_div_count = MID_PERIOD - 1) and (speed_grade = "01") then
+					clk_div_count <= (others => '0');
+				elsif (clk_div_count = MAX_PERIOD - 1) and (speed_grade = "00") then
+					clk_div_count <= (others => '0');
+				else
+					clk_div_count <= clk_div_count + 1;
+				end if;
+				if (speed_grade = "10") then
+					if    (clk_div_count = MIN_HALF_PERIOD - 2) then
+						clk_half_period <= '1';
+					elsif (clk_div_count = MIN_PERIOD - 2) then
+						clk_full_period <= '1';
+					else 
+						clk_half_period <= '0';
+						clk_full_period <= '0';
+					end if;
+				elsif (speed_grade = "01") then
+					if    (clk_div_count = MID_HALF_PERIOD - 2) then
+						clk_half_period <= '1';
+					elsif (clk_div_count = MID_PERIOD - 2) then
+						clk_full_period <= '1';
+					else 
+						clk_half_period <= '0';
+						clk_full_period <= '0';
+					end if;
+				elsif (speed_grade = "00") then
+					if    (clk_div_count = MAX_HALF_PERIOD - 2) then
+						clk_half_period <= '1';
+					elsif (clk_div_count = MAX_PERIOD - 2) then
+						clk_full_period <= '1';
+					else 
+						clk_half_period <= '0';
+						clk_full_period <= '0';
+					end if;
+				else
+					clk_half_period <= '0';
+					clk_full_period <= '0';
+				end if;
+			end if;
+		end if;
+	end process;	
+
+--==============================--
+--======= transmit path ========--
+--==============================--
+	valid_indata <= '1' when (wr_adr(15 downto 4) = A429_TX_DATA(15 downto 4)) else '0';
+
+--***TEST
+--	valid_indata_out <= valid_indata;
+--	fifo_data_output <= fifo_data;
+--***TEST
+
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then
+			fifo_data <= (others => '0');
+			wr_req_fifo <= '0';
+		elsif rising_edge(clk) then
+			if (tx_data_sclr = '1') then
+				fifo_data <= (others => '0');
+				wr_req_fifo <= '0';
+			else
+				if (wren_0 = '1') and (valid_indata = '1') then
+					fifo_data <= wr_data_0;
+				end if;
+				wr_req_fifo <= wren_0 and valid_indata;
+			end if;
+		end if;
+	end process;
+
+	process(fifo_data)
+	begin
+		for i in 1 to 31 loop
+			fifo_data_2d(i-1,0) <= fifo_data(i);
+		end loop;
+	end process;
+
+	parity_xor : lpm_xor
+	GENERIC MAP (
+		lpm_size => 31,
+		lpm_type => "LPM_XOR",
+		lpm_width => 1
+	)
+	PORT MAP (
+		data => fifo_data_2d,
+		result => parity_32
+	);
+
+	wr_fifo_data <= fifo_data when (tx_par_ovr = '1') else
+					(fifo_data(31 downto 1)&(not parity_32));
+
+--***TEST
+--	wr_fifo_data_out <= wr_fifo_data;
+--	wr_req_fifo_out <= wr_req_fifo;
+--	tx_par_ovr_out <= tx_par_ovr;
+--***TEST
+
+-- spi write fifo
+	ARINC_429_wr_fifo : scfifo
+	GENERIC MAP (
+		add_ram_output_register => "ON",
+		intended_device_family => "Cyclone III",
+		lpm_hint => "RAM_BLOCK_TYPE=M9K",
+		lpm_numwords => 256,
+		lpm_showahead => "ON",
+		lpm_type => "scfifo",
+		lpm_width => 32,
+		lpm_widthu => 8,
+		overflow_checking => "ON",
+		underflow_checking => "ON",
+		use_eab => "ON"
+	)
+	PORT MAP (
+		rdreq => wr_fifo_rdreq_reg,
+		sclr => tx_data_sclr,
+		aclr => not nReset,
+		clock => clk,
+		wrreq => wr_req_fifo,
+		data => wr_fifo_data,
+		usedw => tx_fifo_used,
+		empty => wr_fifo_rdempty,
+		q => wr_fifo_q
+	);
+
+--***TEST
+--	parity_32_output <= parity_32;
+--	wr_fifo_data_output <= wr_fifo_data;
+--	wr_fifo_q_output <= wr_fifo_q;
+--***TEST
+
+	process (clk, nReset)
+	begin
+		if (nReset = '0') then 
+		-- state
+			st_tx_reg <= idle;
+		-- straight data
+			s_txd_0_reg <= '0';
+			s_txd_1_reg <= '0';
+		-- transmit active trigger
+			trans_active_reg <= '0';
+		-- packet byte count
+			packet_byte_count_reg <= (others => '0');
+		-- current packet data
+			cur_packet_reg <= (others => '0');
+		-- read ack
+			wr_fifo_rdreq_reg <= '0';
+		elsif rising_edge(clk) then
+			if (tx_data_sclr = '1') then
+			-- state
+				st_tx_reg <= idle;
+			-- straight data
+				s_txd_0_reg <= '0';
+				s_txd_1_reg <= '0';
+			-- transmit active trigger
+				trans_active_reg <= '0';
+			-- packet byte count
+				packet_byte_count_reg <= (others => '0');
+			-- current packet data
+				cur_packet_reg <= (others => '0');
+			-- read ack
+				wr_fifo_rdreq_reg <= '0';
+			else
+			-- state
+				st_tx_reg <= st_tx_next;
+			-- straight data
+				s_txd_0_reg <= s_txd_0_next;
+				s_txd_1_reg <= s_txd_1_next;
+			-- transmit active trigger
+				trans_active_reg <= trans_active_next;
+			-- packet byte count
+				packet_byte_count_reg <= packet_byte_count_next;
+			-- current packet data
+				cur_packet_reg <= cur_packet_next;
+			-- read ack
+				wr_fifo_rdreq_reg <= wr_fifo_rdreq_next;
+			end if;
+		end if;
+	end process;
+		
+-- next state logic
+	process (
+			st_tx_reg,
+			s_txd_0_reg,
+			s_txd_1_reg,
+			trans_active_reg,
+			packet_byte_count_reg,
+			cur_packet_reg,
+			wr_fifo_rdreq_reg,
+			tx_data_ena,
+			wr_fifo_rdempty,
+			tx_nop_sel,
+			clk_full_period,
+			alarm_packet,
+			wr_fifo_q,
+			clk_half_period
+			)
+	begin
+	-- state
+		st_tx_next <= st_tx_reg;
+	-- straight data
+		s_txd_0_next <= s_txd_0_reg;
+		s_txd_1_next <= s_txd_1_reg;
+	-- transmit active trigger
+		trans_active_next <= trans_active_reg;
+	-- packet byte count
+		packet_byte_count_next <= packet_byte_count_reg;
+	-- current packet data
+		cur_packet_next <= cur_packet_reg;
+	-- read ack
+		wr_fifo_rdreq_next <= wr_fifo_rdreq_reg;
+
+		case st_tx_reg is
+	----------------------------------
+			when idle =>
+	----------------------------------
+				if (tx_data_ena = '1') and (wr_fifo_rdempty = '1') and (tx_nop_sel = '0') then
+				-- next state: idle
+					st_tx_next <= idle;	
+				-- straight data
+					s_txd_0_next <= '0';
+					s_txd_1_next <= '0';
+				elsif (tx_data_ena = '1') and (wr_fifo_rdempty = '1') and (tx_nop_sel = '1') then
+				-- next state: alarm packet transmit
+					st_tx_next <= st_alarm_trans;
+				-- transmit active trigger
+					trans_active_next <= '1';
+				-- packet byte count
+					packet_byte_count_next <= (others => '0');
+				-- current packet data
+					cur_packet_next(31 downto 1) <= alarm_packet(30 downto 0);
+					s_txd_0_next <= not alarm_packet(31);
+					s_txd_1_next <= alarm_packet(31);
+				elsif (tx_data_ena = '1') and (wr_fifo_rdempty = '0') then
+				-- next state: packet transmit
+					st_tx_next <= st_packet_trans;	
+				-- transmit active trigger
+					trans_active_next <= '1';
+				-- packet byte count
+					packet_byte_count_next <= (others => '0');
+				-- current packet data
+					cur_packet_next(31 downto 1) <= wr_fifo_q(30 downto 0);
+					s_txd_0_next <= not wr_fifo_q(31);
+					s_txd_1_next <= wr_fifo_q(31);
+				-- read ack
+					wr_fifo_rdreq_next <= '1';
+				else
+				-- next state: idle
+					st_tx_next <= idle;	
+				-- out data
+					s_txd_0_next <= '0';
+					s_txd_1_next <= '0';
+				-- packet byte count
+					packet_byte_count_next <= (others => '0');
+				end if;
+	----------------------------------
+			when st_packet_trans =>
+	----------------------------------
+				if (packet_byte_count_reg = 31) and (clk_full_period = '1') then
+				-- next state: st_pause_trans
+					st_tx_next <= st_pause_trans;
+				-- packet byte count
+					packet_byte_count_next <= (others => '0');
+				-- current packet data
+					s_txd_0_next <= '0';
+					s_txd_1_next <= '0';
+				elsif (clk_half_period = '1') then
+				-- next state: st_packet_trans
+					st_tx_next <= st_packet_trans;	
+				-- current packet data
+					s_txd_0_next <= '0';
+					s_txd_1_next <= '0';
+				-- read ack
+					wr_fifo_rdreq_next <= '0';
+				elsif (clk_full_period = '1') then
+				-- next state: st_packet_trans
+					st_tx_next <= st_packet_trans;	
+				-- packet byte count
+					packet_byte_count_next <= packet_byte_count_reg + 1;
+				-- current packet data
+					cur_packet_next(31 downto 1) <= cur_packet_reg(30 downto 0);
+					s_txd_0_next <= not cur_packet_reg(31);
+					s_txd_1_next <= cur_packet_reg(31);
+				-- read ack
+					wr_fifo_rdreq_next <= '0';
+				else
+				-- next state: st_packet_trans
+					st_tx_next <= st_packet_trans;	
+				-- read ack
+					wr_fifo_rdreq_next <= '0';
+				end if;
+	----------------------------------
+			when st_pause_trans =>
+	----------------------------------
+				if (packet_byte_count_reg = 3) and (clk_full_period = '1') and (tx_data_ena = '0') then 
+				-- next state: idle
+					st_tx_next <= idle;	
+				-- straight data
+					s_txd_0_next <= '0';
+					s_txd_1_next <= '0';
+				-- transmit active trigger
+					trans_active_next <= '0';
+				elsif (packet_byte_count_reg = 3) and (clk_full_period = '1') and (wr_fifo_rdempty = '0') and (tx_nop_sel = '0') then
+				-- next state: packet transmit
+					st_tx_next <= st_packet_trans;
+				-- packet byte count
+					packet_byte_count_next <= (others => '0');
+				-- current packet data
+					cur_packet_next(31 downto 1) <= wr_fifo_q(30 downto 0);
+					s_txd_0_next <= not wr_fifo_q(31);
+					s_txd_1_next <= wr_fifo_q(31);
+				-- read ack
+					wr_fifo_rdreq_next <= '1';
+				elsif (packet_byte_count_reg = 3) and (clk_full_period = '1') and (wr_fifo_rdempty = '1') and (tx_nop_sel = '1') then
+				-- next state: alarm packet transmit
+					st_tx_next <= st_alarm_trans;
+				-- packet byte count
+					packet_byte_count_next <= (others => '0');
+				-- current packet data
+					cur_packet_next(31 downto 1) <= alarm_packet(30 downto 0);
+					s_txd_0_next <= not alarm_packet(31);
+					s_txd_1_next <= alarm_packet(31);
+				elsif (packet_byte_count_reg = 3) and (clk_full_period = '1') and (wr_fifo_rdempty = '1') and (tx_nop_sel = '0') then
+				-- next state: idle
+					st_tx_next <= idle;	
+				-- straight data
+					s_txd_0_next <= '0';
+					s_txd_1_next <= '0';
+				-- transmit active trigger
+					trans_active_next <= '0';
+				elsif (clk_full_period = '1') then
+				-- next state: st_pause_trans
+					st_tx_next <= st_pause_trans;	
+				-- packet byte count
+					packet_byte_count_next <= packet_byte_count_reg + 1;
+				-- current packet data
+					s_txd_0_next <= '0';
+					s_txd_1_next <= '0';
+				else
+				-- next state: st_pause_trans
+					st_tx_next <= st_pause_trans;	
+				end if;
+	----------------------------------
+			when st_alarm_trans =>
+	----------------------------------
+				if (packet_byte_count_reg = 31) and (clk_full_period = '1') then
+				-- next state: st_pause_trans
+					st_tx_next <= st_pause_trans;
+				-- packet byte count
+					packet_byte_count_next <= (others => '0');
+				-- current packet data
+					s_txd_0_next <= '0';
+					s_txd_1_next <= '0';					
+				elsif (clk_half_period = '1') then
+				-- next state: st_alarm_trans
+					st_tx_next <= st_alarm_trans;	
+				-- current packet data
+					s_txd_0_next <= '0';
+					s_txd_1_next <= '0';
+				elsif (clk_full_period = '1') then
+				-- next state: st_alarm_trans
+					st_tx_next <= st_alarm_trans;	
+				-- packet byte count
+					packet_byte_count_next <= packet_byte_count_reg + 1;
+				-- current packet data
+					cur_packet_next(31 downto 1) <= cur_packet_reg(30 downto 0);
+					s_txd_0_next <= not cur_packet_reg(31);
+					s_txd_1_next <= cur_packet_reg(31);
+				else
+				-- next state: st_alarm_trans
+					st_tx_next <= st_alarm_trans;	
+				end if;
+		end case;
+	end process;
+
+
+	-- ARINC 429 TX
+		txd_0 <= s_txd_0_reg;
+		txd_1 <= s_txd_1_reg;
+
+
+
+END RTL;
+
+
+
+
+
+
+
+
+
+
+
+		

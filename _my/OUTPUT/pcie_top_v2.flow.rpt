@@ -1,0 +1,272 @@
+Flow report for pcie_top_v2
+Sun Apr 19 14:25:51 2015
+Quartus II Version 10.1 Build 197 01/19/2011 Service Pack 1 SJ Full Version
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Flow Summary
+  3. Flow Settings
+  4. Flow Non-Default Global Settings
+  5. Flow Elapsed Time
+  6. Flow OS Summary
+  7. Flow Log
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2011 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++-------------------------------------------------------------------------------------+
+; Flow Summary                                                                        ;
++------------------------------------+------------------------------------------------+
+; Flow Status                        ; Successful - Sun Apr 19 14:25:51 2015          ;
+; Quartus II Version                 ; 10.1 Build 197 01/19/2011 SP 1 SJ Full Version ;
+; Revision Name                      ; pcie_top_v2                                    ;
+; Top-level Entity Name              ; pcie_top                                       ;
+; Family                             ; Cyclone IV GX                                  ;
+; Device                             ; EP4CGX110CF23I7                                ;
+; Timing Models                      ; Final                                          ;
+; Total logic elements               ; 25,469 / 109,424 ( 23 % )                      ;
+;     Total combinational functions  ; 22,280 / 109,424 ( 20 % )                      ;
+;     Dedicated logic registers      ; 16,018 / 109,424 ( 15 % )                      ;
+; Total registers                    ; 0                                              ;
+; Total pins                         ; 108 / 287 ( 38 % )                             ;
+; Total virtual pins                 ; 11                                             ;
+; Total memory bits                  ; 371,456 / 5,621,760 ( 7 % )                    ;
+; Embedded Multiplier 9-bit elements ; 0 / 560 ( 0 % )                                ;
+; Total GXB Receiver Channel PCS     ; 1 / 4 ( 25 % )                                 ;
+; Total GXB Receiver Channel PMA     ; 1 / 4 ( 25 % )                                 ;
+; Total GXB Transmitter Channel PCS  ; 1 / 4 ( 25 % )                                 ;
+; Total GXB Transmitter Channel PMA  ; 1 / 4 ( 25 % )                                 ;
+; Total PLLs                         ; 1 / 6 ( 17 % )                                 ;
++------------------------------------+------------------------------------------------+
+
+
++-----------------------------------------+
+; Flow Settings                           ;
++-------------------+---------------------+
+; Option            ; Setting             ;
++-------------------+---------------------+
+; Start date & time ; 04/19/2015 14:17:01 ;
+; Main task         ; Compilation         ;
+; Revision Name     ; pcie_top_v2         ;
++-------------------+---------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                                                                               ;
++-------------------------------------+-----------------------------------------------------------------------------------------------+---------------+-------------+------------+
+; Assignment Name                     ; Value                                                                                         ; Default Value ; Entity Name ; Section Id ;
++-------------------------------------+-----------------------------------------------------------------------------------------------+---------------+-------------+------------+
+; COMPILER_SIGNATURE_ID               ; 198690278720095.142944222102396                                                               ; --            ; --          ; --         ;
+; CYCLONEII_OPTIMIZATION_TECHNIQUE    ; Speed                                                                                         ; Balanced      ; --          ; --         ;
+; ENABLE_SIGNALTAP                    ; Off                                                                                           ; --            ; --          ; --         ;
+; FITTER_EFFORT                       ; Standard Fit                                                                                  ; Auto Fit      ; --          ; --         ;
+; IOBANK_VCCIO                        ; 3.3V                                                                                          ; --            ; --          ; 7          ;
+; IOBANK_VCCIO                        ; 3.3V                                                                                          ; --            ; --          ; 8          ;
+; IOBANK_VCCIO                        ; 3.3V                                                                                          ; --            ; --          ; 6          ;
+; IOBANK_VCCIO                        ; 3.3V                                                                                          ; --            ; --          ; 5          ;
+; IP_TOOL_NAME                        ; PCI Express Compiler                                                                          ; --            ; --          ; --         ;
+; IP_TOOL_NAME                        ; FIFO                                                                                          ; --            ; --          ; --         ;
+; IP_TOOL_NAME                        ; ALTGX_RECONFIG                                                                                ; --            ; --          ; --         ;
+; IP_TOOL_NAME                        ; RAM: 2-PORT                                                                                   ; --            ; --          ; --         ;
+; IP_TOOL_NAME                        ; FIFO                                                                                          ; --            ; --          ; --         ;
+; IP_TOOL_NAME                        ; FIFO                                                                                          ; --            ; --          ; --         ;
+; IP_TOOL_VERSION                     ; 10.1                                                                                          ; --            ; --          ; --         ;
+; IP_TOOL_VERSION                     ; 10.1                                                                                          ; --            ; --          ; --         ;
+; IP_TOOL_VERSION                     ; 10.1                                                                                          ; --            ; --          ; --         ;
+; IP_TOOL_VERSION                     ; 10.1                                                                                          ; --            ; --          ; --         ;
+; IP_TOOL_VERSION                     ; 10.1                                                                                          ; --            ; --          ; --         ;
+; IP_TOOL_VERSION                     ; 10.1                                                                                          ; --            ; --          ; --         ;
+; MAX_CORE_JUNCTION_TEMP              ; 100                                                                                           ; --            ; --          ; --         ;
+; MIN_CORE_JUNCTION_TEMP              ; -40                                                                                           ; --            ; --          ; --         ;
+; MISC_FILE                           ; D:/_WORK_/SKIT/REPOS/AVIONICS/mavim3_fpga_project/pcie_top.dpf                                ; --            ; --          ; --         ;
+; MISC_FILE                           ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/pcie_top.dpf                                                 ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_64b_x1_pipen1b.v                               ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_64b_x4_pipen1b.v                               ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_64b_x8_pipen1b.v                               ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_hip_256_pipen1b.v                              ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_hip_pipen1b.v                                  ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_pclk_align.v                                   ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_pclk_pll.v                                     ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_phasefifo.v                                    ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_pll_100_125.v                                  ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_pll_100_250.v                                  ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_pll_125_250.v                                  ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_pll_15625_125.v                                ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_pll_250_100.v                                  ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_pll_phy0.v                                     ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_pll_phy1_62p5.v                                ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_pll_phy2.v                                     ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_pll_phy3_62p5.v                                ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_pll_phy4_62p5.v                                ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_pll_phy5_62p5.v                                ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_reconfig_3cgx.v                                ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_reconfig_4sgx.v                                ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_rs_serdes.v                                    ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_serdes_1sgx_x1_12500.v                         ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_serdes_1sgx_x1_15625.v                         ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_serdes_1sgx_x4_12500.v                         ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_serdes_1sgx_x4_15625.v                         ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_serdes_2agx_x1d_gen1_08p.v                     ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_serdes_2agx_x1d_gen1_16p.v                     ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_serdes_2agx_x4d_gen1_08p.v                     ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_serdes_2agx_x4d_gen1_16p.v                     ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_serdes_2agx_x8d_gen1_08p.v                     ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_serdes_2sgx_x1d_10000.v                        ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_serdes_2sgx_x4d_10000.v                        ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_serdes_2sgx_x8d_10000.v                        ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_serdes_3cgx_x1d_gen1_08p.v                     ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_serdes_3cgx_x1d_gen1_16p.v                     ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_serdes_3cgx_x2d_gen1_08p.v                     ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_serdes_3cgx_x4d_gen1_08p.v                     ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_serdes_4sgx_x1d_gen1_08p.v                     ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_serdes_4sgx_x1d_gen1_16p.v                     ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_serdes_4sgx_x1d_gen2_08p.v                     ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_serdes_4sgx_x4d_gen1_08p.v                     ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_serdes_4sgx_x4d_gen1_16p.v                     ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_serdes_4sgx_x4d_gen2_08p.v                     ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_serdes_4sgx_x8d_gen1_08p.v                     ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/altpcie_serdes_4sgx_x8d_gen2_08p.v                     ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/pciexp64_dlink.v                                       ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/pciexp64_trans.v                                       ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/pciexpx8f_confctrl.v                                   ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pci_express_compiler-library/pciexp_dcram.v                                         ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core.vhd                                                                       ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_core.cmp                                                                  ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_core.vhd                                                                  ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_core.vho                                                                  ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples                                                                  ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma                                                     ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/altpcie_dma_descriptor.vhd                          ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/altpcie_dma_dt.vhd                                  ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/altpcie_dma_prg_reg.vhd                             ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/altpcie_rc_slave.vhd                                ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/altpcie_read_dma_requester.vhd                      ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/altpcie_write_dma_requester.vhd                     ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/altpcierd_example_app_chaining.vhd                  ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/init_ram.hex                                        ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/init_ram.mif                                        ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/testbench                                           ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/testbench/altpcietb_bfm_driver_chaining.vhd         ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/testbench/init_ram.hex                              ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/testbench/init_ram.mif                              ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/testbench/runtb.bat                                 ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/testbench/runtb.do                                  ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/testbench/runtb.sh                                  ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/testbench/sim_filelist                              ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/testbench/pcie_core_chaining_testbench.vhd          ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/pcie_core_example_chaining_pipen1b.vhd              ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/pcie_core_plus.vhd                                  ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/pcie_core_rs_hip.vhd                                ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/pcie_core_example_chaining_top.qpf                  ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/pcie_core_example_chaining_top.qsf                  ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/pcie_core_example_chaining_top.tcl                  ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/chaining_dma/pcie_core_example_chaining_top.vhd                  ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/common                                                           ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/common/testbench                                                 ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/incremental_compile_module                                       ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/incremental_compile_module/altpcierd_icm_fifo.vhd                ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/incremental_compile_module/altpcierd_icm_fifo_lkahd.vhd          ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/incremental_compile_module/altpcierd_icm_msibridge.vhd           ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/incremental_compile_module/altpcierd_icm_npbypassctl.vhd         ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/incremental_compile_module/altpcierd_icm_rx.vhd                  ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/incremental_compile_module/altpcierd_icm_rxbridge.vhd            ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/incremental_compile_module/altpcierd_icm_sideband.vhd            ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/incremental_compile_module/altpcierd_icm_top.vhd                 ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/incremental_compile_module/altpcierd_icm_tx.vhd                  ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/incremental_compile_module/altpcierd_icm_tx_pktordering.vhd      ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/incremental_compile_module/altpcierd_icm_txbridge.vhd            ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/incremental_compile_module/altpcierd_icm_txbridge_withbypass.vhd ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_examples/incremental_compile_module/pcie_core_icm.vhd                     ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core_serdes.vhd                                                                ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core.ppx                                                                       ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core.ppf                                                                       ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core.cmp                                                                       ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core.bsf                                                                       ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core.qip                                                                       ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/pcie_core.html                                                                      ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_WRAPPER/prefetch_fifo.cmp                                                                ; --            ; --          ; --         ;
+; MISC_FILE                           ; PCIE_CORE/reconfig.cmp                                                                        ; --            ; --          ; --         ;
+; MISC_FILE                           ; test_ram.inc                                                                                  ; --            ; --          ; --         ;
+; MISC_FILE                           ; test_ram.cmp                                                                                  ; --            ; --          ; --         ;
+; MISC_FILE                           ; INCLUDE/ARINC_825/rd_fifo.cmp                                                                 ; --            ; --          ; --         ;
+; MISC_FILE                           ; INCLUDE/ARINC_708/rx_fifo.cmp                                                                 ; --            ; --          ; --         ;
+; MISC_FILE                           ; D:/_WORK_/SKIT/REPOS/mavim3_fpga/pcie_top_v2.dpf                                              ; --            ; --          ; --         ;
+; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                                                                             ; --            ; --          ; --         ;
+; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                                                                             ; --            ; --          ; --         ;
+; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                                                                                    ; --            ; --          ; --         ;
+; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                                                                                    ; --            ; --          ; --         ;
+; PARTITION_COLOR                     ; 16764057                                                                                      ; --            ; pcie_top    ; Top        ;
+; PARTITION_FITTER_PRESERVATION_LEVEL ; PLACEMENT_AND_ROUTING                                                                         ; --            ; pcie_top    ; Top        ;
+; PARTITION_NETLIST_TYPE              ; SOURCE                                                                                        ; --            ; pcie_top    ; Top        ;
+; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                                                                           ; --            ; --          ; --         ;
+; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW                                                         ; --            ; --          ; --         ;
+; PROJECT_OUTPUT_DIRECTORY            ; OUTPUT/                                                                                       ; --            ; --          ; --         ;
+; SEARCH_PATH                         ; pcie_wrapper/                                                                                 ; --            ; --          ; --         ;
+; SEARCH_PATH                         ; pcie_core/pci_express_compiler-library                                                        ; --            ; --          ; --         ;
+; SEARCH_PATH                         ; pcie_core/.                                                                                   ; --            ; --          ; --         ;
+; SEARCH_PATH                         ; pcie_core/ip_compiler_for_pci_express-library                                                 ; --            ; --          ; --         ;
+; SEARCH_PATH                         ; PCIE_CORE/.                                                                                   ; --            ; --          ; --         ;
+; SEARCH_PATH                         ; PCIE_CORE/pci_express_compiler-library                                                        ; --            ; --          ; --         ;
+; SEED                                ; 2                                                                                             ; 1             ; --          ; --         ;
+; TIMEQUEST_REPORT_SCRIPT             ; PCIE_CORE/pcie_core.tcl                                                                       ; --            ; --          ; --         ;
+; TOP_LEVEL_ENTITY                    ; pcie_top                                                                                      ; pcie_top_v2   ; --          ; --         ;
+; USE_SIGNALTAP_FILE                  ; ST_DBG_FILES/pcie_debug.stp                                                                   ; --            ; --          ; --         ;
++-------------------------------------+-----------------------------------------------------------------------------------------------+---------------+-------------+------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------+
+; Flow Elapsed Time                                                                                                             ;
++---------------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
++---------------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Analysis & Synthesis      ; 00:02:58     ; 1.0                     ; 577 MB              ; 00:02:47                           ;
+; Fitter                    ; 00:05:04     ; 1.6                     ; 810 MB              ; 00:06:47                           ;
+; TimeQuest Timing Analyzer ; 00:00:11     ; 1.0                     ; 431 MB              ; 00:00:09                           ;
+; Assembler                 ; 00:00:23     ; 1.0                     ; 602 MB              ; 00:00:21                           ;
+; Total                     ; 00:08:36     ; --                      ; --                  ; 00:10:04                           ;
++---------------------------+--------------+-------------------------+---------------------+------------------------------------+
+
+
++----------------------------------------------------------------------------------------+
+; Flow OS Summary                                                                        ;
++---------------------------+------------------+-----------+------------+----------------+
+; Module Name               ; Machine Hostname ; OS Name   ; OS Version ; Processor type ;
++---------------------------+------------------+-----------+------------+----------------+
+; Analysis & Synthesis      ; ProBookAnton     ; Windows 7 ; 6.1        ; x86_64         ;
+; Fitter                    ; ProBookAnton     ; Windows 7 ; 6.1        ; x86_64         ;
+; TimeQuest Timing Analyzer ; ProBookAnton     ; Windows 7 ; 6.1        ; x86_64         ;
+; Assembler                 ; ProBookAnton     ; Windows 7 ; 6.1        ; x86_64         ;
++---------------------------+------------------+-----------+------------+----------------+
+
+
+------------
+; Flow Log ;
+------------
+quartus_map --read_settings_files=on --write_settings_files=off pcie_top -c pcie_top_v2
+quartus_fit --read_settings_files=off --write_settings_files=off pcie_top -c pcie_top_v2
+quartus_sta pcie_top -c pcie_top_v2
+quartus_asm --read_settings_files=off --write_settings_files=off pcie_top -c pcie_top_v2
+
+
+

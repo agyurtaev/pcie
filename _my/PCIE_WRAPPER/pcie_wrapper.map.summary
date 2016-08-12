@@ -1,0 +1,20 @@
+Analysis & Synthesis Status : Successful - Sun Oct 13 14:44:08 2013
+Quartus II Version : 10.1 Build 153 11/29/2010 SJ Full Version
+Revision Name : pcie_wrapper
+Top-level Entity Name : pcie_wrapper
+Family : Stratix IV
+Logic utilization : N/A
+    Combinational ALUTs : 1,528
+    Memory ALUTs : 540
+    Dedicated logic registers : 1,697
+Total registers : 1697
+Total pins : 437
+Total virtual pins : 0
+Total block memory bits : 32
+DSP block 18-bit elements : 0
+Total GXB Receiver Channel PCS : 8
+Total GXB Receiver Channel PMA : 8
+Total GXB Transmitter Channel PCS : 8
+Total GXB Transmitter Channel PMA : 8
+Total PLLs : 0
+Total DLLs : 0

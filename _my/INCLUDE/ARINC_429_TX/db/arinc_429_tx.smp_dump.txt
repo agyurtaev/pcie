@@ -1,0 +1,7 @@
+
+State Machine - |arinc_429_tx|st_tx_reg
+Name st_tx_reg.st_alarm_trans st_tx_reg.st_pause_trans st_tx_reg.st_packet_trans st_tx_reg.idle 
+st_tx_reg.idle 0 0 0 0 
+st_tx_reg.st_packet_trans 0 0 1 1 
+st_tx_reg.st_pause_trans 0 1 0 1 
+st_tx_reg.st_alarm_trans 1 0 0 1 
